@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>684514712791-jhdlqtkpde7shapss48om8gjo6252lau.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.684514712791-jhdlqtkpde7shapss48om8gjo6252lau</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>684514712791-hdfhs16kboff7go5pjqrbu07r57ifa10.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDItlEqSub9Bz8kNGWy6dK9oxsnWtCrEsw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>684514712791</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.talkyAplication2</string>
+	<key>PROJECT_ID</key>
+	<string>talky-firebase</string>
+	<key>STORAGE_BUCKET</key>
+	<string>talky-firebase.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:684514712791:ios:b50f017fe0c168d6232492</string>
+</dict>
+</plist>

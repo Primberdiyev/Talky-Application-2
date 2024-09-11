@@ -1,0 +1,28 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
+
+class SignUpTextButton extends StatelessWidget {
+  const SignUpTextButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<TalkyProvider>(builder: (context, provider, child) {
+      return InkWell(
+        onTap: () {
+          provider.changeBoolValue('isSignIn');
+          provider.deleteControllerText();
+          Navigator.pushReplacementNamed(context, '/homePage');
+        },
+        child: Text(
+          provider.isSignIn ? 'Sign up here' : "Sign in here",
+          style: const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+            color: Color(0xFF377DFF),
+          ),
+        ),
+      );
+    });
+  }
+}
