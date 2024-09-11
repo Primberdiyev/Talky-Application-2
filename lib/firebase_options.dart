@@ -65,5 +65,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'talky-firebase.appspot.com',
     iosBundleId: 'com.example.talkyAplication2',
   );
-
 }

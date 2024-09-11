@@ -28,7 +28,7 @@ class InputCodes extends StatelessWidget {
         onChanged: (value) {},
         onSubmitted: (pin) async {
           try {
-            await provider.signUp(context,provider.email,provider.password);
+            await provider.signUp(context, provider.email, provider.password);
 
             Navigator.pushNamed(context, '/AccountPage');
           } catch (e) {

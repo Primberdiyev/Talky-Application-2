@@ -35,7 +35,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
             TalkyText(),
             MailText(),
             InputMail(),
-            InputPassword(), 
+            InputPassword(),
             ForgotPasswordText(),
             ConditionWidget(),
             SignButtonWidget(),

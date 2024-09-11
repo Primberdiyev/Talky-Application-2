@@ -13,7 +13,7 @@ class ConditionWidget extends StatelessWidget {
           child: Row(
             children: [
               InkWell(
-                onTap: (){
+                onTap: () {
                   provider.changeBoolValue('agreeCondition');
                 },
                 child: Container(

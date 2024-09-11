@@ -48,7 +48,7 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
                 Navigator.pushNamed(context, '/checkCodePage');
               }
             }
-              provider.changeBoolValue('isLoading');
+            provider.changeBoolValue('isLoading');
           },
           child: Container(
             width: MediaQuery.of(context).size.width - 56,

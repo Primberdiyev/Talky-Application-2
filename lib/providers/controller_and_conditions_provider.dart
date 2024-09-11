@@ -59,7 +59,7 @@ class TalkyProvider with ChangeNotifier {
   Future<void> signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) return; // User canceled the sign-in
+      if (googleUser == null) return;
 
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
@@ -74,28 +74,23 @@ class TalkyProvider with ChangeNotifier {
       final User? user = userCredential.user;
 
       if (user != null) {
-        // Check if the user is already registered
         final email = user.email;
         List methods = await _auth.fetchSignInMethodsForEmail(email!);
-        print("isbot $methods");
+
         if (methods.isEmpty) {
-          // User is registered, navigate to account page
           Navigator.pushReplacementNamed(context, '/accountPage');
         } else {
-          // User is not registered, send OTP and navigate to check code page
           await sendOTP(email: emailController.text);
           Navigator.pushReplacementNamed(context, '/checkCodePage');
         }
       }
     } catch (e) {
-      // Handle error, maybe show a Snackbar or Dialog
-      print("Error during Google Sign-In: $e");
+      throw Exception(e.toString());
     }
   }
 
   Future<void> sendOTP({required String email}) async {
     try {
-      // Configure EmailOTP
       EmailOTP.config(
         appEmail: "dev.talky@gmail.com",
         appName: "TalkyApp",
@@ -108,8 +103,7 @@ class TalkyProvider with ChangeNotifier {
         throw Exception("Failed to send OTP");
       }
     } catch (e) {
-      // Handle error, maybe show a Snackbar or Dialog
-      print("Error in sending OTP: $e");
+      throw Exception(e.toString());
     }
   }
 
@@ -128,8 +122,7 @@ class TalkyProvider with ChangeNotifier {
       );
       Navigator.pushReplacementNamed(context, '/AccountPage');
     } catch (e) {
-      // Handle error, maybe show a Snackbar or Dialog
-      print("Error in sign up: $e");
+      throw Exception(e.toString());
     }
   }
 

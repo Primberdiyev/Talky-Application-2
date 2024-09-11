@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/home_page/widgets/sign_in_button.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
 import 'package:talky_aplication_2/services/database.dart';
 
@@ -48,7 +47,8 @@ class AuthGoogle {
           'imgUrl': userDetails.photoURL,
           'id': userDetails.uid,
         };
-       talkyProvider.changeEmailPassword(userDetails.email!, userDetails.displayName!);
+        talkyProvider.changeEmailPassword(
+            userDetails.email!, userDetails.displayName!);
         bool isRegistered =
             await DatabaseMethods().isUserRegistered(userDetails.uid);
 
