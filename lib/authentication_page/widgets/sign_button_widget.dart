@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/check_code_page.dart/check_code_page.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
-import 'package:talky_aplication_2/services/database.dart';
 
 class SignButtonWidget extends StatefulWidget {
   const SignButtonWidget({super.key});
@@ -52,8 +50,7 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
 
                 throw Exception();
               } catch (e) {
-                if (e is FirebaseAuthException &&
-                    e.code == 'email-already-in-use') {
+                if (e is FirebaseAuthException) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Email already in use')),
                   );

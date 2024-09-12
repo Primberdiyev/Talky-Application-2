@@ -54,8 +54,12 @@ class AuthGoogle {
         } else {
           try {
             await DatabaseMethods().addUser(userDetails.uid, userInfoMap);
-            talkyProvider.sendOTP(email: userDetails.email!);
-            Navigator.pushNamed(context, '/checkCodePage');
+
+            if (talkyProvider.isSignIn) {
+              talkyProvider.changeBoolValue('isSignIn');
+            }
+            talkyProvider.changeEmailPassword(userDetails.email!, '');
+            Navigator.pushNamed(context, '/authPage');
           } catch (error) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Error adding user: $error')),
