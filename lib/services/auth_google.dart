@@ -15,17 +15,10 @@ class AuthGoogle {
 
   Future<void> signInWithGoogle(BuildContext context) async {
     try {
-     await googleSignIn.signOut();
+      await googleSignIn.signOut();
 
       final GoogleSignInAccount? googleSignInAccount =
           await googleSignIn.signIn();
-
-      // if (googleSignInAccount == null) {
-      //   ScaffoldMessenger.of(context).showSnackBar(
-      //     const SnackBar(content: Text('Sign-in canceled by user')),
-      //   );
-      //   return;
-      // }
 
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount!.authentication;
@@ -42,7 +35,6 @@ class AuthGoogle {
       User? userDetails = result.user;
 
       if (userDetails != null) {
-        // Map user details for Firestore entry
         Map<String, dynamic> userInfoMap = {
           'email': userDetails.email,
           'name': userDetails.displayName,
@@ -50,7 +42,6 @@ class AuthGoogle {
           'id': userDetails.uid,
         };
 
-        // Update provider with user details
         talkyProvider.changeEmailPassword(
             userDetails.email!, userDetails.displayName!);
 

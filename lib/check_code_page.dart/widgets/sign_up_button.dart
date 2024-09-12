@@ -19,7 +19,7 @@ class SignUpButton extends StatelessWidget {
         child: InkWell(
           onTap: () async {
             provider.changeBoolValue('isLoading');
-            await provider.signUp(context, provider.email, provider.password,true);
+            await provider.signUp(context);
             provider.changeBoolValue('isLoading');
           },
           child: Container(

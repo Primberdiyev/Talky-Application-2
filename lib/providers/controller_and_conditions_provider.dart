@@ -2,7 +2,6 @@ import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:talky_aplication_2/account_page/account_page.dart';
 
 class TalkyProvider with ChangeNotifier {
   TextEditingController emailController = TextEditingController();
@@ -15,21 +14,12 @@ class TalkyProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   User? _user;
-  String email = '';
-  String password = '';
 
   User? get user => _user;
 
   bool get isAuthenticated => _user != null;
 
   final EmailOTP emailOtp = EmailOTP();
-
-  TalkyProvider() {
-    _auth.authStateChanges().listen((User? user) {
-      _user = user;
-      notifyListeners();
-    });
-  }
 
   void changeBoolValue(String value) {
     switch (value) {
@@ -56,41 +46,6 @@ class TalkyProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> signInWithGoogle(BuildContext context) async {
-  //   try {
-  //     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-  //     if (googleUser == null) return;
-
-  //     final GoogleSignInAuthentication googleAuth =
-  //         await googleUser.authentication;
-
-  //     final credential = GoogleAuthProvider.credential(
-  //       accessToken: googleAuth.accessToken,
-  //       idToken: googleAuth.idToken,
-  //     );
-
-  //     final UserCredential userCredential =
-  //         await _auth.signInWithCredential(credential);
-  //     final User? user = userCredential.user;
-
-  //     if (user != null) {
-  //       final email = user.email;
-  //       List methods = await _auth.fetchSignInMethodsForEmail(email!);
-
-  //       if (methods.isEmpty) {
-  //         Navigator.pushReplacement(context,
-  //             MaterialPageRoute(builder: (context) => const AccountPage()));
-  //       } else {
-  //         await sendOTP(email: emailController.text);
-  //         Navigator.pushReplacementNamed(context, '/checkCodePage');
-  //       }
-  //     }
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context)
-  //         .showSnackBar(SnackBar(content: Text(e.toString())));
-  //   }
-  // }
-
   Future<void> sendOTP({required String email}) async {
     try {
       EmailOTP.config(
@@ -108,8 +63,7 @@ class TalkyProvider with ChangeNotifier {
     }
   }
 
-  Future<void> signUp(BuildContext context, String email, String password,
-      bool iswithGoogle) async {
+  Future<void> signUp(BuildContext context) async {
     try {
       bool isVerified = EmailOTP.verifyOTP(otp: inputCodeController.text);
 
@@ -118,8 +72,8 @@ class TalkyProvider with ChangeNotifier {
       }
 
       await _auth.createUserWithEmailAndPassword(
-        email: !iswithGoogle ? email : emailController.text,
-        password: !iswithGoogle ? password : passwordController.text,
+        email: emailController.text,
+        password: passwordController.text,
       );
       Navigator.pushReplacementNamed(context, '/AccountPage');
     } catch (e) {
@@ -129,8 +83,8 @@ class TalkyProvider with ChangeNotifier {
   }
 
   void changeEmailPassword(String newEmail, String newPassword) {
-    email = newEmail;
-    password = newPassword;
+    emailController.text = newEmail;
+    passwordController.text = newPassword;
     notifyListeners();
   }
 }
