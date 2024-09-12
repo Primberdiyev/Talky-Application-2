@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/check_code_page.dart/check_code_page.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
 
 class SignButtonWidget extends StatefulWidget {
@@ -26,26 +27,25 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
             if (provider.isSignIn) {
               try {
                 await auth.signInWithEmailAndPassword(
-                    email: provider.emailController.text,
-                    password: provider.passwordController.text);
-
+                  email: provider.emailController.text,
+                  password: provider.passwordController.text,
+                );
                 Navigator.pushNamed(context, '/AccountPage');
                 provider.deleteControllerText();
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(
-                      e.toString(),
-                    ),
+                    content:
+                        Text('An unexpected error occurred: ${e.toString()}'),
                   ),
                 );
               }
             } else {
-              if (provider.agreeCondition &&
-                  provider.emailController.text.contains('@gmail.com')) {
+              try {
                 provider.sendOTP(email: provider.emailController.text);
-
-                Navigator.pushNamed(context, '/checkCodePage');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const CheckCodePage()));
+              } catch (e) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
               }
             }
             provider.changeBoolValue('isLoading');

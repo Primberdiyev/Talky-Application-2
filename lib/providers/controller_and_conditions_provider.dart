@@ -2,6 +2,7 @@ import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:talky_aplication_2/account_page/account_page.dart';
 
 class TalkyProvider with ChangeNotifier {
   TextEditingController emailController = TextEditingController();
@@ -78,14 +79,16 @@ class TalkyProvider with ChangeNotifier {
         List methods = await _auth.fetchSignInMethodsForEmail(email!);
 
         if (methods.isEmpty) {
-          Navigator.pushReplacementNamed(context, '/accountPage');
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => AccountPage()));
         } else {
           await sendOTP(email: emailController.text);
           Navigator.pushReplacementNamed(context, '/checkCodePage');
         }
       }
     } catch (e) {
-      throw Exception(e.toString());
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
@@ -97,7 +100,6 @@ class TalkyProvider with ChangeNotifier {
         otpLength: 4,
       );
 
-      // Send OTP
       bool result = await EmailOTP.sendOTP(email: email);
       if (!result) {
         throw Exception("Failed to send OTP");
@@ -107,8 +109,8 @@ class TalkyProvider with ChangeNotifier {
     }
   }
 
-  Future<void> signUp(
-      BuildContext context, String email, String password) async {
+  Future<void> signUp(BuildContext context, String email, String password,
+      bool iswithGoogle) async {
     try {
       bool isVerified = EmailOTP.verifyOTP(otp: inputCodeController.text);
 
@@ -117,12 +119,13 @@ class TalkyProvider with ChangeNotifier {
       }
 
       await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: !iswithGoogle ? email : emailController.text,
+        password: !iswithGoogle ? password : passwordController.text,
       );
       Navigator.pushReplacementNamed(context, '/AccountPage');
     } catch (e) {
-      throw Exception(e.toString());
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 

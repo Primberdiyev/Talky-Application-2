@@ -26,17 +26,6 @@ class InputCodes extends StatelessWidget {
           height: 60,
         ),
         onChanged: (value) {},
-        onSubmitted: (pin) async {
-          try {
-            await provider.signUp(context, provider.email, provider.password);
-
-            Navigator.pushNamed(context, '/AccountPage');
-          } catch (e) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(e.toString())),
-            );
-          }
-        },
       );
     });
   }

@@ -37,7 +37,7 @@ class _CheckCodePageState extends State<CheckCodePage> {
             const InputCodes(),
             SignUpButton(),
             const QuestionText(),
-            const SignUpTextButton()
+            const SignUpTextButton(),
           ],
         ),
       ),
