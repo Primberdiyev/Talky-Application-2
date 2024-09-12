@@ -13,8 +13,7 @@ class TalkyProvider with ChangeNotifier {
   bool isHideText = true;
   bool isLoading = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn =
-      GoogleSignIn(); // GoogleSignIn instansiyasini yaratish
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   User? _user;
   String email = '';
   String password = '';
@@ -57,40 +56,40 @@ class TalkyProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> signInWithGoogle(BuildContext context) async {
-    try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) return;
+  // Future<void> signInWithGoogle(BuildContext context) async {
+  //   try {
+  //     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+  //     if (googleUser == null) return;
 
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+  //     final GoogleSignInAuthentication googleAuth =
+  //         await googleUser.authentication;
 
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
+  //     final credential = GoogleAuthProvider.credential(
+  //       accessToken: googleAuth.accessToken,
+  //       idToken: googleAuth.idToken,
+  //     );
 
-      final UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
-      final User? user = userCredential.user;
+  //     final UserCredential userCredential =
+  //         await _auth.signInWithCredential(credential);
+  //     final User? user = userCredential.user;
 
-      if (user != null) {
-        final email = user.email;
-        List methods = await _auth.fetchSignInMethodsForEmail(email!);
+  //     if (user != null) {
+  //       final email = user.email;
+  //       List methods = await _auth.fetchSignInMethodsForEmail(email!);
 
-        if (methods.isEmpty) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => AccountPage()));
-        } else {
-          await sendOTP(email: emailController.text);
-          Navigator.pushReplacementNamed(context, '/checkCodePage');
-        }
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
-    }
-  }
+  //       if (methods.isEmpty) {
+  //         Navigator.pushReplacement(context,
+  //             MaterialPageRoute(builder: (context) => const AccountPage()));
+  //       } else {
+  //         await sendOTP(email: emailController.text);
+  //         Navigator.pushReplacementNamed(context, '/checkCodePage');
+  //       }
+  //     }
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context)
+  //         .showSnackBar(SnackBar(content: Text(e.toString())));
+  //   }
+  // }
 
   Future<void> sendOTP({required String email}) async {
     try {

@@ -10,7 +10,7 @@ class DatabaseMethods {
 
   Future<bool> isUserRegistered(String userId) async {
     final doc =
-        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+        await FirebaseFirestore.instance.collection('User').doc(userId).get();
     return doc.exists;
   }
 }

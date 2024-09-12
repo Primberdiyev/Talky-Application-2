@@ -10,8 +10,8 @@ class SignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<TalkyProvider>(builder: (context, provider, child) {
       return InkWell(
-        onTap: () {
-          provider.signInWithGoogle(context);
+        onTap: ()async {
+         await AuthGoogle().signInWithGoogle(context);
         },
         child: Container(
           margin: const EdgeInsets.only(top: 230, bottom: 38),
