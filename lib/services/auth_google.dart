@@ -50,12 +50,17 @@ class AuthGoogle {
 
         if (isRegistered) {
           Navigator.pushNamed(context, '/AccountPage');
+          talkyProvider.deleteControllerText();
         } else {
-          await DatabaseMethods().addUser(userDetails.uid, userInfoMap);
-
-          talkyProvider.sendOTP(email: userDetails.email!);
-
-          Navigator.pushNamed(context, '/checkCodePage');
+          try {
+            await DatabaseMethods().addUser(userDetails.uid, userInfoMap);
+            talkyProvider.sendOTP(email: userDetails.email!);
+            Navigator.pushNamed(context, '/checkCodePage');
+          } catch (error) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Error adding user: $error')),
+            );
+          }
         }
       }
     } catch (error) {

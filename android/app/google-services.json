@@ -12,7 +12,20 @@
           "package_name": "com.example.talky_aplication_2"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "684514712791-hdfhs16kboff7go5pjqrbu07r57ifa10.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.talky_aplication_2",
+            "certificate_hash": "fbe63be740d54e0b477164dc9a8d74f29fcae492"
+          }
+        },
+        {
+          "client_id": "684514712791-58qeomqokm7dp064qk03t49cq69dm5ht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBQJhhxH5Po4U9UuBBFdr1_8NbZVhFSw5c"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "684514712791-58qeomqokm7dp064qk03t49cq69dm5ht.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "684514712791-jhdlqtkpde7shapss48om8gjo6252lau.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.talkyAplication2"
+              }
+            }
+          ]
         }
       }
     }

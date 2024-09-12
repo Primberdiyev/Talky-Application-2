@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/check_code_page.dart/check_code_page.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
+import 'package:talky_aplication_2/services/database.dart';
 
 class SignButtonWidget extends StatefulWidget {
   const SignButtonWidget({super.key});
@@ -13,6 +14,7 @@ class SignButtonWidget extends StatefulWidget {
 
 class _SignButtonWidgetState extends State<SignButtonWidget> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<TalkyProvider>(builder: (context, provider, child) {
@@ -30,6 +32,7 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
                   email: provider.emailController.text,
                   password: provider.passwordController.text,
                 );
+
                 Navigator.pushNamed(context, '/AccountPage');
                 provider.deleteControllerText();
               } catch (e) {
@@ -42,10 +45,22 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
               }
             } else {
               try {
-                provider.sendOTP(email: provider.emailController.text);
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const CheckCodePage()));
+                await auth.createUserWithEmailAndPassword(
+                  email: provider.emailController.text,
+                  password: provider.passwordController.text,
+                );
+
+                throw Exception();
               } catch (e) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                if (e is FirebaseAuthException &&
+                    e.code == 'email-already-in-use') {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Email already in use')),
+                  );
+                } else {
+                  provider.sendOTP(email: provider.emailController.text);
+                  Navigator.pushNamed(context, '/checkCodePage');
+                }
               }
             }
             provider.changeBoolValue('isLoading');

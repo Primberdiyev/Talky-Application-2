@@ -1,7 +1,6 @@
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class TalkyProvider with ChangeNotifier {
   TextEditingController emailController = TextEditingController();
@@ -12,7 +11,7 @@ class TalkyProvider with ChangeNotifier {
   bool isHideText = true;
   bool isLoading = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   User? _user;
 
   User? get user => _user;
@@ -43,6 +42,7 @@ class TalkyProvider with ChangeNotifier {
   void deleteControllerText() {
     emailController.clear();
     passwordController.clear();
+    inputCodeController.clear();
     notifyListeners();
   }
 
@@ -80,6 +80,7 @@ class TalkyProvider with ChangeNotifier {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
+    deleteControllerText();
   }
 
   void changeEmailPassword(String newEmail, String newPassword) {

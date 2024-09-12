@@ -8,9 +8,9 @@ class DatabaseMethods {
         .set(userInfoMap);
   }
 
-  Future<bool> isUserRegistered(String userId) async {
+  Future<bool> isUserRegistered(String id) async {
     final doc =
-        await FirebaseFirestore.instance.collection('User').doc(userId).get();
+        await FirebaseFirestore.instance.collection('User').doc(id).get();
     return doc.exists;
   }
 }
