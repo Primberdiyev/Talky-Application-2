@@ -28,8 +28,17 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
             if (provider.isSignIn) {
               provider.signIn(context);
             } else {
-              provider.sendOTP(email: provider.emailController.text);
-              Navigator.pushNamed(context, NameRoutes.checkCode);
+              bool isRegistered = await provider.isRegistered();
+              if (isRegistered) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('This user is already registered'),
+                  ),
+                );
+              } else {
+                provider.sendOTP(email: provider.emailController.text);
+                Navigator.pushNamed(context, NameRoutes.checkCode);
+              }
             }
             provider.changeBoolValue('isLoading');
           },

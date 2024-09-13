@@ -7,8 +7,8 @@ import 'package:talky_aplication_2/input_mail_password_page/widgets/input_passwo
 import 'package:talky_aplication_2/input_mail_password_page/widgets/mail_text.dart';
 import 'package:talky_aplication_2/input_mail_password_page/widgets/sign_button_widget.dart';
 import 'package:talky_aplication_2/input_mail_password_page/widgets/talky_text.dart';
-import 'package:talky_aplication_2/authentication_page/widgets/question_text.dart';
-import 'package:talky_aplication_2/authentication_page/widgets/sign_up_text_button.dart';
+import 'package:talky_aplication_2/authorization_page/widgets/question_text.dart';
+import 'package:talky_aplication_2/authorization_page/widgets/sign_up_text_button.dart';
 
 class InputMailPasswordPage extends StatefulWidget {
   const InputMailPasswordPage({super.key});

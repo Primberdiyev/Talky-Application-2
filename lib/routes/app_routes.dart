@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/account_page/account_page.dart';
-import 'package:talky_aplication_2/authentication_page/authentication_page.dart';
+import 'package:talky_aplication_2/authorization_page/authorization_page.dart';
 import 'package:talky_aplication_2/check_code_page.dart/check_code_page.dart';
 import 'package:talky_aplication_2/forgot_password_page/forgot_password_page.dart';
 import 'package:talky_aplication_2/input_mail_password_page/input_mail_password_page.dart.dart';
@@ -13,7 +13,7 @@ Route generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const SplashPage());
 
     case NameRoutes.auth:
-      return MaterialPageRoute(builder: (_) => const AuthenticationPage());
+      return MaterialPageRoute(builder: (_) => const AuthorizationPage());
     case NameRoutes.checkCode:
       return MaterialPageRoute(builder: (_) => const CheckCodePage());
     case NameRoutes.inputMailPassword:

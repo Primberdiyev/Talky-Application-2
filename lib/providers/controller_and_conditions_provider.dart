@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -92,11 +93,20 @@ class TalkyProvider with ChangeNotifier {
       if (!isVerified) {
         throw Exception('Invalid OTP. Please try again.');
       }
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text);
 
-      await _auth.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
+      User? user = userCredential.user;
+      if (user != null) {
+        await FirebaseFirestore.instance.collection("User").doc(user.uid).set({
+          'email': user.email,
+          'name': user.displayName ?? '',
+          'imgUrl:': user.photoURL ?? '',
+          'id': user.uid,
+        });
+      }
+
       Navigator.pushReplacementNamed(context, NameRoutes.accout);
     } catch (e) {
       ScaffoldMessenger.of(context)
@@ -109,5 +119,13 @@ class TalkyProvider with ChangeNotifier {
     emailController.text = newEmail;
     passwordController.text = newPassword;
     notifyListeners();
+  }
+
+  Future<bool> isRegistered() async {
+    final userDoc = await FirebaseFirestore.instance
+        .collection('User')
+        .where('email', isEqualTo: emailController.text)
+        .get();
+    return userDoc.docs.isNotEmpty;
   }
 }
