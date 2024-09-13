@@ -50,8 +50,11 @@ class TalkyProvider with ChangeNotifier {
   Future<void> sendOTP({required String email}) async {
     try {
       EmailOTP.config(
-        appEmail: "dev.talky@gmail.com",
-        appName: "TalkyApp",
+        appName: 'Talky',
+        otpType: OTPType.numeric,
+        expiry: 30000,
+        emailTheme: EmailTheme.v6,
+        appEmail: 'dev.talky@gmail.com',
         otpLength: 4,
       );
 

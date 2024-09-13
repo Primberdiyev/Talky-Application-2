@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
+import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class SignButtonWidget extends StatefulWidget {
   const SignButtonWidget({super.key});
@@ -56,7 +57,7 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
                   );
                 } else {
                   provider.sendOTP(email: provider.emailController.text);
-                  Navigator.pushNamed(context, '/checkCodePage');
+                  Navigator.pushNamed(context, NameRoutes.checkCode);
                 }
               }
             }

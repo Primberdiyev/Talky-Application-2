@@ -10,8 +10,10 @@ class SignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<TalkyProvider>(builder: (context, provider, child) {
       return InkWell(
-        onTap: ()async {
-         await AuthGoogle().signInWithGoogle(context);
+        onTap: () async {
+          provider.changeBoolValue('isLoading');
+          await AuthGoogle().signInWithGoogle(context);
+          provider.changeBoolValue('isLoading');
         },
         child: Container(
           margin: const EdgeInsets.only(top: 230, bottom: 38),
@@ -20,27 +22,29 @@ class SignInButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             color: const Color(0xFFFFFFFF),
           ),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 39, right: 38),
-                child: Image.asset(
-                  'assets/images/iconGoogle-2.png',
-                  width: 24,
+          child: provider.isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 39, right: 38),
+                      child: Image.asset(
+                        'assets/images/iconGoogle-2.png',
+                        width: 24,
+                      ),
+                    ),
+                    Text(
+                      provider.isSignIn
+                          ? 'Sign in with Google'
+                          : "Sign up with Google",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: Color(0xFF263443),
+                      ),
+                    )
+                  ],
                 ),
-              ),
-              Text(
-                provider.isSignIn
-                    ? 'Sign in with Google'
-                    : "Sign up with Google",
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                  color: Color(0xFF263443),
-                ),
-              )
-            ],
-          ),
         ),
       );
     });
