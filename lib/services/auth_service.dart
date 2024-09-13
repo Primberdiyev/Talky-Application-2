@@ -5,13 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
-class AuthGoogle {
+class AuthService {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
-
-  Future<User?> getCurrentUser() async {
-    return auth.currentUser;
-  }
 
   Future<void> signInWithGoogle(BuildContext context) async {
     try {
@@ -57,6 +53,14 @@ class AuthGoogle {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error signing in with Google: $error')),
       );
+    }
+  }
+
+  Future<void> sendPasswordresetLink(String email) async {
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      throw Exception();
     }
   }
 }

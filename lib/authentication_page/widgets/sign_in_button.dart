@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
-import 'package:talky_aplication_2/services/auth_google.dart';
+import 'package:talky_aplication_2/services/auth_service.dart';
 
 class SignInButton extends StatelessWidget {
   const SignInButton({super.key});
@@ -12,7 +12,7 @@ class SignInButton extends StatelessWidget {
       return InkWell(
         onTap: () async {
           provider.changeBoolValue('isLoading');
-          await AuthGoogle().signInWithGoogle(context);
+          await AuthService().signInWithGoogle(context);
           provider.changeBoolValue('isLoading');
         },
         child: Container(
