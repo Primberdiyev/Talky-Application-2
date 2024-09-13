@@ -37,7 +37,7 @@ class TalkyProvider with ChangeNotifier {
       case "isLoading":
         isLoading = !isLoading;
         break;
-      case 'IsEmailCorrect':
+      case 'isEmailCorrect':
         isEmailCorrect = !isEmailCorrect;
         break;
     }
@@ -72,7 +72,7 @@ class TalkyProvider with ChangeNotifier {
     }
   }
 
-  Future<void> signIn(BuildContext context) async {
+  signIn(BuildContext context) async {
     try {
       await _auth.signInWithEmailAndPassword(
         email: emailController.text,
@@ -82,13 +82,18 @@ class TalkyProvider with ChangeNotifier {
       Navigator.pushNamed(context, '/AccountPage');
       deleteControllerText();
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
-      notifyListeners();
+      changeBoolValue('isEmailCorrect');
+      if (ScaffoldMessenger.maybeOf(context) != null) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.toString())));
+      } else {
+        print(e.toString()); // fallback for debug
+      }
     }
+    notifyListeners();
   }
 
-  Future<void> signUp(BuildContext context) async {
+  signUp(BuildContext context) async {
     try {
       bool isVerified = EmailOTP.verifyOTP(otp: inputCodeController.text);
 
