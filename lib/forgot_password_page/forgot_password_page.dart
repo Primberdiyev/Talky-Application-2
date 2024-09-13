@@ -40,7 +40,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             ),
             onPressed: () {
               AuthService().sendPasswordresetLink(_emailController.text);
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content:  Text('Link has Sended')));
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Link has Sended')));
               Navigator.pushReplacementNamed(context, NameRoutes.auth);
             },
             child: const Text(

@@ -10,7 +10,7 @@ class AccountPage extends StatelessWidget {
       body: Center(
         child: TextButton(
             onPressed: () {
-              Navigator.pushNamed(context,NameRoutes.auth);
+              Navigator.pushNamed(context, NameRoutes.auth);
             },
             child: const Text('Go To Register page')),
       ),
