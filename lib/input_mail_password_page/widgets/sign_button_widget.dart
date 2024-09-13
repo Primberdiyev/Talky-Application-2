@@ -26,22 +26,9 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
           onTap: () async {
             provider.changeBoolValue('isLoading');
             if (provider.isSignIn) {
-              try {
-                await auth.signInWithEmailAndPassword(
-                  email: provider.emailController.text,
-                  password: provider.passwordController.text,
-                );
-
-                Navigator.pushNamed(context, '/AccountPage');
-                provider.deleteControllerText();
-              } catch (e) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content:
-                        Text('An unexpected error occurred: ${e.toString()}'),
-                  ),
-                );
-              }
+              provider.signIn(context);
+              
+              
             } else {
               try {
                 await auth.createUserWithEmailAndPassword(

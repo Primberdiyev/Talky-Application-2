@@ -67,6 +67,24 @@ class TalkyProvider with ChangeNotifier {
     }
   }
 
+  Future<void> signIn(BuildContext context) async {
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+
+      Navigator.pushNamed(context, '/AccountPage');
+      deleteControllerText();
+    } catch (_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('this user is not registered yet'),
+        ),
+      );
+    }
+  }
+
   Future<void> signUp(BuildContext context) async {
     try {
       bool isVerified = EmailOTP.verifyOTP(otp: inputCodeController.text);
