@@ -4,7 +4,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
-import 'package:talky_aplication_2/services/database.dart';
 
 class AuthGoogle {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -21,52 +20,38 @@ class AuthGoogle {
       final GoogleSignInAccount? googleSignInAccount =
           await googleSignIn.signIn();
 
+      if (googleSignInAccount == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Google Sign In canceled')),
+        );
+        return;
+      }
+
       final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount!.authentication;
+          await googleSignInAccount.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         idToken: googleSignInAuthentication.idToken,
         accessToken: googleSignInAuthentication.accessToken,
       );
 
-      final talkyProvider = Provider.of<TalkyProvider>(context, listen: false);
-
       UserCredential result =
           await FirebaseAuth.instance.signInWithCredential(credential);
       User? userDetails = result.user;
 
       if (userDetails != null) {
-        Map<String, dynamic> userInfoMap = {
-          'email': userDetails.email,
-          'name': userDetails.displayName,
-          'imgUrl': userDetails.photoURL,
-          'id': userDetails.uid,
-        };
+        final talkyProvider =
+            Provider.of<TalkyProvider>(context, listen: false);
 
         talkyProvider.changeEmailPassword(
-            userDetails.email!, userDetails.displayName!);
+            userDetails.email!, userDetails.displayName ?? '');
 
-        bool isRegistered =
-            await DatabaseMethods().isUserRegistered(userDetails.uid);
-
-        if (isRegistered) {
-          Navigator.pushNamed(context,NameRoutes.accout);
-          talkyProvider.deleteControllerText();
-        } else {
-          try {
-            await DatabaseMethods().addUser(userDetails.uid, userInfoMap);
-
-            if (talkyProvider.isSignIn) {
-              talkyProvider.changeBoolValue('isSignIn');
-            }
-            talkyProvider.changeEmailPassword(userDetails.email!, '');
-            Navigator.pushNamed(context,NameRoutes.inputMailPassword);
-          } catch (error) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Error adding user: $error')),
-            );
-          }
-        }
+        Navigator.pushNamed(context, NameRoutes.accout);
+        talkyProvider.deleteControllerText();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Error signing in with Google')),
+        );
       }
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(

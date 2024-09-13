@@ -25,7 +25,6 @@ class InputCodes extends StatelessWidget {
           width: 60,
           height: 60,
         ),
-        onChanged: (value) {},
       );
     });
   }

@@ -27,26 +27,9 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
             provider.changeBoolValue('isLoading');
             if (provider.isSignIn) {
               provider.signIn(context);
-              
-              
             } else {
-              try {
-                await auth.createUserWithEmailAndPassword(
-                  email: provider.emailController.text,
-                  password: provider.passwordController.text,
-                );
-
-                throw Exception();
-              } catch (e) {
-                if (e is FirebaseAuthException) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Email already in use')),
-                  );
-                } else {
-                  provider.sendOTP(email: provider.emailController.text);
-                  Navigator.pushNamed(context, NameRoutes.checkCode);
-                }
-              }
+              provider.sendOTP(email: provider.emailController.text);
+              Navigator.pushNamed(context, NameRoutes.checkCode);
             }
             provider.changeBoolValue('isLoading');
           },
