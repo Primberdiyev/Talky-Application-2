@@ -34,21 +34,18 @@ class AuthService {
       UserCredential result =
           await FirebaseAuth.instance.signInWithCredential(credential);
       User? userDetails = result.user;
-
+      final talkyProvider = Provider.of<TalkyProvider>(context, listen: false);
       if (userDetails != null) {
-        final talkyProvider =
-            Provider.of<TalkyProvider>(context, listen: false);
-
-        talkyProvider.changeEmailPassword(
-            userDetails.email!, userDetails.displayName ?? '');
-
-        Navigator.pushNamed(context, NameRoutes.accout);
+        talkyProvider.changeEmailPassword(userDetails.email!, userDetails.uid);
+        talkyProvider.changeEmailPassword(userDetails.email!, '');
+        bool isRegistered = await talkyProvider.isRegistered();
+        if (isRegistered) {
+          Navigator.pushNamed(context, NameRoutes.accout);
+        } else {
+          Navigator.pushNamed(context, NameRoutes.inputMailPassword);
+        }
         talkyProvider.deleteControllerText();
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Error signing in with Google')),
-        );
-      }
+      } 
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error signing in with Google: $error')),

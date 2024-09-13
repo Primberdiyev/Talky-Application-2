@@ -39,8 +39,11 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
                 provider.sendOTP(email: provider.emailController.text);
                 Navigator.pushNamed(context, NameRoutes.checkCode);
               }
+              provider.changeBoolValue('agreeCondition');
+              provider.changeBoolValue('isSignIn');
             }
             provider.changeBoolValue('isLoading');
+            
           },
           child: Container(
             width: MediaQuery.of(context).size.width - 56,

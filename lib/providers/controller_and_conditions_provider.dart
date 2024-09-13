@@ -13,6 +13,7 @@ class TalkyProvider with ChangeNotifier {
   bool isHideText = true;
   bool isLoading = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool isEmailCorrect = true;
 
   User? _user;
 
@@ -35,6 +36,9 @@ class TalkyProvider with ChangeNotifier {
         break;
       case "isLoading":
         isLoading = !isLoading;
+        break;
+      case 'IsEmailCorrect':
+        isEmailCorrect = !isEmailCorrect;
         break;
     }
 
@@ -77,12 +81,10 @@ class TalkyProvider with ChangeNotifier {
 
       Navigator.pushNamed(context, '/AccountPage');
       deleteControllerText();
-    } catch (_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('this user is not registered yet'),
-        ),
-      );
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+      notifyListeners();
     }
   }
 
