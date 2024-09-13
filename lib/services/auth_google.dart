@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
+import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/services/database.dart';
 
 class AuthGoogle {
@@ -49,7 +50,7 @@ class AuthGoogle {
             await DatabaseMethods().isUserRegistered(userDetails.uid);
 
         if (isRegistered) {
-          Navigator.pushNamed(context, '/AccountPage');
+          Navigator.pushNamed(context,NameRoutes.accout);
           talkyProvider.deleteControllerText();
         } else {
           try {
@@ -59,7 +60,7 @@ class AuthGoogle {
               talkyProvider.changeBoolValue('isSignIn');
             }
             talkyProvider.changeEmailPassword(userDetails.email!, '');
-            Navigator.pushNamed(context, '/authPage');
+            Navigator.pushNamed(context,NameRoutes.inputMailPassword);
           } catch (error) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Error adding user: $error')),

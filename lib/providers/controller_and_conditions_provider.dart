@@ -1,6 +1,7 @@
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class TalkyProvider with ChangeNotifier {
   TextEditingController emailController = TextEditingController();
@@ -75,7 +76,7 @@ class TalkyProvider with ChangeNotifier {
         email: emailController.text,
         password: passwordController.text,
       );
-      Navigator.pushReplacementNamed(context, '/AccountPage');
+      Navigator.pushReplacementNamed(context, NameRoutes.accout);
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));

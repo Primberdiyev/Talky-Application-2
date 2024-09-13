@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:talky_aplication_2/authentication_page/widgets/back_button_widget.dart';
 import 'package:talky_aplication_2/check_code_page.dart/widgets/enter_code_text.dart';
 import 'package:talky_aplication_2/check_code_page.dart/widgets/input_codes.dart';
 import 'package:talky_aplication_2/check_code_page.dart/widgets/sign_up_button.dart';
-import 'package:talky_aplication_2/home_page/widgets/question_text.dart';
-import 'package:talky_aplication_2/home_page/widgets/sign_up_text_button.dart';
-import 'package:talky_aplication_2/home_page/widgets/talky_text.dart';
+import 'package:talky_aplication_2/authentication_page/widgets/question_text.dart';
+import 'package:talky_aplication_2/authentication_page/widgets/sign_up_text_button.dart';
+import 'package:talky_aplication_2/authentication_page/widgets/talky_text.dart';
+import 'package:talky_aplication_2/input_mail_password_page/widgets/back_button_widget.dart';
 
 class CheckCodePage extends StatefulWidget {
   const CheckCodePage({super.key});

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class MailButton extends StatelessWidget {
   const MailButton({super.key});
@@ -7,7 +8,7 @@ class MailButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/authPage');
+        Navigator.pushNamed(context, NameRoutes.inputMailPassword);
       },
       child: Container(
         margin: const EdgeInsets.only(top: 30, bottom: 56),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -6,7 +7,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, '/homePage');
+      Navigator.pushReplacementNamed(context, NameRoutes.auth);
     });
     return const Scaffold(
       backgroundColor: Color(0xFF377DFF),
