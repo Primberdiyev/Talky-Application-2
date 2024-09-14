@@ -9,10 +9,11 @@ class AccountPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, NameRoutes.auth);
-            },
-            child: const Text('Go To Register page')),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, NameRoutes.auth);
+          },
+          child: const Text('Go To Register page'),
+        ),
       ),
     );
   }
