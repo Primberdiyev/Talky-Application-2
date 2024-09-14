@@ -7,28 +7,33 @@ class InputMail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEmailCorrect = context.watch<TalkyProvider>().isEmailCorrect;
     return Consumer<TalkyProvider>(builder: (context, provider, child) {
       return Padding(
         padding: const EdgeInsets.only(top: 40),
-        child: TextField(
+        child: TextFormField(
           controller: provider.emailController,
           decoration: InputDecoration(
-            enabledBorder:  OutlineInputBorder(
+            enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 width: 1,
-                  color: !isEmailCorrect ? Colors.red : const Color(0xFFAAB0B7),
+                color: !provider.isEmailCorrect
+                    ? Colors.red
+                    : const Color(0xFFAAB0B7),
               ),
             ),
             focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
               width: 1,
-              color: !isEmailCorrect ? Colors.red : const Color(0xFFAAB0B7),
+              color: !provider.isEmailCorrect
+                  ? Colors.red
+                  : const Color(0xFFAAB0B7),
             )),
             labelText: 'Enter your mail address',
-            labelStyle:  TextStyle(
+            labelStyle: TextStyle(
               fontWeight: FontWeight.w500,
-                color: !isEmailCorrect ? Colors.red : const Color(0xFFAAB0B7),
+              color: !provider.isEmailCorrect
+                  ? Colors.red
+                  : const Color(0xFFAAB0B7),
             ),
             border: const OutlineInputBorder(),
           ),
