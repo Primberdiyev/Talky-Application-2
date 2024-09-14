@@ -14,17 +14,33 @@ class InputPassword extends StatelessWidget {
           controller: provider.passwordController,
           obscureText: provider.isHideText,
           decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: !provider.isEmailCorrect
+                    ? Colors.red
+                    : const Color(0xFFAAB0B7),
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+              color: !provider.isEmailCorrect
+                  ? Colors.red
+                  : const Color(0xFFAAB0B7),
+            )),
             suffixIcon: IconButton(
-                onPressed: () {
-                  provider.changeBoolValue('isHideText');
-                },
-                icon: Icon(!provider.isHideText
-                    ? Icons.visibility
-                    : Icons.visibility_off)),
+              onPressed: () {
+                provider.changeBoolValue('isHideText');
+              },
+              icon: Icon(!provider.isHideText
+                  ? Icons.visibility
+                  : Icons.visibility_off),
+            ),
             labelText: 'Enter your password',
-            labelStyle: const TextStyle(
+            labelStyle: TextStyle(
               fontWeight: FontWeight.w500,
-              color: Color(0xFFAAB0B7),
+              color: !provider.isEmailCorrect
+                  ? Colors.red
+                  : const Color(0xFFAAB0B7),
             ),
             border: const OutlineInputBorder(),
           ),

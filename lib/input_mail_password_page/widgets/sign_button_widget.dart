@@ -43,7 +43,6 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
               provider.changeBoolValue('isSignIn');
             }
             provider.changeBoolValue('isLoading');
-            
           },
           child: Container(
             width: MediaQuery.of(context).size.width - 56,

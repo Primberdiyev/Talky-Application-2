@@ -37,9 +37,6 @@ class TalkyProvider with ChangeNotifier {
       case "isLoading":
         isLoading = !isLoading;
         break;
-      case 'isEmailCorrect':
-        isEmailCorrect = !isEmailCorrect;
-        break;
     }
 
     notifyListeners();
@@ -78,18 +75,13 @@ class TalkyProvider with ChangeNotifier {
         email: emailController.text,
         password: passwordController.text,
       );
-
-      Navigator.pushNamed(context, '/AccountPage');
+      changeIsMailCorrect(true);
+      Navigator.pushNamed(context, NameRoutes.accout);
       deleteControllerText();
-    } catch (e) {
-      changeBoolValue('isEmailCorrect');
-      if (ScaffoldMessenger.maybeOf(context) != null) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(e.toString())));
-      } else {
-        print(e.toString()); // fallback for debug
-      }
+    } on FirebaseAuthException catch (_) {
+      changeIsMailCorrect(false);
     }
+
     notifyListeners();
   }
 
@@ -134,5 +126,10 @@ class TalkyProvider with ChangeNotifier {
         .where('email', isEqualTo: emailController.text)
         .get();
     return userDoc.docs.isNotEmpty;
+  }
+
+  changeIsMailCorrect(bool newValue) {
+    isEmailCorrect = newValue;
+    notifyListeners();
   }
 }
