@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
+import 'package:talky_aplication_2/routes/bool_value_enum.dart';
 
 class InputPassword extends StatelessWidget {
   const InputPassword({super.key});
@@ -29,7 +30,7 @@ class InputPassword extends StatelessWidget {
             )),
             suffixIcon: IconButton(
               onPressed: () {
-                provider.changeBoolValue('isHideText');
+                provider.changeBoolValue(BoolValueEnum.isHideText);
               },
               icon: Icon(!provider.isHideText
                   ? Icons.visibility

@@ -2,31 +2,32 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:talky_aplication_2/routes/bool_value_enum.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class TalkyProvider with ChangeNotifier {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController inputCodeController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController inputCodeController = TextEditingController();
   bool isSignIn = true;
   bool agreeCondition = false;
   bool isHideText = true;
   bool isLoading = false;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   bool isEmailCorrect = true;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  void changeBoolValue(String value) {
+  void changeBoolValue(BoolValueEnum value) {
     switch (value) {
-      case "isSignIn":
+      case BoolValueEnum.isSignIn:
         isSignIn = !isSignIn;
         break;
-      case "agreeCondition":
+      case BoolValueEnum.agreeCondition:
         agreeCondition = !agreeCondition;
         break;
-      case "isHideText":
+      case BoolValueEnum.isHideText:
         isHideText = !isHideText;
         break;
-      case "isLoading":
+      case BoolValueEnum.isLoading:
         isLoading = !isLoading;
         break;
     }

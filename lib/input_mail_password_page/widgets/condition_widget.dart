@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
+import 'package:talky_aplication_2/routes/bool_value_enum.dart';
 
 class ConditionWidget extends StatelessWidget {
   const ConditionWidget({super.key});
@@ -14,7 +15,7 @@ class ConditionWidget extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  provider.changeBoolValue('agreeCondition');
+                  provider.changeBoolValue(BoolValueEnum.agreeCondition);
                 },
                 child: Container(
                   width: 24,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
+import 'package:talky_aplication_2/routes/bool_value_enum.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class SignButtonWidget extends StatefulWidget {
@@ -28,7 +29,7 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
               provider.changeIsMailCorrect(false);
             }
             if (widget.formKey.currentState!.validate()) {
-              provider.changeBoolValue('isLoading');
+              provider.changeBoolValue(BoolValueEnum.isLoading);
               if (provider.isSignIn) {
                 provider.signIn(context);
               } else {
@@ -43,10 +44,10 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
                   provider.sendOTP(email: provider.emailController.text);
                   Navigator.pushNamed(context, NameRoutes.checkCode);
                 }
-                provider.changeBoolValue('agreeCondition');
-                provider.changeBoolValue('isSignIn');
+                provider.changeBoolValue(BoolValueEnum.agreeCondition);
+                provider.changeBoolValue(BoolValueEnum.isSignIn);
               }
-              provider.changeBoolValue('isLoading');
+              provider.changeBoolValue(BoolValueEnum.isLoading);
             }
           },
           child: Container(

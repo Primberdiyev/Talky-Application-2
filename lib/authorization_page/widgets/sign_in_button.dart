@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
+import 'package:talky_aplication_2/routes/bool_value_enum.dart';
 import 'package:talky_aplication_2/services/auth_service.dart';
 
 class SignInButton extends StatelessWidget {
@@ -11,9 +12,9 @@ class SignInButton extends StatelessWidget {
     return Consumer<TalkyProvider>(builder: (context, provider, child) {
       return InkWell(
         onTap: () async {
-          provider.changeBoolValue('isLoading');
+          provider.changeBoolValue(BoolValueEnum.isLoading);
           await AuthService().signInWithGoogle(context);
-          provider.changeBoolValue('isLoading');
+          provider.changeBoolValue(BoolValueEnum.isLoading);
         },
         child: Container(
           margin: const EdgeInsets.only(top: 230, bottom: 38),

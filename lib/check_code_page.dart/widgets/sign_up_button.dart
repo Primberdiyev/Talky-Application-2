@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
+import 'package:talky_aplication_2/routes/bool_value_enum.dart';
 
 class SignUpButton extends StatelessWidget {
   SignUpButton({super.key});
@@ -18,9 +19,9 @@ class SignUpButton extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () async {
-            provider.changeBoolValue('isLoading');
+            provider.changeBoolValue(BoolValueEnum.isLoading);
             await provider.signUp(context);
-            provider.changeBoolValue('isLoading');
+            provider.changeBoolValue(BoolValueEnum.isLoading);
           },
           child: Container(
             width: MediaQuery.of(context).size.width - 56,
