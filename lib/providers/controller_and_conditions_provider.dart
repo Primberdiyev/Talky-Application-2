@@ -14,15 +14,7 @@ class TalkyProvider with ChangeNotifier {
   bool isLoading = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool isEmailCorrect = true;
-   final formKey = GlobalKey<FormState>();
-
-  User? _user;
-
-  User? get user => _user;
-
-  bool get isAuthenticated => _user != null;
-
-  final EmailOTP emailOtp = EmailOTP();
+  final formKey = GlobalKey<FormState>();
 
   void changeBoolValue(String value) {
     switch (value) {
