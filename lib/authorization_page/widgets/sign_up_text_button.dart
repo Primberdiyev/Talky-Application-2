@@ -13,6 +13,7 @@ class SignUpTextButton extends StatelessWidget {
         onTap: () {
           provider.changeBoolValue('isSignIn');
           provider.deleteControllerText();
+          provider.changeIsMailCorrect(true);
           Navigator.pushReplacementNamed(context, NameRoutes.auth);
         },
         child: Text(

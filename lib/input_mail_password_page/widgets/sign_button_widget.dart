@@ -17,6 +17,7 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
   @override
   Widget build(BuildContext context) {
     return Consumer<TalkyProvider>(builder: (context, provider, child) {
+      final formKey = provider.formKey;
       return Padding(
         padding: const EdgeInsets.only(
           top: 104,
@@ -24,25 +25,30 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
         ),
         child: InkWell(
           onTap: () async {
-            provider.changeBoolValue('isLoading');
-            if (provider.isSignIn) {
-              provider.signIn(context);
-            } else {
-              bool isRegistered = await provider.isRegistered();
-              if (isRegistered) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('This user is already registered'),
-                  ),
-                );
-              } else {
-                provider.sendOTP(email: provider.emailController.text);
-                Navigator.pushNamed(context, NameRoutes.checkCode);
-              }
-              provider.changeBoolValue('agreeCondition');
-              provider.changeBoolValue('isSignIn');
+            if (formKey.currentState == null) {
+              provider.changeIsMailCorrect(false);
             }
-            provider.changeBoolValue('isLoading');
+            if (formKey.currentState!.validate()) {
+              provider.changeBoolValue('isLoading');
+              if (provider.isSignIn) {
+                provider.signIn(context);
+              } else {
+                bool isRegistered = await provider.isRegistered();
+                if (isRegistered) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('This user is already registered'),
+                    ),
+                  );
+                } else {
+                  provider.sendOTP(email: provider.emailController.text);
+                  Navigator.pushNamed(context, NameRoutes.checkCode);
+                }
+                provider.changeBoolValue('agreeCondition');
+                provider.changeBoolValue('isSignIn');
+              }
+              provider.changeBoolValue('isLoading');
+            }
           },
           child: Container(
             width: MediaQuery.of(context).size.width - 56,
