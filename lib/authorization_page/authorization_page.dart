@@ -27,7 +27,7 @@ class AuthorizationPage extends StatelessWidget {
                 MailButton(),
                 QuestionText(),
                 SignUpTextButton(),
-                SizedBox(height: 102)
+                SizedBox(height: 102),
               ],
             ))
           ],

@@ -16,9 +16,13 @@ class MyApp extends StatelessWidget {
           create: (_) => TalkyProvider(),
         )
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         initialRoute: NameRoutes.splash,
         onGenerateRoute: generateRoute,
+        theme: ThemeData(
+          primaryColor: Colors.blue,
+          scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+        ),
       ),
     );
   }
