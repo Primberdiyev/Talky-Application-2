@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class OrWidget extends StatelessWidget {
   const OrWidget({super.key});
@@ -7,15 +6,16 @@ class OrWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 32),
-      child: Row(
+      padding: const EdgeInsets.only(left: 32, right: 32),
+      child: const Row(
         children: [
-          Container(
-            height: 1,
-            width: (MediaQuery.of(context).size.width - 175) / 2,
-            color: const Color(0xFF58616A),
+          Expanded(
+            child: Divider(
+              endIndent: 10,
+              thickness: 1,
+            ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               'or',
@@ -25,10 +25,11 @@ class OrWidget extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            height: 1,
-            width: (MediaQuery.of(context).size.width - 154) / 2,
-            color: const Color(0xFF58616A),
+          Expanded(
+            child: Divider(
+              endIndent: 10,
+              thickness: 1,
+            ),
           ),
         ],
       ),

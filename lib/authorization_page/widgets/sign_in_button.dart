@@ -10,22 +10,22 @@ class SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<TalkyProvider>(builder: (context, provider, child) {
-      return InkWell(
-        onTap: () async {
-          provider.changeBoolValue(BoolValueEnum.isLoading);
-          await AuthService().signInWithGoogle(context);
-          provider.changeBoolValue(BoolValueEnum.isLoading);
-        },
-        child: Container(
-          margin: const EdgeInsets.only(top: 230, bottom: 38),
-          height: 60,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: const Color(0xFFFFFFFF),
-          ),
-          child: provider.isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : Row(
+      return Container(
+        margin: const EdgeInsets.only(top: 230, bottom: 38),
+        height: 60,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: const Color(0xFFFFFFFF),
+        ),
+        child: provider.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : InkWell(
+                onTap: () async {
+                  provider.changeBoolValue(BoolValueEnum.isLoading);
+                  await AuthService().signInWithGoogle(context);
+                  provider.changeBoolValue(BoolValueEnum.isLoading);
+                },
+                child: Row(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 39, right: 38),
@@ -46,7 +46,7 @@ class SignInButton extends StatelessWidget {
                     )
                   ],
                 ),
-        ),
+              ),
       );
     });
   }

@@ -6,17 +6,17 @@ class MailButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, NameRoutes.inputMailPassword);
-      },
-      child: Container(
-        margin: const EdgeInsets.only(top: 30, bottom: 56),
-        height: 60,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: const Color(0xFFFFFFFF),
-        ),
+    return Container(
+      margin: const EdgeInsets.only(top: 30, bottom: 56),
+      height: 60,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: const Color(0xFFFFFFFF),
+      ),
+      child: InkWell(
+        onTap: () {
+          Navigator.pushNamed(context, NameRoutes.inputMailPassword);
+        },
         child: Row(
           children: [
             Padding(
