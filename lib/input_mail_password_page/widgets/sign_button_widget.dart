@@ -5,7 +5,8 @@ import 'package:talky_aplication_2/providers/controller_and_conditions_provider.
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class SignButtonWidget extends StatefulWidget {
-  const SignButtonWidget({super.key});
+  final formKey;
+  const SignButtonWidget({super.key, required this.formKey});
 
   @override
   State<SignButtonWidget> createState() => _SignButtonWidgetState();
@@ -13,11 +14,9 @@ class SignButtonWidget extends StatefulWidget {
 
 class _SignButtonWidgetState extends State<SignButtonWidget> {
   final FirebaseAuth auth = FirebaseAuth.instance;
-
   @override
   Widget build(BuildContext context) {
     return Consumer<TalkyProvider>(builder: (context, provider, child) {
-      final formKey = provider.formKey;
       return Padding(
         padding: const EdgeInsets.only(
           top: 104,
@@ -25,10 +24,10 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
         ),
         child: InkWell(
           onTap: () async {
-            if (formKey.currentState == null) {
+            if (widget.formKey.currentState == null) {
               provider.changeIsMailCorrect(false);
             }
-            if (formKey.currentState!.validate()) {
+            if (widget.formKey.currentState!.validate()) {
               provider.changeBoolValue('isLoading');
               if (provider.isSignIn) {
                 provider.signIn(context);

@@ -14,7 +14,6 @@ class TalkyProvider with ChangeNotifier {
   bool isLoading = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool isEmailCorrect = true;
-  final formKey = GlobalKey<FormState>();
 
   void changeBoolValue(String value) {
     switch (value) {

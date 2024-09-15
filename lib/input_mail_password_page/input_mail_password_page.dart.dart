@@ -20,6 +20,7 @@ class InputMailPasswordPage extends StatefulWidget {
 class _AuthenticationPageState extends State<InputMailPasswordPage> {
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -27,18 +28,18 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(top: 70, left: 28, right: 28),
         color: const Color(0xFFFFFFFF),
-        child: const Column(
+        child: Column(
           children: [
-            BackButtonWidget(),
-            TalkyText(),
-            MailText(),
-            InputMail(),
-            InputPassword(),
-            ForgotPasswordText(),
-            ConditionWidget(),
-            SignButtonWidget(),
-            QuestionText(),
-            SignUpTextButton(),
+            const BackButtonWidget(),
+            const TalkyText(),
+            const MailText(),
+            InputMail(formKey: formKey),
+            const InputPassword(),
+            const ForgotPasswordText(),
+            const ConditionWidget(),
+            SignButtonWidget(formKey: formKey),
+            const QuestionText(),
+            const SignUpTextButton(),
           ],
         ),
       ),

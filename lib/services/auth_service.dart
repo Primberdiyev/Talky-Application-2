@@ -22,7 +22,6 @@ class AuthService {
         );
         return;
       }
-
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
 
@@ -45,7 +44,7 @@ class AuthService {
           Navigator.pushNamed(context, NameRoutes.inputMailPassword);
         }
         talkyProvider.deleteControllerText();
-      } 
+      }
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error signing in with Google: $error')),

@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
 
 class InputMail extends StatefulWidget {
-  const InputMail({super.key});
+  final formKey;
+  const InputMail({super.key, required this.formKey});
 
   @override
   State<InputMail> createState() => _InputMailState();
@@ -12,14 +13,13 @@ class InputMail extends StatefulWidget {
 class _InputMailState extends State<InputMail> {
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Enter email'; // Field is empty
+      return 'Enter email';
     }
-    // Simple validation for email format
     final emailPattern = RegExp(r'^[\w-]+@[a-zA-Z]+\.[a-zA-Z]+');
     if (!emailPattern.hasMatch(value)) {
-      return 'Enter a valid email address'; // Invalid email format
+      return 'Enter a valid email address';
     }
-    return null; // Email is valid
+    return null;
   }
 
   @override
@@ -28,7 +28,7 @@ class _InputMailState extends State<InputMail> {
       return Padding(
         padding: const EdgeInsets.only(top: 40),
         child: Form(
-          key: provider.formKey,
+          key: widget.formKey,
           child: TextFormField(
             validator: validateEmail,
             controller: provider.emailController,
