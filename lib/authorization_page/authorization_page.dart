@@ -18,11 +18,18 @@ class AuthorizationPage extends StatelessWidget {
         child: const Column(
           children: [
             TalkyText(),
-            SignInButton(),
-            OrWidget(),
-            MailButton(),
-            QuestionText(),
-            SignUpTextButton(),
+            Expanded(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                SignInButton(),
+                OrWidget(),
+                MailButton(),
+                QuestionText(),
+                SignUpTextButton(),
+                SizedBox(height: 102)
+              ],
+            ))
           ],
         ),
       ),

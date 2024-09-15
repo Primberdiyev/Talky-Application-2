@@ -11,7 +11,7 @@ class SignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<TalkyProvider>(builder: (context, provider, child) {
       return Container(
-        margin: const EdgeInsets.only(top: 230, bottom: 38),
+        margin: const EdgeInsets.only(bottom: 38),
         height: 60,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
