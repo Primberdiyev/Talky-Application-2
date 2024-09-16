@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/providers/account_page_provider.dart';
+import 'package:talky_aplication_2/providers/edit_profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class CompleteButton extends StatelessWidget {
@@ -9,7 +9,7 @@ class CompleteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<AccountPageProvider>();
+    final provider = context.watch<EditPageProvider>();
     return Padding(
       padding: const EdgeInsets.only(top: 163, right: 28),
       child: TextButton(
@@ -23,7 +23,7 @@ class CompleteButton extends StatelessWidget {
         onPressed: () async {
           try {
             provider.setIsLoading();
-            await provider.saveUserProfiel();
+            await provider.saveUserProfile();
             provider.setIsLoading();
             Navigator.pushNamed(context, NameRoutes.profile);
           } catch (error) {

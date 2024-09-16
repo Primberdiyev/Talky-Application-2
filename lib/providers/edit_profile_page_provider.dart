@@ -7,7 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AccountPageProvider with ChangeNotifier {
+class EditPageProvider with ChangeNotifier {
   XFile? image;
   UploadTask? uploadTask;
   final TextEditingController nameController = TextEditingController();
@@ -19,12 +19,12 @@ class AccountPageProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  FutureOr<void> saveUserProfiel() async {
+  FutureOr<void> saveUserProfile() async {
     final currentuser = FirebaseAuth.instance.currentUser;
     if (currentuser != null && image != null) {
       final ref = FirebaseStorage.instance
           .ref()
-          .child('Users/${currentuser.email}/profile_image.png');
+          .child('${currentuser.email}/profile_image.png');
       uploadTask = ref.putFile(File(image!.path));
       final snapshot = await uploadTask?.whenComplete(() => null);
       final dowloadUrl = await snapshot?.ref.getDownloadURL();

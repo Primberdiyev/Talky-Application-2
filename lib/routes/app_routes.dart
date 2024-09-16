@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talky_aplication_2/account_page/account_page.dart';
+import 'package:talky_aplication_2/edit_profile_page/edit_profile_page.dart';
 import 'package:talky_aplication_2/authorization_page/authorization_page.dart';
 import 'package:talky_aplication_2/check_code_page.dart/check_code_page.dart';
 import 'package:talky_aplication_2/forgot_password_page/forgot_password_page.dart';
@@ -25,5 +25,5 @@ Route generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const ProfilePage());
   }
 
-  return MaterialPageRoute(builder: (_) => const AccountPage());
+  return MaterialPageRoute(builder: (_) => const EditProfilePage());
 }

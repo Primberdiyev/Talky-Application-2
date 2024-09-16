@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:talky_aplication_2/account_page/widgets/complete_button.dart';
-import 'package:talky_aplication_2/account_page/widgets/image_view.dart';
-import 'package:talky_aplication_2/account_page/widgets/input_description.dart';
-import 'package:talky_aplication_2/account_page/widgets/input_name.dart';
-import 'package:talky_aplication_2/account_page/widgets/profile_text.dart';
+import 'package:talky_aplication_2/edit_profile_page/widgets/complete_button.dart';
+import 'package:talky_aplication_2/edit_profile_page/widgets/image_view.dart';
+import 'package:talky_aplication_2/edit_profile_page/widgets/input_description.dart';
+import 'package:talky_aplication_2/edit_profile_page/widgets/input_name.dart';
+import 'package:talky_aplication_2/edit_profile_page/widgets/profile_text.dart';
 import 'package:talky_aplication_2/input_mail_password_page/widgets/back_button_widget.dart';
 
-class AccountPage extends StatelessWidget {
-  const AccountPage({super.key});
+class EditProfilePage extends StatelessWidget {
+  const EditProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/providers/account_page_provider.dart';
+import 'package:talky_aplication_2/providers/edit_profile_page_provider.dart';
 
 class CustomTextFileld extends StatefulWidget {
   final TextEditingController controller;
@@ -18,7 +18,7 @@ class CustomTextFileld extends StatefulWidget {
 class _InputNameState extends State<CustomTextFileld> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<AccountPageProvider>(builder: (context, provider, child) {
+    return Consumer<EditPageProvider>(builder: (context, provider, child) {
       return Padding(
         padding: const EdgeInsets.only(left: 10, right: 28, top: 18),
         child: TextField(
