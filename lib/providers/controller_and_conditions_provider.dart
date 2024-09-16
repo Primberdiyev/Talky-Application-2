@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:talky_aplication_2/routes/bool_value_enum.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
@@ -21,7 +20,7 @@ class TalkyProvider with ChangeNotifier {
   bool isLoading = false;
   bool isEmailCorrect = true;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  File? image;
+  XFile? image;
   UploadTask? uploadTask;
 
   void changeBoolValue(BoolValueEnum value) {
@@ -101,8 +100,6 @@ class TalkyProvider with ChangeNotifier {
       if (user != null) {
         await FirebaseFirestore.instance.collection("User").doc(user.uid).set({
           'email': user.email,
-          'name': user.displayName ?? '',
-          'imgUrl:': user.photoURL ?? '',
           'id': user.uid,
         });
       }
@@ -135,7 +132,12 @@ class TalkyProvider with ChangeNotifier {
   }
 
   updateImage(newImage) {
-    image = File(newImage.path);
+    image = newImage;
+    notifyListeners();
+  }
+
+  updateUploadTask(newUploadTask) {
+    uploadTask = newUploadTask;
     notifyListeners();
   }
 }

@@ -12,7 +12,7 @@ class SignUpTextButton extends StatelessWidget {
     return Consumer<TalkyProvider>(builder: (context, provider, child) {
       return InkWell(
         onTap: () {
-          provider.changeBoolValue(BoolValueEnum.isLoading);
+          provider.changeBoolValue(BoolValueEnum.isSignIn);
           provider.deleteControllerText();
           provider.changeIsMailCorrect(true);
           Navigator.pushReplacementNamed(context, NameRoutes.auth);

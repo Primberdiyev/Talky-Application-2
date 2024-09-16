@@ -1,11 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
 
-class ImageView extends StatelessWidget {
+class ImageView extends StatefulWidget {
   const ImageView({super.key});
 
+  @override
+  State<ImageView> createState() => _ImageViewState();
+}
+
+class _ImageViewState extends State<ImageView> {
   @override
   Widget build(BuildContext context) {
     return Consumer<TalkyProvider>(builder: (context, provider, child) {
@@ -44,7 +51,12 @@ class ImageView extends StatelessWidget {
               ),
             )
           : ClipOval(
-              child: Image.file(provider.image!),
+              child: Image.file(
+                File(provider.image!.path),
+                height: 190,
+                width: 190,
+                fit: BoxFit.cover,
+              ),
             );
     });
   }
