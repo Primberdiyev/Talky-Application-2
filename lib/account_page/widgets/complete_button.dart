@@ -22,7 +22,9 @@ class CompleteButton extends StatelessWidget {
         ),
         onPressed: () async {
           try {
-           await  provider.saveUserProfiel();
+            provider.setIsLoading();
+            await provider.saveUserProfiel();
+            provider.setIsLoading();
             Navigator.pushNamed(context, NameRoutes.profile);
           } catch (error) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -34,13 +36,19 @@ class CompleteButton extends StatelessWidget {
             );
           }
         },
-        child: const Text(
-          'Complete',
-          style: TextStyle(
-            color: Color(0xFFFFFFFF),
-            fontSize: 18,
-          ),
-        ),
+        child: !provider.isLoading
+            ? const Text(
+                'Complete',
+                style: TextStyle(
+                  color: Color(0xFFFFFFFF),
+                  fontSize: 18,
+                ),
+              )
+            : const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              ),
       ),
     );
   }

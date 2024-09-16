@@ -12,6 +12,7 @@ class AccountPageProvider with ChangeNotifier {
   UploadTask? uploadTask;
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  bool isLoading = false;
 
   updateImage(newImage) {
     image = newImage;
@@ -44,5 +45,10 @@ class AccountPageProvider with ChangeNotifier {
         SetOptions(merge: true),
       );
     }
+  }
+
+  void setIsLoading() {
+    isLoading = !isLoading;
+    notifyListeners();
   }
 }
