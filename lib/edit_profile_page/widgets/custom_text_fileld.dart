@@ -20,7 +20,7 @@ class _InputNameState extends State<CustomTextFileld> {
   Widget build(BuildContext context) {
     return Consumer<EditPageProvider>(builder: (context, provider, child) {
       return Padding(
-        padding: const EdgeInsets.only(left: 10, right: 28, top: 18),
+        padding: const EdgeInsets.only(left: 10, top: 18),
         child: TextField(
           controller: widget.controller,
           decoration: InputDecoration(

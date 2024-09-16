@@ -43,9 +43,8 @@ class _ImageViewState extends State<ImageView> {
                 onTap: () async {
                   final picture = await ImagePicker()
                       .pickImage(source: ImageSource.gallery);
-
                   if (picture != null) {
-                    provider.updateImage(picture);
+                    await provider.updateImage(picture);
                   }
                 },
                 child: CircleAvatar(

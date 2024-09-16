@@ -13,6 +13,7 @@ class EditPageProvider with ChangeNotifier {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   bool isLoading = false;
+  bool isNameEmpty = false;
 
   updateImage(newImage) {
     image = newImage;
@@ -42,8 +43,13 @@ class EditPageProvider with ChangeNotifier {
     }
   }
 
-  void setIsLoading() {
+  setIsLoading() {
     isLoading = !isLoading;
+    notifyListeners();
+  }
+
+   updateIsNameEmpty(bool newValue) {
+    isNameEmpty = newValue;
     notifyListeners();
   }
 }

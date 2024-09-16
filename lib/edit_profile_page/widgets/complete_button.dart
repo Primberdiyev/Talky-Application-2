@@ -11,7 +11,9 @@ class CompleteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.watch<EditPageProvider>();
     return Padding(
-      padding: const EdgeInsets.only(top: 163, right: 28),
+      padding: const EdgeInsets.only(
+        top: 163,
+      ),
       child: TextButton(
         style: TextButton.styleFrom(
           fixedSize: const Size(394, 54),
@@ -21,19 +23,22 @@ class CompleteButton extends StatelessWidget {
           ),
         ),
         onPressed: () async {
-          try {
-            provider.setIsLoading();
-            await provider.saveUserProfile();
-            provider.setIsLoading();
-            Navigator.pushNamed(context, NameRoutes.profile);
-          } catch (error) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  error.toString(),
+          provider.updateIsNameEmpty(provider.nameController.text.isEmpty);
+          if (!provider.isNameEmpty) {
+            try {
+              provider.setIsLoading();
+              await provider.saveUserProfile();
+              provider.setIsLoading();
+              Navigator.pushNamed(context, NameRoutes.profile);
+            } catch (error) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    error.toString(),
+                  ),
                 ),
-              ),
-            );
+              );
+            }
           }
         },
         child: !provider.isLoading
