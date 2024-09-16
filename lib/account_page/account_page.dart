@@ -25,11 +25,10 @@ class AccountPage extends StatelessWidget {
                 ProfileText(),
               ],
             ),
-            SizedBox(height: 50),
             ImageView(),
             InputName(),
             InputDescription(),
-            CompleteButton()
+            CompleteButton(),
           ],
         ),
       ),

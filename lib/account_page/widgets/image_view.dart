@@ -15,57 +15,52 @@ class _ImageViewState extends State<ImageView> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AccountPageProvider>(builder: (context, provider, child) {
-      return Stack(
-        children: [
-          CircleAvatar(
-            radius: 95,
-            backgroundColor: const Color(0xFFF0F0F0),
-            child: provider.image == null
-                ? Image.asset(
-                    'assets/images/User.png',
-                    width: 40,
-                  )
-                : ClipOval(
-                    child: Image.file(
-                      File(provider.image!.path),
-                      width: 190,
-                      height: 190,
-                      fit: BoxFit.cover,
+      return Padding(
+        padding: const EdgeInsets.only(top: 50, bottom: 32),
+        child: Stack(
+          children: [
+            CircleAvatar(
+              radius: 95,
+              backgroundColor: const Color(0xFFF0F0F0),
+              child: provider.image == null
+                  ? Image.asset(
+                      'assets/images/User.png',
+                      width: 40,
+                    )
+                  : ClipOval(
+                      child: Image.file(
+                        File(provider.image!.path),
+                        width: 190,
+                        height: 190,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: InkWell(
-              onTap: () async {
-                final picture =
-                    await ImagePicker().pickImage(source: ImageSource.gallery);
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: InkWell(
+                onTap: () async {
+                  final picture = await ImagePicker()
+                      .pickImage(source: ImageSource.gallery);
 
-                if (picture != null) {
-                  provider.updateImage(picture);
-                }
-              },
-              child: CircleAvatar(
-                backgroundColor: const Color(0xFF377DFF),
-                radius: 25,
-                child: Image.asset(
-                  'assets/images/Edit.png',
-                  width: 24,
+                  if (picture != null) {
+                    provider.updateImage(picture);
+                  }
+                },
+                child: CircleAvatar(
+                  backgroundColor: const Color(0xFF377DFF),
+                  radius: 25,
+                  child: Image.asset(
+                    'assets/images/Edit.png',
+                    width: 24,
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       );
-      // : ClipOval(
-      //     child: Image.file(
-      //       File(provider.image!.path),
-      //       height: 190,
-      //       width: 190,
-      //       fit: BoxFit.cover,
-      //     ),
-      //   );
     });
   }
 }

@@ -19,11 +19,6 @@ class AccountPageProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  updateUploadTask(newUploadTask) {
-    uploadTask = newUploadTask;
-    notifyListeners();
-  }
-
   FutureOr<void> saveUserProfiel() async {
     final currentuser = FirebaseAuth.instance.currentUser;
     if (currentuser != null && image != null) {
