@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
+import 'package:talky_aplication_2/providers/account_page_provider.dart';
 
 class ImageView extends StatefulWidget {
   const ImageView({super.key});
@@ -15,7 +15,7 @@ class ImageView extends StatefulWidget {
 class _ImageViewState extends State<ImageView> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<TalkyProvider>(builder: (context, provider, child) {
+    return Consumer<AccountPageProvider>(builder: (context, provider, child) {
       return provider.image == null
           ? InkWell(
               onTap: () async {

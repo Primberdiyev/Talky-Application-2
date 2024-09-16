@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
+import 'package:talky_aplication_2/providers/account_page_provider.dart';
 
 class InputDescription extends StatefulWidget {
   const InputDescription({super.key});
@@ -12,7 +12,7 @@ class InputDescription extends StatefulWidget {
 class _InputNameState extends State<InputDescription> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<TalkyProvider>(builder: (context, provider, child) {
+    return Consumer<AccountPageProvider>(builder: (context, provider, child) {
       return Padding(
         padding: const EdgeInsets.only(left: 10, right: 28, top: 18),
         child: TextField(

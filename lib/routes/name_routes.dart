@@ -5,5 +5,6 @@ class NameRoutes {
   static const String checkCode='/checkCode';
   static const  String accout='/accout';
   static const String forgotPassword='/forgotPassword';
+  static const String profile='/profile';
   
 }
