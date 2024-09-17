@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/providers/edit_profile_page_provider.dart';
+import 'package:talky_aplication_2/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class CompleteButton extends StatelessWidget {
@@ -9,7 +9,7 @@ class CompleteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<EditPageProvider>();
+    final provider = context.watch<ProfilePageProvider>();
     return Padding(
       padding: const EdgeInsets.only(
         top: 163,

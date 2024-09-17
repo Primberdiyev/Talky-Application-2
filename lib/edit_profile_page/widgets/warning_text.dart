@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/providers/edit_profile_page_provider.dart';
+import 'package:talky_aplication_2/providers/profile_page_provider.dart';
 
 class WarningText extends StatelessWidget {
   const WarningText({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<EditPageProvider>(
+    return Consumer<ProfilePageProvider>(
       builder: (context, provider, child) {
         return  Offstage(
           offstage: !provider.isNameEmpty,

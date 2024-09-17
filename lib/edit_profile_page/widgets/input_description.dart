@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/edit_profile_page/widgets/custom_text_fileld.dart';
-import 'package:talky_aplication_2/providers/edit_profile_page_provider.dart';
+import 'package:talky_aplication_2/providers/profile_page_provider.dart';
 
 class InputDescription extends StatefulWidget {
   const InputDescription({super.key});
@@ -13,7 +13,7 @@ class InputDescription extends StatefulWidget {
 class _InputNameState extends State<InputDescription> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<EditPageProvider>(builder: (context, provider, child) {
+    return Consumer<ProfilePageProvider>(builder: (context, provider, child) {
       return CustomTextFileld(
           controller: provider.descriptionController,
           labelText: 'Enter a description');

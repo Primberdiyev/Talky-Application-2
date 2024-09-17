@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/providers/edit_profile_page_provider.dart';
+import 'package:talky_aplication_2/providers/profile_page_provider.dart';
 
 class ImageView extends StatefulWidget {
   const ImageView({super.key});
@@ -14,7 +14,7 @@ class ImageView extends StatefulWidget {
 class _ImageViewState extends State<ImageView> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<EditPageProvider>(builder: (context, provider, child) {
+    return Consumer<ProfilePageProvider>(builder: (context, provider, child) {
       return Padding(
         padding: const EdgeInsets.only(top: 50, bottom: 32),
         child: Stack(
