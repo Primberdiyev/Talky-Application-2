@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
-import 'package:talky_aplication_2/routes/bool_value_enum.dart';
+import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class SignButtonWidget extends StatefulWidget {
