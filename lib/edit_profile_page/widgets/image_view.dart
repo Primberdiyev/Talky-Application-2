@@ -30,7 +30,6 @@ class _ImageViewState extends State<ImageView> {
                   : ClipOval(
                       child: Image.file(
                         File(provider.image!.path),
-                        width: 190,
                         height: 190,
                         fit: BoxFit.cover,
                       ),

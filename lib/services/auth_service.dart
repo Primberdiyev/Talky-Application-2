@@ -37,12 +37,7 @@ class AuthService {
       if (userDetails != null) {
         talkyProvider.changeEmailPassword(userDetails.email!, userDetails.uid);
         talkyProvider.changeEmailPassword(userDetails.email!, '');
-        bool isRegistered = await talkyProvider.isRegistered();
-        if (isRegistered) {
-          Navigator.pushNamed(context, NameRoutes.accout);
-        } else {
-          Navigator.pushNamed(context, NameRoutes.inputMailPassword);
-        }
+        Navigator.pushNamed(context, NameRoutes.accout);
         talkyProvider.deleteControllerText();
       }
     } catch (error) {
