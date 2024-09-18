@@ -14,6 +14,8 @@ class ProfilePageProvider with ChangeNotifier {
   final TextEditingController descriptionController = TextEditingController();
   bool isLoading = false;
   bool isNameEmpty = false;
+  List? usersData;
+  int? countUsers;
 
   updateImage(newImage) {
     image = newImage;
@@ -48,8 +50,16 @@ class ProfilePageProvider with ChangeNotifier {
     notifyListeners();
   }
 
-   updateIsNameEmpty(bool newValue) {
+  updateIsNameEmpty(bool newValue) {
     isNameEmpty = newValue;
+    notifyListeners();
+  }
+
+  FutureOr getUserCollection() async {
+    final snapshot = await FirebaseFirestore.instance.collection('User').get();
+    usersData = snapshot.docs;
+     countUsers=snapshot.size;
+
     notifyListeners();
   }
 }
