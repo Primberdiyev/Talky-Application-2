@@ -29,7 +29,10 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
                       provider.usersData![index]['imgUrl'],
                     ),
                   )
-                : Image.asset('assets/images/User.png'),
+                : Image.asset(
+                    'assets/images/User.png',
+                    width: 30,
+                  ),
             trailing: Image.asset('assets/images/Chevron.png'),
             title: Align(
                 alignment: Alignment.centerLeft,

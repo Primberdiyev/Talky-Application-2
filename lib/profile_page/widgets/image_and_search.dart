@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/profile_page_provider.dart';
+import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class ImageAndSearch extends StatelessWidget {
   const ImageAndSearch({super.key});
@@ -52,7 +53,9 @@ class ImageAndSearch extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, NameRoutes.onlinUsers);
+              },
               icon: Image.asset(
                 'assets/images/Search.png',
                 width: 24,
