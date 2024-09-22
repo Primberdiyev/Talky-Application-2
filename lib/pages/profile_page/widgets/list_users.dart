@@ -19,7 +19,7 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
         itemCount: provider.countUsers,
         itemBuilder: (context, index) {
           String? imgUrl =
-              provider.imgUrls[provider.usersData![index]['imgUrl']];
+              provider.imgUrls[provider.usersData?[index]['imgUrl']];
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 28),
             margin: const EdgeInsets.symmetric(vertical: 10),

@@ -12,14 +12,21 @@ class OnlineUsersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(left: 28, right: 28, top: 23),
+        padding: EdgeInsets.only(top: 55),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            CancelAndChatText(),
-            SearchField(),
-            CreateGroup(),
-            ContactText(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 28),
+              child: Column(
+                children: [
+                  CancelAndChatText(),
+                  SearchField(),
+                  CreateGroup(),
+                  ContactText(),
+                ],
+              ),
+            ),
             Expanded(child: ListUsers()),
           ],
         ),

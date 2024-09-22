@@ -62,8 +62,9 @@ class ProfilePageProvider with ChangeNotifier {
 
   FutureOr getUserCollection() async {
     final snapshot = await FirebaseFirestore.instance.collection('User').get();
-    usersData = snapshot.docs;
-    countUsers = snapshot.size;
+    usersData =
+        snapshot.docs.where((user) => user.id != currentUser?.uid).toList();
+    countUsers = usersData!.length;
     if (usersData != null) {
       for (var user in usersData!) {
         imgUrl = user['imgUrl'];
