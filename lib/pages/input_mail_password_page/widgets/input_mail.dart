@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
 
 class InputMail extends StatefulWidget {
+  const InputMail({super.key});
+
   @override
   State<InputMail> createState() => _InputMailState();
 }

@@ -18,37 +18,52 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
       return ListView.builder(
         itemCount: provider.countUsers,
         itemBuilder: (context, index) {
+          String? imgUrl =
+              provider.imgUrls[provider.usersData![index]['imgUrl']];
           return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 28),
             margin: const EdgeInsets.symmetric(vertical: 10),
+            width: MediaQuery.of(context).size.width - 56,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                provider.usersData != null &&
-                        provider.usersData![index]['imgUrl'] != null
+                provider.usersData != null && imgUrl != null
                     ? CircleAvatar(
                         radius: 25,
                         backgroundImage: NetworkImage(
-                          provider.usersData![index]['imgUrl'],
+                          imgUrl,
                         ),
                       )
                     : Image.asset(
                         'assets/images/User.png',
                         width: 30,
                       ),
+                const SizedBox(width: 15),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      provider.usersData![index]['name'],
-                      style: const TextStyle(
-                        color: Color(0xFF243443),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                    SizedBox(
+                      width: 250,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            provider.usersData![index]['name'],
+                            style: const TextStyle(
+                              color: Color(0xFF243443),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          provider.usersData![index]['closingTime'] != null
+                              ? Text(provider.timeAgo(
+                                  provider.usersData![index]['closingTime']))
+                              : const Text('Unknown registration time'),
+                        ],
                       ),
                     ),
                     const SizedBox(
-                      width: 20,
+                      height: 6,
                     ),
                     provider.usersData![index]['description'] != null
                         ? Text(
@@ -57,11 +72,7 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
                         : const Text(''),
                   ],
                 ),
-                const SizedBox.shrink(),
-                provider.usersData![index]['closingTime'] != null
-                    ? Text(provider
-                        .timeAgo(provider.usersData![index]['closingTime']))
-                    : const Text('Unknown registration time'),
+                const Spacer(),
                 Image.asset('assets/images/Chevron.png'),
               ],
             ),

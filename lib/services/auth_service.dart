@@ -36,11 +36,11 @@ class AuthService {
       final talkyProvider = Provider.of<TalkyProvider>(context, listen: false);
       if (userDetails != null) {
         talkyProvider.changeEmailPassword(userDetails.email!, userDetails.uid);
-        talkyProvider.changeEmailPassword(userDetails.email!, '');
         Navigator.pushNamed(context, NameRoutes.accout);
         talkyProvider.deleteControllerText();
       }
     } catch (error) {
+      // print("Error $error");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error signing in with Google: $error')),
       );

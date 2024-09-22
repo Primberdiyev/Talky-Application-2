@@ -17,6 +17,8 @@ class ProfilePageProvider with ChangeNotifier {
   List? usersData;
   int? countUsers;
   final currentUser = FirebaseAuth.instance.currentUser;
+  String? imgUrl;
+  Map<String, String> imgUrls = {};
 
   updateImage(newImage) {
     image = newImage;
@@ -29,7 +31,7 @@ class ProfilePageProvider with ChangeNotifier {
           .ref()
           .child('${currentUser?.email}/profile_image.png');
       uploadTask = ref.putFile(File(image!.path));
-      final snapshot = await uploadTask?.whenComplete(() => null);
+      final snapshot = await uploadTask?.whenComplete(() {});
       final dowloadUrl = await snapshot?.ref.getDownloadURL();
       final DateTime now = DateTime.now();
 
@@ -62,6 +64,19 @@ class ProfilePageProvider with ChangeNotifier {
     final snapshot = await FirebaseFirestore.instance.collection('User').get();
     usersData = snapshot.docs;
     countUsers = snapshot.size;
+    if (usersData != null) {
+      for (var user in usersData!) {
+        imgUrl = user['imgUrl'];
+        if (imgUrl != null) {
+          if (imgUrl!.startsWith('gs://')) {
+            final ref = FirebaseStorage.instance.refFromURL(imgUrl!);
+            imgUrls[imgUrl!] = await ref.getDownloadURL();
+          } else {
+            imgUrls[imgUrl!] = imgUrl!;
+          }
+        }
+      }
+    }
 
     notifyListeners();
   }
