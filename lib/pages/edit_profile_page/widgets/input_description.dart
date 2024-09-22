@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/edit_profile_page/widgets/custom_text_fileld.dart';
+import 'package:talky_aplication_2/pages/edit_profile_page/widgets/custom_text_fileld.dart';
 import 'package:talky_aplication_2/providers/profile_page_provider.dart';
 
 class InputDescription extends StatefulWidget {

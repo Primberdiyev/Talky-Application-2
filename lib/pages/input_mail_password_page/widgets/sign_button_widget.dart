@@ -6,8 +6,7 @@ import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class SignButtonWidget extends StatefulWidget {
-  final formKey;
-  const SignButtonWidget({super.key, required this.formKey});
+  const SignButtonWidget({super.key});
 
   @override
   State<SignButtonWidget> createState() => _SignButtonWidgetState();
@@ -25,30 +24,25 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
         ),
         child: InkWell(
           onTap: () async {
-            if (widget.formKey.currentState == null) {
-              provider.changeIsMailCorrect(false);
-            }
-            if (widget.formKey.currentState!.validate()) {
-              provider.changeBoolValue(BoolValueEnum.isLoading);
-              if (provider.isSignIn) {
-                provider.signIn(context);
+            provider.changeBoolValue(BoolValueEnum.isLoading);
+            if (provider.isSignIn) {
+              provider.signIn(context);
+            } else {
+              bool isRegistered = await provider.isRegistered();
+              if (isRegistered) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('This user is already registered'),
+                  ),
+                );
               } else {
-                bool isRegistered = await provider.isRegistered();
-                if (isRegistered) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('This user is already registered'),
-                    ),
-                  );
-                } else {
-                  provider.sendOTP(email: provider.emailController.text);
-                  Navigator.pushNamed(context, NameRoutes.checkCode);
-                }
-                provider.changeBoolValue(BoolValueEnum.agreeCondition);
-                provider.changeBoolValue(BoolValueEnum.isSignIn);
+                provider.sendOTP(email: provider.emailController.text);
+                Navigator.pushNamed(context, NameRoutes.checkCode);
               }
-              provider.changeBoolValue(BoolValueEnum.isLoading);
+              provider.changeBoolValue(BoolValueEnum.agreeCondition);
+              provider.changeBoolValue(BoolValueEnum.isSignIn);
             }
+            provider.changeBoolValue(BoolValueEnum.isLoading);
           },
           child: Container(
             width: MediaQuery.of(context).size.width - 56,

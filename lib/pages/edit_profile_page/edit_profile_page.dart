@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:talky_aplication_2/edit_profile_page/widgets/complete_button.dart';
-import 'package:talky_aplication_2/edit_profile_page/widgets/image_view.dart';
-import 'package:talky_aplication_2/edit_profile_page/widgets/input_description.dart';
-import 'package:talky_aplication_2/edit_profile_page/widgets/input_name.dart';
-import 'package:talky_aplication_2/edit_profile_page/widgets/profile_text.dart';
-import 'package:talky_aplication_2/edit_profile_page/widgets/warning_text.dart';
-import 'package:talky_aplication_2/input_mail_password_page/widgets/back_button_widget.dart';
+import 'package:talky_aplication_2/pages/edit_profile_page/widgets/complete_button.dart';
+import 'package:talky_aplication_2/pages/edit_profile_page/widgets/image_view.dart';
+import 'package:talky_aplication_2/pages/edit_profile_page/widgets/input_description.dart';
+import 'package:talky_aplication_2/pages/edit_profile_page/widgets/input_name.dart';
+import 'package:talky_aplication_2/pages/edit_profile_page/widgets/profile_text.dart';
+import 'package:talky_aplication_2/pages/edit_profile_page/widgets/warning_text.dart';
+import 'package:talky_aplication_2/pages/input_mail_password_page/widgets/back_button_widget.dart';
 
 class EditProfilePage extends StatelessWidget {
   const EditProfilePage({super.key});

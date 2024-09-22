@@ -3,9 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
 
 class InputMail extends StatefulWidget {
-  final formKey;
-  const InputMail({super.key, required this.formKey});
-
   @override
   State<InputMail> createState() => _InputMailState();
 }
@@ -27,37 +24,34 @@ class _InputMailState extends State<InputMail> {
     return Consumer<TalkyProvider>(builder: (context, provider, child) {
       return Padding(
         padding: const EdgeInsets.only(top: 40),
-        child: Form(
-          key: widget.formKey,
-          child: TextFormField(
-            validator: validateEmail,
-            controller: provider.emailController,
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  width: 1,
-                  color: !provider.isEmailCorrect
-                      ? Colors.red
-                      : const Color(0xFFAAB0B7),
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  width: 1,
-                  color: !provider.isEmailCorrect
-                      ? Colors.red
-                      : const Color(0xFFAAB0B7),
-                ),
-              ),
-              labelText: 'Enter your mail address',
-              labelStyle: TextStyle(
-                fontWeight: FontWeight.w500,
+        child: TextFormField(
+          validator: validateEmail,
+          controller: provider.emailController,
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 1,
                 color: !provider.isEmailCorrect
                     ? Colors.red
                     : const Color(0xFFAAB0B7),
               ),
-              border: const OutlineInputBorder(),
             ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 1,
+                color: !provider.isEmailCorrect
+                    ? Colors.red
+                    : const Color(0xFFAAB0B7),
+              ),
+            ),
+            labelText: 'Enter your mail address',
+            labelStyle: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: !provider.isEmailCorrect
+                  ? Colors.red
+                  : const Color(0xFFAAB0B7),
+            ),
+            border: const OutlineInputBorder(),
           ),
         ),
       );

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:talky_aplication_2/authorization_page/widgets/mail_button.dart';
-import 'package:talky_aplication_2/authorization_page/widgets/or_widget.dart';
-import 'package:talky_aplication_2/authorization_page/widgets/question_text.dart';
-import 'package:talky_aplication_2/authorization_page/widgets/sign_in_button.dart';
-import 'package:talky_aplication_2/authorization_page/widgets/sign_up_text_button.dart';
-import 'package:talky_aplication_2/authorization_page/widgets/talky_text.dart';
+import 'package:talky_aplication_2/pages/authorization_page/widgets/mail_button.dart';
+import 'package:talky_aplication_2/pages/authorization_page/widgets/or_widget.dart';
+import 'package:talky_aplication_2/pages/authorization_page/widgets/question_text.dart';
+import 'package:talky_aplication_2/pages/authorization_page/widgets/sign_in_button.dart';
+import 'package:talky_aplication_2/pages/authorization_page/widgets/sign_up_text_button.dart';
+import 'package:talky_aplication_2/pages/authorization_page/widgets/talky_text.dart';
 
 class AuthorizationPage extends StatelessWidget {
   const AuthorizationPage({super.key});
