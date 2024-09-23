@@ -62,13 +62,15 @@ class ProfilePageProvider with ChangeNotifier {
 
   FutureOr getUserCollection() async {
     final snapshot = await FirebaseFirestore.instance.collection('User').get();
-    usersData =
-        snapshot.docs.where((user) => user.id != currentUser?.uid).toList();
+    usersData = snapshot.docs;
     countUsers = usersData!.length;
     if (usersData != null) {
       for (var user in usersData!) {
         imgUrl = user['imgUrl'];
         if (imgUrl != null) {
+          if (user.id == currentUser?.uid) {
+            imgUrls['currentUserImgUrl'] = user['imgUrl'];
+          }
           if (imgUrl!.startsWith('gs://')) {
             final ref = FirebaseStorage.instance.refFromURL(imgUrl!);
             imgUrls[imgUrl!] = await ref.getDownloadURL();
@@ -78,6 +80,9 @@ class ProfilePageProvider with ChangeNotifier {
         }
       }
     }
+    usersData =
+        usersData!.where((value) => value.id != currentUser?.uid).toList();
+    countUsers = usersData!.length;
 
     notifyListeners();
   }

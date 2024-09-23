@@ -71,7 +71,7 @@ class TalkyProvider with ChangeNotifier {
         password: passwordController.text,
       );
       changeIsMailCorrect(true);
-      Navigator.pushNamed(context, NameRoutes.accout);
+      Navigator.pushNamed(context, NameRoutes.profile);
       deleteControllerText();
     } on FirebaseAuthException catch (_) {
       changeIsMailCorrect(false);

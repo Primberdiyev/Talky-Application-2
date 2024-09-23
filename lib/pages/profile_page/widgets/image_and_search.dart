@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/profile_page_provider.dart';
@@ -21,18 +19,12 @@ class ImageAndSearch extends StatelessWidget {
                 CircleAvatar(
                   radius: 25,
                   backgroundColor: const Color(0xFFF0F0F0),
-                  child: provider.image != null
-                      ? ClipOval(
-                          child: Image.file(
-                            File(
-                              provider.image!.path,
-                            ),
-                            height: 50,
-                            width: 50,
-                            fit: BoxFit.cover,
-                          ),
+                  backgroundImage: provider.currentUser != null &&
+                          provider.imgUrls['currentUserImgUrl'] != null
+                      ? NetworkImage(
+                          provider.imgUrls['currentUserImgUrl']!,
                         )
-                      : Image.asset('assets/images/User.png', width: 25),
+                      : const AssetImage('assets/images/User.png'),
                 ),
                 const Positioned(
                   right: 0,

@@ -13,7 +13,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
-  String? globalUserId;
   @override
   void initState() {
     super.initState();
