@@ -16,7 +16,7 @@ class ProfilePageProvider with ChangeNotifier {
   bool isNameEmpty = false;
   List? usersData;
   int? countUsers;
-  final currentUser = FirebaseAuth.instance.currentUser;
+  var currentUser = FirebaseAuth.instance.currentUser;
   String? imgUrl;
   Map<String, String> imgUrls = {};
 
@@ -97,5 +97,10 @@ class ProfilePageProvider with ChangeNotifier {
       return 'incorrect time';
     }
     return timeago.format(dateTime);
+  }
+
+  updateCurrentUser(newUser) {
+    currentUser = newUser;
+    notifyListeners();
   }
 }

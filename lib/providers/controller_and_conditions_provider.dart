@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
@@ -65,11 +67,17 @@ class TalkyProvider with ChangeNotifier {
   }
 
   FutureOr<void> signIn(BuildContext context) async {
+    final provider = Provider.of<ProfilePageProvider>(context, listen: false);
     try {
-      await _auth.signInWithEmailAndPassword(
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
+      User? user = userCredential.user;
+      if (user != null) {
+        provider.updateCurrentUser(user);
+      }
+
       changeIsMailCorrect(true);
       Navigator.pushNamed(context, NameRoutes.profile);
       deleteControllerText();
@@ -98,6 +106,8 @@ class TalkyProvider with ChangeNotifier {
           'id': user.uid,
         });
       }
+      final provider = Provider.of<ProfilePageProvider>(context, listen: false);
+      provider.updateCurrentUser(user);
 
       Navigator.pushReplacementNamed(context, NameRoutes.accout);
     } catch (e) {
