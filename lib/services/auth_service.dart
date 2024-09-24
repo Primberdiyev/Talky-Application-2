@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
+import 'package:talky_aplication_2/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class AuthService {
@@ -33,11 +35,32 @@ class AuthService {
       UserCredential result =
           await FirebaseAuth.instance.signInWithCredential(credential);
       User? userDetails = result.user;
-      final talkyProvider = Provider.of<TalkyProvider>(context, listen: false);
+      final authProvider = Provider.of<TalkyProvider>(context, listen: false);
+      final profileProvider =
+          Provider.of<ProfilePageProvider>(context, listen: false);
+
+      profileProvider.updateCurrentUser(userDetails);
+
       if (userDetails != null) {
-        talkyProvider.changeEmailPassword(userDetails.email!, userDetails.uid);
-        Navigator.pushNamed(context, NameRoutes.accout);
-        talkyProvider.deleteControllerText();
+        DocumentSnapshot doc = await FirebaseFirestore.instance
+            .collection('User')
+            .doc(userDetails.uid)
+            .get();
+
+        if (doc.exists) {
+          Navigator.pushReplacementNamed(context, NameRoutes.profile);
+        } else {
+          authProvider.changeEmailPassword(userDetails.email!, userDetails.uid);
+          await FirebaseFirestore.instance
+              .collection('User')
+              .doc(userDetails.uid)
+              .set({
+            'email': authProvider.emailController.text,
+            'id': userDetails.uid,
+          });
+          Navigator.pushNamed(context, NameRoutes.accout);
+        }
+        authProvider.deleteControllerText();
       }
     } catch (error) {
       // print("Error $error");

@@ -29,7 +29,9 @@ class CancelAndChatText extends StatelessWidget {
             fontSize: 16,
           ),
         ),
-        const SizedBox.shrink(),
+        const SizedBox(
+          width: 55,
+        ),
       ],
     );
   }
