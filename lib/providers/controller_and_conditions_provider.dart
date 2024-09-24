@@ -79,7 +79,7 @@ class TalkyProvider with ChangeNotifier {
       }
 
       changeIsMailCorrect(true);
-      Navigator.pushNamed(context, NameRoutes.profile);
+      Navigator.pushNamed(context, NameRoutes.accout);
       deleteControllerText();
     } on FirebaseAuthException catch (_) {
       changeIsMailCorrect(false);
@@ -109,7 +109,7 @@ class TalkyProvider with ChangeNotifier {
       final provider = Provider.of<ProfilePageProvider>(context, listen: false);
       provider.updateCurrentUser(user);
 
-      Navigator.pushReplacementNamed(context, NameRoutes.accout);
+      Navigator.pushReplacementNamed(context, NameRoutes.profile);
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
