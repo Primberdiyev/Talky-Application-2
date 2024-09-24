@@ -59,6 +59,7 @@ class AuthService {
             'id': userDetails.uid,
           });
           Navigator.pushNamed(context, NameRoutes.accout);
+          
         }
         authProvider.deleteControllerText();
       }
