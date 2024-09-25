@@ -34,11 +34,14 @@ class _ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
     final closingTime = DateTime.now();
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.detached) {
-      final provider = Provider.of<ProfilePageProvider>(context);
+      final provider = Provider.of<ProfilePageProvider>(context, listen: false);
       await FirebaseFirestore.instance
           .collection("User")
           .doc(provider.currentUser?.uid)
-          .update({'closingTime': closingTime});
+          .update({
+        'closingTime': closingTime,
+        'isOnline': false,
+      });
     }
   }
 

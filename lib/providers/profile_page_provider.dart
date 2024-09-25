@@ -33,7 +33,6 @@ class ProfilePageProvider with ChangeNotifier {
       uploadTask = ref.putFile(File(image!.path));
       final snapshot = await uploadTask?.whenComplete(() {});
       final dowloadUrl = await snapshot?.ref.getDownloadURL();
-      final DateTime now = DateTime.now();
 
       await FirebaseFirestore.instance
           .collection('User')
@@ -43,7 +42,6 @@ class ProfilePageProvider with ChangeNotifier {
           'name': nameController.text,
           'description': descriptionController.text,
           'imgUrl': dowloadUrl,
-          'closingTime': now,
         },
         SetOptions(merge: true),
       );
@@ -80,6 +78,12 @@ class ProfilePageProvider with ChangeNotifier {
         }
       }
     }
+    await FirebaseFirestore.instance
+        .collection('User')
+        .doc(currentUser?.uid)
+        .update({
+      'isOnline': true,
+    });
     usersData =
         usersData!.where((value) => value.id != currentUser?.uid).toList();
     countUsers = usersData!.length;
