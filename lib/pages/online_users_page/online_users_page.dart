@@ -5,9 +5,14 @@ import 'package:talky_aplication_2/pages/online_users_page/widgets/create_group.
 import 'package:talky_aplication_2/pages/online_users_page/widgets/search_field.dart';
 import 'package:talky_aplication_2/pages/profile_page/widgets/list_users.dart';
 
-class OnlineUsersPage extends StatelessWidget {
+class OnlineUsersPage extends StatefulWidget {
   const OnlineUsersPage({super.key});
 
+  @override
+  State<OnlineUsersPage> createState() => _OnlineUsersPageState();
+}
+
+class _OnlineUsersPageState extends State<OnlineUsersPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

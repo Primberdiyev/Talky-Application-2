@@ -19,6 +19,7 @@ class ProfilePageProvider with ChangeNotifier {
   var currentUser = FirebaseAuth.instance.currentUser;
   String? imgUrl;
   Map<String, String> imgUrls = {};
+  List filteredUsers = [];
 
   updateImage(newImage) {
     image = newImage;
@@ -87,6 +88,7 @@ class ProfilePageProvider with ChangeNotifier {
     usersData =
         usersData!.where((value) => value.id != currentUser?.uid).toList();
     countUsers = usersData!.length;
+    filteredUsers = usersData!;
 
     notifyListeners();
   }
@@ -105,6 +107,19 @@ class ProfilePageProvider with ChangeNotifier {
 
   updateCurrentUser(newUser) {
     currentUser = newUser;
+    notifyListeners();
+  }
+
+  onSearchChanged(String enteredUser) {
+    if (enteredUser.isEmpty) {
+      filteredUsers = usersData!;
+    } else {
+      filteredUsers = usersData!
+          .where((user) =>
+              user['name'].toLowerCase().contains(enteredUser.toLowerCase()))
+          .toList();
+    }
+
     notifyListeners();
   }
 }

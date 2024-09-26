@@ -17,11 +17,11 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
         return const Center(child: CircularProgressIndicator());
       }
       return ListView.builder(
-        itemCount: provider.countUsers,
+        itemCount: provider.filteredUsers.length,
         itemBuilder: (context, index) {
           String? imgUrl =
-              provider.imgUrls[provider.usersData?[index]['imgUrl']];
-          bool isOnline = provider.usersData?[index]['isOnline'];
+              provider.imgUrls[provider.filteredUsers[index]['imgUrl']];
+          bool isOnline = provider.filteredUsers[index]['isOnline'];
 
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 28),
@@ -74,16 +74,16 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            provider.usersData![index]['name'],
+                            provider.filteredUsers[index]['name'],
                             style: const TextStyle(
                               color: Color(0xFF243443),
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          provider.usersData![index]['closingTime'] != null
+                          provider.filteredUsers[index]['closingTime'] != null
                               ? Text(provider.timeAgo(
-                                  provider.usersData![index]['closingTime']))
+                                  provider.filteredUsers[index]['closingTime']))
                               : const Text('Unknown registration time'),
                         ],
                       ),
@@ -91,9 +91,9 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
                     const SizedBox(
                       height: 6,
                     ),
-                    provider.usersData![index]['description'] != null
+                    provider.filteredUsers[index]['description'] != null
                         ? Text(
-                            provider.usersData![index]!['description'],
+                            provider.filteredUsers[index]!['description'],
                           )
                         : const Text(''),
                   ],
