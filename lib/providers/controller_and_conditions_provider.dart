@@ -109,7 +109,7 @@ class TalkyProvider with ChangeNotifier {
       final provider = Provider.of<ProfilePageProvider>(context, listen: false);
       provider.updateCurrentUser(user);
 
-      Navigator.pushReplacementNamed(context, NameRoutes.profile);
+      Navigator.pushReplacementNamed(context, NameRoutes.accout);
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));

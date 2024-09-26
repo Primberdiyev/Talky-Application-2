@@ -19,9 +19,6 @@ class AuthService {
           await googleSignIn.signIn();
 
       if (googleSignInAccount == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Google Sign In canceled')),
-        );
         return;
       }
       final GoogleSignInAuthentication googleSignInAuthentication =
@@ -48,7 +45,7 @@ class AuthService {
             .get();
 
         if (doc.exists) {
-          Navigator.pushReplacementNamed(context, NameRoutes.profile);
+          Navigator.pushNamed(context, NameRoutes.profile);
         } else {
           authProvider.changeEmailPassword(userDetails.email!, userDetails.uid);
           await FirebaseFirestore.instance
@@ -59,7 +56,6 @@ class AuthService {
             'id': userDetails.uid,
           });
           Navigator.pushNamed(context, NameRoutes.accout);
-          
         }
         authProvider.deleteControllerText();
       }
