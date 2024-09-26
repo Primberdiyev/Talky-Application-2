@@ -27,7 +27,7 @@ class OnlineUsersPage extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(child: ListUsers()),
+            Expanded(child: ListUsers(isWithOnline: true,)),
           ],
         ),
       ),

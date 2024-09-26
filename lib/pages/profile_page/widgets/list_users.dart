@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/profile_page_provider.dart';
 
 class ListUsers extends StatefulWidget {
-  const ListUsers({super.key});
+  final bool isWithOnline;
+  const ListUsers({super.key, required this.isWithOnline});
   @override
   State<ListUsers> createState() => _ListUsersState();
 }
@@ -20,6 +21,8 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
         itemBuilder: (context, index) {
           String? imgUrl =
               provider.imgUrls[provider.usersData?[index]['imgUrl']];
+          bool isOnline = provider.usersData?[index]['isOnline'];
+
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 28),
             margin: const EdgeInsets.symmetric(vertical: 10),
@@ -27,12 +30,35 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
             child: Row(
               children: [
                 provider.usersData != null && imgUrl != null
-                    ? CircleAvatar(
-                        radius: 25,
-                        backgroundImage: NetworkImage(
-                          imgUrl,
-                        ),
-                      )
+                    ? widget.isWithOnline == true
+                        ? Stack(
+                            children: [
+                              CircleAvatar(
+                                radius: 25,
+                                backgroundImage: NetworkImage(
+                                  imgUrl,
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: Container(
+                                  width: 14,
+                                  height: 14,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: isOnline
+                                        ? const Color(0xFF2DCA8C)
+                                        : const Color(0xFFFF715B),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        : CircleAvatar(
+                            radius: 25,
+                            backgroundImage: NetworkImage(imgUrl),
+                          )
                     : Image.asset(
                         'assets/images/User.png',
                         width: 30,

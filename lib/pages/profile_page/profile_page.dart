@@ -55,7 +55,9 @@ class _ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
                   children: [
                     ImageAndSearch(),
                     Expanded(
-                      child: ListUsers(),
+                      child: ListUsers(
+                        isWithOnline: false,
+                      ),
                     )
                   ],
                 )
