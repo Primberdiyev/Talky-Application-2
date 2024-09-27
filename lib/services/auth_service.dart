@@ -6,12 +6,15 @@ import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/providers/controller_and_conditions_provider.dart';
 import 'package:talky_aplication_2/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
+import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
 
 class AuthService {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  Future<void> signInWithGoogle(BuildContext context) async {
+  Future signInWithGoogle(BuildContext context) async {
+    final provider = Provider.of<TalkyProvider>(context, listen: false);
+    provider.changeBoolValue(boolva);
     try {
       await googleSignIn.signOut();
 
@@ -65,6 +68,7 @@ class AuthService {
         SnackBar(content: Text('Error signing in with Google: $error')),
       );
     }
+    provider.changeBoolValue(BoolValueEnum.isLoading);
   }
 
   Future<void> sendPasswordresetLink(String email) async {

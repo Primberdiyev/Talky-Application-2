@@ -9,7 +9,7 @@ class QuestionText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<TalkyProvider>(builder: (context, provider, child) {
       return Padding(
-        padding: const EdgeInsets.only(bottom: 5),
+        padding: const EdgeInsets.only(bottom: 5, top: 18),
         child: Center(
           child: Text(
             provider.isSignIn
