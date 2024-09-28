@@ -16,7 +16,8 @@ class TalkyProvider with ChangeNotifier {
   bool isSignIn = true;
   bool agreeCondition = false;
   bool isHideText = true;
-  bool isLoading = false;
+  Statuses _state = Statuses.initial;
+  Statuses get state => _state;
   bool isEmailCorrect = true;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -31,9 +32,6 @@ class TalkyProvider with ChangeNotifier {
       case BoolValueEnum.isHideText:
         isHideText = !isHideText;
         break;
-      case BoolValueEnum.isLoading:
-        isLoading = !isLoading;
-        break;
     }
 
     notifyListeners();
@@ -47,6 +45,7 @@ class TalkyProvider with ChangeNotifier {
   }
 
   Future<void> sendOTP({required String email}) async {
+    updateState(Statuses.loading);
     try {
       EmailOTP.config(
         appName: 'Talky',
@@ -58,16 +57,20 @@ class TalkyProvider with ChangeNotifier {
       );
 
       bool result = await EmailOTP.sendOTP(email: email);
+      updateState(Statuses.completed);
+
       if (!result) {
         throw Exception("Failed to send OTP");
       }
     } catch (e) {
+      updateState(Statuses.error);
       throw Exception(e.toString());
     }
   }
 
   FutureOr<void> signIn(BuildContext context) async {
     final provider = Provider.of<ProfilePageProvider>(context, listen: false);
+    updateState(Statuses.loading);
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: emailController.text,
@@ -81,7 +84,9 @@ class TalkyProvider with ChangeNotifier {
       changeIsMailCorrect(true);
       Navigator.pushNamed(context, NameRoutes.profile);
       deleteControllerText();
+      updateState(Statuses.completed);
     } on FirebaseAuthException catch (_) {
+      updateState(Statuses.error);
       changeIsMailCorrect(false);
     }
 
@@ -89,6 +94,7 @@ class TalkyProvider with ChangeNotifier {
   }
 
   FutureOr<void> signUp(BuildContext context) async {
+    updateState(Statuses.loading);
     try {
       bool isVerified = EmailOTP.verifyOTP(otp: inputCodeController.text);
 
@@ -110,9 +116,11 @@ class TalkyProvider with ChangeNotifier {
       provider.updateCurrentUser(user);
 
       Navigator.pushReplacementNamed(context, NameRoutes.accout);
+      updateState(Statuses.completed);
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
+      updateState(Statuses.error);
     }
     deleteControllerText();
   }
@@ -133,6 +141,11 @@ class TalkyProvider with ChangeNotifier {
 
   changeIsMailCorrect(bool newValue) {
     isEmailCorrect = newValue;
+    notifyListeners();
+  }
+
+  void updateState(Statuses value) {
+    _state = value;
     notifyListeners();
   }
 }

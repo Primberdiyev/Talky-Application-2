@@ -14,7 +14,7 @@ class AuthService {
 
   Future signInWithGoogle(BuildContext context) async {
     final provider = Provider.of<TalkyProvider>(context, listen: false);
-    provider.changeBoolValue(boolva);
+   // provider.updateState(Statuses.loading);
     try {
       await googleSignIn.signOut();
 
@@ -35,7 +35,6 @@ class AuthService {
       UserCredential result =
           await FirebaseAuth.instance.signInWithCredential(credential);
       User? userDetails = result.user;
-      final authProvider = Provider.of<TalkyProvider>(context, listen: false);
       final profileProvider =
           Provider.of<ProfilePageProvider>(context, listen: false);
 
@@ -50,25 +49,26 @@ class AuthService {
         if (doc.exists) {
           Navigator.pushNamed(context, NameRoutes.profile);
         } else {
-          authProvider.changeEmailPassword(userDetails.email!, userDetails.uid);
+          provider.changeEmailPassword(userDetails.email!, userDetails.uid);
           await FirebaseFirestore.instance
               .collection('User')
               .doc(userDetails.uid)
               .set({
-            'email': authProvider.emailController.text,
+            'email': provider.emailController.text,
             'id': userDetails.uid,
           });
           Navigator.pushNamed(context, NameRoutes.accout);
         }
-        authProvider.deleteControllerText();
+        provider.deleteControllerText();
+        provider.updateState(Statuses.completed);
       }
     } catch (error) {
       // print("Error $error");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error signing in with Google: $error')),
       );
+      provider.updateState(Statuses.error);
     }
-    provider.changeBoolValue(BoolValueEnum.isLoading);
   }
 
   Future<void> sendPasswordresetLink(String email) async {

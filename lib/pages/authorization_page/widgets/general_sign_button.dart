@@ -20,7 +20,7 @@ class GeneralSignButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<TalkyProvider>(builder: (context, provider, child) {
-      return InkWell(
+      return GestureDetector(
         onTap: function,
         child: Container(
           height: 60,
@@ -29,7 +29,7 @@ class GeneralSignButton extends StatelessWidget {
             color: AppColors.signInFontColor,
           ),
           margin: const EdgeInsets.only(bottom: 38),
-          child: isLoading
+          child: !isLoading
               ? SizedBox(
                   child: ListTile(
                       leading: Padding(

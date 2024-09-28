@@ -24,7 +24,7 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
         ),
         child: InkWell(
           onTap: () async {
-            provider.changeBoolValue(BoolValueEnum.isLoading);
+         //   provider.changeBoolValue(BoolValueEnum.isLoading);
             if (provider.isSignIn) {
               provider.signIn(context);
             } else {
@@ -42,7 +42,7 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
               provider.changeBoolValue(BoolValueEnum.agreeCondition);
               provider.changeBoolValue(BoolValueEnum.isSignIn);
             }
-            provider.changeBoolValue(BoolValueEnum.isLoading);
+         //   provider.changeBoolValue(BoolValueEnum.isLoading);
           },
           child: Container(
             width: MediaQuery.of(context).size.width - 56,
@@ -52,7 +52,7 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
               color: const Color(0xFF377DFF),
             ),
             child: Center(
-              child: !provider.isLoading
+              child: true//!provider.isLoading
                   ? Text(
                       provider.isSignIn ? 'Sign in' : "Sign up",
                       style: const TextStyle(

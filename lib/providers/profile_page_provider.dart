@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class ProfilePageProvider with ChangeNotifier {
@@ -20,6 +21,8 @@ class ProfilePageProvider with ChangeNotifier {
   String? imgUrl;
   Map<String, String> imgUrls = {};
   List filteredUsers = [];
+  Statuses _state = Statuses.initial;
+  Statuses get state => _state;
 
   updateImage(newImage) {
     image = newImage;
@@ -27,6 +30,7 @@ class ProfilePageProvider with ChangeNotifier {
   }
 
   FutureOr<void> saveUserProfile() async {
+    updateState(Statuses.loading);
     if (currentUser != null && image != null) {
       final ref = FirebaseStorage.instance
           .ref()
@@ -46,6 +50,7 @@ class ProfilePageProvider with ChangeNotifier {
         },
         SetOptions(merge: true),
       );
+      updateState(Statuses.completed);
     }
   }
 
@@ -120,6 +125,11 @@ class ProfilePageProvider with ChangeNotifier {
           .toList();
     }
 
+    notifyListeners();
+  }
+
+  void updateState(Statuses value) {
+    _state = value;
     notifyListeners();
   }
 }

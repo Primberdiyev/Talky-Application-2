@@ -19,9 +19,9 @@ class SignUpButton extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () async {
-            provider.changeBoolValue(BoolValueEnum.isLoading);
+           // provider.changeBoolValue(BoolValueEnum.isLoading);
             await provider.signUp(context);
-            provider.changeBoolValue(BoolValueEnum.isLoading);
+          //  provider.changeBoolValue(BoolValueEnum.isLoading);
           },
           child: Container(
             width: MediaQuery.of(context).size.width - 56,
@@ -30,16 +30,16 @@ class SignUpButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               color: const Color(0xFF377DFF),
             ),
-            child: Center(
-              child: !provider.isLoading
-                  ? const Text(
+            child: const Center(
+              child:true// !provider.isLoading
+                  ? Text(
                       "Sign up",
                       style: TextStyle(
                           fontSize: 18,
                           color: Color(0xFFFFFFFF),
                           fontWeight: FontWeight.w500),
                     )
-                  : const CircularProgressIndicator(
+                  : CircularProgressIndicator(
                       color: Colors.white,
                     ),
             ),

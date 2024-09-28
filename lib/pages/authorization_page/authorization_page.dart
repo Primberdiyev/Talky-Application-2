@@ -10,6 +10,7 @@ import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/services/auth_service.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 import 'package:talky_aplication_2/unilities/app_texts.dart';
+import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
 import 'package:talky_aplication_2/unilities/images_path.dart';
 
 class AuthorizationPage extends StatelessWidget {
@@ -33,7 +34,7 @@ class AuthorizationPage extends StatelessWidget {
                     text: AppTexts.signInText,
                     function: () => AuthService().signInWithGoogle(context),
                     imagePath: ImagesPath.googleImage,
-                    isLoading: !provider.isLoading,
+                    isLoading: false//provider.state.isLoading,
                   ),
                   const OrWidget(),
                   GeneralSignButton(
@@ -43,7 +44,7 @@ class AuthorizationPage extends StatelessWidget {
                             context, NameRoutes.inputMailPassword);
                       },
                       imagePath: ImagesPath.mainImage,
-                      isLoading: !provider.isLoading),
+                      isLoading: provider.state.isLoading),
                   const QuestionText(),
                   const SignUpTextButton(),
                   const SizedBox(height: 102),
