@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:talky_aplication_2/pages/authorization_page/authorization_page.dart';
-import 'package:talky_aplication_2/pages/check_code_page.dart/check_code_page.dart';
-import 'package:talky_aplication_2/pages/edit_profile_page/edit_profile_page.dart';
-import 'package:talky_aplication_2/pages/forgot_password_page/forgot_password_page.dart';
-import 'package:talky_aplication_2/pages/input_mail_password_page/input_mail_password_page.dart.dart';
-import 'package:talky_aplication_2/pages/online_users_page/online_users_page.dart';
-import 'package:talky_aplication_2/pages/profile_page/profile_page.dart';
+import 'package:talky_aplication_2/auth/pages/authorization_page/authorization_page.dart';
+import 'package:talky_aplication_2/auth/pages/check_code_page.dart/check_code_page.dart';
+import 'package:talky_aplication_2/auth/pages/edit_profile_page/edit_profile_page.dart';
+import 'package:talky_aplication_2/auth/pages/forgot_password_page/forgot_password_page.dart';
+import 'package:talky_aplication_2/auth/pages/input_mail_password_page/input_mail_password_page.dart.dart';
+import 'package:talky_aplication_2/profile/pages/online_users_page/online_users_page.dart';
+import 'package:talky_aplication_2/profile/pages/profile_page/profile_page.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/splash_page.dart';
 
