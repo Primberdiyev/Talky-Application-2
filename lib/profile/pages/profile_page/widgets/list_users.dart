@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/providers/profile_page_provider.dart';
+import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 
 class ListUsers extends StatefulWidget {
   final bool isWithOnline;

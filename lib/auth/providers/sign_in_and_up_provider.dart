@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/auth/providers/value_state_provider.dart';
-import 'package:talky_aplication_2/providers/profile_page_provider.dart';
+import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class SignInAndUpProvider with ChangeNotifier {

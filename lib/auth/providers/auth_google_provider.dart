@@ -5,7 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/auth/providers/sign_in_and_up_provider.dart';
 import 'package:talky_aplication_2/auth/providers/value_state_provider.dart';
-import 'package:talky_aplication_2/providers/profile_page_provider.dart';
+import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
 

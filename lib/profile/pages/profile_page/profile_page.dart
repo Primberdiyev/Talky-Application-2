@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/profile/pages/profile_page/widgets/image_and_search.dart';
 import 'package:talky_aplication_2/profile/pages/profile_page/widgets/list_users.dart';
-import 'package:talky_aplication_2/providers/profile_page_provider.dart';
+import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
