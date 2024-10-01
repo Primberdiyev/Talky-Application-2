@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.blue,
           scaffoldBackgroundColor: const Color(0xFFFFFFFF),
         ),
+        
       ),
     );
   }
