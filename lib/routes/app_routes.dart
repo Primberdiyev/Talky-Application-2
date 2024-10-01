@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/auth/pages/authorization_page/authorization_page.dart';
 import 'package:talky_aplication_2/auth/pages/check_code_page.dart/check_code_page.dart';
+import 'package:talky_aplication_2/profile/pages/chat_page/chat_page.dart';
 import 'package:talky_aplication_2/profile/pages/set_profile/set_profile_page.dart';
 import 'package:talky_aplication_2/auth/pages/forgot_password_page/forgot_password_page.dart';
 import 'package:talky_aplication_2/auth/pages/input_mail_password_page/input_mail_password_page.dart.dart';
@@ -26,6 +27,15 @@ Route generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const ProfilePage());
     case NameRoutes.onlinUsers:
       return MaterialPageRoute(builder: (_) => const OnlineUsersPage());
+    case NameRoutes.chat:
+  final arguments = settings.arguments as Map<String, dynamic>;
+  return MaterialPageRoute(
+    builder: (_) => ChatPage(
+      name: arguments['name'], 
+      imgUrl: arguments['imgUrl'],
+    ),
+  );
+
   }
 
   return MaterialPageRoute(builder: (_) => const SetProfilePage());
