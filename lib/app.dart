@@ -22,13 +22,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ValueStateProvider()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: NameRoutes.splash,
         onGenerateRoute: generateRoute,
         theme: ThemeData(
           primaryColor: Colors.blue,
           scaffoldBackgroundColor: const Color(0xFFFFFFFF),
         ),
-        
       ),
     );
   }

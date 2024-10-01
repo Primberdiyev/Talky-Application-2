@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String text;
-  const CustomAppBar(this.text, {super.key});
+  final String? text;
+  final String? imgUrl;
 
+  const CustomAppBar({this.text, this.imgUrl, super.key});
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -37,9 +38,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leadingWidth: 110,
       centerTitle: true,
       title: Padding(
-        padding: const EdgeInsets.only(top: 30), 
+        padding: const EdgeInsets.only(top: 30),
         child: Text(
-          text,
+          text ?? '',
           style: const TextStyle(
             color: Color(0xff243443),
             fontSize: 16,
@@ -47,6 +48,32 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
+      actions: [
+        imgUrl != null
+            ? Padding(
+                padding: const EdgeInsets.only(right: 30, top: 30),
+                child: Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 25,
+                      backgroundImage: imgUrl != ''
+                          ? NetworkImage(imgUrl!)
+                          : const AssetImage('assets/images/User.png'),
+                    ),
+                    Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          width: 15,
+                          height: 15,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.green),
+                        ))
+                  ],
+                ),
+              )
+            : const SizedBox.shrink()
+      ],
     );
   }
 

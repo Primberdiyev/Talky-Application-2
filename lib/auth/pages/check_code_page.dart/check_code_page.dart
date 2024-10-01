@@ -20,27 +20,22 @@ class _CheckCodePageState extends State<CheckCodePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: const CustomAppBar(''),
+      appBar: const CustomAppBar(),
       body: Container(
         height: MediaQuery.of(context).size.height,
         padding: const EdgeInsets.only(
           left: 26,
         ),
         color: const Color(0xFFFFFFFF),
-        child: Column(
+        child: const Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.only(bottom: 40),
-              child: TalkyText(),
-            ),
-            const EnterCodeText(),
-            const SizedBox(
-              height: 50,
-            ),
-            const InputCodes(),
+            TalkyText(),
+            EnterCodeText(),
+            SizedBox(height: 50),
+            InputCodes(),
             SignUpButton(),
-            const QuestionText(),
-            const SignUpTextButton(),
+            QuestionText(),
+            SignUpTextButton(),
           ],
         ),
       ),

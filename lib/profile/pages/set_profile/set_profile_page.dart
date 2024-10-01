@@ -12,10 +12,10 @@ class SetProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: CustomAppBar('Profile'),
+      appBar: CustomAppBar(text: 'Profile'),
       resizeToAvoidBottomInset: false,
       body: Padding(
-        padding: EdgeInsets.only( left: 18, right: 28),
+        padding: EdgeInsets.only(left: 18, right: 28),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:talky_aplication_2/auth/pages/input_mail_password_page/widgets/custom_app_bar.dart';
+import 'package:talky_aplication_2/profile/pages/chat_page/widgets/send_message.dart';
 
 class ChatPage extends StatelessWidget {
   final String name;
@@ -8,26 +10,18 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70),
-        child: AppBar(
-            backgroundColor: Colors.transparent,
-            centerTitle: true,
-            title: Text(name),
-            leading: Row(
-              children: [
-                Container(
-                  width: 24,
-                  height: 24,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/Circle.png'),
-                        fit: BoxFit.cover),
-                  ),
-                  child: Image.asset('assets/images/Back.png'),
-                ),
-              ],
-            )),
+      appBar: CustomAppBar(
+        text: name,
+        imgUrl: imgUrl,
+      ),
+      body: const Padding(
+        padding: EdgeInsets.only(left: 28, right: 28, bottom: 31),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            SendMessage(),
+          ],
+        ),
       ),
     );
   }

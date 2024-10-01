@@ -22,7 +22,7 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: Scaffold(
-        appBar: CustomAppBar(''),
+        appBar: CustomAppBar(),
         resizeToAvoidBottomInset: false,
         body: Padding(
           padding: EdgeInsets.only(left: 28, right: 28),
