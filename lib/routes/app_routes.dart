@@ -28,14 +28,13 @@ Route generateRoute(RouteSettings settings) {
     case NameRoutes.onlinUsers:
       return MaterialPageRoute(builder: (_) => const OnlineUsersPage());
     case NameRoutes.chat:
-  final arguments = settings.arguments as Map<String, dynamic>;
-  return MaterialPageRoute(
-    builder: (_) => ChatPage(
-      name: arguments['name'], 
-      imgUrl: arguments['imgUrl'],
-    ),
-  );
-
+      final arguments = settings.arguments as Map<String, dynamic>;
+      return MaterialPageRoute(
+        builder: (_) => ChatPage(
+          name: arguments['name'],
+          imgUrl: arguments['imgUrl'],
+        ),
+      );
   }
 
   return MaterialPageRoute(builder: (_) => const SetProfilePage());

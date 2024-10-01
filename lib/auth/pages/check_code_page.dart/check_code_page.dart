@@ -6,7 +6,7 @@ import 'package:talky_aplication_2/auth/pages/authorization_page/widgets/talky_t
 import 'package:talky_aplication_2/auth/pages/check_code_page.dart/widgets/enter_code_text.dart';
 import 'package:talky_aplication_2/auth/pages/check_code_page.dart/widgets/input_codes.dart';
 import 'package:talky_aplication_2/auth/pages/check_code_page.dart/widgets/sign_up_button.dart';
-import 'package:talky_aplication_2/auth/pages/input_mail_password_page/widgets/back_button_widget.dart';
+import 'package:talky_aplication_2/auth/pages/input_mail_password_page/widgets/custom_app_bar.dart';
 
 class CheckCodePage extends StatefulWidget {
   const CheckCodePage({super.key});
@@ -20,15 +20,17 @@ class _CheckCodePageState extends State<CheckCodePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: const CustomAppBar(''),
       body: Container(
         height: MediaQuery.of(context).size.height,
-        padding: const EdgeInsets.only(left: 26, top: 73),
+        padding: const EdgeInsets.only(
+          left: 26,
+        ),
         color: const Color(0xFFFFFFFF),
         child: Column(
           children: [
-            const BackButtonWidget(),
             const Padding(
-              padding: EdgeInsets.only(bottom: 40, top: 26),
+              padding: EdgeInsets.only(bottom: 40),
               child: TalkyText(),
             ),
             const EnterCodeText(),
