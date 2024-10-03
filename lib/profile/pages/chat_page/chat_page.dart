@@ -37,15 +37,14 @@ class ChatPage extends StatelessWidget {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
                       }
-
                       if (snapshot.hasData) {
                         final messages = snapshot.data!.docs;
-
                         return ListView.builder(
                           reverse: true,
                           itemCount: messages.length,
                           itemBuilder: (context, index) {
-                            final message = messages[index].data();
+                            final message =
+                                messages[messages.length - 1 - index].data();
                             final isMine =
                                 provider.user.uid == message['fromId'];
 
