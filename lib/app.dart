@@ -4,6 +4,7 @@ import 'package:talky_aplication_2/auth/providers/auth_google_provider.dart';
 import 'package:talky_aplication_2/auth/providers/otp_provider.dart';
 import 'package:talky_aplication_2/auth/providers/sign_in_and_up_provider.dart';
 import 'package:talky_aplication_2/auth/providers/value_state_provider.dart';
+import 'package:talky_aplication_2/profile/providers/chat_provider.dart';
 import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/app_routes.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProfilePageProvider()),
         ChangeNotifierProvider(create: (_) => SignInAndUpProvider()),
         ChangeNotifierProvider(create: (_) => ValueStateProvider()),
+        ChangeNotifierProvider(create: (_) => ChatProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

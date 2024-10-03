@@ -31,11 +31,15 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
             child: InkWell(
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => ChatPage(
-                            name: provider.filteredUsers[index]['name'],
-                            imgUrl: provider.filteredUsers[index]['imgUrl'])));
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ChatPage(
+                      name: provider.filteredUsers[index]['name'],
+                      imgUrl: provider.filteredUsers[index]['imgUrl'],
+                      receiverId: provider.filteredUsers[index]['id'],
+                    ),
+                  ),
+                );
               },
               child: Row(
                 children: [
