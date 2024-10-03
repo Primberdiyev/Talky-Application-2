@@ -20,6 +20,7 @@ class MessagesList extends StatelessWidget {
                 }
                 if (snapshot.hasData) {
                   final messages = snapshot.data!.docs;
+
                   return ListView.builder(
                     reverse: true,
                     itemCount: messages.length,
@@ -35,6 +36,10 @@ class MessagesList extends StatelessWidget {
                               : Alignment.centerLeft,
                           child: Container(
                             padding: const EdgeInsets.all(10),
+                            constraints: BoxConstraints(
+                              
+                                maxWidth:
+                                    MediaQuery.of(context).size.width * 0.5),
                             decoration: BoxDecoration(
                               color: isMine
                                   ? AppColors.primaryBlue
@@ -54,7 +59,13 @@ class MessagesList extends StatelessWidget {
                   );
                 } else {
                   return const Center(
-                    child: Text('No messages yet'),
+                    child: Text(
+                      'No messages yet',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   );
                 }
               },

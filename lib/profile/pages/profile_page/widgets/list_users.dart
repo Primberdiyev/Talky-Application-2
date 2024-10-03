@@ -14,18 +14,19 @@ class ListUsers extends StatefulWidget {
 class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProfilePageProvider>(builder: (context, provider, child) {
+    return Consumer2<ProfilePageProvider,ChatProvider>(builder: (context, provider,chatProvider, child) {
       if (provider.usersData == null) {
         return const Center(child: CircularProgressIndicator());
       }
+
       return ListView.builder(
         itemCount: provider.filteredUsers.length,
         itemBuilder: (context, index) {
-          String? imgUrl =
-              provider.imgUrls[provider.filteredUsers[index]['imgUrl']];
-          bool isOnline = provider.filteredUsers[index]['isOnline'];
-          final chatProvider =
-              Provider.of<ChatProvider>(context, listen: false);
+          var user = provider.filteredUsers[index];
+          String? imgUrl = user['imgUrl'];
+          bool isOnline = user['isOnline'];
+
+        
 
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 28),
@@ -33,13 +34,13 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
             width: MediaQuery.of(context).size.width - 56,
             child: InkWell(
               onTap: () {
-                chatProvider.setReceiverId(provider.filteredUsers[index]['id']);
+                chatProvider.setReceiverId(user['id']);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) => ChatPage(
-                      name: provider.filteredUsers[index]['name'],
-                      imgUrl: provider.filteredUsers[index]['imgUrl'],
+                      name: user['name'],
+                      imgUrl: user['imgUrl'],
                     ),
                   ),
                 );
@@ -91,16 +92,15 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              provider.filteredUsers[index]['name'],
+                              user['name'],
                               style: const TextStyle(
                                 color: Color(0xFF243443),
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            provider.filteredUsers[index]['closingTime'] != null
-                                ? Text(provider.timeAgo(provider
-                                    .filteredUsers[index]['closingTime']))
+                            user['closingTime'] != null
+                                ? Text(provider.timeAgo(user['closingTime']))
                                 : const Text('Unknown registration time'),
                           ],
                         ),
@@ -108,11 +108,8 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
                       const SizedBox(
                         height: 6,
                       ),
-                      provider.filteredUsers[index]['description'] != null
-                          ? Text(
-                              provider.filteredUsers[index]!['description'],
-                            )
-                          : const Text(''),
+                  
+                       Text(chatProvider.lastMessage??''),
                     ],
                   ),
                   const Spacer(),

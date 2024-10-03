@@ -6,10 +6,12 @@ import 'package:talky_aplication_2/profile/models/message_model.dart';
 
 class ChatProvider with ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final FirebaseFirestore firsestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseStorage storage = FirebaseStorage.instance;
   String? reveiverId;
   User get user => auth.currentUser!;
+  String? lastMessage;
+
   getConversatioId(String id) {
     return user.uid.hashCode <= id.hashCode
         ? '${user.uid}_$id'
@@ -17,7 +19,7 @@ class ChatProvider with ChangeNotifier {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages(receiverId) {
-    return firsestore
+    return firestore
         .collection('chats/${getConversatioId(receiverId)}/messages/')
         .snapshots();
   }
@@ -32,8 +34,8 @@ class ChatProvider with ChangeNotifier {
         fromId: user.uid,
         sent: time);
 
-    final ref = firsestore
-        .collection('chats/${getConversatioId(receiverId)}/messages/');
+    final ref =
+        firestore.collection('chats/${getConversatioId(receiverId)}/messages/');
     try {
       await ref.doc(time).set(message.toJson());
     } catch (_) {
@@ -44,5 +46,16 @@ class ChatProvider with ChangeNotifier {
   setReceiverId(String newId) {
     reveiverId = newId;
     notifyListeners();
+  }
+
+  Future<void> getLastMessage(String id) async {
+    try {
+      QuerySnapshot snapshot = await firestore
+          .collection('chats/${getConversatioId(id)}/messages/')
+          .orderBy('sent', descending: true)
+          .limit(1)
+          .get();
+      lastMessage = snapshot.docs.first['msg'];
+    } catch (_) {}
   }
 }

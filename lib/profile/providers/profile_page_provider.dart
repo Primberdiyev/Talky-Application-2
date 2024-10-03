@@ -79,6 +79,7 @@ class ProfilePageProvider with ChangeNotifier {
         }
       }
     }
+
     await FirebaseFirestore.instance
         .collection('User')
         .doc(currentUser?.uid)
