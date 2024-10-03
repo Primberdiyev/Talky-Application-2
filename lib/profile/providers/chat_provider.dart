@@ -8,6 +8,7 @@ class ChatProvider with ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore firsestore = FirebaseFirestore.instance;
   final FirebaseStorage storage = FirebaseStorage.instance;
+  String? reveiverId;
   User get user => auth.currentUser!;
   getConversatioId(String id) {
     return user.uid.hashCode <= id.hashCode
@@ -38,5 +39,10 @@ class ChatProvider with ChangeNotifier {
     } catch (_) {
       throw Exception();
     }
+  }
+
+  setReceiverId(String newId) {
+    reveiverId = newId;
+    notifyListeners();
   }
 }

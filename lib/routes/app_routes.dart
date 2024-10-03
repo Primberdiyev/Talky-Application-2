@@ -33,7 +33,6 @@ Route generateRoute(RouteSettings settings) {
         builder: (_) => ChatPage(
           name: arguments['name'],
           imgUrl: arguments['imgUrl'],
-          receiverId: arguments['id'],
         ),
       );
   }

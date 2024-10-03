@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/profile/pages/chat_page/chat_page.dart';
+import 'package:talky_aplication_2/profile/providers/chat_provider.dart';
 import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 
 class ListUsers extends StatefulWidget {
@@ -23,6 +24,8 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
           String? imgUrl =
               provider.imgUrls[provider.filteredUsers[index]['imgUrl']];
           bool isOnline = provider.filteredUsers[index]['isOnline'];
+          final chatProvider =
+              Provider.of<ChatProvider>(context, listen: false);
 
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 28),
@@ -30,13 +33,13 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
             width: MediaQuery.of(context).size.width - 56,
             child: InkWell(
               onTap: () {
+                chatProvider.setReceiverId(provider.filteredUsers[index]['id']);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) => ChatPage(
                       name: provider.filteredUsers[index]['name'],
                       imgUrl: provider.filteredUsers[index]['imgUrl'],
-                      receiverId: provider.filteredUsers[index]['id'],
                     ),
                   ),
                 );
