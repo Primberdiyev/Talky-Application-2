@@ -48,14 +48,29 @@ class ChatProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getLastMessage(String id) async {
-    try {
-      QuerySnapshot snapshot = await firestore
-          .collection('chats/${getConversatioId(id)}/messages/')
-          .orderBy('sent', descending: true)
-          .limit(1)
-          .get();
-      lastMessage = snapshot.docs.first['msg'];
-    } catch (_) {}
+  Stream<String> getLastMessage(String id) {
+    return firestore
+        .collection('chats/${getConversatioId(id)}/messages')
+        .orderBy('sent', descending: true)
+        .limit(1)
+        .snapshots()
+        .map((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs.first['msg'] ?? '';
+      } else {
+        return '';
+      }
+    });
+    //   try {
+    //     QuerySnapshot snapshot =  firestore
+    //         .collection('chats/${getConversatioId(id)}/messages/')
+    //         .orderBy('sent', descending: true)
+    //         .limit(1)
+    //         .get();
+    //     lastMessage = snapshot.docs.first['msg'];
+    //     return lastMessage!;
+    //   } catch (_) {}
+    //   return '';
+    // }
   }
 }

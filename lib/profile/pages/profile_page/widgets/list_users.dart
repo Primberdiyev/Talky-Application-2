@@ -14,7 +14,8 @@ class ListUsers extends StatefulWidget {
 class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
-    return Consumer2<ProfilePageProvider,ChatProvider>(builder: (context, provider,chatProvider, child) {
+    return Consumer2<ProfilePageProvider, ChatProvider>(
+        builder: (context, provider, chatProvider, child) {
       if (provider.usersData == null) {
         return const Center(child: CircularProgressIndicator());
       }
@@ -25,9 +26,6 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
           var user = provider.filteredUsers[index];
           String? imgUrl = user['imgUrl'];
           bool isOnline = user['isOnline'];
-
-        
-
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 28),
             margin: const EdgeInsets.symmetric(vertical: 10),
@@ -108,8 +106,16 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
                       const SizedBox(
                         height: 6,
                       ),
-                  
-                       Text(chatProvider.lastMessage??''),
+                      StreamBuilder(
+                          stream: chatProvider.getLastMessage(user['id']),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Text('loading');
+                            } else {
+                              return Text(snapshot.data ?? '');
+                            }
+                          })
                     ],
                   ),
                   const Spacer(),
