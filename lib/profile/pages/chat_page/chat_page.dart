@@ -20,14 +20,22 @@ class ChatPage extends StatelessWidget {
         text: name,
         imgUrl: imgUrl,
       ),
-      body: const Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          MessagesList(),
-          SizedBox(height: 44),
-          SendData(),
-          SizedBox(height: 31),
+          const MessagesList(),
+          const SizedBox(height: 44),
+          const SendData(),
+          FloatingActionButton(
+            onPressed: () {},
+            child: Container(
+              height: 60,
+              width: 60,
+              decoration: const BoxDecoration(shape: BoxShape.circle),
+            ),
+          ),
+          const SizedBox(height: 31),
         ],
       ),
     );

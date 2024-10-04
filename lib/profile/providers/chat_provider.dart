@@ -61,16 +61,5 @@ class ChatProvider with ChangeNotifier {
         return '';
       }
     });
-    //   try {
-    //     QuerySnapshot snapshot =  firestore
-    //         .collection('chats/${getConversatioId(id)}/messages/')
-    //         .orderBy('sent', descending: true)
-    //         .limit(1)
-    //         .get();
-    //     lastMessage = snapshot.docs.first['msg'];
-    //     return lastMessage!;
-    //   } catch (_) {}
-    //   return '';
-    // }
   }
 }

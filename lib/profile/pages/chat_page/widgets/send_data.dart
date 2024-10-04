@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:popover/popover.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/profile/providers/chat_provider.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
@@ -27,7 +28,7 @@ class _SendMessageState extends State<SendData> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 28),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Expanded(
             child: SizedBox(
@@ -38,8 +39,7 @@ class _SendMessageState extends State<SendData> {
                     labelText: 'Message',
                     border: const OutlineInputBorder(),
                     focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.primaryBlue)
-                    ),
+                        borderSide: BorderSide(color: AppColors.primaryBlue)),
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.send_rounded),
                       color: AppColors.sendIconColor,
@@ -49,7 +49,7 @@ class _SendMessageState extends State<SendData> {
             ),
           ),
           const SizedBox(width: 10),
-          InkWell(
+          GestureDetector(
             onTap: () {},
             child: Container(
               height: 60,
@@ -59,6 +59,42 @@ class _SendMessageState extends State<SendData> {
                 color: AppColors.primaryBlue,
               ),
               child: InkWell(
+                onTap: () {
+                  showPopover(
+                      context: context,
+                      width: 60,
+                      height: 250,
+                      backgroundColor: Colors.transparent,
+                      direction: PopoverDirection.top,
+                      bodyBuilder: (context) {
+                        return Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 20),
+                              height: 60,
+                              width: 60,
+                              alignment: Alignment.centerRight,
+                              decoration: const BoxDecoration(
+                                  color: Colors.red, shape: BoxShape.circle),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 20),
+                              height: 60,
+                              width: 60,
+                              decoration: const BoxDecoration(
+                                  color: Colors.red, shape: BoxShape.circle),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 20),
+                              height: 60,
+                              width: 60,
+                              decoration: const BoxDecoration(
+                                  color: Colors.red, shape: BoxShape.circle),
+                            ),
+                          ],
+                        );
+                      });
+                },
                 child: Image.asset('assets/images/plus.png'),
               ),
             ),

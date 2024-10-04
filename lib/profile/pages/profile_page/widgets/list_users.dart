@@ -113,7 +113,9 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
                                 ConnectionState.waiting) {
                               return const Text('loading');
                             } else {
-                              return Text(snapshot.data ?? '');
+                              return Text(snapshot.data!.length <= 30
+                                  ? snapshot.data ?? ''
+                                  : snapshot.data!.substring(0, 30));
                             }
                           })
                     ],
