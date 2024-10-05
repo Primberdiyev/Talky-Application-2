@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? text;
   final String? imgUrl;
+  final Function()? function;
 
-  const CustomAppBar({this.text, this.imgUrl, super.key});
+  const CustomAppBar({this.text, this.imgUrl, this.function, super.key});
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -54,11 +55,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 padding: const EdgeInsets.only(right: 30, top: 30),
                 child: Stack(
                   children: [
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundImage: imgUrl != ''
-                          ? NetworkImage(imgUrl!)
-                          : const AssetImage('assets/images/User.png'),
+                    InkWell(
+                      onTap: () => function?.call(),
+                      child: CircleAvatar(
+                        radius: 25,
+                        backgroundImage: imgUrl != ''
+                            ? NetworkImage(imgUrl!)
+                            : const AssetImage('assets/images/User.png'),
+                      ),
                     ),
                     Positioned(
                         bottom: 0,

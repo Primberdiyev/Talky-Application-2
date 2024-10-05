@@ -8,6 +8,6 @@ class AppColors {
   static const dividerBlack = Color(0xff58616A);
   static const inCorrectRed = Color(0xFFC23232);
   static const avatarColor = Color(0xffF0F0F0);
-  static const sendIconColor=Color(0xffAAB0B7);
-  static const chatColor=Color(0xffF7F7F9);
+  static const sendIconColor = Color(0xffAAB0B7);
+  static const chatColor = Color(0xffF7F7F9);
 }

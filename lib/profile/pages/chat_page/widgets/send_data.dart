@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:popover/popover.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/profile/providers/chat_provider.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
@@ -26,7 +27,7 @@ class _SendMessageState extends State<SendData> {
   Widget build(BuildContext context) {
     final provider = Provider.of<ChatProvider>(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28),
+      padding: const EdgeInsets.only(left: 28, right: 98),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -49,56 +50,24 @@ class _SendMessageState extends State<SendData> {
             ),
           ),
           const SizedBox(width: 10),
-          GestureDetector(
-            onTap: () {},
-            child: Container(
-              height: 60,
-              width: 60,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.primaryBlue,
-              ),
-              child: InkWell(
-                onTap: () {
-                  showPopover(
-                      context: context,
-                      width: 60,
-                      height: 250,
-                      backgroundColor: Colors.transparent,
-                      direction: PopoverDirection.top,
-                      bodyBuilder: (context) {
-                        return Column(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(top: 20),
-                              height: 60,
-                              width: 60,
-                              alignment: Alignment.centerRight,
-                              decoration: const BoxDecoration(
-                                  color: Colors.red, shape: BoxShape.circle),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 20),
-                              height: 60,
-                              width: 60,
-                              decoration: const BoxDecoration(
-                                  color: Colors.red, shape: BoxShape.circle),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 20),
-                              height: 60,
-                              width: 60,
-                              decoration: const BoxDecoration(
-                                  color: Colors.red, shape: BoxShape.circle),
-                            ),
-                          ],
-                        );
-                      });
-                },
-                child: Image.asset('assets/images/plus.png'),
-              ),
-            ),
-          )
+
+          // GestureDetector(
+          //   onTap: () {
+          //     //todo
+          //     SpeedDial(
+          //       children: [SpeedDialChild(backgroundColor: Colors.red)],
+          //     );
+          //   },
+          //   child: Container(
+          //     height: 60,
+          //     width: 60,
+          //     decoration: const BoxDecoration(
+          //       shape: BoxShape.circle,
+          //       color: AppColors.primaryBlue,
+          //     ),
+          //     child: Image.asset('assets/images/plus.png'),
+          //   ),
+          // )
         ],
       ),
     );

@@ -11,6 +11,8 @@ class ChatProvider with ChangeNotifier {
   String? reveiverId;
   User get user => auth.currentUser!;
   String? lastMessage;
+  String? reveiverName;
+  String? reveiverImgUrl;
 
   getConversatioId(String id) {
     return user.uid.hashCode <= id.hashCode
@@ -43,8 +45,11 @@ class ChatProvider with ChangeNotifier {
     }
   }
 
-  setReceiverId(String newId) {
+  setReceiverId({String? newId, String? imgUrl, String? name}) {
     reveiverId = newId;
+    reveiverImgUrl = imgUrl;
+    reveiverName = name;
+
     notifyListeners();
   }
 

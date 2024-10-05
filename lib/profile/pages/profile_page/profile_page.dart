@@ -63,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
                 )
               : const Center(child: CircularProgressIndicator()),
           floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 46, left: 28),
+            padding: const EdgeInsets.only(bottom: 34, left: 28),
             child: FloatingActionButton(
               backgroundColor: const Color(0xFF377DFF),
               onPressed: () {},

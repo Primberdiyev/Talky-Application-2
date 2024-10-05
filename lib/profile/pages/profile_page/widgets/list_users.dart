@@ -28,18 +28,18 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
           bool isOnline = user['isOnline'];
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 28),
-            margin: const EdgeInsets.symmetric(vertical: 10),
+            margin: const EdgeInsets.only(top: 10, bottom: 10),
             width: MediaQuery.of(context).size.width - 56,
             child: InkWell(
               onTap: () {
-                chatProvider.setReceiverId(user['id']);
+                chatProvider.setReceiverId(
+                    name: user['name'],
+                    imgUrl: user['imgUrl'],
+                    newId: user['id']);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => ChatPage(
-                      name: user['name'],
-                      imgUrl: user['imgUrl'],
-                    ),
+                    builder: (_) => const ChatPage(),
                   ),
                 );
               },

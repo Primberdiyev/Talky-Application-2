@@ -9,4 +9,5 @@ class NameRoutes {
   static const String onlinUsers = '/onlineUsers';
   static const String chat = '/chat';
   static const String setProfile = 'setProfile';
+  static const String receiverUser='receiverUser';
 }
