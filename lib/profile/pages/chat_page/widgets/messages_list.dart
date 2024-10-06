@@ -29,32 +29,53 @@ class MessagesList extends StatelessWidget {
                           messages[messages.length - 1 - index].data();
                       final isMine = provider.user.uid == message['fromId'];
 
-                      return ListTile(
-                        title: Align(
-                          alignment: isMine
-                              ? Alignment.centerRight
-                              : Alignment.centerLeft,
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            constraints: BoxConstraints(
-                              
-                                maxWidth:
-                                    MediaQuery.of(context).size.width * 0.5),
-                            decoration: BoxDecoration(
-                              color: isMine
-                                  ? AppColors.primaryBlue
-                                  : AppColors.chatColor,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              message['msg'],
-                              style: TextStyle(
-                                color: isMine ? Colors.white : Colors.black87,
+                      return message['type'] == 'text'
+                          ? ListTile(
+                              title: Align(
+                                alignment: isMine
+                                    ? Alignment.centerRight
+                                    : Alignment.centerLeft,
+                                child: Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  padding: const EdgeInsets.all(10),
+                                  constraints: BoxConstraints(
+                                      maxWidth:
+                                          MediaQuery.of(context).size.width *
+                                              0.5),
+                                  decoration: BoxDecoration(
+                                    color: isMine
+                                        ? AppColors.primaryBlue
+                                        : AppColors.chatColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Text(
+                                    message['msg'],
+                                    style: TextStyle(
+                                      color: isMine
+                                          ? Colors.white
+                                          : Colors.black87,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
-                      );
+                            )
+                          : Container(
+                              margin:
+                                  const EdgeInsets.only(right: 28, left: 28),
+                              alignment: isMine
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  message['msg'],
+                                  width: 125,
+                                  height: 125,
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            );
                     },
                   );
                 } else {

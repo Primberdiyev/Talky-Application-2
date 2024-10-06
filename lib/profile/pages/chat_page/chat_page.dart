@@ -33,9 +33,7 @@ class ChatPage extends StatelessWidget {
             SizedBox(height: 31),
           ],
         ),
-        
-        floatingActionButton: ActionButton(),
-        
+        floatingActionButton: const ActionButton(),
       );
     });
   }

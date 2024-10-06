@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:talky_aplication_2/profile/models/message_model.dart';
+import 'package:uuid/uuid.dart';
 
 class ChatProvider with ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -12,6 +16,7 @@ class ChatProvider with ChangeNotifier {
   User get user => auth.currentUser!;
   String? lastMessage;
   String? reveiverName;
+  File? imageFile;
   String? reveiverImgUrl;
 
   getConversatioId(String id) {
@@ -66,5 +71,33 @@ class ChatProvider with ChangeNotifier {
         return '';
       }
     });
+  }
+
+  Future getImage() async {
+    ImagePicker picker = ImagePicker();
+    await picker.pickImage(source: ImageSource.gallery).then((value) {
+      if (value != null) {
+        imageFile = File(value.path);
+        uploadImage();
+      }
+    });
+  }
+
+  Future uploadImage() async {
+    String fileName = const Uuid().v1();
+    var refStorage = storage.ref().child('chatImages').child('$fileName.jpg');
+    var uploadTask = await refStorage.putFile(imageFile!);
+    String imgUrl = await uploadTask.ref.getDownloadURL();
+    final time = DateTime.now().microsecondsSinceEpoch.toString();
+    final message = MessageModel(
+        toId: reveiverId!,
+        msg: imgUrl,
+        read: 'false',
+        type: Type.image,
+        fromId: user.uid,
+        sent: time);
+    var ref = firestore
+        .collection('chats/${getConversatioId(reveiverId!)}/messages/');
+    await ref.doc(time).set(message.toJson());
   }
 }

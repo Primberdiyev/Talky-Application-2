@@ -48,24 +48,6 @@ class _SendMessageState extends State<SendData> {
             ),
           ),
           const SizedBox(width: 10),
-
-          // GestureDetector(
-          //   onTap: () {
-          //     //todo
-          //     SpeedDial(
-          //       children: [SpeedDialChild(backgroundColor: Colors.red)],
-          //     );
-          //   },
-          //   child: Container(
-          //     height: 60,
-          //     width: 60,
-          //     decoration: const BoxDecoration(
-          //       shape: BoxShape.circle,
-          //       color: AppColors.primaryBlue,
-          //     ),
-          //     child: Image.asset('assets/images/plus.png'),
-          //   ),
-          // )
         ],
       ),
     );
