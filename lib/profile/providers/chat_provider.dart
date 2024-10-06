@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -84,8 +85,8 @@ class ChatProvider with ChangeNotifier {
   }
 
   Future uploadImage() async {
-    String fileName = const Uuid().v1();
-    var refStorage = storage.ref().child('chatImages').child('$fileName.jpg');
+    String imageName = const Uuid().v1();
+    var refStorage = storage.ref().child('chatImages').child('$imageName.jpg');
     var uploadTask = await refStorage.putFile(imageFile!);
     String imgUrl = await uploadTask.ref.getDownloadURL();
     final time = DateTime.now().microsecondsSinceEpoch.toString();
@@ -99,5 +100,39 @@ class ChatProvider with ChangeNotifier {
     var ref = firestore
         .collection('chats/${getConversatioId(reveiverId!)}/messages/');
     await ref.doc(time).set(message.toJson());
+  }
+
+  Future pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      type: FileType.custom,
+      allowedExtensions: ['pdf', 'jpg', 'jpeg', 'png', 'mp3'],
+    );
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      String fileName = const Uuid().v1();
+      var refStorage = storage.ref().child('chatFiles').child(fileName);
+      var uploadTask = await refStorage.putFile(file);
+      final fileUrl = await uploadTask.ref.getDownloadURL();
+      final time = DateTime.now().microsecondsSinceEpoch.toString();
+      Type type;
+      if (result.files.single.extension == 'pdf') {
+        type = Type.pdf;
+      } else if (result.files.single.extension == 'mp3') {
+        type = Type.audio;
+      } else {
+        type = Type.file;
+      }
+      final message = MessageModel(
+          toId: reveiverId!,
+          msg: fileUrl,
+          read: 'flase',
+          type: type,
+          fromId: user.uid,
+          sent: time);
+      var ref = firestore
+          .collection('chats/${getConversatioId(reveiverId!)}/messages/');
+      await ref.doc(time).set(message.toJson());
+    }
   }
 }

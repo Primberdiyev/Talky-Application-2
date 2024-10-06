@@ -60,22 +60,74 @@ class MessagesList extends StatelessWidget {
                                 ),
                               ),
                             )
-                          : Container(
-                              margin:
-                                  const EdgeInsets.only(right: 28, left: 28),
-                              alignment: isMine
-                                  ? Alignment.centerRight
-                                  : Alignment.centerLeft,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  message['msg'],
-                                  width: 125,
-                                  height: 125,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            );
+                          : message['type'] == 'image'
+                              ? Container(
+                                  margin: const EdgeInsets.only(
+                                      right: 28, left: 28),
+                                  alignment: isMine
+                                      ? Alignment.centerRight
+                                      : Alignment.centerLeft,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      message['msg'],
+                                      width: 125,
+                                      height: 125,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                )
+                              : message['type'] == 'pdf'
+                                  ? ListTile(
+                                      title: Align(
+                                        alignment: isMine
+                                            ? Alignment.centerRight
+                                            : Alignment.centerLeft,
+                                        child: Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            color: isMine
+                                                ? AppColors.primaryBlue
+                                                : AppColors.chatColor,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: const Text(
+                                            'PDF faylini ko\'rish',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : ListTile(
+                                      title: Align(
+                                      alignment: isMine
+                                          ? Alignment.centerRight
+                                          : Alignment.centerLeft,
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        child: Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            color: isMine
+                                                ? AppColors.primaryBlue
+                                                : AppColors.chatColor,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: const Text(
+                                            'Audio faylini tinglash',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ));
                     },
                   );
                 } else {

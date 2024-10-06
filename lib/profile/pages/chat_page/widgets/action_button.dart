@@ -38,7 +38,7 @@ class ActionButton extends StatelessWidget {
               shape: const StadiumBorder(),
               child: SvgPicture.asset(AppIcons.fileIcon.icon),
               backgroundColor: Colors.white,
-              onTap: () {},
+              onTap: () => provider.pickFile(),
             ),
           ],
           child: SvgPicture.asset(AppIcons.plusIcon.icon),
