@@ -51,6 +51,9 @@ dependencies:
   flutter_svg: ^2.0.10+1
   uuid: ^4.5.1
   file_picker: ^8.1.2
+  record: ^5.1.2
+  voice_message_player: ^1.1.2
+
 
 
 dev_dependencies:
