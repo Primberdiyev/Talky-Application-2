@@ -2,7 +2,7 @@ class MessageModel {
   late String toId;
   late String msg;
   late String read;
-  late Type type;
+  late TypeMessage type;
   late String fromId;
   late String sent;
   MessageModel({
@@ -17,7 +17,7 @@ class MessageModel {
     toId = json['toId'].toString();
     msg = json['msg'].toString();
     read = json['read'].toString();
-    type = json['type'].toString() == Type.image.name ? Type.image : Type.text;
+    type = json['type'];
     fromId = json['fromId'].toString();
     sent = json['sent'].toString();
   }
@@ -33,4 +33,4 @@ class MessageModel {
   }
 }
 
-enum Type { text, image, file,pdf,audio }
+enum TypeMessage { text, image, file, audio }

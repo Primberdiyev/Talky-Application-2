@@ -38,7 +38,7 @@ class ChatProvider with ChangeNotifier {
         toId: receiverId,
         msg: msg,
         read: 'false',
-        type: Type.text,
+        type: TypeMessage.text,
         fromId: user.uid,
         sent: time);
 
@@ -94,7 +94,7 @@ class ChatProvider with ChangeNotifier {
         toId: reveiverId!,
         msg: imgUrl,
         read: 'false',
-        type: Type.image,
+        type: TypeMessage.image,
         fromId: user.uid,
         sent: time);
     var ref = firestore
@@ -115,13 +115,11 @@ class ChatProvider with ChangeNotifier {
       var uploadTask = await refStorage.putFile(file);
       final fileUrl = await uploadTask.ref.getDownloadURL();
       final time = DateTime.now().microsecondsSinceEpoch.toString();
-      Type type;
-      if (result.files.single.extension == 'pdf') {
-        type = Type.pdf;
-      } else if (result.files.single.extension == 'mp3') {
-        type = Type.audio;
+      TypeMessage type;
+      if (result.files.single.extension == 'mp3') {
+        type = TypeMessage.audio;
       } else {
-        type = Type.file;
+        type = TypeMessage.file;
       }
       final message = MessageModel(
           toId: reveiverId!,
