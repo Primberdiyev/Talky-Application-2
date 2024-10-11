@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/profile/pages/chat_page/widgets/get_name_from_url.dart';
 import 'package:talky_aplication_2/profile/providers/chat_provider.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 
@@ -22,15 +23,16 @@ class MessagesList extends StatelessWidget {
                   final messages = snapshot.data!.docs;
 
                   return ListView.builder(
-                    reverse: true,
-                    itemCount: messages.length,
-                    itemBuilder: (context, index) {
-                      final message =
-                          messages[messages.length - 1 - index].data();
-                      final isMine = provider.user.uid == message['fromId'];
+                      reverse: true,
+                      itemCount: messages.length,
+                      itemBuilder: (context, index) {
+                        final message =
+                            messages[messages.length - 1 - index].data();
 
-                      return message['type'] == 'text'
-                          ? ListTile(
+                        final isMine = provider.user.uid == message['fromId'];
+                        switch (message['type']) {
+                          case "text":
+                            return ListTile(
                               title: Align(
                                 alignment: isMine
                                     ? Alignment.centerRight
@@ -59,77 +61,108 @@ class MessagesList extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            )
-                          : message['type'] == 'image'
-                              ? Container(
-                                  margin: const EdgeInsets.only(
-                                      right: 28, left: 28),
-                                  alignment: isMine
-                                      ? Alignment.centerRight
-                                      : Alignment.centerLeft,
-                                  child: ClipRRect(
+                            );
+                          case 'image':
+                            return Container(
+                              margin:
+                                  const EdgeInsets.only(right: 28, left: 28),
+                              alignment: isMine
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  message['msg'],
+                                  width: 125,
+                                  height: 125,
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            );
+                          case "file":
+                            return ListTile(
+                              title: Align(
+                                alignment: isMine
+                                    ? Alignment.centerRight
+                                    : Alignment.centerLeft,
+                                child: Container(
+                                  height: 80,
+                                  width: 240,
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: isMine
+                                        ? AppColors.primaryBlue
+                                        : AppColors.chatColor,
                                     borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
-                                      message['msg'],
-                                      width: 125,
-                                      height: 125,
-                                      fit: BoxFit.fill,
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          width: 80,
+                                          margin:
+                                              const EdgeInsets.only(right: 20),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: InkWell(
+                                            onTap: () {},
+                                            child: Image.asset(
+                                                'assets/images/file.jpg'),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            maxLines: 2,
+                                            GetNameFromUrl().getFileNameFromUrl(
+                                              message['msg'],
+                                            ),
+                                            style:
+                                                const TextStyle(fontSize: 14),
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ),
-                                )
-                              : message['type'] == 'pdf'
-                                  ? ListTile(
-                                      title: Align(
-                                        alignment: isMine
-                                            ? Alignment.centerRight
-                                            : Alignment.centerLeft,
-                                        child: Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 5),
-                                          padding: const EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                            color: isMine
-                                                ? AppColors.primaryBlue
-                                                : AppColors.chatColor,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          child: const Text(
-                                            'PDF faylini ko\'rish',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : ListTile(
-                                      title: Align(
-                                      alignment: isMine
-                                          ? Alignment.centerRight
-                                          : Alignment.centerLeft,
-                                      child: GestureDetector(
-                                        onTap: () {},
-                                        child: Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 5),
-                                          padding: const EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                            color: isMine
-                                                ? AppColors.primaryBlue
-                                                : AppColors.chatColor,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          child: const Text(
-                                            'Audio faylini tinglash',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ));
-                    },
-                  );
+                                ),
+                              ),
+                            );
+                          case "audio":
+                            return ListTile(
+                                title: Align(
+                              alignment: isMine
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              child: GestureDetector(
+                                onTap: () {},
+                                child: Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: isMine
+                                        ? AppColors.primaryBlue
+                                        : AppColors.chatColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: const Text(
+                                    'Audio faylini tinglash',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ));
+                        }
+                        return null;
+                      });
                 } else {
                   return const Center(
                     child: Text(

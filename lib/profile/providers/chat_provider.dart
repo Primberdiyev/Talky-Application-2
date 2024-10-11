@@ -86,7 +86,7 @@ class ChatProvider with ChangeNotifier {
 
   Future uploadImage() async {
     String imageName = const Uuid().v1();
-    var refStorage = storage.ref().child('chatImages').child('$imageName.jpg');
+    var refStorage = storage.ref().child('chatImages').child('$imageName.png');
     var uploadTask = await refStorage.putFile(imageFile!);
     String imgUrl = await uploadTask.ref.getDownloadURL();
     final time = DateTime.now().microsecondsSinceEpoch.toString();
@@ -109,28 +109,37 @@ class ChatProvider with ChangeNotifier {
       allowedExtensions: ['pdf', 'jpg', 'jpeg', 'png', 'mp3'],
     );
     if (result != null) {
-      File file = File(result.files.single.path!);
-      String fileName = const Uuid().v1();
-      var refStorage = storage.ref().child('chatFiles').child(fileName);
-      var uploadTask = await refStorage.putFile(file);
-      final fileUrl = await uploadTask.ref.getDownloadURL();
-      final time = DateTime.now().microsecondsSinceEpoch.toString();
       TypeMessage type;
       if (result.files.single.extension == 'mp3') {
         type = TypeMessage.audio;
       } else {
         type = TypeMessage.file;
       }
+      File file = File(result.files.single.path!);
+      String fileName = result.files.single.name;
+      var refStorage = storage.ref().child('chatFiles').child(fileName);
+      var uploadTask = await refStorage.putFile(file);
+      final fileUrl = await uploadTask.ref.getDownloadURL();
+      final time = DateTime.now().microsecondsSinceEpoch.toString();
+
       final message = MessageModel(
           toId: reveiverId!,
           msg: fileUrl,
-          read: 'flase',
+          read: 'false',
           type: type,
           fromId: user.uid,
           sent: time);
+
       var ref = firestore
           .collection('chats/${getConversatioId(reveiverId!)}/messages/');
       await ref.doc(time).set(message.toJson());
     }
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getImages(String receiverId) {
+    return firestore
+        .collection('chats/${getConversatioId(receiverId)}/messages')
+        .where('type', isEqualTo: 'image')
+        .snapshots();
   }
 }

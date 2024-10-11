@@ -20,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
           .doc(user?.uid)
           .get();
       if (currentUser.exists) {
-        Navigator.pushReplacementNamed(context, NameRoutes.auth);
+        Navigator.pushReplacementNamed(context, NameRoutes.profile);
       } else {
         Navigator.pushReplacementNamed(context, NameRoutes.auth);
       }
