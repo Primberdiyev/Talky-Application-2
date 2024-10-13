@@ -122,9 +122,6 @@ class MessagesList extends StatelessWidget {
                                                   .loadFile(message['msg']);
                                               if (file != null) {
                                                 openPDF(file);
-                                              } else {
-                                                print(
-                                                    "Failed to load the file.");
                                               }
                                             },
                                           ),

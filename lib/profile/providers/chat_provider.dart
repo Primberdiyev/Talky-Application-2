@@ -144,18 +144,16 @@ class ChatProvider with ChangeNotifier {
         .snapshots();
   }
 
-Future<File?> loadFile(String url) async {
-  try {
-    final refPdf = FirebaseStorage.instance.refFromURL(url);
-    final downloadUrl = await refPdf.getDownloadURL();
-    final bytes = await refPdf.getData();
-    return _storeFile(downloadUrl, bytes!);
-  } catch (e) {
-    print("Error loading file: $e");
-    return null;
+  Future<File?> loadFile(String url) async {
+    try {
+      final refPdf = FirebaseStorage.instance.refFromURL(url);
+      final downloadUrl = await refPdf.getDownloadURL();
+      final bytes = await refPdf.getData();
+      return _storeFile(downloadUrl, bytes!);
+    } catch (e) {
+      return null;
+    }
   }
-}
-
 
   Future<File> _storeFile(String url, List<int> bytes) async {
     final filename = basename(url);
