@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/profile/pages/chat_page/widgets/get_name_from_url.dart';
 import 'package:talky_aplication_2/profile/providers/chat_provider.dart';
+import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 
 class MessagesList extends StatelessWidget {
@@ -9,6 +12,9 @@ class MessagesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void openPDF(File file) =>
+        Navigator.pushNamed(context, NameRoutes.pdfViewer, arguments: file);
+
     return Consumer<ChatProvider>(builder: (context, value, child) {
       return Expanded(
         child: Consumer<ChatProvider>(
@@ -98,9 +104,6 @@ class MessagesList extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: InkWell(
-                                    onTap: () {
-                                      
-                                    },
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -114,9 +117,16 @@ class MessagesList extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(10)),
                                           child: InkWell(
-                                            onTap: () {},
-                                            child: Image.asset(
-                                                'assets/images/file.jpg'),
+                                            onTap: () async {
+                                              final file = await provider
+                                                  .loadFile(message['msg']);
+                                              if (file != null) {
+                                                openPDF(file);
+                                              } else {
+                                                print(
+                                                    "Failed to load the file.");
+                                              }
+                                            },
                                           ),
                                         ),
                                         Expanded(

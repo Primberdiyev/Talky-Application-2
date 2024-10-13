@@ -44,27 +44,31 @@ class ChatFilesTab extends StatelessWidget {
                         return const Center(child: Text('No images shared'));
                       }
 
-                      return GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                        ),
-                        itemCount: images.length,
-                        itemBuilder: (context, index) {
-                          final imageUrl =
-                              images[index].data()['msg'] as String;
-                          return Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              image: DecorationImage(
-                                image: NetworkImage(imageUrl),
-                                fit: BoxFit.cover,
+                      return Padding(
+                        padding:
+                            const EdgeInsets.only(left: 37, right: 36, top: 41),
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16,
+                          ),
+                          itemCount: images.length,
+                          itemBuilder: (context, index) {
+                            final imageUrl =
+                                images[index].data()['msg'] as String;
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                image: DecorationImage(
+                                  image: NetworkImage(imageUrl),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       );
                     },
                   ),

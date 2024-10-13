@@ -8,6 +8,7 @@ class NameRoutes {
   static const String profile = '/profile';
   static const String onlinUsers = '/onlineUsers';
   static const String chat = '/chat';
-  static const String setProfile = 'setProfile';
-  static const String receiverUser='receiverUser';
+  static const String setProfile = '/setProfile';
+  static const String receiverUser = '/receiverUser';
+  static const String pdfViewer = '/pdfViewer';
 }
