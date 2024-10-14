@@ -28,7 +28,7 @@ class ChatPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             MessagesList(),
-            SizedBox(height: 44),
+            SizedBox(height: 31),
             SendData(),
             SizedBox(height: 31),
           ],

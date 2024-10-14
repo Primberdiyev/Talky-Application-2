@@ -44,8 +44,8 @@ class MessagesList extends StatelessWidget {
                                     ? Alignment.centerRight
                                     : Alignment.centerLeft,
                                 child: Container(
-                                  margin:
-                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  margin: const EdgeInsets.only(
+                                      left: 5, right: 5, bottom: 10),
                                   padding: const EdgeInsets.all(10),
                                   constraints: BoxConstraints(
                                       maxWidth:
@@ -70,8 +70,8 @@ class MessagesList extends StatelessWidget {
                             );
                           case 'image':
                             return Container(
-                              margin:
-                                  const EdgeInsets.only(right: 28, left: 28),
+                              margin: const EdgeInsets.only(
+                                  right: 28, left: 28, bottom: 15),
                               alignment: isMine
                                   ? Alignment.centerRight
                                   : Alignment.centerLeft,
@@ -94,8 +94,8 @@ class MessagesList extends StatelessWidget {
                                 child: Container(
                                   height: 80,
                                   width: 240,
-                                  margin:
-                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  margin: const EdgeInsets.only(
+                                      left: 5, right: 5, bottom: 15),
                                   padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                     color: isMine
