@@ -48,7 +48,7 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.only(right: 28, top: 30),
           child: IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, NameRoutes.onlinUsers);
+              Navigator.pushNamed(context, NameRoutes.contacts);
             },
             icon: const Icon(Icons.search),
           ),

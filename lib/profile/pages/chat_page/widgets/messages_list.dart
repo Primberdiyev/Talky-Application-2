@@ -18,7 +18,7 @@ class MessagesList extends StatelessWidget {
     return Consumer<ChatProvider>(builder: (context, value, child) {
       return Expanded(
         child: Consumer<ChatProvider>(
-          builder: (context, provider, _) {
+          builder: (context, provider, child) {
             return StreamBuilder(
               stream: provider.getAllMessages(provider.reveiverId),
               builder: (context, snapshot) {
@@ -38,31 +38,36 @@ class MessagesList extends StatelessWidget {
                         final isMine = provider.user.uid == message['fromId'];
                         switch (message['type']) {
                           case "text":
-                            return ListTile(
-                              title: Align(
-                                alignment: isMine
-                                    ? Alignment.centerRight
-                                    : Alignment.centerLeft,
-                                child: Container(
-                                  margin: const EdgeInsets.only(
-                                      left: 5, right: 5, bottom: 10),
-                                  padding: const EdgeInsets.all(10),
-                                  constraints: BoxConstraints(
-                                      maxWidth:
-                                          MediaQuery.of(context).size.width *
-                                              0.5),
-                                  decoration: BoxDecoration(
-                                    color: isMine
-                                        ? AppColors.primaryBlue
-                                        : AppColors.chatColor,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Text(
-                                    message['msg'],
-                                    style: TextStyle(
+                            return Container(
+                              margin: const EdgeInsets.only(
+                                  left: 28, bottom: 7.5, top: 7.5),
+                              alignment: isMine
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              child: ListTile(
+                                title: Align(
+                                  alignment: isMine
+                                      ? Alignment.centerRight
+                                      : Alignment.centerLeft,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(10),
+                                    constraints: BoxConstraints(
+                                        maxWidth:
+                                            MediaQuery.of(context).size.width *
+                                                0.5),
+                                    decoration: BoxDecoration(
                                       color: isMine
-                                          ? Colors.white
-                                          : Colors.black87,
+                                          ? AppColors.primaryBlue
+                                          : AppColors.chatColor,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Text(
+                                      message['msg'],
+                                      style: TextStyle(
+                                        color: isMine
+                                            ? Colors.white
+                                            : Colors.black87,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -71,7 +76,7 @@ class MessagesList extends StatelessWidget {
                           case 'image':
                             return Container(
                               margin: const EdgeInsets.only(
-                                  right: 28, left: 28, bottom: 15),
+                                  right: 28, left: 28, bottom: 7.5, top: 7.5),
                               alignment: isMine
                                   ? Alignment.centerRight
                                   : Alignment.centerLeft,
@@ -86,62 +91,63 @@ class MessagesList extends StatelessWidget {
                               ),
                             );
                           case "file":
-                            return ListTile(
-                              title: Align(
-                                alignment: isMine
-                                    ? Alignment.centerRight
-                                    : Alignment.centerLeft,
-                                child: Container(
-                                  height: 80,
-                                  width: 240,
-                                  margin: const EdgeInsets.only(
-                                      left: 5, right: 5, bottom: 15),
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: isMine
-                                        ? AppColors.primaryBlue
-                                        : AppColors.chatColor,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: InkWell(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          width: 80,
-                                          margin:
-                                              const EdgeInsets.only(right: 20),
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: InkWell(
-                                            onTap: () async {
-                                              final file = await provider
-                                                  .loadFile(message['msg']);
-                                              if (file != null) {
-                                                openPDF(file);
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            maxLines: 2,
-                                            GetNameFromUrl().getFileNameFromUrl(
-                                              message['msg'],
+                            return 
+                               ListTile(
+                                title: Align(
+                                  alignment: isMine
+                                      ? Alignment.centerRight
+                                      : Alignment.centerLeft,
+                                  child: Container(
+                                    height: 80,
+                                    width: 240,
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      color: isMine
+                                          ? AppColors.primaryBlue
+                                          : AppColors.chatColor,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: InkWell(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: 80,
+                                            margin: const EdgeInsets.only(
+                                                right: 20),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: InkWell(
+                                              onTap: () async {
+                                                final file = await provider
+                                                    .loadFile(message['msg']);
+                                                if (file != null) {
+                                                  openPDF(file);
+                                                }
+                                              },
                                             ),
-                                            style:
-                                                const TextStyle(fontSize: 14),
                                           ),
-                                        )
-                                      ],
+                                          Expanded(
+                                            child: Text(
+                                              maxLines: 2,
+                                              GetNameFromUrl()
+                                                  .getFileNameFromUrl(
+                                                message['msg'],
+                                              ),
+                                              style:
+                                                  const TextStyle(fontSize: 14),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
+                              );
+                            
                           case "audio":
                             return ListTile(
                                 title: Align(

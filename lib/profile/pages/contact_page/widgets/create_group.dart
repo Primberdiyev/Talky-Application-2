@@ -6,7 +6,7 @@ class CreateGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.only(top: 35, bottom: 38),
       child: InkWell(
         onTap: () {},
         child: Row(
