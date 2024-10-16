@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/profile/models/user_time_model.dart';
 import 'package:talky_aplication_2/profile/pages/profile_page/widgets/image_and_search.dart';
 import 'package:talky_aplication_2/profile/pages/profile_page/widgets/list_users.dart';
 import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
@@ -35,13 +36,11 @@ class _ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.detached) {
       final provider = Provider.of<ProfilePageProvider>(context, listen: false);
+      final userData = UserTimeModel(closingTime: closingTime, isOnline: false);
       await FirebaseFirestore.instance
           .collection("User")
           .doc(provider.currentUser?.uid)
-          .update({
-        'closingTime': closingTime,
-        'isOnline': false,
-      });
+          .update(userData.toJson());
     }
   }
 

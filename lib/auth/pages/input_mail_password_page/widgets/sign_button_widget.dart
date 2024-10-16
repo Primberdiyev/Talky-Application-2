@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/auth/providers/otp_provider.dart';
 import 'package:talky_aplication_2/auth/providers/sign_in_and_up_provider.dart';
 import 'package:talky_aplication_2/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
@@ -38,7 +39,8 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
                   ),
                 );
               } else {
-                final otpProvider = Provider.of(context, listen: false);
+                final otpProvider =
+                    Provider.of<OtpProvider>(context, listen: false);
                 otpProvider.sendOTP(email: signprovider.emailController.text);
                 Navigator.pushNamed(context, NameRoutes.checkCode);
               }

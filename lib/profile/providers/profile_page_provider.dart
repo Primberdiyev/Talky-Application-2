@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:talky_aplication_2/profile/models/set_profile_model.dart';
+import 'package:talky_aplication_2/profile/models/user_time_model.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class ProfilePageProvider with ChangeNotifier {
@@ -33,19 +35,17 @@ class ProfilePageProvider with ChangeNotifier {
           .child('${currentUser?.email}/profile_image.png');
       uploadTask = ref.putFile(File(image!.path));
       final snapshot = await uploadTask?.whenComplete(() {});
-      final dowloadUrl = await snapshot?.ref.getDownloadURL();
+      final dowloadImgUrl = await snapshot?.ref.getDownloadURL();
+
+      final userInfo = SetProfileModel(
+          name: nameController.text,
+          description: descriptionController.text,
+          imgUrl: dowloadImgUrl!);
 
       await FirebaseFirestore.instance
           .collection('User')
           .doc(currentUser?.uid)
-          .set(
-        {
-          'name': nameController.text,
-          'description': descriptionController.text,
-          'imgUrl': dowloadUrl,
-        },
-        SetOptions(merge: true),
-      );
+          .update(userInfo.toJson());
     }
   }
 
@@ -70,22 +70,17 @@ class ProfilePageProvider with ChangeNotifier {
           if (user.id == currentUser?.uid) {
             imgUrls['currentUserImgUrl'] = user['imgUrl'];
           }
-          if (imgUrl!.startsWith('gs://')) {
-            final ref = FirebaseStorage.instance.refFromURL(imgUrl!);
-            imgUrls[imgUrl!] = await ref.getDownloadURL();
-          } else {
-            imgUrls[imgUrl!] = imgUrl!;
-          }
+
+          imgUrls[imgUrl!] = imgUrl!;
         }
       }
     }
-
+    final userTime = UserTimeModel(isOnline: true);
     await FirebaseFirestore.instance
         .collection('User')
         .doc(currentUser?.uid)
-        .update({
-      'isOnline': true,
-    });
+        .set(userTime.toJson(), SetOptions(merge: true));
+
     usersData =
         usersData!.where((value) => value.id != currentUser?.uid).toList();
     countUsers = usersData!.length;

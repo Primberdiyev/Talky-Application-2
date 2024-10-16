@@ -16,7 +16,8 @@ class AuthorizationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<ValueStateProvider,AuthGoogleProvider>(builder: (context, valueProvider,authProvider,child) {
+    return Consumer2<ValueStateProvider, AuthGoogleProvider>(
+        builder: (context, valueProvider, authProvider, child) {
       return Scaffold(
         body: Container(
           padding: const EdgeInsets.only(top: 115, left: 28, right: 28),

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/auth/models/auth_user_model.dart';
 import 'package:talky_aplication_2/auth/providers/sign_in_and_up_provider.dart';
 import 'package:talky_aplication_2/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
@@ -51,13 +52,12 @@ class AuthGoogleProvider with ChangeNotifier {
         if (doc.exists) {
           Navigator.pushNamed(context, NameRoutes.profile);
         } else {
+          final user =
+              AuthUserModel(email: userDetails.email, id: userDetails.uid);
           await FirebaseFirestore.instance
               .collection('User')
               .doc(userDetails.uid)
-              .set({
-            'email': userDetails.email,
-            'id': userDetails.uid,
-          });
+              .set(user.toJson(), SetOptions(merge: true));
           Navigator.pushNamed(context, NameRoutes.accout);
         }
         final signProvider =
