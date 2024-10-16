@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/auth/pages/input_mail_password_page/widgets/custom_app_bar.dart';
 import 'package:talky_aplication_2/profile/models/user_time_model.dart';
 import 'package:talky_aplication_2/profile/pages/profile_page/widgets/image_and_search.dart';
 import 'package:talky_aplication_2/profile/pages/profile_page/widgets/list_users.dart';
