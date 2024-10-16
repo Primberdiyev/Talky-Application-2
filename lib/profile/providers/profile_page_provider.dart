@@ -12,8 +12,6 @@ import 'package:timeago/timeago.dart' as timeago;
 class ProfilePageProvider with ChangeNotifier {
   XFile? image;
   UploadTask? uploadTask;
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
   bool isLoading = false;
   bool isNameEmpty = false;
   List? usersData;
@@ -29,7 +27,8 @@ class ProfilePageProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  FutureOr<void> saveUserProfile() async {
+  FutureOr<void> saveUserProfile(
+      {required String name, required String? description}) async {
     if (currentUser != null && image != null) {
       final ref = FirebaseStorage.instance
           .ref()
@@ -39,9 +38,7 @@ class ProfilePageProvider with ChangeNotifier {
       final photoUrl = await snapshot?.ref.getDownloadURL();
 
       final userInfo = SetProfileModel(
-          name: nameController.text,
-          description: descriptionController.text,
-          photoUrl: photoUrl);
+          name: name, description: description ?? '', photoUrl: photoUrl);
 
       await FirebaseFirestore.instance
           .collection('User')

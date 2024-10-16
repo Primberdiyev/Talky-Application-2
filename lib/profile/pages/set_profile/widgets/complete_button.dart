@@ -4,9 +4,19 @@ import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
-class CompleteButton extends StatelessWidget {
-  const CompleteButton({super.key});
+class CompleteButton extends StatefulWidget {
+  final TextEditingController nameController;
+  final TextEditingController descriptionController;
+  const CompleteButton(
+      {required this.nameController,
+      required this.descriptionController,
+      super.key});
 
+  @override
+  State<CompleteButton> createState() => _CompleteButtonState();
+}
+
+class _CompleteButtonState extends State<CompleteButton> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<ProfilePageProvider>();
@@ -23,11 +33,13 @@ class CompleteButton extends StatelessWidget {
           ),
         ),
         onPressed: () async {
-          provider.updateIsNameEmpty(provider.nameController.text.isEmpty);
-          if (!provider.isNameEmpty) {
+          final name = widget.nameController.text;
+          final description = widget.descriptionController.text;
+          if (name.isNotEmpty) {
             try {
               provider.setIsLoading();
-              await provider.saveUserProfile();
+              await provider.saveUserProfile(
+                  name: name, description: description);
               provider.setIsLoading();
               Navigator.pushNamed(context, NameRoutes.profile);
             } catch (error) {

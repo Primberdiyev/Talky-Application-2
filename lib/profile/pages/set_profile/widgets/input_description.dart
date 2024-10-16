@@ -4,19 +4,19 @@ import 'package:talky_aplication_2/profile/pages/set_profile/widgets/custom_text
 import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 
 class InputDescription extends StatefulWidget {
-  const InputDescription({super.key});
+  final TextEditingController controller;
+  const InputDescription({required this.controller, super.key});
 
   @override
-  State<InputDescription> createState() => _InputNameState();
+  State<InputDescription> createState() => _InputDescriptionState();
 }
 
-class _InputNameState extends State<InputDescription> {
+class _InputDescriptionState extends State<InputDescription> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfilePageProvider>(builder: (context, provider, child) {
       return CustomTextFileld(
-          controller: provider.descriptionController,
-          labelText: 'Enter a description');
+          controller: widget.controller, labelText: 'Enter a description');
     });
   }
 }

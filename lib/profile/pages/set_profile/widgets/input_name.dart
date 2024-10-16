@@ -4,12 +4,14 @@ import 'package:talky_aplication_2/profile/pages/set_profile/widgets/custom_text
 import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 
 class InputName extends StatelessWidget {
-  const InputName({super.key});
+  final TextEditingController controller;
+  const InputName({required this.controller, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfilePageProvider>(builder: (context, provider, child) {
-      return CustomTextFileld(controller: provider.nameController, labelText: 'Enter your name or nickname');
+      return CustomTextFileld(
+          controller: controller, labelText: 'Enter your name or nickname');
     });
   }
 }
