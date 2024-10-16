@@ -19,11 +19,9 @@ class ImageAndSearch extends StatelessWidget {
                 CircleAvatar(
                   radius: 25,
                   backgroundColor: const Color(0xFFF0F0F0),
-                  backgroundImage: provider.currentUser != null &&
-                          provider.imgUrls['currentUserImgUrl'] != null
-                      ? NetworkImage(
-                          provider.imgUrls['currentUserImgUrl']!,
-                        )
+                  backgroundImage: provider.currentUserImgUrl!= null &&
+                          provider.currentUser?.photoURL != null
+                      ? NetworkImage(provider.currentUserImgUrl!)
                       : const AssetImage('assets/images/User.png'),
                 ),
                 const Positioned(

@@ -18,9 +18,10 @@ class ProfilePageProvider with ChangeNotifier {
   bool isNameEmpty = false;
   List? usersData;
   int? countUsers;
-  var currentUser = FirebaseAuth.instance.currentUser;
-  String? imgUrl;
-  Map<String, String> imgUrls = {};
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  var currentUserImgUrl;
+  final firestore = FirebaseFirestore.instance;
+
   List filteredUsers = [];
 
   updateImage(newImage) {
@@ -35,12 +36,12 @@ class ProfilePageProvider with ChangeNotifier {
           .child('${currentUser?.email}/profile_image.png');
       uploadTask = ref.putFile(File(image!.path));
       final snapshot = await uploadTask?.whenComplete(() {});
-      final dowloadImgUrl = await snapshot?.ref.getDownloadURL();
+      final photoUrl = await snapshot?.ref.getDownloadURL();
 
       final userInfo = SetProfileModel(
           name: nameController.text,
           description: descriptionController.text,
-          imgUrl: dowloadImgUrl!);
+          photoUrl: photoUrl);
 
       await FirebaseFirestore.instance
           .collection('User')
@@ -60,31 +61,21 @@ class ProfilePageProvider with ChangeNotifier {
   }
 
   FutureOr getUserCollection() async {
-    final snapshot = await FirebaseFirestore.instance.collection('User').get();
-    usersData = snapshot.docs;
+    final snapshot = await firestore.collection('User').get();
+    usersData =
+        snapshot.docs.where((value) => value.id != currentUser?.uid).toList();
     countUsers = usersData!.length;
-    if (usersData != null) {
-      for (var user in usersData!) {
-        imgUrl = user['imgUrl'];
-        if (imgUrl != null) {
-          if (user.id == currentUser?.uid) {
-            imgUrls['currentUserImgUrl'] = user['imgUrl'];
-          }
-
-          imgUrls[imgUrl!] = imgUrl!;
-        }
-      }
-    }
+    filteredUsers = usersData!;
+    final querySnapshot = await firestore
+        .collection('User')
+        .where('email', isEqualTo: currentUser?.email)
+        .get();
+    currentUserImgUrl = querySnapshot.docs.first['imgUrl'];
     final userTime = UserTimeModel(isOnline: true);
     await FirebaseFirestore.instance
         .collection('User')
         .doc(currentUser?.uid)
-        .set(userTime.toJson(), SetOptions(merge: true));
-
-    usersData =
-        usersData!.where((value) => value.id != currentUser?.uid).toList();
-    countUsers = usersData!.length;
-    filteredUsers = usersData!;
+        .update(userTime.toJson());
 
     notifyListeners();
   }

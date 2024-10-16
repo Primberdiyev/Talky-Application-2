@@ -1,20 +1,20 @@
 class SetProfileModel {
   final String name;
   final String description;
-  final String? imgUrl;
+  final String? photoUrl;
   SetProfileModel(
-      {required this.name, required this.description, required this.imgUrl});
+      {required this.name, required this.description, required this.photoUrl});
   factory SetProfileModel.fromJson(Map<String, dynamic> json) {
     return SetProfileModel(
         name: json['name'],
         description: json['description'],
-        imgUrl: json['imgUrl']);
+        photoUrl: json['imgUrl']);
   }
   Map<String, dynamic> toJson() {
     return {
       'name': name,
       'description': description,
-      'imgUrl': imgUrl,
+      'imgUrl': photoUrl,
     };
   }
 }
