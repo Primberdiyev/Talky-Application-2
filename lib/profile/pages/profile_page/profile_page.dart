@@ -17,8 +17,7 @@ class _ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    final provider = Provider.of<ProfilePageProvider>(context, listen: false);
-    provider.getUserCollection();
+    context.read<ProfilePageProvider>().getUserCollection();
     WidgetsBinding.instance.addObserver(this);
   }
 

@@ -17,7 +17,7 @@ class ProfilePageProvider with ChangeNotifier {
   List? usersData;
   int? countUsers;
   User? currentUser = FirebaseAuth.instance.currentUser;
-  var currentUserImgUrl;
+  String? currentUserImgUrl;
   final firestore = FirebaseFirestore.instance;
 
   List filteredUsers = [];
@@ -67,7 +67,12 @@ class ProfilePageProvider with ChangeNotifier {
         .collection('User')
         .where('email', isEqualTo: currentUser?.email)
         .get();
-    currentUserImgUrl = querySnapshot.docs.first['imgUrl'];
+    if (querySnapshot.docs.isNotEmpty) {
+      currentUserImgUrl = querySnapshot.docs.first['imgUrl'];
+    } else {
+      currentUserImgUrl = null;
+    }
+
     final userTime = UserTimeModel(isOnline: true);
     await FirebaseFirestore.instance
         .collection('User')
