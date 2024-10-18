@@ -5,8 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:talky_aplication_2/profile/models/message_model.dart';
 import 'package:uuid/uuid.dart';
 
@@ -142,25 +140,5 @@ class ChatProvider with ChangeNotifier {
         .collection('chats/${getConversatioId(receiverId)}/messages')
         .where('type', isEqualTo: 'image')
         .snapshots();
-  }
-
-  Future<File?> loadFile(String url) async {
-    try {
-      final refPdf = FirebaseStorage.instance.refFromURL(url);
-      final downloadUrl = await refPdf.getDownloadURL();
-      final bytes = await refPdf.getData();
-      return _storeFile(downloadUrl, bytes!);
-    } catch (e) {
-      return null;
-    }
-  }
-
-  Future<File> _storeFile(String url, List<int> bytes) async {
-    final filename = basename(url);
-    final dir = await getApplicationDocumentsDirectory();
-
-    final file = File('${dir.path}/$filename');
-    await file.writeAsBytes(bytes, flush: true);
-    return file;
   }
 }

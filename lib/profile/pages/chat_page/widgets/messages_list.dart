@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/profile/pages/chat_page/widgets/file_downloader_file.dart';
 import 'package:talky_aplication_2/profile/pages/chat_page/widgets/get_name_from_url.dart';
+import 'package:talky_aplication_2/profile/providers/chat_file_provider.dart';
 import 'package:talky_aplication_2/profile/providers/chat_provider.dart';
-import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 
 class MessagesList extends StatefulWidget {
@@ -18,9 +15,6 @@ class MessagesList extends StatefulWidget {
 class _MessagesListState extends State<MessagesList> {
   @override
   Widget build(BuildContext context) {
-    void openPDF(File file) =>
-        Navigator.pushNamed(context, NameRoutes.pdfViewer, arguments: file);
-
     return Consumer<ChatProvider>(builder: (context, value, child) {
       return Expanded(
         child: Consumer<ChatProvider>(
@@ -34,162 +28,183 @@ class _MessagesListState extends State<MessagesList> {
                 if (snapshot.hasData) {
                   final messages = snapshot.data!.docs;
 
-                  return ListView.builder(
-                      reverse: true,
-                      itemCount: messages.length,
-                      itemBuilder: (context, index) {
-                        final message =
-                            messages[messages.length - 1 - index].data();
+                  return MultiProvider(
+                    providers: [
+                      ChangeNotifierProvider(create: (_) => ChatFileProvider())
+                    ],
+                    child: ListView.builder(
+                        reverse: true,
+                        itemCount: messages.length,
+                        itemBuilder: (context, index) {
+                          final message =
+                              messages[messages.length - 1 - index].data();
 
-                        final isMine = provider.user.uid == message['fromId'];
-                        switch (message['type']) {
-                          case "text":
-                            return Container(
-                              margin: const EdgeInsets.only(
-                                  left: 28, bottom: 7.5, top: 7.5),
-                              alignment: isMine
-                                  ? Alignment.centerRight
-                                  : Alignment.centerLeft,
-                              child: ListTile(
-                                title: Align(
-                                  alignment: isMine
-                                      ? Alignment.centerRight
-                                      : Alignment.centerLeft,
+                          final isMine = provider.user.uid == message['fromId'];
+                          switch (message['type']) {
+                            case "text":
+                              return Container(
+                                margin: const EdgeInsets.only(
+                                    left: 28, bottom: 7.5, top: 7.5),
+                                alignment: isMine
+                                    ? Alignment.centerRight
+                                    : Alignment.centerLeft,
+                                child: ListTile(
+                                  title: Align(
+                                    alignment: isMine
+                                        ? Alignment.centerRight
+                                        : Alignment.centerLeft,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10),
+                                      constraints: BoxConstraints(
+                                          maxWidth: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.5),
+                                      decoration: BoxDecoration(
+                                        color: isMine
+                                            ? AppColors.primaryBlue
+                                            : AppColors.chatColor,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Text(
+                                        message['msg'],
+                                        style: TextStyle(
+                                          color: isMine
+                                              ? Colors.white
+                                              : Colors.black87,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            case 'image':
+                              return Container(
+                                margin: const EdgeInsets.only(
+                                    right: 28, left: 28, bottom: 7.5, top: 7.5),
+                                alignment: isMine
+                                    ? Alignment.centerRight
+                                    : Alignment.centerLeft,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(
+                                    message['msg'],
+                                    width: 125,
+                                    height: 125,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              );
+                            case "file":
+                              return Consumer<ChatFileProvider>(
+                                  builder: (context, fileProvider, child) {
+                                return ListTile(
+                                  title: Align(
+                                    alignment: isMine
+                                        ? Alignment.centerRight
+                                        : Alignment.centerLeft,
+                                    child: Container(
+                                      height: 80,
+                                      width: 240,
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: isMine
+                                            ? AppColors.primaryBlue
+                                            : AppColors.chatColor,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: InkWell(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              width: 80,
+                                              margin: const EdgeInsets.only(
+                                                  right: 20),
+                                              decoration: BoxDecoration(
+                                                  image: (!fileProvider
+                                                              .isLoading) &&
+                                                          !fileProvider
+                                                              .isCompleted
+                                                      ? const DecorationImage(
+                                                          image: AssetImage(
+                                                              'assets/images/download_file.png'),
+                                                        )
+                                                      : null,
+                                                  color: !fileProvider.isLoading
+                                                      ? Colors.white
+                                                      : null,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: fileProvider.isLoading
+                                                  ? const SizedBox(
+                                                      height: 30,
+                                                      width: 10,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: Colors.blue,
+                                                      ))
+                                                  : InkWell(
+                                                      onTap: () => fileProvider
+                                                              .isCompleted
+                                                          ? fileProvider
+                                                              .openFileButton()
+                                                          : fileProvider
+                                                              .downloadButton(
+                                                                  url: message[
+                                                                      'msg']),
+                                                    ),
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                maxLines: 2,
+                                                GetNameFromUrl()
+                                                    .getFileNameFromUrl(
+                                                  message['msg'],
+                                                ),
+                                                style: const TextStyle(
+                                                    fontSize: 14),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              });
+
+                            case "audio":
+                              return ListTile(
+                                  title: Align(
+                                alignment: isMine
+                                    ? Alignment.centerRight
+                                    : Alignment.centerLeft,
+                                child: GestureDetector(
+                                  onTap: () {},
                                   child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 5),
                                     padding: const EdgeInsets.all(10),
-                                    constraints: BoxConstraints(
-                                        maxWidth:
-                                            MediaQuery.of(context).size.width *
-                                                0.5),
                                     decoration: BoxDecoration(
                                       color: isMine
                                           ? AppColors.primaryBlue
                                           : AppColors.chatColor,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
-                                    child: Text(
-                                      message['msg'],
-                                      style: TextStyle(
-                                        color: isMine
-                                            ? Colors.white
-                                            : Colors.black87,
-                                      ),
+                                    child: const Text(
+                                      'Audio faylini tinglash',
+                                      style: TextStyle(color: Colors.white),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          case 'image':
-                            return Container(
-                              margin: const EdgeInsets.only(
-                                  right: 28, left: 28, bottom: 7.5, top: 7.5),
-                              alignment: isMine
-                                  ? Alignment.centerRight
-                                  : Alignment.centerLeft,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  message['msg'],
-                                  width: 125,
-                                  height: 125,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            );
-                          case "file":
-                            return ListTile(
-                              title: Align(
-                                alignment: isMine
-                                    ? Alignment.centerRight
-                                    : Alignment.centerLeft,
-                                child: Container(
-                                  height: 80,
-                                  width: 240,
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: isMine
-                                        ? AppColors.primaryBlue
-                                        : AppColors.chatColor,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: InkWell(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          width: 80,
-                                          margin:
-                                              const EdgeInsets.only(right: 20),
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: InkWell(
-                                            onTap: () async {
-                                              print('start loading');
-                                              String? filePath =
-                                                  await FileDownloader()
-                                                      .urlFileSaver(
-                                                url: message['msg'],
-                                                fileName: 'pdf_file',
-                                              );
-
-                                              if (filePath != null) {
-                                                print(
-                                                    'Fayl muvaffaqiyatli yuklandi: $filePath');
-                                              } else {
-                                                print(
-                                                    'Yuklashda xatolik yuz berdi');
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            maxLines: 2,
-                                            GetNameFromUrl().getFileNameFromUrl(
-                                              message['msg'],
-                                            ),
-                                            style:
-                                                const TextStyle(fontSize: 14),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-
-                          case "audio":
-                            return ListTile(
-                                title: Align(
-                              alignment: isMine
-                                  ? Alignment.centerRight
-                                  : Alignment.centerLeft,
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  margin:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: isMine
-                                        ? AppColors.primaryBlue
-                                        : AppColors.chatColor,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: const Text(
-                                    'Audio faylini tinglash',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            ));
-                        }
-                        return null;
-                      });
+                              ));
+                          }
+                          return null;
+                        }),
+                  );
                 } else {
                   return const Center(
                     child: Text(
