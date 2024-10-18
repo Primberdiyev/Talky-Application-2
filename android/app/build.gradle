@@ -10,6 +10,7 @@ plugins {
 
 android {
     namespace = "com.example.talky_aplication_2"
+   
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 

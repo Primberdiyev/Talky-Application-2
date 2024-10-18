@@ -2,14 +2,20 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/profile/pages/chat_page/widgets/file_downloader_file.dart';
 import 'package:talky_aplication_2/profile/pages/chat_page/widgets/get_name_from_url.dart';
 import 'package:talky_aplication_2/profile/providers/chat_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 
-class MessagesList extends StatelessWidget {
+class MessagesList extends StatefulWidget {
   const MessagesList({super.key});
 
+  @override
+  State<MessagesList> createState() => _MessagesListState();
+}
+
+class _MessagesListState extends State<MessagesList> {
   @override
   Widget build(BuildContext context) {
     void openPDF(File file) =>
@@ -91,63 +97,71 @@ class MessagesList extends StatelessWidget {
                               ),
                             );
                           case "file":
-                            return 
-                               ListTile(
-                                title: Align(
-                                  alignment: isMine
-                                      ? Alignment.centerRight
-                                      : Alignment.centerLeft,
-                                  child: Container(
-                                    height: 80,
-                                    width: 240,
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      color: isMine
-                                          ? AppColors.primaryBlue
-                                          : AppColors.chatColor,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: InkWell(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            width: 80,
-                                            margin: const EdgeInsets.only(
-                                                right: 20),
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child: InkWell(
-                                              onTap: () async {
-                                                final file = await provider
-                                                    .loadFile(message['msg']);
-                                                if (file != null) {
-                                                  openPDF(file);
-                                                }
-                                              },
-                                            ),
+                            return ListTile(
+                              title: Align(
+                                alignment: isMine
+                                    ? Alignment.centerRight
+                                    : Alignment.centerLeft,
+                                child: Container(
+                                  height: 80,
+                                  width: 240,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: isMine
+                                        ? AppColors.primaryBlue
+                                        : AppColors.chatColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: InkWell(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          width: 80,
+                                          margin:
+                                              const EdgeInsets.only(right: 20),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              print('start loading');
+                                              String? filePath =
+                                                  await FileDownloader()
+                                                      .urlFileSaver(
+                                                url: message['msg'],
+                                                fileName: 'pdf_file',
+                                              );
+
+                                              if (filePath != null) {
+                                                print(
+                                                    'Fayl muvaffaqiyatli yuklandi: $filePath');
+                                              } else {
+                                                print(
+                                                    'Yuklashda xatolik yuz berdi');
+                                              }
+                                            },
                                           ),
-                                          Expanded(
-                                            child: Text(
-                                              maxLines: 2,
-                                              GetNameFromUrl()
-                                                  .getFileNameFromUrl(
-                                                message['msg'],
-                                              ),
-                                              style:
-                                                  const TextStyle(fontSize: 14),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            maxLines: 2,
+                                            GetNameFromUrl().getFileNameFromUrl(
+                                              message['msg'],
                                             ),
-                                          )
-                                        ],
-                                      ),
+                                            style:
+                                                const TextStyle(fontSize: 14),
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ),
                                 ),
-                              );
-                            
+                              ),
+                            );
+
                           case "audio":
                             return ListTile(
                                 title: Align(
