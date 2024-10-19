@@ -33,13 +33,15 @@ class ChatProvider with ChangeNotifier {
 
   Future<void> sendMessage(String receiverId, String msg) async {
     final time = DateTime.now().microsecondsSinceEpoch.toString();
+    final sentTime = DateTime.now().hour;
     final MessageModel message = MessageModel(
         toId: receiverId,
         msg: msg,
         read: 'false',
         type: TypeMessage.text,
         fromId: user.uid,
-        sent: time);
+        sent: time,
+        sentTime: sentTime.toString());
 
     final ref =
         firestore.collection('chats/${getConversatioId(receiverId)}/messages/');
@@ -89,13 +91,16 @@ class ChatProvider with ChangeNotifier {
     var uploadTask = await refStorage.putFile(imageFile!);
     String imgUrl = await uploadTask.ref.getDownloadURL();
     final time = DateTime.now().microsecondsSinceEpoch.toString();
+    final sentTime = DateTime.now().hour;
+
     final message = MessageModel(
         toId: reveiverId!,
         msg: imgUrl,
         read: 'false',
         type: TypeMessage.image,
         fromId: user.uid,
-        sent: time);
+        sent: time,
+        sentTime: sentTime.toString());
     var ref = firestore
         .collection('chats/${getConversatioId(reveiverId!)}/messages/');
     await ref.doc(time).set(message.toJson());
@@ -120,6 +125,7 @@ class ChatProvider with ChangeNotifier {
       var uploadTask = await refStorage.putFile(file);
       final fileUrl = await uploadTask.ref.getDownloadURL();
       final time = DateTime.now().microsecondsSinceEpoch.toString();
+      final sentTime = DateTime.now().hour;
 
       final message = MessageModel(
           toId: reveiverId!,
@@ -127,7 +133,8 @@ class ChatProvider with ChangeNotifier {
           read: 'false',
           type: type,
           fromId: user.uid,
-          sent: time);
+          sent: time,
+          sentTime: sentTime.toString());
 
       var ref = firestore
           .collection('chats/${getConversatioId(reveiverId!)}/messages/');

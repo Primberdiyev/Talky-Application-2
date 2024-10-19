@@ -139,13 +139,15 @@ class _MessagesListState extends State<MessagesList> {
                                                       BorderRadius.circular(
                                                           10)),
                                               child: fileProvider.isLoading
-                                                  ? const SizedBox(
-                                                      height: 30,
-                                                      width: 10,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        color: Colors.blue,
-                                                      ))
+                                                  ? const Center(
+                                                      child: SizedBox(
+                                                          height: 30,
+                                                          width: 30,
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            color: Colors.blue,
+                                                          )),
+                                                    )
                                                   : InkWell(
                                                       onTap: () => fileProvider
                                                               .isCompleted
