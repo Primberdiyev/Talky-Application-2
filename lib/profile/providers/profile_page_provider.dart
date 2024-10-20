@@ -5,8 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:talky_aplication_2/profile/models/set_profile_model.dart';
-import 'package:talky_aplication_2/profile/models/user_time_model.dart';
+import 'package:talky_aplication_2/auth/models/user_model.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class ProfilePageProvider with ChangeNotifier {
@@ -37,8 +36,8 @@ class ProfilePageProvider with ChangeNotifier {
       final snapshot = await uploadTask?.whenComplete(() {});
       final photoUrl = await snapshot?.ref.getDownloadURL();
 
-      final userInfo = SetProfileModel(
-          name: name, description: description ?? '', photoUrl: photoUrl);
+      final userInfo = UserModel(
+          name: name, description: description ?? '', imgUrl: photoUrl);
 
       await FirebaseFirestore.instance
           .collection('User')
@@ -73,7 +72,7 @@ class ProfilePageProvider with ChangeNotifier {
       currentUserImgUrl = null;
     }
 
-    final userTime = UserTimeModel(isOnline: true);
+    const userTime = UserModel(isOnline: true);
     await FirebaseFirestore.instance
         .collection('User')
         .doc(currentUser?.uid)

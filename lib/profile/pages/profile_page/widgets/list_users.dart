@@ -99,7 +99,7 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
                             ),
                             user['closingTime'] != null
                                 ? Text(provider.timeAgo(user['closingTime']))
-                                : const Text('Unknown registration time'),
+                                : const Text(''),
                           ],
                         ),
                       ),

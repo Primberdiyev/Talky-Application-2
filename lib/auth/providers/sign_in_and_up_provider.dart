@@ -5,7 +5,7 @@ import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/auth/models/auth_user_model.dart';
+import 'package:talky_aplication_2/auth/models/user_model.dart';
 import 'package:talky_aplication_2/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
@@ -55,7 +55,7 @@ class SignInAndUpProvider with ChangeNotifier {
 
       User? user = userCredential.user;
       if (user != null) {
-        final userData = AuthUserModel(email: user.email, id: user.uid);
+        final userData = UserModel(email: user.email, id: user.uid);
         await FirebaseFirestore.instance
             .collection("User")
             .doc(user.uid)
