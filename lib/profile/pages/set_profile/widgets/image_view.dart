@@ -23,7 +23,8 @@ class _ImageViewState extends State<ImageView> {
             CircleAvatar(
               radius: 95,
               backgroundColor: const Color(0xFFF0F0F0),
-              backgroundImage:userGoogleImg!=null ?NetworkImage(userGoogleImg!):null,
+              backgroundImage:
+                  userGoogleImg != null ? NetworkImage(userGoogleImg) : null,
               child: ClipOval(
                 child: provider.image != null
                     ? Image.file(

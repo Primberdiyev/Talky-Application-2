@@ -48,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
     return Consumer<ProfilePageProvider>(
       builder: (context, provider, child) {
         return Scaffold(
-          appBar:  ProfileAppBar(),
+          appBar: ProfileAppBar(),
           body: provider.usersData != null
               ? const Column(
                   children: [

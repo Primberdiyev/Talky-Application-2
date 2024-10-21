@@ -18,13 +18,6 @@ class CompleteButton extends StatefulWidget {
 
 class _CompleteButtonState extends State<CompleteButton> {
   @override
-  void dispose() {
-    widget.nameController.dispose();
-    widget.descriptionController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final provider = context.watch<ProfilePageProvider>();
     return Padding(

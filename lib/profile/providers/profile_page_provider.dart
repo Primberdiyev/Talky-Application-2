@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talky_aplication_2/auth/models/user_model.dart';
 import 'package:talky_aplication_2/base/base_change_notifier.dart';
@@ -12,7 +13,6 @@ import 'package:timeago/timeago.dart' as timeago;
 class ProfilePageProvider extends BaseChangeNotifier {
   XFile? image;
   UploadTask? uploadTask;
-
   bool isNameEmpty = false;
   List? usersData;
   int? countUsers;
@@ -26,26 +26,40 @@ class ProfilePageProvider extends BaseChangeNotifier {
     notifyListeners();
   }
 
+  loadGoogleProfile() {
+    if (currentUser != null) {
+      currentUserImgUrl = currentUser?.photoURL;
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        notifyListeners();
+      });
+    }
+  }
+
   Future<void> saveUserProfile(
       {required String name, required String? description}) async {
     updateState(Statuses.loading);
-    if (currentUser != null && image != null) {
+
+    String? photoUrl = currentUserImgUrl;
+
+    if (image != null) {
       final ref = FirebaseStorage.instance
           .ref()
           .child('${currentUser?.email}/profile_image.png');
       uploadTask = ref.putFile(File(image!.path));
       final snapshot = await uploadTask?.whenComplete(() {});
-      final photoUrl = await snapshot?.ref.getDownloadURL();
-
-      final userInfo = UserModel(
-          name: name, description: description ?? '', imgUrl: photoUrl);
-
-      await FirebaseFirestore.instance
-          .collection('User')
-          .doc(currentUser?.uid)
-          .update(userInfo.toJson());
-      updateState(Statuses.completed);
+      photoUrl = await snapshot?.ref.getDownloadURL();
     }
+
+    final userInfo =
+        UserModel(name: name, description: description ?? '', imgUrl: photoUrl);
+
+    await FirebaseFirestore.instance
+        .collection('User')
+        .doc(currentUser?.uid)
+        .update(userInfo.toJson());
+
+    updateState(Statuses.completed);
   }
 
   updateIsNameEmpty(bool newValue) {
