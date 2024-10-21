@@ -3,9 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
-class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
+class ProfileAppBar extends StatefulWidget implements PreferredSizeWidget {
   const ProfileAppBar({super.key});
 
+  @override
+  State<ProfileAppBar> createState() => _ProfileAppBarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(90);
+}
+
+class _ProfileAppBarState extends State<ProfileAppBar> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProfilePageProvider>(context, listen: false);
@@ -56,7 +64,4 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
       ],
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(90);
 }

@@ -5,11 +5,12 @@ import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart'
 class CustomTextFileld extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
-  const CustomTextFileld({
-    super.key,
-    required this.controller,
-    required this.labelText,
-  });
+  bool? getFromGoogle;
+  CustomTextFileld(
+      {super.key,
+      required this.controller,
+      required this.labelText,
+      this.getFromGoogle});
 
   @override
   State<CustomTextFileld> createState() => _InputNameState();
@@ -19,6 +20,9 @@ class _InputNameState extends State<CustomTextFileld> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfilePageProvider>(builder: (context, provider, child) {
+      if (widget.getFromGoogle==true) {
+        widget.controller.text = provider.currentUser?.displayName??'';
+      }
       return Padding(
         padding: const EdgeInsets.only(left: 10, top: 18),
         child: TextField(

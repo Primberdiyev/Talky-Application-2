@@ -25,7 +25,7 @@ class OtpProvider extends BaseChangeNotifier {
       }
     } catch (e) {
       updateState(Statuses.error);
-      throw Exception("Failed to send OTP");
+      print("Failed to send OTP");
     }
   }
 }

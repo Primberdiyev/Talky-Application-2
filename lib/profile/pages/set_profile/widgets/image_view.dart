@@ -15,6 +15,7 @@ class _ImageViewState extends State<ImageView> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfilePageProvider>(builder: (context, provider, child) {
+      final userGoogleImg = provider.currentUser?.photoURL;
       return Padding(
         padding: const EdgeInsets.only(top: 50, bottom: 32),
         child: Stack(
@@ -22,18 +23,16 @@ class _ImageViewState extends State<ImageView> {
             CircleAvatar(
               radius: 95,
               backgroundColor: const Color(0xFFF0F0F0),
-              child: provider.image == null
-                  ? Image.asset(
-                      'assets/images/User.png',
-                      width: 40,
-                    )
-                  : ClipOval(
-                      child: Image.file(
+              backgroundImage:userGoogleImg!=null ?NetworkImage(userGoogleImg!):null,
+              child: ClipOval(
+                child: provider.image != null
+                    ? Image.file(
                         File(provider.image!.path),
                         height: 190,
                         fit: BoxFit.cover,
-                      ),
-                    ),
+                      )
+                    : null,
+              ),
             ),
             Positioned(
               bottom: 0,

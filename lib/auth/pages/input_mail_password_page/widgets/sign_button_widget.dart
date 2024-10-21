@@ -21,6 +21,7 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
   Widget build(BuildContext context) {
     return Consumer2<ValueStateProvider, SignInAndUpProvider>(
         builder: (context, valueProvider, signprovider, child) {
+      final otpProvider = Provider.of<OtpProvider>(context);
       return Padding(
         padding: const EdgeInsets.only(
           top: 104,
@@ -48,7 +49,7 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
               color: const Color(0xFF377DFF),
             ),
             child: Center(
-              child: !widget.isLoading
+              child: !otpProvider.state.isLoading
                   ? Text(
                       valueProvider.isSignIn ? 'Sign in' : "Sign up",
                       style: const TextStyle(

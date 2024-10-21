@@ -12,14 +12,13 @@ import 'package:timeago/timeago.dart' as timeago;
 class ProfilePageProvider extends BaseChangeNotifier {
   XFile? image;
   UploadTask? uploadTask;
-  // bool isLoading = false;
+
   bool isNameEmpty = false;
   List? usersData;
   int? countUsers;
   User? currentUser = FirebaseAuth.instance.currentUser;
   String? currentUserImgUrl;
   final firestore = FirebaseFirestore.instance;
-
   List filteredUsers = [];
 
   updateImage(newImage) {
@@ -49,11 +48,6 @@ class ProfilePageProvider extends BaseChangeNotifier {
     }
   }
 
-  // setIsLoading() {
-  //   isLoading = !isLoading;
-  //   notifyListeners();
-  // }
-
   updateIsNameEmpty(bool newValue) {
     isNameEmpty = newValue;
     notifyListeners();
@@ -65,15 +59,10 @@ class ProfilePageProvider extends BaseChangeNotifier {
         snapshot.docs.where((value) => value.id != currentUser?.uid).toList();
     countUsers = usersData!.length;
     filteredUsers = usersData!;
-    final querySnapshot = await firestore
-        .collection('User')
-        .where('email', isEqualTo: currentUser?.email)
-        .get();
-    if (querySnapshot.docs.isNotEmpty) {
-      currentUserImgUrl = querySnapshot.docs.first['imgUrl'];
-    } else {
-      currentUserImgUrl = null;
-    }
+
+    final querysnapshot =
+        await firestore.collection("User").doc(currentUser?.uid).get();
+    currentUserImgUrl = await querysnapshot.get('imgUrl');
 
     const userTime = UserModel(isOnline: true);
     await FirebaseFirestore.instance
