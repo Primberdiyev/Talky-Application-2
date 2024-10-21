@@ -63,7 +63,7 @@ class SignInAndUpProvider extends BaseChangeNotifier {
 
       User? user = userCredential.user;
       if (user != null) {
-        updateState(Statuses.completed); // Sets completed state
+        updateState(Statuses.completed);
         final userData = UserModel(email: user.email, id: user.uid);
         await FirebaseFirestore.instance
             .collection("User")
@@ -73,8 +73,9 @@ class SignInAndUpProvider extends BaseChangeNotifier {
 
       final provider = Provider.of<ProfilePageProvider>(context, listen: false);
       provider.updateCurrentUser(user);
-
-      Navigator.pushReplacementNamed(context, NameRoutes.accout);
+      await Future.delayed(Duration.zero, () {
+        Navigator.pushReplacementNamed(context, NameRoutes.accout);
+      });
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));

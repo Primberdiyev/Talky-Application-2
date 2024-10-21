@@ -3,15 +3,16 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talky_aplication_2/auth/models/user_model.dart';
+import 'package:talky_aplication_2/base/base_change_notifier.dart';
+import 'package:talky_aplication_2/unilities/statuses.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class ProfilePageProvider with ChangeNotifier {
+class ProfilePageProvider extends BaseChangeNotifier {
   XFile? image;
   UploadTask? uploadTask;
-  bool isLoading = false;
+  // bool isLoading = false;
   bool isNameEmpty = false;
   List? usersData;
   int? countUsers;
@@ -26,8 +27,9 @@ class ProfilePageProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  FutureOr<void> saveUserProfile(
+  Future<void> saveUserProfile(
       {required String name, required String? description}) async {
+    updateState(Statuses.loading);
     if (currentUser != null && image != null) {
       final ref = FirebaseStorage.instance
           .ref()
@@ -43,13 +45,14 @@ class ProfilePageProvider with ChangeNotifier {
           .collection('User')
           .doc(currentUser?.uid)
           .update(userInfo.toJson());
+      updateState(Statuses.completed);
     }
   }
 
-  setIsLoading() {
-    isLoading = !isLoading;
-    notifyListeners();
-  }
+  // setIsLoading() {
+  //   isLoading = !isLoading;
+  //   notifyListeners();
+  // }
 
   updateIsNameEmpty(bool newValue) {
     isNameEmpty = newValue;

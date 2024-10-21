@@ -37,11 +37,12 @@ class _CompleteButtonState extends State<CompleteButton> {
           final description = widget.descriptionController.text;
           if (name.isNotEmpty) {
             try {
-              provider.setIsLoading();
               await provider.saveUserProfile(
                   name: name, description: description);
-              provider.setIsLoading();
-              Navigator.pushNamed(context, NameRoutes.profile);
+
+              await Future.delayed(Duration.zero, () {
+                Navigator.pushNamed(context, NameRoutes.profile);
+              });
             } catch (error) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -53,7 +54,7 @@ class _CompleteButtonState extends State<CompleteButton> {
             }
           }
         },
-        child: !provider.isLoading
+        child: !provider.state.isLoading
             ? const Text(
                 'Complete',
                 style: TextStyle(
