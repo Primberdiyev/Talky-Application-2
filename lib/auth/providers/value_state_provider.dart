@@ -5,7 +5,7 @@ class ValueStateProvider with ChangeNotifier {
   bool isSignIn = true;
   bool agreeCondition = false;
   bool isHideText = true;
-  bool isLoading = false;
+
   bool isEmailCorrect = true;
 
   void changeBoolValue(BoolValueEnum value) {
@@ -18,9 +18,6 @@ class ValueStateProvider with ChangeNotifier {
         break;
       case BoolValueEnum.isHideText:
         isHideText = !isHideText;
-        break;
-      case BoolValueEnum.isLoading:
-        isLoading = !isLoading;
         break;
     }
 

@@ -37,7 +37,7 @@ class AuthorizationPage extends StatelessWidget {
                       authProvider.signInWithGoogle(context);
                     },
                     imagePath: ImagePaths.googleImagePath,
-                    isLoading: valueProvider.isLoading,
+                    isLoading: authProvider.state.isLoading,
                   ),
                   const OrWidget(),
                   GeneralSignButton(

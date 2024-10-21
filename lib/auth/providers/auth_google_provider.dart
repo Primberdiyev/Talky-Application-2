@@ -5,19 +5,17 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/auth/models/user_model.dart';
 import 'package:talky_aplication_2/auth/providers/sign_in_and_up_provider.dart';
-import 'package:talky_aplication_2/auth/providers/value_state_provider.dart';
+import 'package:talky_aplication_2/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
-import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
+import 'package:talky_aplication_2/unilities/statuses.dart';
 
-class AuthGoogleProvider with ChangeNotifier {
+class AuthGoogleProvider extends BaseChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   Future<void> signInWithGoogle(BuildContext context) async {
-    final provider = Provider.of<ValueStateProvider>(context, listen: false);
-
-    provider.changeBoolValue(BoolValueEnum.isLoading);
+    updateState(Statuses.loading);
     try {
       await googleSignIn.signOut();
 
@@ -25,6 +23,7 @@ class AuthGoogleProvider with ChangeNotifier {
           await googleSignIn.signIn();
 
       if (googleSignInAccount == null) {
+        updateState(Statuses.completed);
         return;
       }
       final GoogleSignInAuthentication googleSignInAuthentication =
@@ -52,8 +51,7 @@ class AuthGoogleProvider with ChangeNotifier {
         if (doc.exists) {
           Navigator.pushNamed(context, NameRoutes.profile);
         } else {
-          final user =
-              UserModel(email: userDetails.email, id: userDetails.uid);
+          final user = UserModel(email: userDetails.email, id: userDetails.uid);
           await FirebaseFirestore.instance
               .collection('User')
               .doc(userDetails.uid)
@@ -63,13 +61,13 @@ class AuthGoogleProvider with ChangeNotifier {
         final signProvider =
             Provider.of<SignInAndUpProvider>(context, listen: false);
         signProvider.deleteControllerText();
+        updateState(Statuses.completed);
       }
     } catch (error) {
+      updateState(Statuses.error);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error signing in with Google: $error')),
       );
-    } finally {
-      provider.changeBoolValue(BoolValueEnum.isLoading);
     }
   }
 

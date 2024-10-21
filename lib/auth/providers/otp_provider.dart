@@ -1,8 +1,11 @@
 import 'package:email_otp/email_otp.dart';
-import 'package:flutter/material.dart';
+import 'package:talky_aplication_2/base/base_change_notifier.dart';
+import 'package:talky_aplication_2/unilities/statuses.dart';
 
-class OtpProvider with ChangeNotifier {
+class OtpProvider extends BaseChangeNotifier {
   Future<void> sendOTP({required String email}) async {
+    updateState(Statuses.loading);
+
     try {
       EmailOTP.config(
         appName: 'Talky',
@@ -14,11 +17,15 @@ class OtpProvider with ChangeNotifier {
       );
 
       bool result = await EmailOTP.sendOTP(email: email);
+      updateState(Statuses.completed);
       if (!result) {
+        updateState(Statuses.error);
+        print('Error in check Otp');
         throw Exception("Failed to send OTP");
       }
     } catch (e) {
-      throw Exception(e.toString());
+      updateState(Statuses.error);
+      throw Exception("Failed to send OTP");
     }
   }
 }

@@ -8,7 +8,8 @@ import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class SignButtonWidget extends StatefulWidget {
-  const SignButtonWidget({super.key});
+  final bool isLoading;
+  const SignButtonWidget({super.key, required this.isLoading});
 
   @override
   State<SignButtonWidget> createState() => _SignButtonWidgetState();
@@ -27,27 +28,17 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
         ),
         child: InkWell(
           onTap: () async {
-            valueProvider.changeBoolValue(BoolValueEnum.isLoading);
             if (valueProvider.isSignIn) {
               signprovider.signIn(context);
             } else {
-              bool isRegistered = await signprovider.isRegistered();
-              if (isRegistered) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('This user is already registered'),
-                  ),
-                );
-              } else {
-                final otpProvider =
-                    Provider.of<OtpProvider>(context, listen: false);
-                otpProvider.sendOTP(email: signprovider.emailController.text);
+              final otpProvider =
+                  Provider.of<OtpProvider>(context, listen: false);
+              otpProvider.sendOTP(email: signprovider.emailController.text);
+              Future.delayed(Duration.zero, () {
                 Navigator.pushNamed(context, NameRoutes.checkCode);
-              }
-              valueProvider.changeBoolValue(BoolValueEnum.agreeCondition);
-              valueProvider.changeBoolValue(BoolValueEnum.isSignIn);
+              });
             }
-            valueProvider.changeBoolValue(BoolValueEnum.isLoading);
+            valueProvider.changeBoolValue(BoolValueEnum.agreeCondition);
           },
           child: Container(
             width: MediaQuery.of(context).size.width - 56,
@@ -57,7 +48,7 @@ class _SignButtonWidgetState extends State<SignButtonWidget> {
               color: const Color(0xFF377DFF),
             ),
             child: Center(
-              child: !valueProvider.isLoading
+              child: !widget.isLoading
                   ? Text(
                       valueProvider.isSignIn ? 'Sign in' : "Sign up",
                       style: const TextStyle(

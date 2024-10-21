@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/auth/providers/sign_in_and_up_provider.dart';
 import 'package:talky_aplication_2/auth/providers/value_state_provider.dart';
-import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
+import 'package:talky_aplication_2/unilities/statuses.dart';
 
 class SignUpButton extends StatelessWidget {
   const SignUpButton({super.key});
@@ -10,7 +10,9 @@ class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer2<ValueStateProvider, SignInAndUpProvider>(
-        builder: (context, valueProvider, googleProvider, child) {
+        builder: (context, valueProvider, signInAndUpProvider, child) {
+      bool isLoading = signInAndUpProvider.state == Statuses.loading;
+
       return Padding(
         padding: const EdgeInsets.only(
           top: 252,
@@ -18,9 +20,7 @@ class SignUpButton extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () async {
-            valueProvider.changeBoolValue(BoolValueEnum.isLoading);
-            await googleProvider.signUp(context);
-            valueProvider.changeBoolValue(BoolValueEnum.isLoading);
+            await signInAndUpProvider.signUp(context);
           },
           child: Container(
             width: MediaQuery.of(context).size.width - 56,
@@ -30,7 +30,7 @@ class SignUpButton extends StatelessWidget {
               color: const Color(0xFF377DFF),
             ),
             child: Center(
-              child: !valueProvider.isLoading
+              child: !isLoading
                   ? const Text(
                       "Sign up",
                       style: TextStyle(

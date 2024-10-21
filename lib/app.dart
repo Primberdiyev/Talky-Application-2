@@ -25,13 +25,12 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-         initialRoute: NameRoutes.splash,
+        initialRoute: NameRoutes.splash,
         onGenerateRoute: generateRoute,
         theme: ThemeData(
           primaryColor: Colors.blue,
           scaffoldBackgroundColor: const Color(0xFFFFFFFF),
         ),
-       
       ),
     );
   }
