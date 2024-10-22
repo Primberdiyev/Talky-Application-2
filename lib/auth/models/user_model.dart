@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:talky_aplication_2/unilities/profile_state.dart';
 
 class UserModel {
@@ -8,7 +9,7 @@ class UserModel {
   final String? description;
   final ProfileState? profileState;
   final bool? isOnline;
-  final DateTime? closingTime;
+  final Timestamp? closingTime;
 
   const UserModel(
       {this.email,

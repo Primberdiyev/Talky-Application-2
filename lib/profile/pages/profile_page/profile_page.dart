@@ -35,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.detached) {
       final provider = Provider.of<ProfilePageProvider>(context, listen: false);
-      final userData = UserModel(closingTime: closingTime, isOnline: false);
+      final userData = UserModel(closingTime: Timestamp.fromDate(closingTime), isOnline: false);
       await FirebaseFirestore.instance
           .collection("User")
           .doc(provider.currentUser?.uid)

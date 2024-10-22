@@ -8,7 +8,6 @@ import 'package:talky_aplication_2/unilities/statuses.dart';
 
 class AuthGoogleProvider extends BaseChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
   ProfileState profileState = ProfileState.initial;
   final FirebaseFirestore firebaseStore = FirebaseFirestore.instance;
 
@@ -53,6 +52,7 @@ class AuthGoogleProvider extends BaseChangeNotifier {
           updateState(Statuses.completed);
           return user;
         } else {
+          print('tushdi');
           updateState(Statuses.error);
         }
       } else {

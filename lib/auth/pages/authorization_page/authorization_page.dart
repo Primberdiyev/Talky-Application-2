@@ -13,9 +13,14 @@ import 'package:talky_aplication_2/unilities/app_texts.dart';
 import 'package:talky_aplication_2/unilities/image_paths.dart';
 import 'package:talky_aplication_2/unilities/profile_state.dart';
 
-class AuthorizationPage extends StatelessWidget {
+class AuthorizationPage extends StatefulWidget {
   const AuthorizationPage({super.key});
 
+  @override
+  State<AuthorizationPage> createState() => _AuthorizationPageState();
+}
+
+class _AuthorizationPageState extends State<AuthorizationPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -40,7 +45,7 @@ class AuthorizationPage extends StatelessWidget {
                       route = NameRoutes.profile;
                     }
                     Future.delayed(Duration.zero, () {
-                      Navigator.pushReplacementNamed(context, route);
+                      Navigator.pushNamed(context, route);
                     });
                   }
                   return Column(
