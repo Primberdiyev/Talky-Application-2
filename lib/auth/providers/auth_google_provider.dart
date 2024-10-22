@@ -12,7 +12,7 @@ class AuthGoogleProvider extends BaseChangeNotifier {
   ProfileState profileState = ProfileState.initial;
   final FirebaseFirestore firebaseStore = FirebaseFirestore.instance;
 
-  Future<void> signInGoogle() async {
+  Future<User?> signInGoogle() async {
     updateState(Statuses.loading);
     try {
       final gSignIn = GoogleSignIn();
@@ -51,6 +51,7 @@ class AuthGoogleProvider extends BaseChangeNotifier {
             profileState = ProfileState.create;
           }
           updateState(Statuses.completed);
+          return user;
         } else {
           updateState(Statuses.error);
         }
@@ -61,5 +62,6 @@ class AuthGoogleProvider extends BaseChangeNotifier {
       updateState(Statuses.error);
       print("Google Sign-In failed: $e");
     }
+    return null;
   }
 }

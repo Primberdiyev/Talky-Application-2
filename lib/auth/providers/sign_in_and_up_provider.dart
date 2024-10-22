@@ -30,11 +30,11 @@ class SignInAndUpProvider extends BaseChangeNotifier {
         password: passwordController.text,
       );
       User? user = userCredential.user;
-      if (user != null) {
-        provider.updateCurrentUser(user);
-      }
+
+      await provider.changeCurrentUser(user!);
 
       signProvider.changeIsMailCorrect(true);
+
       Future.delayed(Duration.zero, () {
         Navigator.pushNamed(context, NameRoutes.profile);
       });
@@ -62,6 +62,7 @@ class SignInAndUpProvider extends BaseChangeNotifier {
               email: emailController.text, password: passwordController.text);
 
       User? user = userCredential.user;
+
       if (user != null) {
         final userData = UserModel(
             email: user.email, id: user.uid, profileState: ProfileState.create);

@@ -7,6 +7,7 @@ import 'package:talky_aplication_2/auth/pages/authorization_page/widgets/sign_up
 import 'package:talky_aplication_2/auth/pages/authorization_page/widgets/talky_text.dart';
 import 'package:talky_aplication_2/auth/providers/auth_google_provider.dart';
 import 'package:talky_aplication_2/auth/providers/value_state_provider.dart';
+import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/unilities/app_texts.dart';
 import 'package:talky_aplication_2/unilities/image_paths.dart';
@@ -49,8 +50,12 @@ class AuthorizationPage extends StatelessWidget {
                         text: valueProvider.isSignIn
                             ? AppTexts.signInText
                             : AppTexts.singUpText,
-                        function: () {
-                          authProvider.signInGoogle();
+                        function: () async {
+                          final user = await authProvider.signInGoogle();
+                          final profileprovider =
+                              Provider.of<ProfilePageProvider>(context,
+                                  listen: false);
+                          await profileprovider.changeCurrentUser(user);
                         },
                         imagePath: ImagePaths.googleImagePath,
                         isLoading: authProvider.state.isLoading,

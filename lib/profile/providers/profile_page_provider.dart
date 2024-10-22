@@ -79,7 +79,7 @@ class ProfilePageProvider extends BaseChangeNotifier {
 
     final querysnapshot =
         await firestore.collection("User").doc(currentUser?.uid).get();
-    currentUserImgUrl =  querysnapshot.get('imgUrl');
+    currentUserImgUrl = querysnapshot.get('imgUrl');
 
     const userTime = UserModel(isOnline: true);
     await FirebaseFirestore.instance
@@ -102,11 +102,6 @@ class ProfilePageProvider extends BaseChangeNotifier {
     return timeago.format(dateTime);
   }
 
-  updateCurrentUser(newUser) {
-    currentUser = newUser;
-    notifyListeners();
-  }
-
   onSearchChanged(String enteredUser) {
     if (enteredUser.isEmpty) {
       filteredUsers = usersData!;
@@ -117,6 +112,11 @@ class ProfilePageProvider extends BaseChangeNotifier {
           .toList();
     }
 
+    notifyListeners();
+  }
+
+  changeCurrentUser(User? newUser) {
+    currentUser = newUser;
     notifyListeners();
   }
 }

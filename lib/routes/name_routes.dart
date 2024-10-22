@@ -10,5 +10,5 @@ class NameRoutes {
   static const String chat = '/chat';
   static const String setProfile = '/setProfile';
   static const String receiverUser = '/receiverUser';
-  static const String pdfViewer = '/pdfViewer';
+ 
 }
