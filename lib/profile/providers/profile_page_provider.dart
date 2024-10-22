@@ -44,9 +44,8 @@ class ProfilePageProvider extends BaseChangeNotifier {
     String? photoUrl = currentUserImgUrl;
 
     if (image != null) {
-      final ref = FirebaseStorage.instance
-          .ref()
-          .child('${currentUser?.email}/profile_image.png');
+      final ref = FirebaseStorage.instance.ref().child(
+          '${FirebaseAuth.instance.currentUser?.email}/profile_image.png');
       uploadTask = ref.putFile(File(image!.path));
       final snapshot = await uploadTask?.whenComplete(() {});
       photoUrl = await snapshot?.ref.getDownloadURL();
@@ -60,7 +59,7 @@ class ProfilePageProvider extends BaseChangeNotifier {
 
     await FirebaseFirestore.instance
         .collection('User')
-        .doc(currentUser?.uid)
+        .doc(FirebaseAuth.instance.currentUser?.uid)
         .update(userInfo.toJson());
 
     updateState(Statuses.completed);
@@ -80,7 +79,7 @@ class ProfilePageProvider extends BaseChangeNotifier {
 
     final querysnapshot =
         await firestore.collection("User").doc(currentUser?.uid).get();
-    currentUserImgUrl = await querysnapshot.get('imgUrl');
+    currentUserImgUrl =  querysnapshot.get('imgUrl');
 
     const userTime = UserModel(isOnline: true);
     await FirebaseFirestore.instance

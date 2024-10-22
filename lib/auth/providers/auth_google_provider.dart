@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -32,13 +31,14 @@ class AuthGoogleProvider extends BaseChangeNotifier {
         if (user != null) {
           final doc = firebaseStore.collection('User').doc(user.uid);
           final json = await doc.get();
-          try {
+
+          if (json.exists && json.data() != null) {
             profileState = UserModel.fromJson(
                   json.data() ?? {},
                 ).profileState ??
                 ProfileState.initial;
-          } catch (e) {
-            print("UserModel failed: $e");
+          } else {
+            print('userModel failded');
           }
           if (profileState == ProfileState.initial) {
             await doc.set(

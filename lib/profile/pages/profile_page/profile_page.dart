@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/auth/models/user_model.dart';
-import 'package:talky_aplication_2/profile/pages/profile_page/widgets/list_users.dart';
 import 'package:talky_aplication_2/profile/pages/profile_page/widgets/profile_app_bar.dart';
 import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 
@@ -53,11 +52,11 @@ class _ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
               ? const Column(
                   children: [
                     SizedBox(height: 35),
-                    Expanded(
-                      child: ListUsers(
-                        isWithOnline: false,
-                      ),
-                    )
+                    // Expanded(
+                    //   child: ListUsers(
+                    //     isWithOnline: false,
+                    //   ),
+                    // )
                   ],
                 )
               : const Center(child: CircularProgressIndicator()),

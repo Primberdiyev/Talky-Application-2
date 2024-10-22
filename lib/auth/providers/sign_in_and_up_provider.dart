@@ -49,7 +49,7 @@ class SignInAndUpProvider extends BaseChangeNotifier {
     notifyListeners();
   }
 
-  FutureOr<void> signUp(BuildContext context) async {
+  FutureOr<void> signUp() async {
     updateState(Statuses.loading);
     try {
       bool isVerified = EmailOTP.verifyOTP(otp: inputCodeController.text);
@@ -71,15 +71,7 @@ class SignInAndUpProvider extends BaseChangeNotifier {
             .set(userData.toJson());
         updateState(Statuses.completed);
       }
-
-      final provider = Provider.of<ProfilePageProvider>(context, listen: false);
-      provider.updateCurrentUser(user);
-      await Future.delayed(Duration.zero, () {
-        Navigator.pushReplacementNamed(context, NameRoutes.accout);
-      });
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
       updateState(Statuses.error);
     }
   }
