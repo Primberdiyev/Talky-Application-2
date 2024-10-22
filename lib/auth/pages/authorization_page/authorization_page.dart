@@ -10,54 +10,73 @@ import 'package:talky_aplication_2/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/unilities/app_texts.dart';
 import 'package:talky_aplication_2/unilities/image_paths.dart';
+import 'package:talky_aplication_2/unilities/profile_state.dart';
 
 class AuthorizationPage extends StatelessWidget {
   const AuthorizationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<ValueStateProvider, AuthGoogleProvider>(
-        builder: (context, valueProvider, authProvider, child) {
-      return Scaffold(
-        body: Container(
-          padding: const EdgeInsets.only(top: 115, left: 28, right: 28),
-          color: const Color(0xFFF7F7F9),
-          child: Column(
-            children: [
-              const TalkyText(),
-              Expanded(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GeneralSignButton(
-                    text: valueProvider.isSignIn
-                        ? AppTexts.signInText
-                        : AppTexts.singUpText,
-                    function: () {
-                      authProvider.signInWithGoogle(context);
-                    },
-                    imagePath: ImagePaths.googleImagePath,
-                    isLoading: authProvider.state.isLoading,
-                  ),
-                  const OrWidget(),
-                  GeneralSignButton(
-                    text: AppTexts.continueMailText,
-                    function: () => {
-                      Navigator.pushNamed(context, NameRoutes.inputMailPassword)
-                    },
-                    imagePath: ImagePaths.mainImagePath,
-                    isLoading: false,
-                  ),
-                  const SizedBox(height: 18),
-                  const QuestionText(),
-                  const SignUpTextButton(),
-                  const SizedBox(height: 102),
-                ],
-              ))
-            ],
+    return ChangeNotifierProvider(
+      create: (context) => AuthGoogleProvider(),
+      child: Consumer<ValueStateProvider>(
+          builder: (context, valueProvider, child) {
+        return Scaffold(
+          body: Container(
+            padding: const EdgeInsets.only(top: 115, left: 28, right: 28),
+            color: const Color(0xFFF7F7F9),
+            child: Column(
+              children: [
+                const TalkyText(),
+                Expanded(child: Consumer<AuthGoogleProvider>(
+                    builder: (context, authProvider, child) {
+                  if (authProvider.state.isCompleted) {
+                    String route = NameRoutes.auth;
+                    if (authProvider.profileState == ProfileState.create) {
+                      route = NameRoutes.setProfile;
+                    } else if (authProvider.profileState ==
+                        ProfileState.completed) {
+                      route = NameRoutes.profile;
+                    }
+                    Future.delayed(Duration.zero, () {
+                      Navigator.pushReplacementNamed(context, route);
+                    });
+                  }
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GeneralSignButton(
+                        text: valueProvider.isSignIn
+                            ? AppTexts.signInText
+                            : AppTexts.singUpText,
+                        function: () {
+                          authProvider.signInGoogle();
+                        },
+                        imagePath: ImagePaths.googleImagePath,
+                        isLoading: authProvider.state.isLoading,
+                      ),
+                      const OrWidget(),
+                      GeneralSignButton(
+                        text: AppTexts.continueMailText,
+                        function: () => {
+                          Navigator.pushNamed(
+                              context, NameRoutes.inputMailPassword)
+                        },
+                        imagePath: ImagePaths.mainImagePath,
+                        isLoading: false,
+                      ),
+                      const SizedBox(height: 18),
+                      const QuestionText(),
+                      const SignUpTextButton(),
+                      const SizedBox(height: 102),
+                    ],
+                  );
+                }))
+              ],
+            ),
           ),
-        ),
-      );
-    });
+        );
+      }),
+    );
   }
 }

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talky_aplication_2/auth/models/user_model.dart';
 import 'package:talky_aplication_2/base/base_change_notifier.dart';
+import 'package:talky_aplication_2/unilities/profile_state.dart';
 import 'package:talky_aplication_2/unilities/statuses.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -51,8 +52,11 @@ class ProfilePageProvider extends BaseChangeNotifier {
       photoUrl = await snapshot?.ref.getDownloadURL();
     }
 
-    final userInfo =
-        UserModel(name: name, description: description ?? '', imgUrl: photoUrl);
+    final userInfo = UserModel(
+        name: name,
+        description: description ?? '',
+        imgUrl: photoUrl,
+        profileState: ProfileState.completed);
 
     await FirebaseFirestore.instance
         .collection('User')

@@ -9,6 +9,7 @@ import 'package:talky_aplication_2/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
+import 'package:talky_aplication_2/unilities/profile_state.dart';
 import 'package:talky_aplication_2/unilities/statuses.dart';
 
 class SignInAndUpProvider extends BaseChangeNotifier {
@@ -37,7 +38,6 @@ class SignInAndUpProvider extends BaseChangeNotifier {
       Future.delayed(Duration.zero, () {
         Navigator.pushNamed(context, NameRoutes.profile);
       });
-      deleteControllerText();
       updateState(Statuses.completed);
     } on FirebaseAuthException catch (error) {
       final provider = Provider.of<ValueStateProvider>(context, listen: false);
@@ -63,12 +63,13 @@ class SignInAndUpProvider extends BaseChangeNotifier {
 
       User? user = userCredential.user;
       if (user != null) {
-        updateState(Statuses.completed);
-        final userData = UserModel(email: user.email, id: user.uid);
+        final userData = UserModel(
+            email: user.email, id: user.uid, profileState: ProfileState.create);
         await FirebaseFirestore.instance
             .collection("User")
             .doc(user.uid)
             .set(userData.toJson());
+        updateState(Statuses.completed);
       }
 
       final provider = Provider.of<ProfilePageProvider>(context, listen: false);
@@ -81,7 +82,6 @@ class SignInAndUpProvider extends BaseChangeNotifier {
           .showSnackBar(SnackBar(content: Text(e.toString())));
       updateState(Statuses.error);
     }
-    deleteControllerText();
   }
 
   FutureOr<bool> isRegistered() async {
@@ -90,13 +90,6 @@ class SignInAndUpProvider extends BaseChangeNotifier {
         .where('email', isEqualTo: emailController.text)
         .get();
     return userDoc.docs.isNotEmpty;
-  }
-
-  void deleteControllerText() {
-    emailController.clear();
-    passwordController.clear();
-    inputCodeController.clear();
-    notifyListeners();
   }
 
   void changeEmailPassword(String newEmail, String newPassword) {

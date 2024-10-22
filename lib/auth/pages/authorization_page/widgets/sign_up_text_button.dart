@@ -16,7 +16,6 @@ class SignUpTextButton extends StatelessWidget {
       return InkWell(
         onTap: () {
           valueProvider.changeBoolValue(BoolValueEnum.isSignIn);
-          controllerProvider.deleteControllerText();
           valueProvider.changeIsMailCorrect(true);
           Navigator.pushReplacementNamed(context, NameRoutes.auth);
         },

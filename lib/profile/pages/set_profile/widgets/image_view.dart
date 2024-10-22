@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
@@ -23,17 +24,19 @@ class _ImageViewState extends State<ImageView> {
             CircleAvatar(
               radius: 95,
               backgroundColor: const Color(0xFFF0F0F0),
-              backgroundImage:
-                  userGoogleImg != null ? NetworkImage(userGoogleImg) : null,
-              child: ClipOval(
-                child: provider.image != null
-                    ? Image.file(
-                        File(provider.image!.path),
-                        height: 190,
-                        fit: BoxFit.cover,
-                      )
-                    : null,
-              ),
+              backgroundImage: provider.image != null
+                  ? FileImage(File(provider.image!.path))
+                  : userGoogleImg != null
+                      ? NetworkImage(userGoogleImg)
+                      : null,
+              child: provider.image == null && userGoogleImg == null
+                  ? SvgPicture.asset(
+                      "assets/icons/User.svg",
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.cover,
+                    )
+                  : null,
             ),
             Positioned(
               bottom: 0,

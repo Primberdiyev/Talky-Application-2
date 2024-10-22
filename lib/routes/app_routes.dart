@@ -12,7 +12,7 @@ import 'package:talky_aplication_2/auth/pages/forgot_password_page/forgot_passwo
 import 'package:talky_aplication_2/auth/pages/input_mail_password_page/input_mail_password_page.dart.dart';
 import 'package:talky_aplication_2/profile/pages/profile_page/profile_page.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
-import 'package:talky_aplication_2/splash_page.dart';
+import 'package:talky_aplication_2/splash/pages/splash_page.dart';
 
 Route generateRoute(RouteSettings settings) {
   switch (settings.name) {
