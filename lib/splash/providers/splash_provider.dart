@@ -53,7 +53,7 @@ class SplashProvider extends BaseChangeNotifier {
       updateState(status);
     } else {
       Future.delayed(
-        Duration(milliseconds: diffMilliseconds),
+        Duration(milliseconds:5000- diffMilliseconds),
         () => updateState(status),
       );
     }

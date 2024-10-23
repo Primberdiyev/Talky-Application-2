@@ -9,8 +9,28 @@ import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart'
 import 'package:talky_aplication_2/routes/app_routes.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  static void restartApp(BuildContext context) {
+    final state = context.findRootAncestorStateOfType<_MyAppState>();
+    state?.restartApp(); 
+  }
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Key key = UniqueKey();
+
+  void restartApp() {
+    if (mounted) {
+      setState(() {
+        key = UniqueKey();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +43,16 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ValueStateProvider()),
         ChangeNotifierProvider(create: (_) => ChatProvider()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: NameRoutes.splash,
-        onGenerateRoute: generateRoute,
-        theme: ThemeData(
-          primaryColor: Colors.blue,
-          scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+      child: KeyedSubtree(
+        key: key,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          initialRoute: NameRoutes.splash,
+          onGenerateRoute: generateRoute,
+          theme: ThemeData(
+            primaryColor: Colors.blue,
+            scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+          ),
         ),
       ),
     );

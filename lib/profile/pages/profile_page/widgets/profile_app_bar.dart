@@ -60,7 +60,7 @@ class _ProfileAppBarState extends State<ProfileAppBar> {
             },
             icon: const Icon(Icons.search),
           ),
-        )
+        ),
       ],
     );
   }

@@ -44,7 +44,7 @@ class _MessagesListState extends State<MessagesList> {
                             case "text":
                               return Container(
                                 margin: const EdgeInsets.only(
-                                    left: 28, bottom: 7.5, top: 7.5),
+                                    bottom: 7.5, top: 7.5),
                                 alignment: isMine
                                     ? Alignment.centerRight
                                     : Alignment.centerLeft,
