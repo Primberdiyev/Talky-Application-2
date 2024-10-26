@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/auth/providers/auth_google_provider.dart';
-import 'package:talky_aplication_2/auth/providers/otp_provider.dart';
-import 'package:talky_aplication_2/auth/providers/sign_in_and_up_provider.dart';
-import 'package:talky_aplication_2/auth/providers/value_state_provider.dart';
-import 'package:talky_aplication_2/profile/providers/chat_provider.dart';
-import 'package:talky_aplication_2/profile/providers/profile_page_provider.dart';
+import 'package:talky_aplication_2/features/auth/providers/auth_google_provider.dart';
+import 'package:talky_aplication_2/features/auth/providers/otp_provider.dart';
+import 'package:talky_aplication_2/features/auth/providers/sign_in_and_up_provider.dart';
+import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
+import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
+import 'package:talky_aplication_2/features/profile/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/app_routes.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
