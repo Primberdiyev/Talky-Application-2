@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class AudioMessage extends StatefulWidget {
   final bool isMine;
-  final String link;
+ final  String link;
 
-  const AudioMessage({super.key, required this.isMine, required this.link});
+ const  AudioMessage({super.key, required this.isMine, required this.link});
 
   @override
   State<AudioMessage> createState() => _AudioMessageState();
@@ -64,13 +64,16 @@ class _AudioMessageState extends State<AudioMessage> {
                 backgroundColor: Colors.white,
                 child: IconButton(
                   onPressed: () async {
+
                     if (isPlaying) {
                       await audioPlayer.pause();
                     } else {
-                      const url =
-                          'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3';
-
-                      await audioPlayer.play(UrlSource(url));
+                      try {
+                    
+                            await audioPlayer.play(UrlSource(widget.link));
+                      } catch (e) {
+                        print('xato $e');
+                      }
                     }
                   },
                   icon: Icon(

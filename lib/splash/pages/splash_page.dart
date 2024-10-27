@@ -19,9 +19,9 @@ class SplashPage extends StatelessWidget {
             if (value.state.isCompleted || value.state.isError) {
               String route = NameRoutes.auth;
               if (value.profileState == ProfileState.completed) {
-                route = NameRoutes.auth;
+                route = NameRoutes.profile;
               } else if (value.profileState == ProfileState.create) {
-                route = NameRoutes.auth;
+                route = NameRoutes.setProfile;
               }
               Future.delayed(
                 Duration.zero,

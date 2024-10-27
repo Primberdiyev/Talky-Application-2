@@ -35,7 +35,6 @@ class _MessagesListState extends State<MessagesList> {
                       itemBuilder: (context, index) {
                         final message =
                             messages[messages.length - 1 - index].data();
-
                         final isMine = provider.user.uid == message['fromId'];
                         switch (message['type']) {
                           case "text":
@@ -49,9 +48,9 @@ class _MessagesListState extends State<MessagesList> {
                           case "file":
                             return FileMessage(
                                 isMine: isMine, link: message['msg']);
-                          case "audio":
-                            return AudioMessage(
-                                isMine: isMine, link: message['mg'].toString());
+                          case 'audio':
+                            String url = message['msg'];
+                            return AudioMessage(isMine: isMine, link: url);
                         }
                         return null;
                       });
