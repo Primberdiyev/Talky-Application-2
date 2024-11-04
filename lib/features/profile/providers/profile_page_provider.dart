@@ -119,4 +119,6 @@ class ProfilePageProvider extends BaseChangeNotifier {
     currentUser = newUser;
     notifyListeners();
   }
+  
+
 }

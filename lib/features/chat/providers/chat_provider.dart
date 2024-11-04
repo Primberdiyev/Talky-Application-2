@@ -33,7 +33,7 @@ class ChatProvider with ChangeNotifier {
 
   Future<void> sendMessage(String receiverId, String msg) async {
     final time = DateTime.now().microsecondsSinceEpoch.toString();
-    final sentTime = DateTime.now().hour;
+    final sentTime = DateTime.now();
     final MessageModel message = MessageModel(
         toId: receiverId,
         msg: msg,
@@ -60,20 +60,7 @@ class ChatProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Stream<String> getLastMessage(String id) {
-    return firestore
-        .collection('chats/${getConversatioId(id)}/messages')
-        .orderBy('sent', descending: true)
-        .limit(1)
-        .snapshots()
-        .map((snapshot) {
-      if (snapshot.docs.isNotEmpty) {
-        return snapshot.docs.first['msg'] ?? '';
-      } else {
-        return '';
-      }
-    });
-  }
+
 
   Future getImage() async {
     ImagePicker picker = ImagePicker();
@@ -147,5 +134,21 @@ class ChatProvider with ChangeNotifier {
         .collection('chats/${getConversatioId(receiverId)}/messages')
         .where('type', isEqualTo: 'image')
         .snapshots();
+  }
+
+  Stream<Map<String, String>> getLastMessageWithTime(String id) {
+    return firestore
+        .collection('chats/${getConversatioId(id)}/messages')
+        .orderBy('sent', descending: true)
+        .limit(1)
+        .snapshots()
+        .map((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        final data = snapshot.docs.first.data();
+        return {'msg': data['msg'] ?? '', 'sentTime': data['sentTime'] ?? ''};
+      } else {
+        return {'msg': '', 'sentTime': ''};
+      }
+    });
   }
 }

@@ -50,12 +50,12 @@ class _ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
     return Consumer<ProfilePageProvider>(
       builder: (context, provider, child) {
         return Scaffold(
-          appBar: ProfileAppBar(),
+          appBar: const ProfileAppBar(),
           body: provider.usersData != null
-              ? const Column(
+              ?  const Column(
                   children: [
                     SizedBox(height: 35),
-                    Expanded(
+                     Expanded(
                       child: ListUsers(isWithOnline: false),
                     )
                   ],
@@ -69,7 +69,7 @@ class _ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
               Padding(
                 padding: const EdgeInsets.only(left: 32.0, bottom: 34),
                 child: PopupMenuButton<String>(
-                  offset: Offset(0, -60),
+                  offset: const Offset(0, -60),
                   onSelected: (String result) {
                     print('Selected: $result');
                   },
@@ -85,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
                               MyApp.restartApp(context);
                             });
                           },
-                          child: Text('Log Out'),
+                          child: const Text('Log Out'),
                         ),
                       ),
                     ),

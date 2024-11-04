@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/features/chat/chat_page/chat_page.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
+import 'package:talky_aplication_2/features/profile/pages/profile_page/widgets/build_avatar.dart';
 import 'package:talky_aplication_2/features/profile/providers/profile_page_provider.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class ListUsers extends StatefulWidget {
   final bool isWithOnline;
   const ListUsers({super.key, required this.isWithOnline});
+
   @override
   State<ListUsers> createState() => _ListUsersState();
 }
@@ -15,119 +18,108 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Consumer2<ProfilePageProvider, ChatProvider>(
-        builder: (context, provider, chatProvider, child) {
-      if (provider.usersData == null) {
-        return const Center(child: CircularProgressIndicator());
-      }
+      builder: (context, profileProvider, chatProvider, child) {
+        if (profileProvider.usersData == null) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-      return ListView.builder(
-        itemCount: provider.filteredUsers.length,
-        itemBuilder: (context, index) {
-          var user = provider.filteredUsers[index];
-          String? imgUrl = user['imgUrl'];
-          bool isOnline = user['isOnline'];
-          return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            margin: const EdgeInsets.only(top: 10, bottom: 10),
-            width: MediaQuery.of(context).size.width - 56,
-            child: InkWell(
-              onTap: () {
-                chatProvider.setReceiverId(
+        return ListView.builder(
+          itemCount: profileProvider.filteredUsers.length,
+          itemBuilder: (context, index) {
+            var user = profileProvider.filteredUsers[index].data()
+                as Map<String, dynamic>;
+            String? imgUrl = user['imgUrl'];
+            bool isOnline = user['isOnline'];
+
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
+              margin: const EdgeInsets.only(top: 10, bottom: 10),
+              width: MediaQuery.of(context).size.width - 56,
+              child: InkWell(
+                onTap: () {
+                  chatProvider.setReceiverId(
                     name: user['name'],
-                    imgUrl: user['imgUrl'],
-                    newId: user['id']);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const ChatPage(),
-                  ),
-                );
-              },
-              child: Row(
-                children: [
-                  provider.usersData != null && imgUrl != null
-                      ? widget.isWithOnline == true
-                          ? Stack(
-                              children: [
-                                CircleAvatar(
-                                  radius: 25,
-                                  backgroundImage: NetworkImage(
-                                    imgUrl,
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: Container(
-                                    width: 14,
-                                    height: 14,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: isOnline
-                                          ? const Color(0xFF2DCA8C)
-                                          : const Color(0xFFFF715B),
+                    imgUrl: imgUrl,
+                    newId: user['id'],
+                  );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ChatPage(),
+                    ),
+                  );
+                },
+                child: Row(
+                  children: [
+                    BuildAvatar(
+                        imgUrl: imgUrl,
+                        isWithOnline: widget.isWithOnline,
+                        isOnline: isOnline),
+                    const SizedBox(width: 15),
+                    Expanded(
+                      child: StreamBuilder(
+                        stream: chatProvider.getLastMessageWithTime(user['id']),
+                        builder: (context,
+                            AsyncSnapshot<Map<String, dynamic>> snapshot) {
+                          String timeAgo = '';
+                          String message = 'loading';
+                          if (snapshot.connectionState !=
+                                  ConnectionState.waiting &&
+                              snapshot.hasData &&
+                              snapshot.data != null) {
+                            String sentTime = snapshot.data!['sentTime'] ?? '';
+                            message = snapshot.data!['msg'] ?? '';
+                            if (sentTime.isNotEmpty) {
+                              try {
+                                final DateTime sentDateTime =
+                                    DateTime.parse(sentTime);
+                                timeAgo = timeago.format(sentDateTime);
+                              } catch (e) {
+                                timeAgo = '';
+                              }
+                            }
+                          }
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    user['name'],
+                                    style: const TextStyle(
+                                      color: Color(0xFF243443),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                )
-                              ],
-                            )
-                          : CircleAvatar(
-                              radius: 25,
-                              backgroundImage: NetworkImage(imgUrl),
-                            )
-                      : Image.asset(
-                          'assets/images/User.png',
-                          width: 30,
-                        ),
-                  const SizedBox(width: 15),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 250,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              user['name'],
-                              style: const TextStyle(
-                                color: Color(0xFF243443),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
+                                  Text(
+                                    timeAgo,
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                ],
                               ),
-                            ),
-                            user['closingTime'] != null
-                                ? Text(provider.timeAgo(user['closingTime']))
-                                : const Text(''),
-                          ],
-                        ),
+                              const SizedBox(height: 6),
+                              Text(
+                                message.length <= 30
+                                    ? message
+                                    : '${message.substring(0, 30)}...',
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          );
+                        },
                       ),
-                      const SizedBox(
-                        height: 6,
-                      ),
-                      StreamBuilder(
-                          stream: chatProvider.getLastMessage(user['id']),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Text('loading');
-                            } else {
-                              return Text(snapshot.data!.length <= 30
-                                  ? snapshot.data ?? ''
-                                  : snapshot.data!.substring(0, 30));
-                            }
-                          })
-                    ],
-                  ),
-                  const Spacer(),
-                  Image.asset('assets/images/Chevron.png'),
-                ],
+                    ),
+                    Image.asset('assets/images/Chevron.png'),
+                  ],
+                ),
               ),
-            ),
-          );
-        },
-      );
-    });
+            );
+          },
+        );
+      },
+    );
   }
 }
