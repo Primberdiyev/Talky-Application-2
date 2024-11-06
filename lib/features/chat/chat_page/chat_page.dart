@@ -18,8 +18,8 @@ class ChatPage extends StatelessWidget {
     return Consumer<ChatProvider>(builder: (context, provider, child) {
       return Scaffold(
         appBar: CustomAppBar(
-          text: provider.reveiverName,
-          imgUrl: provider.reveiverImgUrl,
+          text: provider.receiverName,
+          imgUrl: provider.receiverImgUrl,
           function: () {
             Navigator.pushNamed(context, NameRoutes.receiverUser);
           },

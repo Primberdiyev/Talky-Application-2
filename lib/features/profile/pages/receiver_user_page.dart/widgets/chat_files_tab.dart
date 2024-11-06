@@ -31,7 +31,7 @@ class ChatFilesTab extends StatelessWidget {
                   children: [
                     const ListUsers(isWithOnline: false),
                     StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                      stream: chatProvider.getImages(chatProvider.reveiverId!),
+                      stream: chatProvider.getImages(chatProvider.receiverId!),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {

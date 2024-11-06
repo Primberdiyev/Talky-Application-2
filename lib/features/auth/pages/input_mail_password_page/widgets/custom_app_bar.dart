@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:talky_aplication_2/unilities/app_icons.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? text;
@@ -57,11 +60,30 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   children: [
                     InkWell(
                       onTap: () => function?.call(),
-                      child: CircleAvatar(
-                        radius: 25,
-                        backgroundImage: imgUrl != ''
-                            ? NetworkImage(imgUrl!)
-                            : const AssetImage('assets/images/User.png'),
+                      child: CachedNetworkImage(
+                        imageUrl: imgUrl ?? '',
+                        fit: BoxFit.cover,
+                        height: 50,
+                        width: 50,
+                        imageBuilder: (context, imageProvider) {
+                          return Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          );
+                        },
+                        errorWidget: (context, url, error) {
+                          return SvgPicture.asset(AppIcons.userDefault.icon);
+                        },
+                        placeholder: (context, url) {
+                          return SvgPicture.asset(AppIcons.userDefault.icon);
+                        },
                       ),
                     ),
                     Positioned(

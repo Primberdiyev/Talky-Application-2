@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
@@ -13,15 +14,27 @@ class ImageAndName extends StatelessWidget {
         children: [
           Column(
             children: [
-              CircleAvatar(
-                radius: 95,
-                backgroundImage: provider.reveiverImgUrl != null
-                    ? NetworkImage(provider.reveiverImgUrl!)
-                    : const AssetImage('assets/images/User.png'),
+              CachedNetworkImage(
+                imageUrl: provider.receiverImgUrl!,
+                height: 190,
+                width: 190,
+                imageBuilder: (context, imageProvider) {
+                  return Container(
+                    height: 190,
+                    width: 190,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: 20),
               Text(
-                provider.reveiverName!,
+                provider.receiverName!,
                 style: const TextStyle(
                   fontSize: 18,
                   color: AppColors.blackText,

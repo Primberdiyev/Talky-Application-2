@@ -15,7 +15,7 @@ class ListUsers extends StatefulWidget {
   State<ListUsers> createState() => _ListUsersState();
 }
 
-class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
+class _ListUsersState extends State<ListUsers>  {
   @override
   Widget build(BuildContext context) {
     return Consumer2<UserProvider, ChatProvider>(
@@ -60,7 +60,7 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
                     const SizedBox(width: 15),
                     Expanded(
                       child: StreamBuilder(
-                        stream: chatProvider.getLastMessageWithTime(user.id!),
+                        stream: chatProvider.getLastMessageWithTime(user.id??''),
                         builder: (context,
                             AsyncSnapshot<Map<String, dynamic>> snapshot) {
                           String timeAgo = '';

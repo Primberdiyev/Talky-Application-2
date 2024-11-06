@@ -8,14 +8,14 @@ class UserDataService {
   static final UserDataService _instance = UserDataService._();
   static UserDataService get instance => _instance;
   UserDataService._();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   Future<UserModel?> getUserModel() async {
     final response = await _firebaseFirestore
         .collection("User")
         .doc(
-          _auth.currentUser?.uid,
+          auth.currentUser?.uid,
         )
         .get();
     return UserModel.fromJson(response.data() ?? {});
@@ -25,7 +25,7 @@ class UserDataService {
     return _firebaseFirestore
         .collection('User')
         .doc(
-          _auth.currentUser?.uid,
+          auth.currentUser?.uid,
         )
         .get();
   }
@@ -39,7 +39,7 @@ class UserDataService {
     return _firebaseFirestore
         .collection("User")
         .doc(
-          _auth.currentUser?.uid,
+          auth.currentUser?.uid,
         )
         .set(data);
   }
@@ -49,7 +49,7 @@ class UserDataService {
       await _firebaseFirestore
           .collection('User')
           .doc(
-            _auth.currentUser?.uid,
+            auth.currentUser?.uid,
           )
           .set(
         {

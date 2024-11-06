@@ -21,7 +21,7 @@ class _MessagesListState extends State<MessagesList> {
         child: Consumer<ChatProvider>(
           builder: (context, provider, child) {
             return StreamBuilder(
-              stream: provider.getAllMessages(provider.reveiverId),
+              stream: provider.getAllMessages(provider.receiverId),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());

@@ -15,8 +15,9 @@ class UserProvider extends BaseChangeNotifier {
       final response = await userDataService.getUserDoc();
       userModel = UserModel.fromJson(response.data() ?? {});
       final snapshot = await userDataService.getAllUsersDoc();
-      usersData =
-          snapshot.docs.where((user) => user.id != userModel?.id).toList();
+      usersData = snapshot.docs
+          .where((user) => user.id != userDataService.auth.currentUser?.uid)
+          .toList();
       filteredUsers = usersData;
 
       updateState(Statuses.completed);

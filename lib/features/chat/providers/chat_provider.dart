@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/profile/models/message_model.dart';
 import 'package:uuid/uuid.dart';
 
@@ -12,12 +13,15 @@ class ChatProvider with ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseStorage storage = FirebaseStorage.instance;
-  String? reveiverId;
+
   User get user => auth.currentUser!;
   String? lastMessage;
-  String? reveiverName;
+
   File? imageFile;
-  String? reveiverImgUrl;
+  String? receiverImgUrl;
+  String? receiverId;
+  String? receiverName;
+  UserModel? receiverUser;
 
   getConversatioId(String id) {
     return user.uid.hashCode <= id.hashCode
@@ -52,15 +56,17 @@ class ChatProvider with ChangeNotifier {
     }
   }
 
-  setReceiverId({String? newId, String? imgUrl, String? name}) {
-    reveiverId = newId;
-    reveiverImgUrl = imgUrl;
-    reveiverName = name;
+  // setReceiverId({String? newId, String? imgUrl, String? name}) {
+  //   receiverId = newId;
+  //   receiverImgUrl = imgUrl;
+  //   receiverName = name;
 
+  //   notifyListeners();
+  // }
+  changeReceiverUser(newUser) {
+    receiverUser = newUser;
     notifyListeners();
   }
-
-
 
   Future getImage() async {
     ImagePicker picker = ImagePicker();
@@ -81,7 +87,7 @@ class ChatProvider with ChangeNotifier {
     final sentTime = DateTime.now().hour;
 
     final message = MessageModel(
-        toId: reveiverId!,
+        toId: receiverId!,
         msg: imgUrl,
         read: 'false',
         type: TypeMessage.image,
@@ -89,7 +95,7 @@ class ChatProvider with ChangeNotifier {
         sent: time,
         sentTime: sentTime.toString());
     var ref = firestore
-        .collection('chats/${getConversatioId(reveiverId!)}/messages/');
+        .collection('chats/${getConversatioId(receiverId!)}/messages/');
     await ref.doc(time).set(message.toJson());
   }
 
@@ -115,7 +121,7 @@ class ChatProvider with ChangeNotifier {
       final sentTime = DateTime.now().hour;
 
       final message = MessageModel(
-          toId: reveiverId!,
+          toId: receiverId!,
           msg: fileUrl,
           read: 'false',
           type: type,
@@ -124,7 +130,7 @@ class ChatProvider with ChangeNotifier {
           sentTime: sentTime.toString());
 
       var ref = firestore
-          .collection('chats/${getConversatioId(reveiverId!)}/messages/');
+          .collection('chats/${getConversatioId(receiverId!)}/messages/');
       await ref.doc(time).set(message.toJson());
     }
   }

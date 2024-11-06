@@ -16,7 +16,7 @@ class _SendMessageState extends State<SendData> {
   final TextEditingController _controller = TextEditingController();
   void _sendMessage(ChatProvider provider) async {
     if (_controller.text.isNotEmpty) {
-      await provider.sendMessage(provider.reveiverId!, _controller.text);
+      await provider.sendMessage(provider.receiverId!, _controller.text);
       _controller.clear();
     }
   }
