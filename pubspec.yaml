@@ -62,7 +62,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^27.1.52
   file_downloader_flutter: ^0.0.5
   audioplayers: ^6.1.0
-  
+  cached_network_image: ^3.4.1
   
   
   

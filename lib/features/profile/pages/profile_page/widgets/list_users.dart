@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/ui_kit/custom_avatar.dart';
+import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/chat/chat_page/chat_page.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
-import 'package:talky_aplication_2/features/profile/pages/profile_page/widgets/build_avatar.dart';
-import 'package:talky_aplication_2/features/profile/providers/profile_page_provider.dart';
+import 'package:talky_aplication_2/features/profile/providers/user_provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class ListUsers extends StatefulWidget {
@@ -17,19 +18,20 @@ class ListUsers extends StatefulWidget {
 class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
-    return Consumer2<ProfilePageProvider, ChatProvider>(
+    return Consumer2<UserProvider, ChatProvider>(
       builder: (context, profileProvider, chatProvider, child) {
         if (profileProvider.usersData == null) {
           return const Center(child: CircularProgressIndicator());
         }
 
         return ListView.builder(
-          itemCount: profileProvider.filteredUsers.length,
+          itemCount: profileProvider.filteredUsers?.length,
           itemBuilder: (context, index) {
-            var user = profileProvider.filteredUsers[index].data()
-                as Map<String, dynamic>;
-            String? imgUrl = user['imgUrl'];
-            bool isOnline = user['isOnline'];
+            var user = UserModel.fromJson(
+                profileProvider.filteredUsers?[index].data() ?? {});
+
+            String? imgUrl = user.imgUrl;
+            bool isOnline = true;
 
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 28),
@@ -38,9 +40,9 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
               child: InkWell(
                 onTap: () {
                   chatProvider.setReceiverId(
-                    name: user['name'],
+                    name: user.name,
                     imgUrl: imgUrl,
-                    newId: user['id'],
+                    newId: user.id,
                   );
                   Navigator.push(
                     context,
@@ -51,14 +53,14 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
                 },
                 child: Row(
                   children: [
-                    BuildAvatar(
-                        imgUrl: imgUrl,
-                        isWithOnline: widget.isWithOnline,
-                        isOnline: isOnline),
+                    CustomAvatar(
+                      avatarLink: imgUrl,
+                      isOnline: isOnline,
+                    ),
                     const SizedBox(width: 15),
                     Expanded(
                       child: StreamBuilder(
-                        stream: chatProvider.getLastMessageWithTime(user['id']),
+                        stream: chatProvider.getLastMessageWithTime(user.id!),
                         builder: (context,
                             AsyncSnapshot<Map<String, dynamic>> snapshot) {
                           String timeAgo = '';
@@ -87,7 +89,7 @@ class _ListUsersState extends State<ListUsers> with WidgetsBindingObserver {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    user['name'],
+                                    user.name!,
                                     style: const TextStyle(
                                       color: Color(0xFF243443),
                                       fontSize: 16,

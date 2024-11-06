@@ -5,11 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/unilities/profile_state.dart';
 import 'package:talky_aplication_2/unilities/statuses.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class ProfilePageProvider extends BaseChangeNotifier {
   XFile? image;
@@ -57,10 +57,7 @@ class ProfilePageProvider extends BaseChangeNotifier {
         imgUrl: photoUrl,
         profileState: ProfileState.completed);
 
-    await FirebaseFirestore.instance
-        .collection('User')
-        .doc(FirebaseAuth.instance.currentUser?.uid)
-        .update(userInfo.toJson());
+    await UserDataService.instance.setUserDoc(userInfo.toJson());
 
     updateState(Statuses.completed);
   }
@@ -68,38 +65,6 @@ class ProfilePageProvider extends BaseChangeNotifier {
   updateIsNameEmpty(bool newValue) {
     isNameEmpty = newValue;
     notifyListeners();
-  }
-
-  FutureOr getUserCollection() async {
-    final snapshot = await firestore.collection('User').get();
-    usersData =
-        snapshot.docs.where((value) => value.id != currentUser?.uid).toList();
-    countUsers = usersData!.length;
-    filteredUsers = usersData!;
-
-    final querysnapshot =
-        await firestore.collection("User").doc(currentUser?.uid).get();
-    currentUserImgUrl = querysnapshot.get('imgUrl');
-
-    const userTime = UserModel(isOnline: true);
-    await FirebaseFirestore.instance
-        .collection('User')
-        .doc(currentUser?.uid)
-        .update(userTime.toJson());
-
-    notifyListeners();
-  }
-
-  String timeAgo(dynamic timestamp) {
-    DateTime dateTime;
-    if (timestamp is Timestamp) {
-      dateTime = timestamp.toDate();
-    } else if (timestamp is DateTime) {
-      dateTime = timestamp;
-    } else {
-      return 'incorrect time';
-    }
-    return timeago.format(dateTime);
   }
 
   onSearchChanged(String enteredUser) {
@@ -119,6 +84,4 @@ class ProfilePageProvider extends BaseChangeNotifier {
     currentUser = newUser;
     notifyListeners();
   }
-  
-
 }

@@ -10,4 +10,5 @@ class AppColors {
   static const avatarColor = Color(0xffF0F0F0);
   static const sendIconColor = Color(0xffAAB0B7);
   static const chatColor = Color(0xffF7F7F9);
+  static const onlineColor = Color(0xff2DCA8C);
 }
