@@ -4,7 +4,9 @@ enum AppIcons {
   camereIcon("assets/icons/Camera.svg"),
   voiceIcon("assets/icons/voice.svg"),
   userDefault('assets/icons/userDefault.svg'),
-  search('assets/icons/search.svg');
+  search('assets/icons/search.svg'),
+  chatGroup("assets/icons/chatGroup.svg"),
+  chevron("assets/icons/chevron.svg");
 
   const AppIcons(this.icon);
   final String icon;

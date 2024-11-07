@@ -21,7 +21,9 @@ class SearchField extends StatelessWidget {
               fontSize: 14,
             ),
             suffixIcon: IconButton(
-                onPressed: () {}, icon: SvgPicture.asset(AppIcons.search.icon)),
+              onPressed: () {},
+              icon: SvgPicture.asset(AppIcons.search.icon),
+            ),
           ),
           onChanged: (value) => provider.onSearchChanged(value),
         ),

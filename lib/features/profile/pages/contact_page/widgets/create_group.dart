@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:talky_aplication_2/unilities/app_colors.dart';
+import 'package:talky_aplication_2/unilities/app_icons.dart';
+import 'package:talky_aplication_2/unilities/app_texts.dart';
 
 class CreateGroup extends StatelessWidget {
   const CreateGroup({super.key});
@@ -6,19 +10,26 @@ class CreateGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 35, bottom: 38),
-      child: InkWell(
-        onTap: () {},
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Icon(Icons.group),
-            const Text(
-              "Start a new group chat",
-              style: TextStyle(color: Color(0xFF243443), fontSize: 14),
-            ),
-            Image.asset("assets/images/Chevron.png")
-          ],
+      padding: const EdgeInsets.symmetric(vertical: 18),
+      child: ListTile(
+        dense: true,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 3,
+          vertical: 15,
+        ),
+        leading: SvgPicture.asset(
+          AppIcons.chatGroup.icon,
+        ),
+        title: Text(
+          AppTexts.createGroup,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: AppColors.blackText,
+          ),
+        ),
+        trailing: SvgPicture.asset(
+          AppIcons.chevron.icon,
         ),
       ),
     );

@@ -7,6 +7,7 @@ class UserModel {
   final String? id;
   final String? description;
   final ProfileState? profileState;
+  final DateTime? lastTime;
 
   const UserModel({
     this.email,
@@ -15,6 +16,7 @@ class UserModel {
     this.description,
     this.id,
     this.profileState,
+    this.lastTime,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -26,7 +28,7 @@ class UserModel {
         profileState: ProfileState.fromString(
           json['profile_state'],
         ),
-      
+        lastTime: json['lastTime'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,5 +38,6 @@ class UserModel {
         if (description != null) 'description': description,
         if (id != null) 'id': id,
         if (profileState != null) 'profile_state': profileState?.name,
+        if(lastTime!=null) 'lastTime':lastTime
       };
 }
