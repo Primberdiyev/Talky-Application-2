@@ -41,7 +41,7 @@ class UserDataService {
         .doc(
           auth.currentUser?.uid,
         )
-        .set(data);
+        .update(data);
   }
 
   Future<void> setUpdateLastTime() async {

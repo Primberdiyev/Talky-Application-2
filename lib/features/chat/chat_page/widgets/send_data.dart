@@ -16,7 +16,8 @@ class _SendMessageState extends State<SendData> {
   final TextEditingController _controller = TextEditingController();
   void _sendMessage(ChatProvider provider) async {
     if (_controller.text.isNotEmpty) {
-      await provider.sendMessage(provider.receiverId!, _controller.text);
+      await provider.sendMessage(
+          provider.receiverUser?.id ?? '', _controller.text);
       _controller.clear();
     }
   }
@@ -35,7 +36,6 @@ class _SendMessageState extends State<SendData> {
               child: TextField(
                 controller: _controller,
                 decoration: InputDecoration(
-                  
                     labelText: 'Message',
                     border: const OutlineInputBorder(),
                     focusedBorder: const OutlineInputBorder(

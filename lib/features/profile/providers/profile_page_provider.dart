@@ -57,7 +57,9 @@ class ProfilePageProvider extends BaseChangeNotifier {
         imgUrl: photoUrl,
         profileState: ProfileState.completed);
 
-    await UserDataService.instance.setUserDoc(userInfo.toJson());
+    await UserDataService.instance.setUserDoc(
+      userInfo.toJson(),
+    );
 
     updateState(Statuses.completed);
   }

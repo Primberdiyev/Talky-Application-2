@@ -15,10 +15,12 @@ class ContactsPage extends StatefulWidget {
 class _OnlineUsersPageState extends State<ContactsPage> {
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       child: Scaffold(
-        appBar: ContactsAppBar(),
-        body: Column(
+        appBar: ContactsAppBar(
+          centerText: 'Chat',
+        ),
+        body: const Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(

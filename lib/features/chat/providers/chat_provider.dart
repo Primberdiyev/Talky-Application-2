@@ -18,9 +18,9 @@ class ChatProvider with ChangeNotifier {
   String? lastMessage;
 
   File? imageFile;
-  String? receiverImgUrl;
-  String? receiverId;
-  String? receiverName;
+  // String? receiverImgUrl;
+  // String? receiverId;
+  // String? receiverName;
   UserModel? receiverUser;
 
   getConversatioId(String id) {
@@ -87,15 +87,15 @@ class ChatProvider with ChangeNotifier {
     final sentTime = DateTime.now().hour;
 
     final message = MessageModel(
-        toId: receiverId!,
+        toId: receiverUser!.id!,
         msg: imgUrl,
         read: 'false',
         type: TypeMessage.image,
         fromId: user.uid,
         sent: time,
         sentTime: sentTime.toString());
-    var ref = firestore
-        .collection('chats/${getConversatioId(receiverId!)}/messages/');
+    var ref = firestore.collection(
+        'chats/${getConversatioId(receiverUser!.id ?? '')}/messages/');
     await ref.doc(time).set(message.toJson());
   }
 
@@ -121,7 +121,7 @@ class ChatProvider with ChangeNotifier {
       final sentTime = DateTime.now().hour;
 
       final message = MessageModel(
-          toId: receiverId!,
+          toId: receiverUser?.id ?? '',
           msg: fileUrl,
           read: 'false',
           type: type,
@@ -129,8 +129,8 @@ class ChatProvider with ChangeNotifier {
           sent: time,
           sentTime: sentTime.toString());
 
-      var ref = firestore
-          .collection('chats/${getConversatioId(receiverId!)}/messages/');
+      var ref = firestore.collection(
+          'chats/${getConversatioId(receiverUser?.id ?? '')}/messages/');
       await ref.doc(time).set(message.toJson());
     }
   }

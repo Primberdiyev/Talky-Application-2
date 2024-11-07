@@ -11,4 +11,5 @@ class AppColors {
   static const sendIconColor = Color(0xffAAB0B7);
   static const chatColor = Color(0xffF7F7F9);
   static const onlineColor = Color(0xff2DCA8C);
+  static const offline = Color(0xFFFF715B);
 }

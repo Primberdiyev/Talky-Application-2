@@ -15,7 +15,7 @@ class ListUsers extends StatefulWidget {
   State<ListUsers> createState() => _ListUsersState();
 }
 
-class _ListUsersState extends State<ListUsers>  {
+class _ListUsersState extends State<ListUsers> {
   @override
   Widget build(BuildContext context) {
     return Consumer2<UserProvider, ChatProvider>(
@@ -39,11 +39,7 @@ class _ListUsersState extends State<ListUsers>  {
               width: MediaQuery.of(context).size.width - 56,
               child: InkWell(
                 onTap: () {
-                  chatProvider.setReceiverId(
-                    name: user.name,
-                    imgUrl: imgUrl,
-                    newId: user.id,
-                  );
+                  chatProvider.changeReceiverUser(user);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -60,7 +56,8 @@ class _ListUsersState extends State<ListUsers>  {
                     const SizedBox(width: 15),
                     Expanded(
                       child: StreamBuilder(
-                        stream: chatProvider.getLastMessageWithTime(user.id??''),
+                        stream:
+                            chatProvider.getLastMessageWithTime(user.id ?? ''),
                         builder: (context,
                             AsyncSnapshot<Map<String, dynamic>> snapshot) {
                           String timeAgo = '';

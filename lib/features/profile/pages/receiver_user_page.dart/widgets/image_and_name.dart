@@ -15,7 +15,7 @@ class ImageAndName extends StatelessWidget {
           Column(
             children: [
               CachedNetworkImage(
-                imageUrl: provider.receiverImgUrl!,
+                imageUrl: provider.receiverUser?.imgUrl ?? '',
                 height: 190,
                 width: 190,
                 imageBuilder: (context, imageProvider) {
@@ -34,7 +34,7 @@ class ImageAndName extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                provider.receiverName!,
+                provider.receiverUser?.name ?? '',
                 style: const TextStyle(
                   fontSize: 18,
                   color: AppColors.blackText,

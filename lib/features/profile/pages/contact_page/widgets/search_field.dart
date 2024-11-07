@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/features/profile/providers/profile_page_provider.dart';
+import 'package:talky_aplication_2/unilities/app_icons.dart';
 
 class SearchField extends StatelessWidget {
   const SearchField({super.key});
@@ -11,14 +13,15 @@ class SearchField extends StatelessWidget {
       return SizedBox(
         height: 40,
         child: TextField(
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Search',
             labelStyle: TextStyle(
               color: Color(0xFFAAB0B7),
               fontSize: 14,
             ),
-            suffixIcon: Icon(Icons.search),
+            suffixIcon: IconButton(
+                onPressed: () {}, icon: SvgPicture.asset(AppIcons.search.icon)),
           ),
           onChanged: (value) => provider.onSearchChanged(value),
         ),

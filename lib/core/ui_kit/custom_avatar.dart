@@ -9,9 +9,11 @@ class CustomAvatar extends StatelessWidget {
     super.key,
     this.avatarLink,
     this.isOnline = false,
+    this.isWithOnline = false,
   });
   final String? avatarLink;
   final bool isOnline;
+  final bool isWithOnline;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class CustomAvatar extends StatelessWidget {
           errorWidget: (context, url, error) => _defUser(),
           placeholder: (context, url) => _defUser(),
         ),
-        if (isOnline)
+        if (isWithOnline)
           Positioned(
             bottom: 0,
             right: 0,
@@ -46,7 +48,7 @@ class CustomAvatar extends StatelessWidget {
               width: 14,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.onlineColor,
+                color: isOnline ? AppColors.onlineColor : AppColors.offline,
                 border: Border.all(
                   color: Colors.white,
                   width: 2,
