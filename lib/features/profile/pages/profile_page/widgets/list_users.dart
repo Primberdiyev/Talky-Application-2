@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/core/ui_kit/custom_avatar.dart';
+import 'package:talky_aplication_2/core/ui_kit/custom_user_avatar.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/chat/chat_page/chat_page.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
@@ -25,10 +25,10 @@ class _ListUsersState extends State<ListUsers> {
         }
 
         return ListView.builder(
-          itemCount: profileProvider.filteredUsers?.length,
+          itemCount: profileProvider.usersData?.length,
           itemBuilder: (context, index) {
             var user = UserModel.fromJson(
-                profileProvider.filteredUsers?[index].data() ?? {});
+                profileProvider.usersData?[index].data() ?? {});
 
             String? imgUrl = user.imgUrl;
             bool isOnline = true;
@@ -49,7 +49,7 @@ class _ListUsersState extends State<ListUsers> {
                 },
                 child: Row(
                   children: [
-                    CustomAvatar(
+                    CustomUserAvatar(
                       avatarLink: imgUrl,
                       isOnline: isOnline,
                     ),

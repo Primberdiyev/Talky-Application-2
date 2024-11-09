@@ -38,6 +38,6 @@ class UserModel {
         if (description != null) 'description': description,
         if (id != null) 'id': id,
         if (profileState != null) 'profile_state': profileState?.name,
-        if(lastTime!=null) 'lastTime':lastTime
+        if (lastTime != null) 'lastTime': lastTime
       };
 }

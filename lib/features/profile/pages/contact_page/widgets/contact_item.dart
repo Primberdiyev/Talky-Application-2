@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:talky_aplication_2/core/ui_kit/custom_avatar.dart';
+import 'package:talky_aplication_2/core/ui_kit/custom_user_avatar.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 import 'package:talky_aplication_2/unilities/app_icons.dart';
@@ -13,12 +13,12 @@ class ContactItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isOnline = checkIsOnline(model.lastTime ??
-        DateTime.now().add(
-          const Duration(
-            seconds: -1,
+    final isOnline = checkIsOnline(
+      model.lastTime ??
+          DateTime.now().add(
+            const Duration(seconds: -40),
           ),
-        ));
+    );
     return ListTile(
       dense: true,
       title: Text(
@@ -39,9 +39,10 @@ class ContactItem extends StatelessWidget {
       leading: CachedNetworkImage(
         imageUrl: model.imgUrl ?? '',
         imageBuilder: (context, imageProvider) {
-          return CustomAvatar(
+          return CustomUserAvatar(
             avatarLink: model.imgUrl,
             isOnline: isOnline,
+            isWithOnline: true,
           );
         },
         placeholder: (context, url) {
@@ -53,6 +54,7 @@ class ContactItem extends StatelessWidget {
   }
 
   bool checkIsOnline(DateTime value) {
-    return DateTime.now().difference(value).inSeconds < 30;
+    final currentTime = DateTime.now();
+    return currentTime.difference(value).inSeconds < 30;
   }
 }

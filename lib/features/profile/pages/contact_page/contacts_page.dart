@@ -54,7 +54,7 @@ class _OnlineUsersPageState extends State<ContactsPage> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             final model = UserModel.fromJson(
-                              provider.filteredUsers?[index].data() ?? {},
+                              provider.usersData?[index].data() ?? {},
                             );
 
                             return ContactItem(model: model);

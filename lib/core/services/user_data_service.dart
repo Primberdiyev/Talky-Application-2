@@ -51,11 +51,11 @@ class UserDataService {
           .doc(
             auth.currentUser?.uid,
           )
-          .set(
+          .update(
         {
-          'last_time': DateTime.now().millisecondsSinceEpoch,
+          'lasTime': DateTime.now().millisecondsSinceEpoch,
         },
-        SetOptions(merge: true),
+       
       );
     } catch (e) {
       log(e.toString());

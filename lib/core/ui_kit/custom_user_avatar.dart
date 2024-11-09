@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 import 'package:talky_aplication_2/unilities/app_icons.dart';
 
-class CustomAvatar extends StatelessWidget {
-  const CustomAvatar({
+class CustomUserAvatar extends StatelessWidget {
+  const CustomUserAvatar({
     super.key,
     this.avatarLink,
     this.isOnline = false,

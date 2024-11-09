@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/core/ui_kit/custom_avatar.dart';
+import 'package:talky_aplication_2/core/ui_kit/custom_user_avatar.dart';
 import 'package:talky_aplication_2/features/profile/providers/user_provider.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 import 'package:talky_aplication_2/unilities/app_icons.dart';
@@ -25,7 +25,7 @@ class CustomProfileAppBar extends StatelessWidget
           children: [
             Consumer<UserProvider>(
               builder: (context, value, child) {
-                return CustomAvatar(
+                return CustomUserAvatar(
                   avatarLink: value.userModel?.imgUrl,
                   isOnline: true,
                 );

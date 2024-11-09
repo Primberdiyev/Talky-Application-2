@@ -8,7 +8,7 @@ class UserProvider extends BaseChangeNotifier {
   UserModel? userModel;
 
   List? usersData = [];
-  List? filteredUsers = [];
+
   Future<void> getUserModel() async {
     updateState(Statuses.loading);
     try {
@@ -18,7 +18,6 @@ class UserProvider extends BaseChangeNotifier {
       usersData = snapshot.docs
           .where((user) => user.id != userDataService.auth.currentUser?.uid)
           .toList();
-      filteredUsers = usersData;
 
       updateState(Statuses.completed);
     } catch (e) {

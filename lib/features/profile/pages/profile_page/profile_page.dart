@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/services/user_state_service.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_profile_app_bar.dart';
 import 'package:talky_aplication_2/features/profile/pages/profile_page/widgets/action_button.dart';
 import 'package:talky_aplication_2/features/profile/pages/profile_page/widgets/list_users.dart';
@@ -18,6 +19,7 @@ class _ProfilePageState extends State<ProfilePage> {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         context.read<UserProvider>().getUserModel();
+        UserStateService.instance.startTimer();
       },
     );
     super.initState();
