@@ -29,7 +29,7 @@ class ChatFilesTab extends StatelessWidget {
               Expanded(
                 child: TabBarView(
                   children: [
-                    const ListUsers(isWithOnline: false),
+                    const ListUsers(),
                     StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                       stream: chatProvider
                           .getImages(chatProvider.receiverUser?.id ?? ''),

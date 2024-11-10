@@ -8,8 +8,9 @@ import 'package:talky_aplication_2/features/profile/providers/user_provider.dart
 import 'package:timeago/timeago.dart' as timeago;
 
 class ListUsers extends StatefulWidget {
-  final bool isWithOnline;
-  const ListUsers({super.key, required this.isWithOnline});
+  const ListUsers({
+    super.key,
+  });
 
   @override
   State<ListUsers> createState() => _ListUsersState();

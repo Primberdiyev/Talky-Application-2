@@ -7,6 +7,7 @@ import 'package:talky_aplication_2/features/profile/pages/contact_page/widgets/c
 import 'package:talky_aplication_2/features/profile/pages/contact_page/widgets/contact_text.dart';
 import 'package:talky_aplication_2/features/profile/pages/contact_page/widgets/contacts_app_bar.dart';
 import 'package:talky_aplication_2/features/profile/pages/contact_page/widgets/create_group.dart';
+import 'package:talky_aplication_2/features/profile/providers/all_users_provider.dart';
 import 'package:talky_aplication_2/features/profile/providers/user_provider.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 import 'package:talky_aplication_2/unilities/app_icons.dart';
@@ -19,7 +20,18 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _OnlineUsersPageState extends State<ContactsPage> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        context.read<AllUsersProvider>().getAllUsers();
+      },
+    );
+    super.initState();
+  }
+
   final TextEditingController controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -44,9 +56,9 @@ class _OnlineUsersPageState extends State<ContactsPage> {
                     CreateGroup(),
                     ContactText(),
                     SizedBox(height: 20),
-                    Consumer<UserProvider>(
+                    Consumer<AllUsersProvider>(
                       builder: (context, provider, child) {
-                        if (provider.usersData == null) {
+                        if (provider.allUsers == null) {
                           return CircularProgressIndicator();
                         }
                         return ListView.separated(
@@ -54,7 +66,7 @@ class _OnlineUsersPageState extends State<ContactsPage> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             final model = UserModel.fromJson(
-                              provider.usersData?[index].data() ?? {},
+                              provider.allUsers?[index].data() ?? {},
                             );
 
                             return ContactItem(model: model);
@@ -66,7 +78,7 @@ class _OnlineUsersPageState extends State<ContactsPage> {
                               color: AppColors.lightBackground,
                             );
                           },
-                          itemCount: provider.usersData?.length ?? 1,
+                          itemCount: provider.allUsers?.length ?? 1,
                         );
                       },
                     ),
