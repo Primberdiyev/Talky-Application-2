@@ -8,7 +8,6 @@ import 'package:talky_aplication_2/features/profile/pages/contact_page/widgets/c
 import 'package:talky_aplication_2/features/profile/pages/contact_page/widgets/contacts_app_bar.dart';
 import 'package:talky_aplication_2/features/profile/pages/contact_page/widgets/create_group.dart';
 import 'package:talky_aplication_2/features/profile/providers/all_users_provider.dart';
-import 'package:talky_aplication_2/features/profile/providers/user_provider.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 import 'package:talky_aplication_2/unilities/app_icons.dart';
 
