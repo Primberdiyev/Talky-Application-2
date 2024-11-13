@@ -8,28 +8,29 @@ class UserModel {
   final String? description;
   final ProfileState? profileState;
   final DateTime? lastTime;
+  final List? chattingUsersId;
 
-  const UserModel({
-    this.email,
-    this.name,
-    this.imgUrl,
-    this.description,
-    this.id,
-    this.profileState,
-    this.lastTime,
-  });
+  const UserModel(
+      {this.email,
+      this.name,
+      this.imgUrl,
+      this.description,
+      this.id,
+      this.profileState,
+      this.lastTime,
+      this.chattingUsersId});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        email: json['email'],
-        name: json['name'],
-        imgUrl: json['imgUrl'],
-        description: json['description'],
-        id: json['id'],
-        profileState: ProfileState.fromString(
-          json['profile_state'],
-        ),
-        lastTime: json['lastTime'],
-      );
+      email: json['email'],
+      name: json['name'],
+      imgUrl: json['imgUrl'],
+      description: json['description'],
+      id: json['id'],
+      profileState: ProfileState.fromString(
+        json['profile_state'],
+      ),
+      lastTime: json['lastTime'],
+      chattingUsersId: json['chattingUsersId']);
 
   Map<String, dynamic> toJson() => {
         if (email != null) 'email': email,
@@ -38,6 +39,7 @@ class UserModel {
         if (description != null) 'description': description,
         if (id != null) 'id': id,
         if (profileState != null) 'profile_state': profileState?.name,
-        if (lastTime != null) 'lastTime': lastTime
+        if (lastTime != null) 'lastTime': lastTime,
+        if (chattingUsersId != null) 'chattingUsersId': chattingUsersId,
       };
 }
