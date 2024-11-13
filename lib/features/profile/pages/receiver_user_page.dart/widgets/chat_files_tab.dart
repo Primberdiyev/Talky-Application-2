@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/features/profile/pages/profile_page/widgets/list_users.dart';
+import 'package:talky_aplication_2/features/profile/pages/profile_page/widgets/friends_list.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:talky_aplication_2/features/profile/providers/profile_page_provider.dart';
@@ -29,7 +29,7 @@ class ChatFilesTab extends StatelessWidget {
               Expanded(
                 child: TabBarView(
                   children: [
-                    const ListUsers(),
+                    const FriendsList(),
                     StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                       stream: chatProvider
                           .getImages(chatProvider.receiverUser?.id ?? ''),

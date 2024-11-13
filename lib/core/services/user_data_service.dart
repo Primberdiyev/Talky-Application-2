@@ -21,13 +21,9 @@ class UserDataService {
     return UserModel.fromJson(response.data() ?? {});
   }
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getUserDoc() async {
-    return _firebaseFirestore
-        .collection('User')
-        .doc(
-          auth.currentUser?.uid,
-        )
-        .get();
+  Future<DocumentSnapshot<Map<String, dynamic>>> getUserDoc(
+      {required String id}) async {
+    return _firebaseFirestore.collection('User').doc(id).get();
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> getAllUsersDoc() async {
