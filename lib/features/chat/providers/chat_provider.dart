@@ -51,6 +51,7 @@ class ChatProvider with ChangeNotifier {
           .collection('User')
           .doc(auth.currentUser?.uid)
           .set(message.toJson(), SetOptions(merge: true));
+      notifyListeners();
     }
     final MessageModel message = MessageModel(
         toId: receiverId,

@@ -29,10 +29,9 @@ class _ListUsersState extends State<FriendsList> {
                   child: CircularProgressIndicator(),
                 );
               } else if (snapshot.data == null) {
-                return Text('null kelmoqda');
+                return Text('');
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                Text('bo\'sj');
-                //    SizedBox.shrink();
+                SizedBox.shrink();
               }
 
               List<UserModel> chattingUsers = snapshot.data!;
