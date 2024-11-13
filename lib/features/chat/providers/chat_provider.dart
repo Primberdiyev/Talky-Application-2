@@ -38,6 +38,20 @@ class ChatProvider with ChangeNotifier {
   Future<void> sendMessage(String receiverId, String msg) async {
     final time = DateTime.now().microsecondsSinceEpoch.toString();
     final sentTime = DateTime.now();
+    final idSnapshot = await firestore
+        .collection('User')
+        .doc(auth.currentUser?.uid)
+        .collection('ChattingUsersId')
+        .get();
+    final chattingUsersId = idSnapshot.docs.map((e) => e.id).toList();
+    if (!chattingUsersId.contains(receiverId)) {
+      chattingUsersId.add(receiverId);
+      final message = UserModel(chattingUsersId: chattingUsersId);
+      firestore
+          .collection('User')
+          .doc(auth.currentUser?.uid)
+          .set(message.toJson(), SetOptions(merge: true));
+    }
     final MessageModel message = MessageModel(
         toId: receiverId,
         msg: msg,

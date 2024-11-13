@@ -55,7 +55,6 @@ class UserDataService {
         {
           'lasTime': DateTime.now().millisecondsSinceEpoch,
         },
-       
       );
     } catch (e) {
       log(e.toString());
