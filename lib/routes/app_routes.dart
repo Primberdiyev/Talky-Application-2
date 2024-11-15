@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/features/auth/pages/authorization_page/authorization_page.dart';
 import 'package:talky_aplication_2/features/auth/pages/check_code_page.dart/check_code_page.dart';
 import 'package:talky_aplication_2/features/chat/chat_page/chat_page.dart';
+import 'package:talky_aplication_2/features/group/group_page.dart';
 import 'package:talky_aplication_2/features/profile/pages/contacts_page/contacts_page.dart';
 import 'package:talky_aplication_2/features/profile/pages/create_group_page/create_group_page.dart';
 import 'package:talky_aplication_2/features/profile/pages/receiver_user_page.dart/receiver_user_page.dart';
@@ -33,6 +34,8 @@ Route generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (_) => const ChatPage(),
       );
+    case NameRoutes.group:
+      return MaterialPageRoute(builder: (_) => GroupPage());
     case NameRoutes.createGroup:
       return MaterialPageRoute(
         builder: (_) => CreateGroupPage(),

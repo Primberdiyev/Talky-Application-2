@@ -5,13 +5,14 @@ class ContactsAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Function()? onDone;
   final String centerText;
   final bool? isDoneActive;
+  final bool loading;
 
-  const ContactsAppBar({
-    super.key,
-    this.onDone,
-    required this.centerText,
-    this.isDoneActive = false,
-  });
+  const ContactsAppBar(
+      {super.key,
+      this.onDone,
+      required this.centerText,
+      this.isDoneActive = false,
+      this.loading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -52,19 +53,23 @@ class ContactsAppBar extends StatelessWidget implements PreferredSizeWidget {
             maintainAnimation: true,
             maintainSize: true,
             maintainState: true,
-            child: TextButton(
-              onPressed: onDone,
-              child: Text(
-                'Done',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: isDoneActive!
-                      ? AppColors.primaryBlue
-                      : AppColors.lightBlack,
-                ),
-              ),
-            ),
+            child: loading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : TextButton(
+                    onPressed: onDone,
+                    child: Text(
+                      'Done',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: isDoneActive!
+                            ? AppColors.primaryBlue
+                            : AppColors.lightBlack,
+                      ),
+                    ),
+                  ),
           )
         ],
       ),

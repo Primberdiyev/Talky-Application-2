@@ -6,6 +6,7 @@ import 'package:talky_aplication_2/features/auth/providers/sign_in_and_up_provid
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
 import 'package:talky_aplication_2/features/profile/providers/all_users_provider.dart';
+import 'package:talky_aplication_2/features/profile/providers/group_provider.dart';
 import 'package:talky_aplication_2/features/profile/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/features/profile/providers/user_provider.dart';
 import 'package:talky_aplication_2/routes/app_routes.dart';
@@ -46,6 +47,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => ChatProvider()),
         ChangeNotifierProvider(create: (_) => AllUsersProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => GroupProvider()),
       ],
       child: KeyedSubtree(
         key: key,

@@ -7,7 +7,7 @@ class UserProvider extends BaseChangeNotifier {
   final userDataService = UserDataService.instance;
   UserModel? userModel;
   List? usersData = [];
-  List<UserModel>? chattingUsers = [];
+  Set<UserModel>? chattingUsers = {};
 
   Future<void> getUserModel() async {
     updateState(Statuses.loading);
@@ -23,21 +23,18 @@ class UserProvider extends BaseChangeNotifier {
     }
   }
 
-  Stream<List<UserModel>>? getChattingUsers() async* {
+  Stream<Set<UserModel>>? getChattingUsers() async* {
     final response = await userDataService.getUserDoc(
         id: userDataService.auth.currentUser?.uid ?? '');
-    userModel = UserModel.fromJson(response.data() ?? {});
-    List chatIds = userModel!.chattingUsersId ?? [].toList();
-    Set chatidsSet = chatIds.toSet();
+    final userModel = UserModel.fromJson(response.data() ?? {});
+    List chatIds = userModel.chattingUsersId ?? [].toList();
+    chattingUsers = {};
 
-    chattingUsers = [];
-    for (String userId in chatidsSet) {
-      final snapshot = await userDataService.getUserDoc(id: userId);
+    for (int i = 0; i < chatIds.length; i++) {
+      final snapshot = await userDataService.getUserDoc(id: chatIds[i]);
       UserModel chattingUserModel = UserModel.fromJson(snapshot.data() ?? {});
-
       chattingUsers?.add(chattingUserModel);
     }
-
-    yield chattingUsers ?? [];
+    yield chattingUsers ?? {};
   }
 }

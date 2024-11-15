@@ -9,10 +9,10 @@ class UserDataService {
   static UserDataService get instance => _instance;
   UserDataService._();
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
   Future<UserModel?> getUserModel() async {
-    final response = await _firebaseFirestore
+    final response = await firebaseFirestore
         .collection("User")
         .doc(
           auth.currentUser?.uid,
@@ -23,16 +23,16 @@ class UserDataService {
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getUserDoc(
       {required String id}) async {
-    return _firebaseFirestore.collection('User').doc(id).get();
+    return firebaseFirestore.collection('User').doc(id).get();
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> getAllUsersDoc() async {
-    return _firebaseFirestore.collection('User').get();
+    return firebaseFirestore.collection('User').get();
   }
 
   Future<void> setUserDoc(Map<String, dynamic> data,
       [SetOptions? options]) async {
-    return _firebaseFirestore
+    return firebaseFirestore
         .collection("User")
         .doc(
           auth.currentUser?.uid,
@@ -42,7 +42,7 @@ class UserDataService {
 
   Future<void> setUpdateLastTime() async {
     try {
-      await _firebaseFirestore
+      await firebaseFirestore
           .collection('User')
           .doc(
             auth.currentUser?.uid,

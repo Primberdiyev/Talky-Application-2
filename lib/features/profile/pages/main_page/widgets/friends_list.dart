@@ -34,7 +34,7 @@ class _ListUsersState extends State<FriendsList> {
                 SizedBox.shrink();
               }
 
-              List<UserModel> chattingUsers = snapshot.data!;
+              List<UserModel> chattingUsers = snapshot.data!.toList();
               return ListView.builder(
                 itemCount: chattingUsers.length,
                 itemBuilder: (context, index) {

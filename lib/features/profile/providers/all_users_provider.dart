@@ -6,7 +6,6 @@ class AllUsersProvider with ChangeNotifier {
   UserDataService userDataService = UserDataService.instance;
   List? allUsers;
 
-
   FutureOr getAllUsers() async {
     try {
       final response = await userDataService.getAllUsersDoc();
@@ -22,6 +21,4 @@ class AllUsersProvider with ChangeNotifier {
     }
     notifyListeners();
   }
-
-
 }

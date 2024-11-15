@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_text_field.dart';
 import 'package:talky_aplication_2/features/profile/pages/contacts_page/widgets/concact_user.dart';
 import 'package:talky_aplication_2/features/profile/pages/contacts_page/widgets/contact_text.dart';
 import 'package:talky_aplication_2/features/profile/pages/contacts_page/widgets/contacts_app_bar.dart';
+import 'package:talky_aplication_2/features/profile/providers/group_provider.dart';
+import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/unilities/app_texts.dart';
 
 class CreateGroupPage extends StatefulWidget {
@@ -24,34 +27,59 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: ContactsAppBar(
-        centerText: AppTexts.group,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 28),
-          child: Column(
-            children: [
-              CustomTextField(
-                contentPadding: EdgeInsets.only(top: 11, bottom: 12, left: 11),
-                hintText: AppTexts.search,
-                controller: searchControlller,
-              ),
-              SizedBox(height: 18),
-              CustomTextField(
-                hintText: AppTexts.groupName,
-                controller: groupNameController,
-                contentPadding: EdgeInsets.only(top: 18, bottom: 19, left: 11),
-              ),
-              SizedBox(height: 18),
-              ContactText(),
-              SizedBox(height: 10),
-              ConcactUsers(toGroup: true),
-            ],
+    return Consumer<GroupProvider>(builder: (context, provider, child) {
+      return Scaffold(
+        appBar: ContactsAppBar(
+            centerText: AppTexts.group,
+            isDoneActive: true,
+            loading: provider.state.isLoading,
+            onDone: () async {
+              try {
+                Future.delayed(Duration.zero, () {
+                  print('royhat ${provider.reallyList}');
+                });
+                // await provider.createGroup(
+                //     groupNameController.text, provider.pressedUsers);
+                // Future.delayed(Duration.zero, () {
+                // //  Navigator.pushReplacementNamed(context, NameRoutes.group);
+                // });
+              } catch (e) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      e.toString(),
+                    ),
+                  ),
+                );
+              }
+            }),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 28),
+            child: Column(
+              children: [
+                CustomTextField(
+                  contentPadding:
+                      EdgeInsets.only(top: 11, bottom: 12, left: 11),
+                  hintText: AppTexts.search,
+                  controller: searchControlller,
+                ),
+                SizedBox(height: 18),
+                CustomTextField(
+                  hintText: AppTexts.groupName,
+                  controller: groupNameController,
+                  contentPadding:
+                      EdgeInsets.only(top: 18, bottom: 19, left: 11),
+                ),
+                SizedBox(height: 18),
+                ContactText(),
+                SizedBox(height: 10),
+                ConcactUsers(toGroup: true),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

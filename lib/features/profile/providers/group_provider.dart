@@ -1,16 +1,45 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-class GroupProvider with ChangeNotifier {
-  final Set<String> _pressedUsers = {};
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
+import 'package:talky_aplication_2/core/services/user_data_service.dart';
+import 'package:talky_aplication_2/features/group/models/group_model.dart';
+import 'package:talky_aplication_2/unilities/statuses.dart';
 
-  bool isUserPressed(String userId) => _pressedUsers.contains(userId);
+class GroupProvider extends BaseChangeNotifier {
+  late List<String> pressedUsers = [];
+  List<String> get reallyList => pressedUsers;
+
+  bool isUserPressed(String userId) => (pressedUsers).contains(userId);
 
   void changeUserPressed(String userId) {
-    if (_pressedUsers.contains(userId)) {
-      _pressedUsers.remove(userId);
+    if ((pressedUsers).contains(userId)) {
+      pressedUsers.remove(userId);
+      print('olindi: $pressedUsers');
     } else {
-      _pressedUsers.add(userId);
+      pressedUsers.add(userId);
+      print('qoshildi: $pressedUsers');
     }
     notifyListeners();
+  }
+
+  Future<void> createGroup(String title, List<String> usersId) async {
+    updateState(Statuses.loading);
+    final userDataService = UserDataService.instance;
+    final groupData = GroupModel(
+      title: title,
+      usersId: usersId,
+      adminId: userDataService.auth.currentUser?.uid,
+    );
+    try {
+      await userDataService.firebaseFirestore
+          .collection('groups')
+          .doc(groupData.title)
+          .set(groupData.toJson(), SetOptions(merge: true));
+      updateState(Statuses.completed);
+    } catch (_) {
+      updateState(Statuses.error);
+      log('error on creating group');
+    }
   }
 }
