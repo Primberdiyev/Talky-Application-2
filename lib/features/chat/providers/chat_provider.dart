@@ -18,10 +18,9 @@ class ChatProvider with ChangeNotifier {
   String? lastMessage;
 
   File? imageFile;
-  // String? receiverImgUrl;
-  // String? receiverId;
-  // String? receiverName;
+
   UserModel? receiverUser;
+  bool isUserPressed = false;
 
   getConversatioId(String id) {
     return user.uid.hashCode <= id.hashCode
@@ -71,13 +70,6 @@ class ChatProvider with ChangeNotifier {
     }
   }
 
-  // setReceiverId({String? newId, String? imgUrl, String? name}) {
-  //   receiverId = newId;
-  //   receiverImgUrl = imgUrl;
-  //   receiverName = name;
-
-  //   notifyListeners();
-  // }
   changeReceiverUser(newUser) {
     receiverUser = newUser;
     notifyListeners();
@@ -171,5 +163,10 @@ class ChatProvider with ChangeNotifier {
         return {'msg': '', 'sentTime': ''};
       }
     });
+  }
+
+  changeUserPressed() {
+    isUserPressed = !isUserPressed;
+    notifyListeners();
   }
 }

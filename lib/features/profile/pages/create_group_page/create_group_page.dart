@@ -47,7 +47,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
               SizedBox(height: 18),
               ContactText(),
               SizedBox(height: 10),
-              ConcactUsers(),
+              ConcactUsers(toGroup: true),
             ],
           ),
         ),

@@ -20,6 +20,7 @@ class _ProfilePageState extends State<MainPage> {
       (timeStamp) {
         context.read<UserProvider>().getUserModel();
         UserStateService.instance.startTimer();
+        context.read<UserProvider>().getChattingUsers();
       },
     );
     super.initState();

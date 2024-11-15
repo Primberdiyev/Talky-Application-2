@@ -6,7 +6,8 @@ import 'package:talky_aplication_2/features/profile/providers/all_users_provider
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 
 class ConcactUsers extends StatelessWidget {
-  const ConcactUsers({super.key});
+  final bool toGroup;
+  const ConcactUsers({super.key, this.toGroup = false});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,10 @@ class ConcactUsers extends StatelessWidget {
               provider.allUsers?[index].data() ?? {},
             );
 
-            return ContactItem(model: model);
+            return ContactItem(
+              model: model,
+              toGroup: toGroup,
+            );
           },
           separatorBuilder: (context, index) {
             return Divider(

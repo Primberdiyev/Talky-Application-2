@@ -28,12 +28,13 @@ class UserProvider extends BaseChangeNotifier {
         id: userDataService.auth.currentUser?.uid ?? '');
     userModel = UserModel.fromJson(response.data() ?? {});
     List chatIds = userModel!.chattingUsersId ?? [].toList();
+    Set chatidsSet = chatIds.toSet();
 
     chattingUsers = [];
-
-    for (String userId in chatIds) {
+    for (String userId in chatidsSet) {
       final snapshot = await userDataService.getUserDoc(id: userId);
       UserModel chattingUserModel = UserModel.fromJson(snapshot.data() ?? {});
+
       chattingUsers?.add(chattingUserModel);
     }
 
