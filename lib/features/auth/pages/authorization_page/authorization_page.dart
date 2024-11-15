@@ -42,7 +42,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                       route = NameRoutes.setProfile;
                     } else if (authProvider.profileState ==
                         ProfileState.completed) {
-                      route = NameRoutes.profile;
+                      route = NameRoutes.main;
                     }
                     Future.delayed(Duration.zero, () {
                       Navigator.pushNamed(context, route);

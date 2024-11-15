@@ -6,4 +6,7 @@ class AppTexts {
   static const signUpHere = 'Sign  up here';
   static const createGroup = 'Start a new group chat';
   static const contacts = 'Contacts';
+  static const search = 'search';
+  static const group = 'Group';
+  static const groupName = 'Group name';
 }

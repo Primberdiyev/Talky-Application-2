@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/features/auth/pages/authorization_page/authorization_page.dart';
 import 'package:talky_aplication_2/features/auth/pages/check_code_page.dart/check_code_page.dart';
 import 'package:talky_aplication_2/features/chat/chat_page/chat_page.dart';
-import 'package:talky_aplication_2/features/profile/pages/contact_page/contacts_page.dart';
+import 'package:talky_aplication_2/features/profile/pages/contacts_page/contacts_page.dart';
+import 'package:talky_aplication_2/features/profile/pages/create_group_page/create_group_page.dart';
 import 'package:talky_aplication_2/features/profile/pages/receiver_user_page.dart/receiver_user_page.dart';
 import 'package:talky_aplication_2/features/profile/pages/set_profile/set_profile_page.dart';
 import 'package:talky_aplication_2/features/auth/pages/forgot_password_page/forgot_password_page.dart';
 import 'package:talky_aplication_2/features/auth/pages/input_mail_password_page/input_mail_password_page.dart.dart';
-import 'package:talky_aplication_2/features/profile/pages/profile_page/profile_page.dart';
+import 'package:talky_aplication_2/features/profile/pages/main_page/main_page.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/splash/pages/splash_page.dart';
 
@@ -24,13 +25,17 @@ Route generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const InputMailPasswordPage());
     case NameRoutes.forgotPassword:
       return MaterialPageRoute(builder: (_) => const ForgotPasswordPage());
-    case NameRoutes.profile:
-      return MaterialPageRoute(builder: (_) => const ProfilePage());
+    case NameRoutes.main:
+      return MaterialPageRoute(builder: (_) => const MainPage());
     case NameRoutes.contacts:
       return MaterialPageRoute(builder: (_) => const ContactsPage());
     case NameRoutes.chat:
       return MaterialPageRoute(
         builder: (_) => const ChatPage(),
+      );
+    case NameRoutes.createGroup:
+      return MaterialPageRoute(
+        builder: (_) => CreateGroupPage(),
       );
     case NameRoutes.receiverUser:
       return MaterialPageRoute(

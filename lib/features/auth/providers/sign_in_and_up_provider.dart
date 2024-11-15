@@ -36,7 +36,7 @@ class SignInAndUpProvider extends BaseChangeNotifier {
       signProvider.changeIsMailCorrect(true);
 
       Future.delayed(Duration.zero, () {
-        Navigator.pushNamed(context, NameRoutes.profile);
+        Navigator.pushNamed(context, NameRoutes.main);
       });
       updateState(Statuses.completed);
     } on FirebaseAuthException catch (error) {

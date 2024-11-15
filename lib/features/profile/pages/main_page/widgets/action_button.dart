@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:talky_aplication_2/app.dart';
-import 'package:talky_aplication_2/features/profile/pages/contact_page/contacts_page.dart';
+import 'package:talky_aplication_2/features/profile/pages/contacts_page/contacts_page.dart';
 
 class ActionButtonProfile extends StatelessWidget {
   const ActionButtonProfile({super.key});
@@ -41,7 +41,9 @@ class ActionButtonProfile extends StatelessWidget {
             backgroundColor: const Color(0xFF377DFF),
             onPressed: () {
               showCupertinoModalBottomSheet(
-                  context: context, builder: (context) => ContactsPage());
+                context: context,
+                builder: (context) => ContactsPage(),
+              );
             },
             child: Image.asset(
               'assets/images/FloatingMenu.png',

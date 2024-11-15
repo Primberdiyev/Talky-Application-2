@@ -41,7 +41,7 @@ class _CompleteButtonState extends State<CompleteButton> {
                   name: name, description: description);
 
               await Future.delayed(Duration.zero, () {
-                Navigator.pushNamed(context, NameRoutes.profile);
+                Navigator.pushNamed(context, NameRoutes.main);
               });
             } catch (error) {
               ScaffoldMessenger.of(context).showSnackBar(

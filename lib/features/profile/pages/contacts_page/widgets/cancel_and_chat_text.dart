@@ -11,7 +11,7 @@ class CancelAndChatText extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            Navigator.pushReplacementNamed(context, NameRoutes.profile);
+            Navigator.pushReplacementNamed(context, NameRoutes.main);
           },
           child: const Text(
             'Cancel',

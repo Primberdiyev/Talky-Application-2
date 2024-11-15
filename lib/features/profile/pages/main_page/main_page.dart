@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/core/services/user_state_service.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_profile_app_bar.dart';
-import 'package:talky_aplication_2/features/profile/pages/profile_page/widgets/action_button.dart';
-import 'package:talky_aplication_2/features/profile/pages/profile_page/widgets/friends_list.dart';
+import 'package:talky_aplication_2/features/profile/pages/main_page/widgets/action_button.dart';
+import 'package:talky_aplication_2/features/profile/pages/main_page/widgets/friends_list.dart';
 import 'package:talky_aplication_2/features/profile/providers/user_provider.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<MainPage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<MainPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
