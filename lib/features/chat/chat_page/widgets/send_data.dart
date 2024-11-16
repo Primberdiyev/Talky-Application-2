@@ -4,22 +4,27 @@ import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 
 class SendData extends StatefulWidget {
-  const SendData({
-    super.key,
-  });
+  final Function()? sendFunction;
+  final TextEditingController controller;
+  const SendData({super.key, this.sendFunction, required this.controller});
 
   @override
   State<SendData> createState() => _SendMessageState();
 }
 
 class _SendMessageState extends State<SendData> {
-  final TextEditingController _controller = TextEditingController();
   void _sendMessage(ChatProvider provider) async {
-    if (_controller.text.isNotEmpty) {
+    if (widget.controller.text.isNotEmpty) {
       await provider.sendMessage(
-          provider.receiverUser?.id ?? '', _controller.text);
-      _controller.clear();
+          provider.receiverUser?.id ?? '', widget.controller.text);
+      widget.controller.clear();
     }
+  }
+
+  @override
+  void dispose() {
+    widget.controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -34,17 +39,19 @@ class _SendMessageState extends State<SendData> {
             child: SizedBox(
               height: 54,
               child: TextField(
-                controller: _controller,
+                controller: widget.controller,
                 decoration: InputDecoration(
-                    labelText: 'Message',
-                    border: const OutlineInputBorder(),
-                    focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.primaryBlue)),
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.send_rounded),
-                      color: AppColors.sendIconColor,
-                      onPressed: () => _sendMessage(provider),
-                    )),
+                  labelText: 'Message',
+                  border: const OutlineInputBorder(),
+                  focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.primaryBlue)),
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.send_rounded),
+                    color: AppColors.sendIconColor,
+                    onPressed: () =>
+                        widget.sendFunction?.call() ?? _sendMessage(provider),
+                  ),
+                ),
               ),
             ),
           ),

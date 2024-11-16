@@ -16,6 +16,7 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ChatProvider>(builder: (context, provider, child) {
+      final TextEditingController chatControlller = TextEditingController();
       return Scaffold(
         appBar: CustomAppBar(
           text: provider.receiverUser?.name,
@@ -26,13 +27,13 @@ class ChatPage extends StatelessWidget {
         ),
         body: ChangeNotifierProvider(
           create: (context) => AudioProvider(),
-          child: const Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               MessagesList(),
               SizedBox(height: 31),
-              SendData(),
+              SendData(controller: chatControlller),
               SizedBox(height: 31),
             ],
           ),
