@@ -26,57 +26,54 @@ class ContactItem extends StatelessWidget {
       model.lastTime ?? DateTime.now().add(const Duration(seconds: -40)),
     );
 
-    return ChangeNotifierProvider(
-      create: (context) => GroupProvider(),
-      child: Consumer2<GroupProvider, ChatProvider>(
-        builder: (context, groupProvider, chatProvider, child) {
-          final isUserPressed = groupProvider.isUserPressed(model.id!);
-
-          return ListTile(
-            onTap: () {
-              if (!toGroup) {
-                chatProvider.changeReceiverUser(model);
-                Navigator.pushNamed(context, NameRoutes.chat);
-              } else {
-                groupProvider.changeUserPressed(model.id!);
-              }
+    return Consumer2<GroupProvider, ChatProvider>(
+      builder: (context, groupProvider, chatProvider, child) {
+        final isUserPressed = groupProvider.isUserPressed(model.id!);
+    
+        return ListTile(
+          onTap: () {
+            if (!toGroup) {
+              chatProvider.changeReceiverUser(model);
+              Navigator.pushNamed(context, NameRoutes.chat);
+            } else {
+              groupProvider.changeUserPressed(model.id!);
+            }
+          },
+          dense: true,
+          title: Text(
+            model.name ?? "User",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: AppColors.blackText,
+            ),
+          ),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
+          subtitle:
+              Text(model.description ?? (isOnline ? 'at work' : 'offline')),
+          leading: CachedNetworkImage(
+            imageUrl: model.imgUrl ?? '',
+            imageBuilder: (context, imageProvider) {
+              return CustomUserAvatar(
+                avatarLink: model.imgUrl,
+                isOnline: isOnline,
+                isWithOnline: true,
+              );
             },
-            dense: true,
-            title: Text(
-              model.name ?? "User",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: AppColors.blackText,
-              ),
-            ),
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
-            subtitle:
-                Text(model.description ?? (isOnline ? 'at work' : 'offline')),
-            leading: CachedNetworkImage(
-              imageUrl: model.imgUrl ?? '',
-              imageBuilder: (context, imageProvider) {
-                return CustomUserAvatar(
-                  avatarLink: model.imgUrl,
-                  isOnline: isOnline,
-                  isWithOnline: true,
-                );
-              },
-              placeholder: (context, url) {
-                return SvgPicture.asset(AppIcons.userDefault.icon);
-              },
-            ),
-            trailing: toGroup
-                ? SvgPicture.asset(
-                    isUserPressed
-                        ? AppIcons.selected.icon
-                        : AppIcons.select.icon,
-                  )
-                : SvgPicture.asset(AppIcons.chevron.icon),
-          );
-        },
-      ),
+            placeholder: (context, url) {
+              return SvgPicture.asset(AppIcons.userDefault.icon);
+            },
+          ),
+          trailing: toGroup
+              ? SvgPicture.asset(
+                  isUserPressed
+                      ? AppIcons.selected.icon
+                      : AppIcons.select.icon,
+                )
+              : SvgPicture.asset(AppIcons.chevron.icon),
+        );
+      },
     );
   }
 

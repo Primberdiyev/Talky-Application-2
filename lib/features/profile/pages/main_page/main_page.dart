@@ -19,8 +19,7 @@ class _ProfilePageState extends State<MainPage> {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         context.read<UserProvider>().getUserModel();
-        UserStateService.instance.startTimer();
-        context.read<UserProvider>().getChattingUsers();
+     //   UserStateService.instance.startTimer();
       },
     );
     super.initState();

@@ -35,11 +35,11 @@ class GroupProvider extends BaseChangeNotifier {
       await userDataService.firebaseFirestore
           .collection('groups')
           .doc(groupData.title)
-          .set(groupData.toJson(), SetOptions(merge: true));
+          .set(groupData.toJson(), );
       updateState(Statuses.completed);
-    } catch (_) {
+    } catch (e) {
       updateState(Statuses.error);
-      log('error on creating group');
+      log('error on creating group $e ');
     }
   }
 }

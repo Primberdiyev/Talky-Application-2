@@ -36,7 +36,7 @@ class _ListUsersState extends State<FriendsList> {
 
               List<UserModel> chattingUsers = snapshot.data!.toList();
               return ListView.builder(
-                itemCount: chattingUsers.length,
+                itemCount: userProvider.userModel?.chattingUsersId?.length,
                 itemBuilder: (context, index) {
                   var user = chattingUsers[index];
 

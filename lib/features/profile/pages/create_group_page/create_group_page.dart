@@ -35,14 +35,11 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
             loading: provider.state.isLoading,
             onDone: () async {
               try {
+                await provider.createGroup(
+                    groupNameController.text, provider.pressedUsers);
                 Future.delayed(Duration.zero, () {
-                  print('royhat ${provider.reallyList}');
+                  Navigator.pushReplacementNamed(context, NameRoutes.group);
                 });
-                // await provider.createGroup(
-                //     groupNameController.text, provider.pressedUsers);
-                // Future.delayed(Duration.zero, () {
-                // //  Navigator.pushReplacementNamed(context, NameRoutes.group);
-                // });
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

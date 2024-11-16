@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ImageMessage extends StatelessWidget {
@@ -12,8 +13,8 @@ class ImageMessage extends StatelessWidget {
       alignment: isMine ? Alignment.centerRight : Alignment.centerLeft,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
-        child: Image.network(
-          link,
+        child: CachedNetworkImage(
+          imageUrl: link,
           width: 125,
           height: 125,
           fit: BoxFit.fill,
