@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/core/services/user_state_service.dart';
-import 'package:talky_aplication_2/core/ui_kit/custom_profile_app_bar.dart';
+import 'package:talky_aplication_2/core/ui_kit/custom_app_bar.dart';
 import 'package:talky_aplication_2/features/profile/pages/main_page/widgets/action_button.dart';
 import 'package:talky_aplication_2/features/profile/pages/main_page/widgets/friends_list.dart';
 import 'package:talky_aplication_2/features/profile/providers/user_provider.dart';
@@ -19,7 +18,7 @@ class _ProfilePageState extends State<MainPage> {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         context.read<UserProvider>().getUserModel();
-     //   UserStateService.instance.startTimer();
+        //   UserStateService.instance.startTimer();
       },
     );
     super.initState();
@@ -30,7 +29,9 @@ class _ProfilePageState extends State<MainPage> {
     return Consumer<UserProvider>(
       builder: (context, provider, child) {
         return Scaffold(
-          appBar: CustomProfileAppBar(),
+          appBar: CustomAppBar(
+            userModel: provider.userModel,
+          ),
           body: provider.chattingUsers != null
               ? const Column(
                   children: [

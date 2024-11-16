@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_text_field.dart';
+import 'package:talky_aplication_2/features/group/models/group_model.dart';
 import 'package:talky_aplication_2/features/profile/pages/contacts_page/widgets/concact_user.dart';
 import 'package:talky_aplication_2/features/profile/pages/contacts_page/widgets/contact_text.dart';
 import 'package:talky_aplication_2/features/profile/pages/contacts_page/widgets/contacts_app_bar.dart';
@@ -28,6 +30,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<GroupProvider>(builder: (context, provider, child) {
+      final userDataService = UserDataService.instance;
       return Scaffold(
         appBar: ContactsAppBar(
             centerText: AppTexts.group,
@@ -35,10 +38,15 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
             loading: provider.state.isLoading,
             onDone: () async {
               try {
-                await provider.createGroup(
-                    groupNameController.text, provider.pressedUsers);
+                final groupModel = GroupModel(
+                  title: groupNameController.text,
+                  usersId: provider.pressedUsers,
+                  adminId: userDataService.auth.currentUser?.uid,
+                );
+                await provider.createGroup(groupModel);
                 Future.delayed(Duration.zero, () {
-                  Navigator.pushReplacementNamed(context, NameRoutes.group);
+                  Navigator.pushReplacementNamed(context, NameRoutes.group,
+                      arguments: groupModel);
                 });
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(

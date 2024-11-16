@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_user_avatar.dart';
-import 'package:talky_aplication_2/features/profile/providers/user_provider.dart';
+import 'package:talky_aplication_2/features/auth/models/user_model.dart';
+import 'package:talky_aplication_2/features/group/models/group_model.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 import 'package:talky_aplication_2/unilities/app_icons.dart';
 
-class CustomProfileAppBar extends StatelessWidget
-    implements PreferredSizeWidget {
-  const CustomProfileAppBar({
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final UserModel? userModel;
+  final GroupModel? groupModel;
+  const CustomAppBar({
     super.key,
+    this.userModel,
+    this.groupModel,
   });
 
   @override
@@ -23,16 +26,15 @@ class CustomProfileAppBar extends StatelessWidget
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Consumer<UserProvider>(
-              builder: (context, value, child) {
-                return CustomUserAvatar(
-                  avatarLink: value.userModel?.imgUrl,
-                  isOnline: true,
-                );
-              },
+            CustomUserAvatar(
+              avatarLink: userModel != null
+                  ? userModel?.imgUrl
+                  : groupModel?.imgUrl, //value.userModel?.imgUrl,
+              isOnline: true,
+              isWithOnline: userModel != null,
             ),
-            const Text(
-              'Chats',
+            Text(
+              userModel != null ? 'Chats' : groupModel?.title ?? 'Group',
               style: TextStyle(
                 color: AppColors.blackText,
                 fontSize: 16,

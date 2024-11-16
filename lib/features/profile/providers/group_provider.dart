@@ -23,19 +23,17 @@ class GroupProvider extends BaseChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> createGroup(String title, List<String> usersId) async {
+  Future<void> createGroup(GroupModel model) async {
     updateState(Statuses.loading);
     final userDataService = UserDataService.instance;
-    final groupData = GroupModel(
-      title: title,
-      usersId: usersId,
-      adminId: userDataService.auth.currentUser?.uid,
-    );
+
     try {
       await userDataService.firebaseFirestore
           .collection('groups')
-          .doc(groupData.title)
-          .set(groupData.toJson(), );
+          .doc(model.title)
+          .set(
+            model.toJson(),
+          );
       updateState(Statuses.completed);
     } catch (e) {
       updateState(Statuses.error);
