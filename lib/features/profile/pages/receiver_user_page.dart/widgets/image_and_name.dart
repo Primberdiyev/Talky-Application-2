@@ -9,47 +9,49 @@ class ImageAndName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ChatProvider>(builder: (context, provider, child) {
-      return Column(
-        children: [
-          Column(
-            children: [
-              CachedNetworkImage(
-                imageUrl: provider.receiverUser?.imgUrl ?? '',
-                height: 190,
-                width: 190,
-                imageBuilder: (context, imageProvider) {
-                  return Container(
-                    height: 190,
-                    width: 190,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
+    return Consumer<ChatProvider>(
+      builder: (context, provider, child) {
+        return Column(
+          children: [
+            Column(
+              children: [
+                CachedNetworkImage(
+                  imageUrl: provider.receiverUser?.imgUrl ?? '',
+                  height: 190,
+                  width: 190,
+                  imageBuilder: (context, imageProvider) {
+                    return Container(
+                      height: 190,
+                      width: 190,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 20),
-              Text(
-                provider.receiverUser?.name ?? '',
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: AppColors.blackText,
-                  fontWeight: FontWeight.w700,
+                    );
+                  },
                 ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'online',
-                style: TextStyle(fontSize: 14, color: AppColors.dividerBlack),
-              ),
-            ],
-          )
-        ],
-      );
-    });
+                const SizedBox(height: 20),
+                Text(
+                  provider.receiverUser?.name ?? '',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: AppColors.blackText,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'online',
+                  style: TextStyle(fontSize: 14, color: AppColors.dividerBlack),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 }

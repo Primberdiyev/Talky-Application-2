@@ -2,14 +2,13 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class AudioProvider with ChangeNotifier {
+  AudioProvider() {
+    initialize();
+  }
   bool isPlaying = false;
   final audioPlayer = AudioPlayer();
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
-
-  AudioProvider() {
-    initialize();
-  }
 
   void initialize() {
     audioPlayer.onPlayerStateChanged.listen((state) {

@@ -9,7 +9,7 @@ class ForgotPasswordText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ValueStateProvider>(
-      builder: (context,provider,child) {
+      builder: (context, provider, child) {
         return Align(
           alignment: Alignment.centerLeft,
           child: Padding(
@@ -32,19 +32,20 @@ class ForgotPasswordText extends StatelessWidget {
                 const SizedBox(
                   width: 20,
                 ),
-                 Visibility(
+                Visibility(
                   visible: !provider.isEmailCorrect,
-                  child: const Text('email or password is Incorrext',
-                  style: TextStyle(
-                    color: Colors.red
+                  child: const Text(
+                    'email or password is Incorrext',
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
                   ),
-                  ),
-                )
+                ),
               ],
             ),
           ),
         );
-      }
+      },
     );
   }
 }

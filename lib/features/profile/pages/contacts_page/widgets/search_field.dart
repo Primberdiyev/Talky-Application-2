@@ -9,25 +9,27 @@ class SearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProfilePageProvider>(builder: (context, provider, child) {
-      return SizedBox(
-        height: 40,
-        child: TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Search',
-            labelStyle: TextStyle(
-              color: Color(0xFFAAB0B7),
-              fontSize: 14,
+    return Consumer<ProfilePageProvider>(
+      builder: (context, provider, child) {
+        return SizedBox(
+          height: 40,
+          child: TextField(
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: 'Search',
+              labelStyle: const TextStyle(
+                color: Color(0xFFAAB0B7),
+                fontSize: 14,
+              ),
+              suffixIcon: IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset(AppIcons.search.icon),
+              ),
             ),
-            suffixIcon: IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(AppIcons.search.icon),
-            ),
+            onChanged: (value) => provider.onSearchChanged(value),
           ),
-          onChanged: (value) => provider.onSearchChanged(value),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

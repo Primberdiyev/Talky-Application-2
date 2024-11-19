@@ -1,36 +1,94 @@
-# This file configures the analyzer, which statically analyzes Dart code to
-# check for errors, warnings, and lints.
-#
-# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
-# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
-# invoked from the command line by running `flutter analyze`.
-
-# The following line activates a set of recommended lints for Flutter apps,
-# packages, and plugins designed to encourage good coding practices.
-analyzer:
-  errors:
-    use_build_context_synchronously: ignore
-    deprecated_member_use: ignore
-    prefer_typing_uninitialized_variables: ignore
-    library_private_types_in_public_api: ignore
-    avoid_print: ignore
-    prefer_const_constructors: ignore
 include: package:flutter_lints/flutter.yaml
 
+# todo добавить ошибки на override
 linter:
-  # The lint rules applied to this project can be customized in the
-  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
-  # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at https://dart.dev/lints.
-  #
-  # Instead of disabling a lint rule for the entire project in the
-  # section below, it can also be suppressed for a single line of code
-  # or a specific dart file by using the `// ignore: name_of_lint` and
-  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
-  # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    - avoid_relative_lib_imports
+    - avoid_unnecessary_containers
+    - avoid_multiple_declarations_per_line
+    - hash_and_equals
+    - valid_regexps
+    - sort_constructors_first
+    - sort_child_properties_last
+    - sort_unnamed_constructors_first
+    - sized_box_for_whitespace
+    - always_declare_return_types  #todo to error
+    - depend_on_referenced_packages
+    - lines_longer_than_80_chars
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+# Используем code_metrics для расширенного анализа
+analyzer:
+  exclude:
+    - lib/localization/generated/**
+    - '**/*.g.dart'
+    - '**/*.freezed.dart'
+    - 'bricks/*/__brick__/**'
+    - 'bricks/*/hooks/**'
+  
+  plugins:
+    - dart_code_metrics
+  errors:
+    missing_required_param: error
+    missing_return: error
+    dead_code: info
+    unused_import: error
+    avoid_relative_lib_imports: error
+    invalid_annotation_target: error
+    must_call_super: error
+    invalid_use_of_visible_for_testing_member: error
+    unused_catch_stack: error
+    invalid_null_aware_operator: error
+    dead_null_aware_expression: error
+    duplicate_import: error
+    unused_local_variable: error
+    unused_field: error
+
+dart_code_metrics:
+  # Игнорируем генерируемые файлы для проверок код-стайла + тесты
+  rules-exclude:
+    - ./**/*.g.dart
+    - ./**/*.freezed.dart
+    - ./**/generated/**
+    - test/**
+  metrics:
+    cyclomatic-complexity: 20
+    number-of-parameters: 4
+    maximum-nesting-level: 3
+  rules:
+    - avoid-cascade-after-if-null
+    - avoid-double-slash-imports
+    - avoid-duplicate-exports
+    - avoid-redundant-async
+    - avoid-unnecessary-conditionals
+    - avoid-unnecessary-type-assertions
+    - avoid-unnecessary-type-casts
+    - avoid-unrelated-type-assertions
+    - avoid-returning-widgets
+    - avoid-shrink-wrap-in-lists
+    - always-remove-listener
+    - binary-expression-operand-order
+    - double-literal-format
+    - list-all-equatable-fields
+    - no-boolean-literal-compare
+    - no-boolean-literal-compare
+    - no-empty-block
+    - no-equal-then-else
+    - no-object-declaration
+    - prefer-enums-by-name
+    - prefer-first
+    - prefer-last
+    - prefer-immediate-return
+    - prefer-match-file-name
+    - prefer-moving-to-variable
+    - prefer-conditional-expressions
+    - prefer-trailing-comma:
+        break-on: 3
+    - prefer-correct-edge-insets-constructor
+    - avoid-nested-conditional-expressions:
+        acceptable-level: 3
+    - avoid-dynamic:
+        severity: error
+    # - avoid-non-null-assertion:
+    #     severity: info
+    - avoid-unused-parameters:
+        severity: error

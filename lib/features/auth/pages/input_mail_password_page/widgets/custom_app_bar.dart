@@ -4,11 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talky_aplication_2/unilities/app_icons.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBar({this.text, this.imgUrl, this.function, super.key});
   final String? text;
   final String? imgUrl;
   final Function()? function;
-
-  const CustomAppBar({this.text, this.imgUrl, this.function, super.key});
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -53,52 +52,56 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       actions: [
-        imgUrl != null
-            ? Padding(
-                padding: const EdgeInsets.only(right: 30, top: 30),
-                child: Stack(
-                  children: [
-                    InkWell(
-                      onTap: () => function?.call(),
-                      child: CachedNetworkImage(
-                        imageUrl: imgUrl ?? '',
-                        fit: BoxFit.cover,
+        if (imgUrl != null)
+          Padding(
+            padding: const EdgeInsets.only(right: 30, top: 30),
+            child: Stack(
+              children: [
+                InkWell(
+                  onTap: () => function?.call(),
+                  child: CachedNetworkImage(
+                    imageUrl: imgUrl ?? '',
+                    fit: BoxFit.cover,
+                    height: 50,
+                    width: 50,
+                    imageBuilder: (context, imageProvider) {
+                      return Container(
                         height: 50,
                         width: 50,
-                        imageBuilder: (context, imageProvider) {
-                          return Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          );
-                        },
-                        errorWidget: (context, url, error) {
-                          return SvgPicture.asset(AppIcons.userDefault.icon);
-                        },
-                        placeholder: (context, url) {
-                          return SvgPicture.asset(AppIcons.userDefault.icon);
-                        },
-                      ),
-                    ),
-                    Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          width: 15,
-                          height: 15,
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.green),
-                        ))
-                  ],
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    },
+                    errorWidget: (context, url, error) {
+                      return SvgPicture.asset(AppIcons.userDefault.icon);
+                    },
+                    placeholder: (context, url) {
+                      return SvgPicture.asset(AppIcons.userDefault.icon);
+                    },
+                  ),
                 ),
-              )
-            : const SizedBox.shrink()
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    width: 15,
+                    height: 15,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.green,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        else
+          const SizedBox.shrink(),
       ],
     );
   }

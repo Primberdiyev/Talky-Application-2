@@ -12,13 +12,10 @@ class ValueStateProvider with ChangeNotifier {
     switch (value) {
       case BoolValueEnum.isSignIn:
         isSignIn = !isSignIn;
-        break;
       case BoolValueEnum.agreeCondition:
         agreeCondition = !agreeCondition;
-        break;
       case BoolValueEnum.isHideText:
         isHideText = !isHideText;
-        break;
     }
 
     notifyListeners();

@@ -8,24 +8,26 @@ class InputCodes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SignInAndUpProvider>(builder: (context, provider, child) {
-      return Pinput(
-        controller: provider.inputCodeController,
-        defaultPinTheme: PinTheme(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: const Color(0xFFAAB0B7),
+    return Consumer<SignInAndUpProvider>(
+      builder: (context, provider, child) {
+        return Pinput(
+          controller: provider.inputCodeController,
+          defaultPinTheme: PinTheme(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: const Color(0xFFAAB0B7),
+              ),
             ),
+            textStyle: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+            ),
+            width: 60,
+            height: 60,
           ),
-          textStyle: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-          ),
-          width: 60,
-          height: 60,
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

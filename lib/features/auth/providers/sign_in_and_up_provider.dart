@@ -1,12 +1,13 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
-import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/features/profile/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/unilities/profile_state.dart';
@@ -25,13 +26,13 @@ class SignInAndUpProvider extends BaseChangeNotifier {
     final signProvider =
         Provider.of<ValueStateProvider>(context, listen: false);
     try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      final userCredential = await _auth.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
-      User? user = userCredential.user;
+      final user = userCredential.user;
 
-      await provider.changeCurrentUser(user!);
+      await provider.changeCurrentUser(user);
 
       signProvider.changeIsMailCorrect(true);
 
@@ -52,22 +53,26 @@ class SignInAndUpProvider extends BaseChangeNotifier {
   FutureOr<void> signUp() async {
     updateState(Statuses.loading);
     try {
-      bool isVerified = EmailOTP.verifyOTP(otp: inputCodeController.text);
+      final isVerified = EmailOTP.verifyOTP(otp: inputCodeController.text);
 
       if (!isVerified) {
         throw Exception('Invalid OTP. Please try again.');
       }
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
-              email: emailController.text, password: passwordController.text);
+      final userCredential = await _auth.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
 
-      User? user = userCredential.user;
+      final user = userCredential.user;
 
       if (user != null) {
         final userData = UserModel(
-            email: user.email, id: user.uid, profileState: ProfileState.create);
+          email: user.email,
+          id: user.uid,
+          profileState: ProfileState.create,
+        );
         await FirebaseFirestore.instance
-            .collection("User")
+            .collection('User')
             .doc(user.uid)
             .set(userData.toJson());
         updateState(Statuses.completed);

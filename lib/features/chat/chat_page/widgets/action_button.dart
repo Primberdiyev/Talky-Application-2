@@ -11,39 +11,42 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ChatProvider>(builder: (context, provider, child) {
-      return Padding(
-        padding: const EdgeInsets.only(bottom: 12, right: 14),
-        child: SpeedDial(
-          activeIcon: Icons.close,
-          backgroundColor: AppColors.primaryBlue,
-          buttonSize: const Size.fromRadius(30),
-          childrenButtonSize: const Size(60, 60),
-          spaceBetweenChildren: 20,
-          children: [
-            SpeedDialChild(
+    return Consumer<ChatProvider>(
+      builder: (context, provider, child) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 12, right: 14),
+          child: SpeedDial(
+            activeIcon: Icons.close,
+            backgroundColor: AppColors.primaryBlue,
+            buttonSize: const Size.fromRadius(30),
+            childrenButtonSize: const Size(60, 60),
+            spaceBetweenChildren: 20,
+            children: [
+              SpeedDialChild(
                 shape: const StadiumBorder(),
                 child: SvgPicture.asset(
                   AppIcons.voiceIcon.icon,
                 ),
                 backgroundColor: Colors.white,
-                onTap: () {}),
-            SpeedDialChild(
-              shape: const StadiumBorder(),
-              child: SvgPicture.asset(AppIcons.camereIcon.icon),
-              backgroundColor: Colors.white,
-              onTap: () => provider.getImage(),
-            ),
-            SpeedDialChild(
-              shape: const StadiumBorder(),
-              child: SvgPicture.asset(AppIcons.fileIcon.icon),
-              backgroundColor: Colors.white,
-              onTap: () => provider.pickFile(),
-            ),
-          ],
-          child: SvgPicture.asset(AppIcons.plusIcon.icon),
-        ),
-      );
-    });
+                onTap: () {},
+              ),
+              SpeedDialChild(
+                shape: const StadiumBorder(),
+                child: SvgPicture.asset(AppIcons.camereIcon.icon),
+                backgroundColor: Colors.white,
+                onTap: () => provider.getImage(),
+              ),
+              SpeedDialChild(
+                shape: const StadiumBorder(),
+                child: SvgPicture.asset(AppIcons.fileIcon.icon),
+                backgroundColor: Colors.white,
+                onTap: () => provider.pickFile(),
+              ),
+            ],
+            child: SvgPicture.asset(AppIcons.plusIcon.icon),
+          ),
+        );
+      },
+    );
   }
 }

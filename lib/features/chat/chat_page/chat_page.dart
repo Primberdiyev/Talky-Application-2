@@ -15,31 +15,33 @@ class ChatPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ChatProvider>(builder: (context, provider, child) {
-      final TextEditingController chatControlller = TextEditingController();
-      return Scaffold(
-        appBar: CustomAppBar(
-          text: provider.receiverUser?.name,
-          imgUrl: provider.receiverUser?.imgUrl,
-          function: () {
-            Navigator.pushNamed(context, NameRoutes.receiverUser);
-          },
-        ),
-        body: ChangeNotifierProvider(
-          create: (context) => AudioProvider(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              MessagesList(),
-              SizedBox(height: 31),
-              SendData(controller: chatControlller),
-              SizedBox(height: 31),
-            ],
+    return Consumer<ChatProvider>(
+      builder: (context, provider, child) {
+        final chatControlller = TextEditingController();
+        return Scaffold(
+          appBar: CustomAppBar(
+            text: provider.receiverUser?.name,
+            imgUrl: provider.receiverUser?.imgUrl,
+            function: () {
+              Navigator.pushNamed(context, NameRoutes.receiverUser);
+            },
           ),
-        ),
-        floatingActionButton: const ActionButton(),
-      );
-    });
+          body: ChangeNotifierProvider(
+            create: (context) => AudioProvider(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const MessagesList(),
+                const SizedBox(height: 31),
+                SendData(controller: chatControlller),
+                const SizedBox(height: 31),
+              ],
+            ),
+          ),
+          floatingActionButton: const ActionButton(),
+        );
+      },
+    );
   }
 }

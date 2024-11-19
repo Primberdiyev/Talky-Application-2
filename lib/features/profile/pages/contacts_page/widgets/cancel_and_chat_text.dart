@@ -16,9 +16,10 @@ class CancelAndChatText extends StatelessWidget {
           child: const Text(
             'Cancel',
             style: TextStyle(
-                color: Color(0xFF377DFF),
-                fontSize: 16,
-                fontWeight: FontWeight.w700),
+              color: Color(0xFF377DFF),
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
         const Text(

@@ -39,7 +39,7 @@ class _ProfilePageState extends State<MainPage> {
                     SizedBox(height: 35),
                     Expanded(
                       child: FriendsList(),
-                    )
+                    ),
                   ],
                 )
               : const Center(
@@ -47,7 +47,7 @@ class _ProfilePageState extends State<MainPage> {
                 ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: ActionButtonProfile(),
+          floatingActionButton: const ActionButtonProfile(),
         );
       },
     );

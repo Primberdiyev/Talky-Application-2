@@ -8,8 +8,8 @@ import 'package:talky_aplication_2/features/group/providers/group_provider.dart'
 import 'package:talky_aplication_2/features/group/widgets/group_messages.dart';
 
 class GroupMainPage extends StatefulWidget {
+  const GroupMainPage({required this.groupModel, super.key});
   final GroupModel groupModel;
-  const GroupMainPage({super.key, required this.groupModel});
 
   @override
   State<GroupMainPage> createState() => _GroupMainPageState();
@@ -30,12 +30,13 @@ class _GroupMainPageState extends State<GroupMainPage> {
       appBar: CustomAppBar(groupModel: widget.groupModel),
       body: ChangeNotifierProvider(
         create: (context) => GroupProvider(),
-        child: Consumer<GroupProvider>(builder: (context, provider, child) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              GroupMessages(titleGroup: widget.groupModel.title ?? ''),
-              SendData(
+        child: Consumer<GroupProvider>(
+          builder: (context, provider, child) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GroupMessages(titleGroup: widget.groupModel.title ?? ''),
+                SendData(
                   controller: controller,
                   sendFunction: () async {
                     await provider.sendMessageGroup(
@@ -43,11 +44,13 @@ class _GroupMainPageState extends State<GroupMainPage> {
                       groupTitle: widget.groupModel.title ?? '',
                     );
                     controller.clear();
-                  }),
-              SizedBox(height: 31),
-            ],
-          );
-        }),
+                  },
+                ),
+                const SizedBox(height: 31),
+              ],
+            );
+          },
+        ),
       ),
       floatingActionButton: const ActionButton(),
     );

@@ -41,7 +41,6 @@ class _SetProfilePageState extends State<SetProfilePage> {
       body: Padding(
         padding: const EdgeInsets.only(left: 18, right: 28),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const ImageView(),
             InputName(controller: nameController),

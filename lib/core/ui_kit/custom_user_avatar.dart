@@ -52,11 +52,10 @@ class CustomUserAvatar extends StatelessWidget {
                 border: Border.all(
                   color: Colors.white,
                   width: 2,
-                  strokeAlign: BorderSide.strokeAlignInside,
                 ),
               ),
             ),
-          )
+          ),
       ],
     );
   }

@@ -33,7 +33,7 @@ class MailButton extends StatelessWidget {
                 fontSize: 16,
                 color: Color(0xFF263443),
               ),
-            )
+            ),
           ],
         ),
       ),

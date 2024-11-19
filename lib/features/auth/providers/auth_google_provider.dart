@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
+import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/unilities/profile_state.dart';
 import 'package:talky_aplication_2/unilities/statuses.dart';
 
@@ -18,9 +18,9 @@ class AuthGoogleProvider extends BaseChangeNotifier {
       if (await gSignIn.isSignedIn()) {
         await gSignIn.signOut();
       }
-      final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+      final gUser = await GoogleSignIn().signIn();
       if (gUser != null) {
-        final GoogleSignInAuthentication gAuth = await gUser.authentication;
+        final gAuth = await gUser.authentication;
         final cred = GoogleAuthProvider.credential(
           accessToken: gAuth.accessToken,
           idToken: gAuth.idToken,
@@ -60,7 +60,7 @@ class AuthGoogleProvider extends BaseChangeNotifier {
       }
     } catch (e) {
       updateState(Statuses.error);
-      print("Google Sign-In failed: $e");
+      print('Google Sign-In failed: $e');
     }
     return null;
   }

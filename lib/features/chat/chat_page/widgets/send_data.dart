@@ -4,19 +4,21 @@ import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 
 class SendData extends StatefulWidget {
+  const SendData({required this.controller, super.key, this.sendFunction});
   final Function()? sendFunction;
   final TextEditingController controller;
-  const SendData({super.key, this.sendFunction, required this.controller});
 
   @override
   State<SendData> createState() => _SendMessageState();
 }
 
 class _SendMessageState extends State<SendData> {
-  void _sendMessage(ChatProvider provider) async {
+  Future<void> _sendMessage(ChatProvider provider) async {
     if (widget.controller.text.isNotEmpty) {
       await provider.sendMessage(
-          provider.receiverUser?.id ?? '', widget.controller.text);
+        provider.receiverUser?.id ?? '',
+        widget.controller.text,
+      );
       widget.controller.clear();
     }
   }
@@ -44,7 +46,8 @@ class _SendMessageState extends State<SendData> {
                   labelText: 'Message',
                   border: const OutlineInputBorder(),
                   focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.primaryBlue)),
+                    borderSide: BorderSide(color: AppColors.primaryBlue),
+                  ),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.send_rounded),
                     color: AppColors.sendIconColor,

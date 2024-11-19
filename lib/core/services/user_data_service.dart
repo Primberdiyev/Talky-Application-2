@@ -5,39 +5,45 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 
 class UserDataService {
+  UserDataService._();
   static final UserDataService _instance = UserDataService._();
   static UserDataService get instance => _instance;
-  UserDataService._();
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
   Future<UserModel?> getUserModel() async {
     final response = await firebaseFirestore
-        .collection("User")
+        .collection('User')
         .doc(
           auth.currentUser?.uid,
         )
         .get();
-    return UserModel.fromJson(response.data() ?? {});
+        
+    return UserModel.fromJson(
+      response.data() ?? {},
+    );
   }
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getUserDoc(
-      {required String id}) async {
-    return await firebaseFirestore.collection('User').doc(id).get();
+  Future<DocumentSnapshot<Map<String, dynamic>>> getUserDoc({
+    required String id,
+  }) {
+    return firebaseFirestore.collection('User').doc(id).get();
   }
 
-  Future<QuerySnapshot<Map<String, dynamic>>> getAllUsersDoc() async {
+  Future<QuerySnapshot<Map<String, dynamic>>> getAllUsersDoc() {
     return firebaseFirestore.collection('User').get();
   }
 
-  Future<void> setUserDoc(Map<String, dynamic> data,
-      [SetOptions? options]) async {
+  Future<void> setUserDoc(
+    Map<String, dynamic> data, [
+    SetOptions? options,
+  ]) {
     return firebaseFirestore
-        .collection("User")
+        .collection('User')
         .doc(
           auth.currentUser?.uid,
         )
-        .update(data);
+        .set(data, options);
   }
 
   Future<void> setUpdateLastTime() async {

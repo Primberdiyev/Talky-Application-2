@@ -8,8 +8,9 @@ class ConditionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ValueStateProvider>(builder: (context, provider, child) {
-      return Visibility(
+    return Consumer<ValueStateProvider>(
+      builder: (context, provider, child) {
+        return Visibility(
           visible: !provider.isSignIn,
           child: Row(
             children: [
@@ -35,12 +36,15 @@ class ConditionWidget extends StatelessWidget {
               const Text(
                 'I agree to the terms & conditions',
                 style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12,
-                    color: Color(0xFF243443)),
-              )
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
+                  color: Color(0xFF243443),
+                ),
+              ),
             ],
-          ));
-    });
+          ),
+        );
+      },
+    );
   }
 }

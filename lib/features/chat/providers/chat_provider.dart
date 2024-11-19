@@ -22,7 +22,7 @@ class ChatProvider with ChangeNotifier {
   UserModel? receiverUser;
   bool isUserPressed = false;
 
-  getConversatioId(String id) {
+  String getConversatioId(String id) {
     return user.uid.hashCode <= id.hashCode
         ? '${user.uid}_$id'
         : '${id}_${user.uid}';
@@ -52,14 +52,15 @@ class ChatProvider with ChangeNotifier {
           .set(message.toJson(), SetOptions(merge: true));
       notifyListeners();
     }
-    final MessageModel message = MessageModel(
-        toId: receiverId,
-        msg: msg,
-        read: 'false',
-        type: TypeMessage.text,
-        fromId: user.uid,
-        sent: time,
-        sentTime: sentTime.toString());
+    final message = MessageModel(
+      toId: receiverId,
+      msg: msg,
+      read: 'false',
+      type: TypeMessage.text,
+      fromId: user.uid,
+      sent: time,
+      sentTime: sentTime.toString(),
+    );
 
     final ref =
         firestore.collection('chats/${getConversatioId(receiverId)}/messages/');
@@ -76,7 +77,7 @@ class ChatProvider with ChangeNotifier {
   }
 
   Future getImage() async {
-    ImagePicker picker = ImagePicker();
+    final picker = ImagePicker();
     await picker.pickImage(source: ImageSource.gallery).then((value) {
       if (value != null) {
         imageFile = File(value.path);
@@ -86,29 +87,31 @@ class ChatProvider with ChangeNotifier {
   }
 
   Future uploadImage() async {
-    String imageName = const Uuid().v1();
-    var refStorage = storage.ref().child('chatImages').child('$imageName.png');
-    var uploadTask = await refStorage.putFile(imageFile!);
-    String imgUrl = await uploadTask.ref.getDownloadURL();
+    final imageName = const Uuid().v1();
+    final refStorage =
+        storage.ref().child('chatImages').child('$imageName.png');
+    final uploadTask = await refStorage.putFile(imageFile!);
+    final imgUrl = await uploadTask.ref.getDownloadURL();
     final time = DateTime.now().microsecondsSinceEpoch.toString();
     final sentTime = DateTime.now().hour;
 
     final message = MessageModel(
-        toId: receiverUser!.id!,
-        msg: imgUrl,
-        read: 'false',
-        type: TypeMessage.image,
-        fromId: user.uid,
-        sent: time,
-        sentTime: sentTime.toString());
-    var ref = firestore.collection(
-        'chats/${getConversatioId(receiverUser!.id ?? '')}/messages/');
+      toId: receiverUser!.id!,
+      msg: imgUrl,
+      read: 'false',
+      type: TypeMessage.image,
+      fromId: user.uid,
+      sent: time,
+      sentTime: sentTime.toString(),
+    );
+    final ref = firestore.collection(
+      'chats/${getConversatioId(receiverUser!.id ?? '')}/messages/',
+    );
     await ref.doc(time).set(message.toJson());
   }
 
   Future pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowMultiple: false,
+    final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf', 'jpg', 'jpeg', 'png', 'mp3'],
     );
@@ -119,25 +122,27 @@ class ChatProvider with ChangeNotifier {
       } else {
         type = TypeMessage.file;
       }
-      File file = File(result.files.single.path!);
-      String fileName = result.files.single.name;
-      var refStorage = storage.ref().child('chatFiles').child(fileName);
-      var uploadTask = await refStorage.putFile(file);
+      final file = File(result.files.single.path!);
+      final fileName = result.files.single.name;
+      final refStorage = storage.ref().child('chatFiles').child(fileName);
+      final uploadTask = await refStorage.putFile(file);
       final fileUrl = await uploadTask.ref.getDownloadURL();
       final time = DateTime.now().microsecondsSinceEpoch.toString();
       final sentTime = DateTime.now().hour;
 
       final message = MessageModel(
-          toId: receiverUser?.id ?? '',
-          msg: fileUrl,
-          read: 'false',
-          type: type,
-          fromId: user.uid,
-          sent: time,
-          sentTime: sentTime.toString());
+        toId: receiverUser?.id ?? '',
+        msg: fileUrl,
+        read: 'false',
+        type: type,
+        fromId: user.uid,
+        sent: time,
+        sentTime: sentTime.toString(),
+      );
 
-      var ref = firestore.collection(
-          'chats/${getConversatioId(receiverUser?.id ?? '')}/messages/');
+      final ref = firestore.collection(
+        'chats/${getConversatioId(receiverUser?.id ?? '')}/messages/',
+      );
       await ref.doc(time).set(message.toJson());
     }
   }

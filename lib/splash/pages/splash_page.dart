@@ -17,7 +17,7 @@ class SplashPage extends StatelessWidget {
         child: Consumer<SplashProvider>(
           builder: (context, value, child) {
             if (value.state.isCompleted || value.state.isError) {
-              String route = NameRoutes.auth;
+              var route = NameRoutes.auth;
               if (value.profileState == ProfileState.completed) {
                 route = NameRoutes.main;
               } else if (value.profileState == ProfileState.create) {
@@ -29,7 +29,7 @@ class SplashPage extends StatelessWidget {
                   Navigator.pushReplacementNamed(
                     context,
                     route,
-                  )
+                  ),
                 },
               );
             }

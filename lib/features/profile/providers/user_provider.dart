@@ -13,26 +13,28 @@ class UserProvider extends BaseChangeNotifier {
     updateState(Statuses.loading);
     try {
       final response = await userDataService.getUserDoc(
-          id: userDataService.auth.currentUser?.uid ?? '');
+        id: userDataService.auth.currentUser?.uid ?? '',
+      );
       userModel = UserModel.fromJson(response.data() ?? {});
 
       updateState(Statuses.completed);
     } catch (e) {
       updateState(Statuses.error);
-      print('ERR: ${e.toString()}');
+      print('ERR: $e');
     }
   }
 
   Stream<Set<UserModel>>? getChattingUsers() async* {
     final response = await userDataService.getUserDoc(
-        id: userDataService.auth.currentUser?.uid ?? '');
+      id: userDataService.auth.currentUser?.uid ?? '',
+    );
     final userModel = UserModel.fromJson(response.data() ?? {});
-    List chatIds = userModel.chattingUsersId ?? [].toList();
+    final chatIds = userModel.chattingUsersId ?? [].toList();
     chattingUsers = {};
 
-    for (int i = 0; i < chatIds.length; i++) {
+    for (var i = 0; i < chatIds.length; i++) {
       final snapshot = await userDataService.getUserDoc(id: chatIds[i]);
-      UserModel chattingUserModel = UserModel.fromJson(snapshot.data() ?? {});
+      final chattingUserModel = UserModel.fromJson(snapshot.data() ?? {});
       chattingUsers?.add(chattingUserModel);
     }
     yield chattingUsers ?? {};

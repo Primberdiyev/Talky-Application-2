@@ -20,29 +20,31 @@ class CheckCodePage extends StatefulWidget {
 class _CheckCodePageState extends State<CheckCodePage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<SignInAndUpProvider>(builder: (context, provider, child) {
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: const CustomAppBar(),
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.only(
-            left: 26,
+    return Consumer<SignInAndUpProvider>(
+      builder: (context, provider, child) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: const CustomAppBar(),
+          body: Container(
+            height: MediaQuery.of(context).size.height,
+            padding: const EdgeInsets.only(
+              left: 26,
+            ),
+            color: const Color(0xFFFFFFFF),
+            child: const Column(
+              children: [
+                TalkyText(),
+                EnterCodeText(),
+                SizedBox(height: 50),
+                InputCodes(),
+                SignUpButton(),
+                QuestionText(),
+                SignUpTextButton(),
+              ],
+            ),
           ),
-          color: const Color(0xFFFFFFFF),
-          child: const Column(
-            children: [
-              TalkyText(),
-              EnterCodeText(),
-              SizedBox(height: 50),
-              InputCodes(),
-              SignUpButton(),
-              QuestionText(),
-              SignUpTextButton(),
-            ],
-          ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

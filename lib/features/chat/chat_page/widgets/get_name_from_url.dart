@@ -1,12 +1,12 @@
 class GetNameFromUrl {
   String getFileNameFromUrl(String url) {
-    Uri uri = Uri.parse(url);
+    final uri = Uri.parse(url);
 
-    String filePath = uri.pathSegments.last;
+    final filePath = uri.pathSegments.last;
 
-    String decodedFilePath = Uri.decodeComponent(filePath);
+    final decodedFilePath = Uri.decodeComponent(filePath);
 
-    String fileName = decodedFilePath.split('/').last;
+    final fileName = decodedFilePath.split('/').last;
 
     return fileName;
   }

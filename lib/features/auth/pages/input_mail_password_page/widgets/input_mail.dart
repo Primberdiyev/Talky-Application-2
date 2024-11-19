@@ -25,40 +25,39 @@ class _InputMailState extends State<InputMail> {
   @override
   Widget build(BuildContext context) {
     return Consumer2<ValueStateProvider, SignInAndUpProvider>(
-        builder: (context, valuProvider, signProvider, child) {
-      return Padding(
-        padding: const EdgeInsets.only(top: 40),
-        child: TextFormField(
-          validator: validateEmail,
-          controller: signProvider.emailController,
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                width: 1,
+      builder: (context, valuProvider, signProvider, child) {
+        return Padding(
+          padding: const EdgeInsets.only(top: 40),
+          child: TextFormField(
+            validator: validateEmail,
+            controller: signProvider.emailController,
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: !valuProvider.isEmailCorrect
+                      ? Colors.red
+                      : const Color(0xFFAAB0B7),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: !valuProvider.isEmailCorrect
+                      ? Colors.red
+                      : const Color(0xFFAAB0B7),
+                ),
+              ),
+              labelText: 'Enter your mail address',
+              labelStyle: TextStyle(
+                fontWeight: FontWeight.w500,
                 color: !valuProvider.isEmailCorrect
                     ? Colors.red
                     : const Color(0xFFAAB0B7),
               ),
+              border: const OutlineInputBorder(),
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                width: 1,
-                color: !valuProvider.isEmailCorrect
-                    ? Colors.red
-                    : const Color(0xFFAAB0B7),
-              ),
-            ),
-            labelText: 'Enter your mail address',
-            labelStyle: TextStyle(
-              fontWeight: FontWeight.w500,
-              color: !valuProvider.isEmailCorrect
-                  ? Colors.red
-                  : const Color(0xFFAAB0B7),
-            ),
-            border: const OutlineInputBorder(),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

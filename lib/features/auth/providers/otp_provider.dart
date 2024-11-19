@@ -16,16 +16,16 @@ class OtpProvider extends BaseChangeNotifier {
         otpLength: 4,
       );
 
-      bool result = await EmailOTP.sendOTP(email: email);
+      final result = await EmailOTP.sendOTP(email: email);
       updateState(Statuses.completed);
       if (!result) {
         updateState(Statuses.error);
         print('Error in check Otp');
-        throw Exception("Failed to send OTP");
+        throw Exception('Failed to send OTP');
       }
     } catch (e) {
       updateState(Statuses.error);
-      print("Failed to send OTP");
+      print('Failed to send OTP');
     }
   }
 }

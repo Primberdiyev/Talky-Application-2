@@ -11,47 +11,49 @@ class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer2<ValueStateProvider, SignInAndUpProvider>(
-        builder: (context, valueProvider, signInAndUpProvider, child) {
-      bool isLoading = signInAndUpProvider.state == Statuses.loading;
+      builder: (context, valueProvider, signInAndUpProvider, child) {
+        final isLoading = signInAndUpProvider.state == Statuses.loading;
 
-      return Padding(
-        padding: const EdgeInsets.only(
-          top: 252,
-          bottom: 30,
-        ),
-        child: InkWell(
-          onTap: () async {
-            await signInAndUpProvider.signUp();
+        return Padding(
+          padding: const EdgeInsets.only(
+            top: 252,
+            bottom: 30,
+          ),
+          child: InkWell(
+            onTap: () async {
+              await signInAndUpProvider.signUp();
 
-            if (signInAndUpProvider.state.isCompleted) {
-              await Future.delayed(Duration.zero, () {
-                Navigator.pushReplacementNamed(context, NameRoutes.accout);
-              });
-            }
-          },
-          child: Container(
-            width: MediaQuery.of(context).size.width - 56,
-            height: 54,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: const Color(0xFF377DFF),
-            ),
-            child: Center(
-              child: !isLoading
-                  ? const Text(
-                      "Sign up",
-                      style: TextStyle(
+              if (signInAndUpProvider.state.isCompleted) {
+                await Future.delayed(Duration.zero, () {
+                  Navigator.pushReplacementNamed(context, NameRoutes.accout);
+                });
+              }
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width - 56,
+              height: 54,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: const Color(0xFF377DFF),
+              ),
+              child: Center(
+                child: !isLoading
+                    ? const Text(
+                        'Sign up',
+                        style: TextStyle(
                           fontSize: 18,
                           color: Color(0xFFFFFFFF),
-                          fontWeight: FontWeight.w500),
-                    )
-                  : const CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    : const CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+              ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

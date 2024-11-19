@@ -6,7 +6,7 @@ class ContactText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
+    return const Align(
       alignment: Alignment.centerLeft,
       child: Text(
         AppTexts.contacts,

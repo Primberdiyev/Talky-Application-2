@@ -17,18 +17,18 @@ class CreateGroup extends StatelessWidget {
         onTap: () {
           showCupertinoModalBottomSheet(
             context: context,
-            builder: (_) => CreateGroupPage(),
+            builder: (_) => const CreateGroupPage(),
           );
         },
         dense: true,
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
           horizontal: 3,
           vertical: 15,
         ),
         leading: SvgPicture.asset(
           AppIcons.chatGroup.icon,
         ),
-        title: Text(
+        title: const Text(
           AppTexts.createGroup,
           style: TextStyle(
             fontSize: 14,

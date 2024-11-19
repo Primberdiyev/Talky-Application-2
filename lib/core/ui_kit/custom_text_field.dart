@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
+  const CustomTextField({
+    required this.hintText,
+    required this.controller,
+    super.key,
+    this.suffixIcon,
+    this.suffixTab,
+    this.contentPadding,
+    this.onChanged,
+  });
   final String hintText;
-  final suffixIcon;
+  final Widget? suffixIcon;
   final VoidCallback? suffixTab;
   final EdgeInsets? contentPadding;
   final TextEditingController controller;
   final void Function(String)? onChanged;
-  const CustomTextField({
-    super.key,
-    required this.hintText,
-    this.suffixIcon,
-    this.suffixTab,
-    this.contentPadding,
-    required this.controller,
-    this.onChanged,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +27,20 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         isDense: true,
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(
-              color: AppColors.lightBlack,
-              width: 1,
-            )),
-        focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: AppColors.primaryBlue,
-            width: 1,
+          borderSide: const BorderSide(
+            color: AppColors.lightBlack,
           ),
         ),
-        contentPadding: contentPadding ?? EdgeInsets.all(11),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+            color: AppColors.primaryBlue,
+          ),
+        ),
+        contentPadding: contentPadding ?? const EdgeInsets.all(11),
         hintText: hintText,
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w500,
           color: AppColors.lightBlack,
@@ -49,7 +48,7 @@ class CustomTextField extends StatelessWidget {
         suffixIcon: suffixIcon != null
             ? IconButton(
                 onPressed: suffixTab,
-                icon: suffixIcon ?? SizedBox.shrink(),
+                icon: suffixIcon ?? const SizedBox.shrink(),
               )
             : null,
       ),

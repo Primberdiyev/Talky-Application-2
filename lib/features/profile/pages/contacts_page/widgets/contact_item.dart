@@ -11,14 +11,13 @@ import 'package:talky_aplication_2/unilities/app_colors.dart';
 import 'package:talky_aplication_2/unilities/app_icons.dart';
 
 class ContactItem extends StatelessWidget {
-  final UserModel model;
-  final bool toGroup;
-
   const ContactItem({
-    super.key,
     required this.model,
+    super.key,
     this.toGroup = false,
   });
+  final UserModel model;
+  final bool toGroup;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +40,8 @@ class ContactItem extends StatelessWidget {
           },
           dense: true,
           title: Text(
-            model.name ?? "User",
-            style: TextStyle(
+            model.name ?? 'User',
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: AppColors.blackText,

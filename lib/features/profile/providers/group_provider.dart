@@ -9,10 +9,10 @@ class GroupProvider extends BaseChangeNotifier {
   late List<String> pressedUsers = [];
   List<String> get reallyList => pressedUsers;
 
-  bool isUserPressed(String userId) => (pressedUsers).contains(userId);
+  bool isUserPressed(String userId) => pressedUsers.contains(userId);
 
   void changeUserPressed(String userId) {
-    if ((pressedUsers).contains(userId)) {
+    if (pressedUsers.contains(userId)) {
       pressedUsers.remove(userId);
     } else {
       pressedUsers.add(userId);

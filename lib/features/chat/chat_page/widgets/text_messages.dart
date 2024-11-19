@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 
 class TextMessages extends StatefulWidget {
+  const TextMessages({required this.isMine, required this.message, super.key});
   final bool isMine;
   final message;
-  const TextMessages({super.key, required this.isMine, required this.message});
 
   @override
   State<TextMessages> createState() => _TextMessagesState();
@@ -23,7 +23,8 @@ class _TextMessagesState extends State<TextMessages> {
           child: Container(
             padding: const EdgeInsets.all(10),
             constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.5),
+              maxWidth: MediaQuery.of(context).size.width * 0.5,
+            ),
             decoration: BoxDecoration(
               color:
                   widget.isMine ? AppColors.primaryBlue : AppColors.chatColor,

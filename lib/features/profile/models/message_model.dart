@@ -1,19 +1,13 @@
 class MessageModel {
-  late String toId;
-  late String msg;
-  late String read;
-  late TypeMessage type;
-  late String fromId;
-  late String sent;
-  late String sentTime;
-  MessageModel(
-      {required this.toId,
-      required this.msg,
-      required this.read,
-      required this.type,
-      required this.fromId,
-      required this.sent,
-      required this.sentTime});
+  MessageModel({
+    required this.toId,
+    required this.msg,
+    required this.read,
+    required this.type,
+    required this.fromId,
+    required this.sent,
+    required this.sentTime,
+  });
   MessageModel.fromJson(Map<String, dynamic> json) {
     toId = json['toId'].toString();
     msg = json['msg'].toString();
@@ -23,6 +17,13 @@ class MessageModel {
     sent = json['sent'].toString();
     sentTime = json['sentTime'].toString();
   }
+  late String toId;
+  late String msg;
+  late String read;
+  late TypeMessage type;
+  late String fromId;
+  late String sent;
+  late String sentTime;
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['toId'] = toId;

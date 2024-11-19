@@ -13,7 +13,7 @@ class ActionButtonProfile extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 32.0, bottom: 34),
+          padding: const EdgeInsets.only(left: 32, bottom: 34),
           child: PopupMenuButton<String>(
             offset: const Offset(0, -60),
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
@@ -42,7 +42,7 @@ class ActionButtonProfile extends StatelessWidget {
             onPressed: () {
               showCupertinoModalBottomSheet(
                 context: context,
-                builder: (context) => ContactsPage(),
+                builder: (context) => const ContactsPage(),
               );
             },
             child: Image.asset(

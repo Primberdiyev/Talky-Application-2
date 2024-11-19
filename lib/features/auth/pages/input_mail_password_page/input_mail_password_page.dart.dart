@@ -23,35 +23,36 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Consumer<SignInAndUpProvider>(builder: (context, provider, child) {
-        return Scaffold(
-          appBar: CustomAppBar(
-            function: () {
-              Navigator.pop(context);
-            },
-          ),
-          resizeToAvoidBottomInset: false,
-          body: Padding(
-            padding: const EdgeInsets.only(left: 28, right: 28),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const TalkyText(),
-                const MailText(),
-                const InputMail(),
-                const InputPassword(),
-                const ForgotPasswordText(),
-                const ConditionWidget(),
-                SignButtonWidget(
-                  isLoading: provider.state.isLoading,
-                ),
-                const QuestionText(),
-                const SignUpTextButton(),
-              ],
+      child: Consumer<SignInAndUpProvider>(
+        builder: (context, provider, child) {
+          return Scaffold(
+            appBar: CustomAppBar(
+              function: () {
+                Navigator.pop(context);
+              },
             ),
-          ),
-        );
-      }),
+            resizeToAvoidBottomInset: false,
+            body: Padding(
+              padding: const EdgeInsets.only(left: 28, right: 28),
+              child: Column(
+                children: [
+                  const TalkyText(),
+                  const MailText(),
+                  const InputMail(),
+                  const InputPassword(),
+                  const ForgotPasswordText(),
+                  const ConditionWidget(),
+                  SignButtonWidget(
+                    isLoading: provider.state.isLoading,
+                  ),
+                  const QuestionText(),
+                  const SignUpTextButton(),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

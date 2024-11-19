@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
-import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/unilities/profile_state.dart';
 import 'package:talky_aplication_2/unilities/statuses.dart';
 
@@ -37,25 +38,29 @@ class ProfilePageProvider extends BaseChangeNotifier {
     }
   }
 
-  Future<void> saveUserProfile(
-      {required String name, required String? description}) async {
+  Future<void> saveUserProfile({
+    required String name,
+    required String? description,
+  }) async {
     updateState(Statuses.loading);
 
-    String? photoUrl = currentUserImgUrl;
+    var photoUrl = currentUserImgUrl;
 
     if (image != null) {
       final ref = FirebaseStorage.instance.ref().child(
-          '${FirebaseAuth.instance.currentUser?.email}/profile_image.png');
+            '${FirebaseAuth.instance.currentUser?.email}/profile_image.png',
+          );
       uploadTask = ref.putFile(File(image!.path));
       final snapshot = await uploadTask?.whenComplete(() {});
       photoUrl = await snapshot?.ref.getDownloadURL();
     }
 
     final userInfo = UserModel(
-        name: name,
-        description: description ?? '',
-        imgUrl: photoUrl,
-        profileState: ProfileState.completed);
+      name: name,
+      description: description ?? '',
+      imgUrl: photoUrl,
+      profileState: ProfileState.completed,
+    );
 
     await UserDataService.instance.setUserDoc(
       userInfo.toJson(),
@@ -74,8 +79,10 @@ class ProfilePageProvider extends BaseChangeNotifier {
       filteredUsers = usersData!;
     } else {
       filteredUsers = usersData!
-          .where((user) =>
-              user['name'].toLowerCase().contains(enteredUser.toLowerCase()))
+          .where(
+            (user) =>
+                user['name'].toLowerCase().contains(enteredUser.toLowerCase()),
+          )
           .toList();
     }
 

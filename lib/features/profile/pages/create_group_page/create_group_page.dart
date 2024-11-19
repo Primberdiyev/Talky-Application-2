@@ -29,10 +29,11 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<GroupProvider>(builder: (context, provider, child) {
-      final userDataService = UserDataService.instance;
-      return Scaffold(
-        appBar: ContactsAppBar(
+    return Consumer<GroupProvider>(
+      builder: (context, provider, child) {
+        final userDataService = UserDataService.instance;
+        return Scaffold(
+          appBar: ContactsAppBar(
             centerText: AppTexts.group,
             isDoneActive: true,
             loading: provider.state.isLoading,
@@ -45,8 +46,11 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                 );
                 await provider.createGroup(groupModel);
                 Future.delayed(Duration.zero, () {
-                  Navigator.pushReplacementNamed(context, NameRoutes.group,
-                      arguments: groupModel);
+                  Navigator.pushReplacementNamed(
+                    context,
+                    NameRoutes.group,
+                    arguments: groupModel,
+                  );
                 });
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -57,34 +61,36 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                   ),
                 );
               }
-            }),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28),
-            child: Column(
-              children: [
-                CustomTextField(
-                  contentPadding:
-                      EdgeInsets.only(top: 11, bottom: 12, left: 11),
-                  hintText: AppTexts.search,
-                  controller: searchControlller,
-                ),
-                SizedBox(height: 18),
-                CustomTextField(
-                  hintText: AppTexts.groupName,
-                  controller: groupNameController,
-                  contentPadding:
-                      EdgeInsets.only(top: 18, bottom: 19, left: 11),
-                ),
-                SizedBox(height: 18),
-                ContactText(),
-                SizedBox(height: 10),
-                ConcactUsers(toGroup: true),
-              ],
+            },
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
+              child: Column(
+                children: [
+                  CustomTextField(
+                    contentPadding:
+                        const EdgeInsets.only(top: 11, bottom: 12, left: 11),
+                    hintText: AppTexts.search,
+                    controller: searchControlller,
+                  ),
+                  const SizedBox(height: 18),
+                  CustomTextField(
+                    hintText: AppTexts.groupName,
+                    controller: groupNameController,
+                    contentPadding:
+                        const EdgeInsets.only(top: 18, bottom: 19, left: 11),
+                  ),
+                  const SizedBox(height: 18),
+                  const ContactText(),
+                  const SizedBox(height: 10),
+                  const ConcactUsers(toGroup: true),
+                ],
+              ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

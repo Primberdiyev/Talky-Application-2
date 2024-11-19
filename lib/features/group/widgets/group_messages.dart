@@ -10,7 +10,7 @@ import 'package:talky_aplication_2/features/group/widgets/build_message.dart';
 import 'package:talky_aplication_2/features/profile/models/message_model.dart';
 
 class GroupMessages extends StatefulWidget {
-  const GroupMessages({super.key, required this.titleGroup});
+  const GroupMessages({required this.titleGroup, super.key});
   final String titleGroup;
 
   @override
@@ -35,20 +35,20 @@ class _GroupMessagesState extends State<GroupMessages> {
     return ChangeNotifierProvider(
       create: (context) => ReceiveMessagesProvider(),
       child: Consumer<ReceiveMessagesProvider>(
-          builder: (context, provider, child) {
-        return Expanded(
-          child: StreamBuilder(
+        builder: (context, provider, child) {
+          return Expanded(
+            child: StreamBuilder(
               stream: provider.getAllGroupMessages(widget.titleGroup),
               builder: (context, snapshot) {
                 if (snapshot.data == null) {
-                  return Text("Ma'lumotn yo'q");
+                  return const Text("Ma'lumotn yo'q");
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (snapshot.hasError) {
-                  return Text('Error from getting message');
+                  return const Text('Error from getting message');
                 }
                 final messages = snapshot.data!.docs;
                 return ListView.builder(
@@ -56,32 +56,36 @@ class _GroupMessagesState extends State<GroupMessages> {
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
                     final message = MessageModel.fromJson(
-                        messages[messages.length - 1 - index].data());
-                    bool isMine = message.fromId == auth.currentUser?.uid;
+                      messages[messages.length - 1 - index].data(),
+                    );
+                    final isMine = message.fromId == auth.currentUser?.uid;
                     return FutureBuilder(
-                        future: getUser(message.fromId),
-                        builder: (context, userSnapshot) {
-                          if (userSnapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else if (userSnapshot.hasError ||
-                              !userSnapshot.hasData) {
-                            return Text('error getting messages');
-                          }
-                          final user = userSnapshot.data!;
-                          return BuildMessage(
-                            message: message,
-                            userModel: user,
-                            isMine: isMine,
+                      future: getUser(message.fromId),
+                      builder: (context, userSnapshot) {
+                        if (userSnapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
                           );
-                        });
+                        } else if (userSnapshot.hasError ||
+                            !userSnapshot.hasData) {
+                          return const Text('error getting messages');
+                        }
+                        final user = userSnapshot.data!;
+                        return BuildMessage(
+                          message: message,
+                          userModel: user,
+                          isMine: isMine,
+                        );
+                      },
+                    );
                   },
                 );
-              }),
-        );
-      }),
+              },
+            ),
+          );
+        },
+      ),
     );
   }
 }

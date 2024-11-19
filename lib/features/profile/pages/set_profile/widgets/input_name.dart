@@ -4,17 +4,19 @@ import 'package:talky_aplication_2/features/profile/pages/set_profile/widgets/cu
 import 'package:talky_aplication_2/features/profile/providers/profile_page_provider.dart';
 
 class InputName extends StatelessWidget {
-  final TextEditingController controller;
   const InputName({required this.controller, super.key});
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProfilePageProvider>(builder: (context, provider, child) {
-      return CustomTextFileld(
-        controller: controller,
-        labelText: 'Enter your name or nickname',
-        getFromGoogle: true,
-      );
-    });
+    return Consumer<ProfilePageProvider>(
+      builder: (context, provider, child) {
+        return CustomTextFileld(
+          controller: controller,
+          labelText: 'Enter your name or nickname',
+          getFromGoogle: true,
+        );
+      },
+    );
   }
 }

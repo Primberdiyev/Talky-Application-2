@@ -33,14 +33,13 @@ class _OnlineUsersPageState extends State<ContactsPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: ContactsAppBar(
+        appBar: const ContactsAppBar(
           centerText: 'Chat',
         ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 28),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
@@ -50,10 +49,10 @@ class _OnlineUsersPageState extends State<ContactsPage> {
                       controller: controller,
                       suffixIcon: SvgPicture.asset(AppIcons.search.icon),
                     ),
-                    CreateGroup(),
-                    ContactText(),
-                    SizedBox(height: 20),
-                    ConcactUsers(),
+                    const CreateGroup(),
+                    const ContactText(),
+                    const SizedBox(height: 20),
+                    const ConcactUsers(),
                   ],
                 ),
               ],

@@ -26,67 +26,76 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
     return ChangeNotifierProvider(
       create: (context) => AuthGoogleProvider(),
       child: Consumer<ValueStateProvider>(
-          builder: (context, valueProvider, child) {
-        return Scaffold(
-          body: Container(
-            padding: const EdgeInsets.only(top: 115, left: 28, right: 28),
-            color: const Color(0xFFF7F7F9),
-            child: Column(
-              children: [
-                const TalkyText(),
-                Expanded(child: Consumer<AuthGoogleProvider>(
-                    builder: (context, authProvider, child) {
-                  if (authProvider.state.isCompleted) {
-                    String route = NameRoutes.auth;
-                    if (authProvider.profileState == ProfileState.create) {
-                      route = NameRoutes.setProfile;
-                    } else if (authProvider.profileState ==
-                        ProfileState.completed) {
-                      route = NameRoutes.main;
-                    }
-                    Future.delayed(Duration.zero, () {
-                      Navigator.pushNamed(context, route);
-                    });
-                  }
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      GeneralSignButton(
-                        text: valueProvider.isSignIn
-                            ? AppTexts.signInText
-                            : AppTexts.singUpText,
-                        function: () async {
-                          final user = await authProvider.signInGoogle();
-                          final profileprovider =
-                              Provider.of<ProfilePageProvider>(context,
-                                  listen: false);
-                          await profileprovider.changeCurrentUser(user);
-                        },
-                        imagePath: ImagePaths.googleImagePath,
-                        isLoading: authProvider.state.isLoading,
-                      ),
-                      const OrWidget(),
-                      GeneralSignButton(
-                        text: AppTexts.continueMailText,
-                        function: () => {
-                          Navigator.pushNamed(
-                              context, NameRoutes.inputMailPassword)
-                        },
-                        imagePath: ImagePaths.mainImagePath,
-                        isLoading: false,
-                      ),
-                      const SizedBox(height: 18),
-                      const QuestionText(),
-                      const SignUpTextButton(),
-                      const SizedBox(height: 102),
-                    ],
-                  );
-                }))
-              ],
+        builder: (context, valueProvider, child) {
+          return Scaffold(
+            body: Container(
+              padding: const EdgeInsets.only(top: 115, left: 28, right: 28),
+              color: const Color(0xFFF7F7F9),
+              child: Column(
+                children: [
+                  const TalkyText(),
+                  Expanded(
+                    child: Consumer<AuthGoogleProvider>(
+                      builder: (context, authProvider, child) {
+                        if (authProvider.state.isCompleted) {
+                          var route = NameRoutes.auth;
+                          if (authProvider.profileState ==
+                              ProfileState.create) {
+                            route = NameRoutes.setProfile;
+                          } else if (authProvider.profileState ==
+                              ProfileState.completed) {
+                            route = NameRoutes.main;
+                          }
+                          Future.delayed(Duration.zero, () {
+                            Navigator.pushNamed(context, route);
+                          });
+                        }
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GeneralSignButton(
+                              text: valueProvider.isSignIn
+                                  ? AppTexts.signInText
+                                  : AppTexts.singUpText,
+                              function: () async {
+                                final user = await authProvider.signInGoogle();
+                                final profileprovider =
+                                    Provider.of<ProfilePageProvider>(
+                                  context,
+                                  listen: false,
+                                );
+                                await profileprovider.changeCurrentUser(user);
+                              },
+                              imagePath: ImagePaths.googleImagePath,
+                              isLoading: authProvider.state.isLoading,
+                            ),
+                            const OrWidget(),
+                            GeneralSignButton(
+                              text: AppTexts.continueMailText,
+                              function: () => {
+                                Navigator.pushNamed(
+                                  context,
+                                  NameRoutes.inputMailPassword,
+                                ),
+                              },
+                              imagePath: ImagePaths.mainImagePath,
+                              isLoading: false,
+                            ),
+                            const SizedBox(height: 18),
+                            const QuestionText(),
+                            const SignUpTextButton(),
+                            const SizedBox(height: 102),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 }

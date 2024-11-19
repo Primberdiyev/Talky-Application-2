@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
+import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/unilities/profile_state.dart';
 import 'package:talky_aplication_2/unilities/statuses.dart';
 
@@ -53,7 +53,7 @@ class SplashProvider extends BaseChangeNotifier {
       updateState(status);
     } else {
       Future.delayed(
-        Duration(milliseconds:5000- diffMilliseconds),
+        Duration(milliseconds: 5000 - diffMilliseconds),
         () => updateState(status),
       );
     }

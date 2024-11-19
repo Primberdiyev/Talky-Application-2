@@ -2,36 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 
 class ContactsAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const ContactsAppBar({
+    required this.centerText,
+    super.key,
+    this.onDone,
+    this.isDoneActive = false,
+    this.loading = false,
+  });
   final Function()? onDone;
   final String centerText;
   final bool? isDoneActive;
   final bool loading;
 
-  const ContactsAppBar(
-      {super.key,
-      this.onDone,
-      required this.centerText,
-      this.isDoneActive = false,
-      this.loading = false});
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           TextButton(
             onPressed: () {
               Navigator.pop(context);
             },
             style: Theme.of(context).textButtonTheme.style?.copyWith(
-                  padding: WidgetStatePropertyAll(
+                  padding: const WidgetStatePropertyAll(
                     EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   ),
                 ),
-            child: Text(
+            child: const Text(
               'Cancel',
               style: TextStyle(
                 fontSize: 16,
@@ -42,7 +41,7 @@ class ContactsAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           Text(
             centerText,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               color: AppColors.blackText,
               fontWeight: FontWeight.bold,
@@ -54,7 +53,7 @@ class ContactsAppBar extends StatelessWidget implements PreferredSizeWidget {
             maintainSize: true,
             maintainState: true,
             child: loading
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : TextButton(
@@ -70,12 +69,12 @@ class ContactsAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                     ),
                   ),
-          )
+          ),
         ],
       ),
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(60);
+  Size get preferredSize => const Size.fromHeight(60);
 }

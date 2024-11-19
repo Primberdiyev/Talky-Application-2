@@ -5,12 +5,13 @@ import 'package:talky_aplication_2/features/profile/providers/profile_page_provi
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class CompleteButton extends StatefulWidget {
+  const CompleteButton({
+    required this.nameController,
+    required this.descriptionController,
+    super.key,
+  });
   final TextEditingController nameController;
   final TextEditingController descriptionController;
-  const CompleteButton(
-      {required this.nameController,
-      required this.descriptionController,
-      super.key});
 
   @override
   State<CompleteButton> createState() => _CompleteButtonState();
@@ -38,7 +39,9 @@ class _CompleteButtonState extends State<CompleteButton> {
           if (name.isNotEmpty) {
             try {
               await provider.saveUserProfile(
-                  name: name, description: description);
+                name: name,
+                description: description,
+              );
 
               await Future.delayed(Duration.zero, () {
                 Navigator.pushNamed(context, NameRoutes.main);

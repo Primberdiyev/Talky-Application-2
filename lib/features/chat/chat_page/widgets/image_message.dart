@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ImageMessage extends StatelessWidget {
+  const ImageMessage({required this.isMine, required this.link, super.key});
   final bool isMine;
   final link;
-  const ImageMessage({super.key, required this.isMine, required this.link});
 
   @override
   Widget build(BuildContext context) {

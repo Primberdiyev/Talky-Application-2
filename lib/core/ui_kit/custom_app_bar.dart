@@ -7,13 +7,13 @@ import 'package:talky_aplication_2/unilities/app_colors.dart';
 import 'package:talky_aplication_2/unilities/app_icons.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final UserModel? userModel;
-  final GroupModel? groupModel;
   const CustomAppBar({
     super.key,
     this.userModel,
     this.groupModel,
   });
+  final UserModel? userModel;
+  final GroupModel? groupModel;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             Text(
               userModel != null ? 'Chats' : groupModel?.title ?? 'Group',
-              style: TextStyle(
+              style: const TextStyle(
                 color: AppColors.blackText,
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
@@ -48,7 +48,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 height: 24,
                 width: 24,
               ),
-            )
+            ),
           ],
         ),
       ),

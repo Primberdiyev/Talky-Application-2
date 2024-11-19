@@ -7,22 +7,24 @@ class QuestionText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ValueStateProvider>(builder: (context, provider, child) {
-      return Padding(
-        padding: const EdgeInsets.only(bottom: 5),
-        child: Center(
-          child: Text(
-            provider.isSignIn
-                ? 'Don’t have an account?'
-                : "Already have an account?",
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 14,
-              color: Color(0xFF243443),
+    return Consumer<ValueStateProvider>(
+      builder: (context, provider, child) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 5),
+          child: Center(
+            child: Text(
+              provider.isSignIn
+                  ? 'Don’t have an account?'
+                  : 'Already have an account?',
+              style: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+                color: Color(0xFF243443),
+              ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

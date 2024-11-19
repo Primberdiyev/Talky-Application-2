@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
@@ -21,7 +22,7 @@ class AllUsersProvider with ChangeNotifier {
         return nameA.compareTo(nameB);
       });
     } catch (e) {
-      print('Failed getting all users data');
+      log('Failed getting all users data');
     }
     notifyListeners();
   }
