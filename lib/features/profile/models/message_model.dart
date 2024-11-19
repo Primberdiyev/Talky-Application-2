@@ -18,7 +18,7 @@ class MessageModel {
     toId = json['toId'].toString();
     msg = json['msg'].toString();
     read = json['read'].toString();
-    type = json['type'];
+    type = TypeMessage.values.byName(json['type'].toString());
     fromId = json['fromId'].toString();
     sent = json['sent'].toString();
     sentTime = json['sentTime'].toString();

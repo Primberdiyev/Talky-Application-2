@@ -13,7 +13,6 @@ class ConcactUsers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AllUsersProvider>(
       builder: (context, provider, child) {
-        
         return ListView.separated(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -32,7 +31,7 @@ class ConcactUsers extends StatelessWidget {
               color: AppColors.lightBackground,
             );
           },
-          itemCount: provider.allUsers?.length ?? 1,
+          itemCount: provider.allUsers.length,
         );
       },
     );

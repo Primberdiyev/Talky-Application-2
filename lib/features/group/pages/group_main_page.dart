@@ -5,6 +5,7 @@ import 'package:talky_aplication_2/features/chat/chat_page/widgets/action_button
 import 'package:talky_aplication_2/features/chat/chat_page/widgets/send_data.dart';
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
 import 'package:talky_aplication_2/features/group/providers/group_provider.dart';
+import 'package:talky_aplication_2/features/group/widgets/group_messages.dart';
 
 class GroupMainPage extends StatefulWidget {
   final GroupModel groupModel;
@@ -33,10 +34,10 @@ class _GroupMainPageState extends State<GroupMainPage> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              GroupMessages(titleGroup: widget.groupModel.title ?? ''),
               SendData(
                   controller: controller,
                   sendFunction: () async {
-                    print('keldi');
                     await provider.sendMessageGroup(
                       msg: controller.text,
                       groupTitle: widget.groupModel.title ?? '',

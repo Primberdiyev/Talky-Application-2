@@ -23,7 +23,7 @@ class UserDataService {
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getUserDoc(
       {required String id}) async {
-    return firebaseFirestore.collection('User').doc(id).get();
+    return await firebaseFirestore.collection('User').doc(id).get();
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> getAllUsersDoc() async {
