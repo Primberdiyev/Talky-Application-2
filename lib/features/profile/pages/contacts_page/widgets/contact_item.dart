@@ -29,7 +29,7 @@ class ContactItem extends StatelessWidget {
     return Consumer2<GroupProvider, ChatProvider>(
       builder: (context, groupProvider, chatProvider, child) {
         final isUserPressed = groupProvider.isUserPressed(model.id!);
-    
+
         return ListTile(
           onTap: () {
             if (!toGroup) {
@@ -67,9 +67,7 @@ class ContactItem extends StatelessWidget {
           ),
           trailing: toGroup
               ? SvgPicture.asset(
-                  isUserPressed
-                      ? AppIcons.selected.icon
-                      : AppIcons.select.icon,
+                  isUserPressed ? AppIcons.selected.icon : AppIcons.select.icon,
                 )
               : SvgPicture.asset(AppIcons.chevron.icon),
         );

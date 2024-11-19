@@ -13,16 +13,12 @@ class ConcactUsers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AllUsersProvider>(
       builder: (context, provider, child) {
-        if (provider.allUsers == null) {
-          return CircularProgressIndicator();
-        }
+        
         return ListView.separated(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            final model = UserModel.fromJson(
-              provider.allUsers?[index].data() ?? {},
-            );
+            final UserModel model = provider.allUsers[index];
 
             return ContactItem(
               model: model,

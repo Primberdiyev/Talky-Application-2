@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
@@ -15,10 +14,8 @@ class GroupProvider extends BaseChangeNotifier {
   void changeUserPressed(String userId) {
     if ((pressedUsers).contains(userId)) {
       pressedUsers.remove(userId);
-      print('olindi: $pressedUsers');
     } else {
       pressedUsers.add(userId);
-      print('qoshildi: $pressedUsers');
     }
     notifyListeners();
   }
