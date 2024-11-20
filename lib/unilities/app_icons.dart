@@ -8,7 +8,9 @@ enum AppIcons {
   chatGroup('assets/icons/chatGroup.svg'),
   chevron('assets/icons/chevron.svg'),
   select('assets/icons/select.svg'),
-  selected('assets/icons/selected.svg');
+  selected('assets/icons/selected.svg'),
+  google("assets/icons/iconGoogle.svg"),
+  mail("assets/icons/mail.svg");
 
   const AppIcons(this.icon);
   final String icon;

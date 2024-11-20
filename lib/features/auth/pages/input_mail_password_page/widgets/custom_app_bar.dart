@@ -4,7 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talky_aplication_2/unilities/app_icons.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({this.text, this.imgUrl, this.function, super.key});
+  const CustomAppBar({
+    this.text,
+    this.imgUrl,
+    this.function,
+    super.key,
+  });
   final String? text;
   final String? imgUrl;
   final Function()? function;
@@ -77,7 +82,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         ),
                       );
                     },
-                    errorWidget: (context, url, error) {
+                    errorWidget: (
+                      context,
+                      url,
+                      error,
+                    ) {
                       return SvgPicture.asset(AppIcons.userDefault.icon);
                     },
                     placeholder: (context, url) {

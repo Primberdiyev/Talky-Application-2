@@ -23,33 +23,26 @@ class ChatProvider with ChangeNotifier {
   bool isUserPressed = false;
 
   String getConversatioId(String id) {
-    return user.uid.hashCode <= id.hashCode
-        ? '${user.uid}_$id'
-        : '${id}_${user.uid}';
+    return user.uid.hashCode <= id.hashCode ? '${user.uid}_$id' : '${id}_${user.uid}';
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages(receiverId) {
-    return firestore
-        .collection('chats/${getConversatioId(receiverId)}/messages/')
-        .snapshots();
+    return firestore.collection('chats/${getConversatioId(receiverId)}/messages/').snapshots();
   }
 
   Future<void> sendMessage(String receiverId, String msg) async {
     final time = DateTime.now().microsecondsSinceEpoch.toString();
     final sentTime = DateTime.now();
-    final idSnapshot = await firestore
-        .collection('User')
-        .doc(auth.currentUser?.uid)
-        .collection('ChattingUsersId')
-        .get();
+    final idSnapshot =
+        await firestore.collection('User').doc(auth.currentUser?.uid).collection('ChattingUsersId').get();
     final chattingUsersId = idSnapshot.docs.map((e) => e.id).toList();
     if (!chattingUsersId.contains(receiverId)) {
       chattingUsersId.add(receiverId);
       final message = UserModel(chattingUsersId: chattingUsersId);
-      firestore
-          .collection('User')
-          .doc(auth.currentUser?.uid)
-          .set(message.toJson(), SetOptions(merge: true));
+      await firestore.collection('User').doc(auth.currentUser?.uid).set(
+            message.toJson(),
+            SetOptions(merge: true),
+          );
       notifyListeners();
     }
     final message = MessageModel(
@@ -62,8 +55,7 @@ class ChatProvider with ChangeNotifier {
       sentTime: sentTime.toString(),
     );
 
-    final ref =
-        firestore.collection('chats/${getConversatioId(receiverId)}/messages/');
+    final ref = firestore.collection('chats/${getConversatioId(receiverId)}/messages/');
     try {
       await ref.doc(time).set(message.toJson());
     } catch (_) {
@@ -71,7 +63,7 @@ class ChatProvider with ChangeNotifier {
     }
   }
 
-  changeReceiverUser(newUser) {
+  void changeReceiverUser(newUser) {
     receiverUser = newUser;
     notifyListeners();
   }
@@ -88,8 +80,7 @@ class ChatProvider with ChangeNotifier {
 
   Future uploadImage() async {
     final imageName = const Uuid().v1();
-    final refStorage =
-        storage.ref().child('chatImages').child('$imageName.png');
+    final refStorage = storage.ref().child('chatImages').child('$imageName.png');
     final uploadTask = await refStorage.putFile(imageFile!);
     final imgUrl = await uploadTask.ref.getDownloadURL();
     final time = DateTime.now().microsecondsSinceEpoch.toString();
@@ -170,7 +161,7 @@ class ChatProvider with ChangeNotifier {
     });
   }
 
-  changeUserPressed() {
+  void changeUserPressed() {
     isUserPressed = !isUserPressed;
     notifyListeners();
   }

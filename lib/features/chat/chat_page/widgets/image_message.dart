@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ImageMessage extends StatelessWidget {
   const ImageMessage({required this.isMine, required this.link, super.key});
   final bool isMine;
-  final link;
+  final String link;
 
   @override
   Widget build(BuildContext context) {

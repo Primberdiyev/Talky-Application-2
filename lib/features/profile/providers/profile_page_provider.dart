@@ -23,12 +23,12 @@ class ProfilePageProvider extends BaseChangeNotifier {
   final firestore = FirebaseFirestore.instance;
   List filteredUsers = [];
 
-  updateImage(newImage) {
+  void updateImage(newImage) {
     image = newImage;
     notifyListeners();
   }
 
-  loadGoogleProfile() {
+  void loadGoogleProfile() {
     if (currentUser != null) {
       currentUserImgUrl = currentUser?.photoURL;
 
@@ -69,19 +69,20 @@ class ProfilePageProvider extends BaseChangeNotifier {
     updateState(Statuses.completed);
   }
 
-  updateIsNameEmpty(bool newValue) {
+  void updateIsNameEmpty(bool newValue) {
     isNameEmpty = newValue;
     notifyListeners();
   }
 
-  onSearchChanged(String enteredUser) {
+  void onSearchChanged(String enteredUser) {
     if (enteredUser.isEmpty) {
       filteredUsers = usersData!;
     } else {
       filteredUsers = usersData!
           .where(
-            (user) =>
-                user['name'].toLowerCase().contains(enteredUser.toLowerCase()),
+            (user) => user['name'].toLowerCase().contains(
+                  enteredUser.toLowerCase(),
+                ),
           )
           .toList();
     }
@@ -89,7 +90,7 @@ class ProfilePageProvider extends BaseChangeNotifier {
     notifyListeners();
   }
 
-  changeCurrentUser(User? newUser) {
+  void changeCurrentUser(User? newUser) {
     currentUser = newUser;
     notifyListeners();
   }

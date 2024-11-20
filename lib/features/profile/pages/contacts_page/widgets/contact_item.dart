@@ -27,7 +27,7 @@ class ContactItem extends StatelessWidget {
 
     return Consumer2<GroupProvider, ChatProvider>(
       builder: (context, groupProvider, chatProvider, child) {
-        final isUserPressed = groupProvider.isUserPressed(model.id!);
+        final isUserPressed = groupProvider.isUserPressed(model.id ?? '');
 
         return ListTile(
           onTap: () {
@@ -47,10 +47,8 @@ class ContactItem extends StatelessWidget {
               color: AppColors.blackText,
             ),
           ),
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
-          subtitle:
-              Text(model.description ?? (isOnline ? 'at work' : 'offline')),
+          contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
+          subtitle: Text(model.description ?? (isOnline ? 'at work' : 'offline')),
           leading: CachedNetworkImage(
             imageUrl: model.imgUrl ?? '',
             imageBuilder: (context, imageProvider) {

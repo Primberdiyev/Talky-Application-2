@@ -10,7 +10,11 @@ class InputName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfilePageProvider>(
-      builder: (context, provider, child) {
+      builder: (
+        context,
+        provider,
+        child,
+      ) {
         return CustomTextFileld(
           controller: controller,
           labelText: 'Enter your name or nickname',

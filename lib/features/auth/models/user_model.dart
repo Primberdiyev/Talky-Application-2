@@ -21,7 +21,7 @@ class UserModel {
         profileState: ProfileState.fromString(
           json['profile_state'] as String,
         ),
-        lastTime: DateTime.fromMillisecondsSinceEpoch(json['lasTime'] ?? 0),
+        lastTime: DateTime.fromMillisecondsSinceEpoch(json['lastTime'] ?? 0),
         chattingUsersId: json['chattingUsersId'] as List<String>?,
       );
 
@@ -41,7 +41,7 @@ class UserModel {
         if (description != null) 'description': description,
         if (id != null) 'id': id,
         if (profileState != null) 'profile_state': profileState?.name,
-        if (lastTime != null) 'lasTime': lastTime,
+        if (lastTime != null) 'lastTime': lastTime,
         if (chattingUsersId != null) 'chattingUsersId': chattingUsersId,
       };
 }

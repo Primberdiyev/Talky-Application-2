@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,7 +50,11 @@ class _AudioMessageState extends State<AudioMessage> {
             height: 100,
             width: 275,
             child: Consumer<AudioProvider>(
-              builder: (context, audioProvider, child) {
+              builder: (
+                context,
+                audioProvider,
+                child,
+              ) {
                 return Row(
                   children: [
                     CircleAvatar(
@@ -60,9 +66,11 @@ class _AudioMessageState extends State<AudioMessage> {
                             await audioProvider.audioPlayer.pause();
                           } else {
                             try {
-                              await audioProvider.audioPlayer.play(UrlSource(widget.link));
+                              await audioProvider.audioPlayer.play(
+                                UrlSource(widget.link),
+                              );
                             } catch (e) {
-                              print('xato $e');
+                              log('xato $e');
                             }
                           }
                         },
@@ -79,7 +87,9 @@ class _AudioMessageState extends State<AudioMessage> {
                             activeColor: Colors.red,
                             max: audioProvider.duration.inSeconds.toDouble(),
                             onChanged: (value) {
-                              final newPosition = Duration(seconds: value.toInt());
+                              final newPosition = Duration(
+                                seconds: value.toInt(),
+                              );
                               audioProvider.changePosition(newPosition);
                               audioProvider.audioPlayer.seek(newPosition);
                             },

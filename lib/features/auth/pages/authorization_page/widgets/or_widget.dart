@@ -6,7 +6,12 @@ class OrWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 32, right: 33, bottom: 38),
+      padding: const EdgeInsets.only(
+        left: 32,
+        right: 33,
+        bottom: 38,
+        top: 38,
+      ),
       child: const Row(
         children: [
           Expanded(

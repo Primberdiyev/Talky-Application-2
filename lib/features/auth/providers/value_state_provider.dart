@@ -21,7 +21,7 @@ class ValueStateProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  changeIsMailCorrect(bool newValue) {
+  void changeIsMailCorrect(bool newValue) {
     isEmailCorrect = newValue;
     notifyListeners();
   }

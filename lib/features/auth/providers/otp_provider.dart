@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:email_otp/email_otp.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/unilities/statuses.dart';
@@ -20,12 +22,12 @@ class OtpProvider extends BaseChangeNotifier {
       updateState(Statuses.completed);
       if (!result) {
         updateState(Statuses.error);
-        print('Error in check Otp');
+        log('Error in check Otp');
         throw Exception('Failed to send OTP');
       }
     } catch (e) {
       updateState(Statuses.error);
-      print('Failed to send OTP');
+      log('Failed to send OTP');
     }
   }
 }

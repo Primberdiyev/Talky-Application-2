@@ -9,7 +9,11 @@ class InputCodes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<SignInAndUpProvider>(
-      builder: (context, provider, child) {
+      builder: (
+        context,
+        provider,
+        child,
+      ) {
         return Pinput(
           controller: provider.inputCodeController,
           defaultPinTheme: PinTheme(

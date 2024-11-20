@@ -36,7 +36,12 @@ class CustomUserAvatar extends StatelessWidget {
               ),
             );
           },
-          errorWidget: (context, url, error) => _defUser(),
+          errorWidget: (
+            context,
+            url,
+            error,
+          ) =>
+              _defUser(),
           placeholder: (context, url) => _defUser(),
         ),
         if (isWithOnline)

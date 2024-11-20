@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talky_aplication_2/features/auth/providers/auth_google_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/otp_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/sign_in_and_up_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
@@ -39,7 +38,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthGoogleProvider()),
         ChangeNotifierProvider(create: (_) => OtpProvider()),
         ChangeNotifierProvider(create: (_) => ProfilePageProvider()),
         ChangeNotifierProvider(create: (_) => SignInAndUpProvider()),
@@ -57,7 +55,7 @@ class _MyAppState extends State<MyApp> {
           onGenerateRoute: generateRoute,
           theme: ThemeData(
             primaryColor: Colors.blue,
-            scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+            scaffoldBackgroundColor: const Color(0xFFE5E5E5),
           ),
         ),
       ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -37,7 +39,7 @@ class AuthGoogleProvider extends BaseChangeNotifier {
                 ).profileState ??
                 ProfileState.initial;
           } else {
-            print('userModel failded');
+            log('userModel failded');
           }
           if (profileState == ProfileState.initial) {
             await doc.set(
@@ -52,7 +54,6 @@ class AuthGoogleProvider extends BaseChangeNotifier {
           updateState(Statuses.completed);
           return user;
         } else {
-          print('tushdi');
           updateState(Statuses.error);
         }
       } else {
@@ -60,7 +61,7 @@ class AuthGoogleProvider extends BaseChangeNotifier {
       }
     } catch (e) {
       updateState(Statuses.error);
-      print('Google Sign-In failed: $e');
+      log('Google Sign-In failed: $e');
     }
     return null;
   }

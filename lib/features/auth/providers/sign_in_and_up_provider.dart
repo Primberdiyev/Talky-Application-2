@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_otp/email_otp.dart';
@@ -23,8 +24,7 @@ class SignInAndUpProvider extends BaseChangeNotifier {
   FutureOr<void> signIn(BuildContext context) async {
     updateState(Statuses.loading);
     final provider = Provider.of<ProfilePageProvider>(context, listen: false);
-    final signProvider =
-        Provider.of<ValueStateProvider>(context, listen: false);
+    final signProvider = Provider.of<ValueStateProvider>(context, listen: false);
     try {
       final userCredential = await _auth.signInWithEmailAndPassword(
         email: emailController.text,
@@ -32,7 +32,7 @@ class SignInAndUpProvider extends BaseChangeNotifier {
       );
       final user = userCredential.user;
 
-      await provider.changeCurrentUser(user);
+       provider.changeCurrentUser(user);
 
       signProvider.changeIsMailCorrect(true);
 
@@ -44,7 +44,7 @@ class SignInAndUpProvider extends BaseChangeNotifier {
       final provider = Provider.of<ValueStateProvider>(context, listen: false);
       provider.changeIsMailCorrect(false);
       updateState(Statuses.error);
-      print('Error :$error');
+      log('Error :$error');
     }
 
     notifyListeners();
@@ -71,10 +71,7 @@ class SignInAndUpProvider extends BaseChangeNotifier {
           id: user.uid,
           profileState: ProfileState.create,
         );
-        await FirebaseFirestore.instance
-            .collection('User')
-            .doc(user.uid)
-            .set(userData.toJson());
+        await FirebaseFirestore.instance.collection('User').doc(user.uid).set(userData.toJson());
         updateState(Statuses.completed);
       }
     } catch (e) {
@@ -83,10 +80,9 @@ class SignInAndUpProvider extends BaseChangeNotifier {
   }
 
   FutureOr<bool> isRegistered() async {
-    final userDoc = await FirebaseFirestore.instance
-        .collection('User')
-        .where('email', isEqualTo: emailController.text)
-        .get();
+    final userDoc =
+        await FirebaseFirestore.instance.collection('User').where('email', 
+        isEqualTo: emailController.text).get();
     return userDoc.docs.isNotEmpty;
   }
 

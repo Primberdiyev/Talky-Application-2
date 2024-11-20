@@ -15,7 +15,11 @@ class _InputDescriptionState extends State<InputDescription> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfilePageProvider>(
-      builder: (context, provider, child) {
+      builder: (
+        context,
+        provider,
+        child,
+      ) {
         return CustomTextFileld(
           controller: widget.controller,
           labelText: 'Enter a description',

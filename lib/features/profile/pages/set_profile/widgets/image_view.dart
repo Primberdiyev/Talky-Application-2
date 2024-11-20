@@ -47,7 +47,7 @@ class _ImageViewState extends State<ImageView> {
                     final picture = await ImagePicker()
                         .pickImage(source: ImageSource.gallery);
                     if (picture != null) {
-                      await provider.updateImage(picture);
+                       provider.updateImage(picture);
                     }
                   },
                   child: CircleAvatar(

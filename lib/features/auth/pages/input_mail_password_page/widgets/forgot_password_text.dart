@@ -9,7 +9,11 @@ class ForgotPasswordText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ValueStateProvider>(
-      builder: (context, provider, child) {
+      builder: (
+        context,
+        provider,
+        child,
+      ) {
         return Align(
           alignment: Alignment.centerLeft,
           child: Padding(

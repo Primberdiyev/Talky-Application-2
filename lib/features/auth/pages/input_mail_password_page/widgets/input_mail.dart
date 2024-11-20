@@ -25,7 +25,12 @@ class _InputMailState extends State<InputMail> {
   @override
   Widget build(BuildContext context) {
     return Consumer2<ValueStateProvider, SignInAndUpProvider>(
-      builder: (context, valuProvider, signProvider, child) {
+      builder: (
+        context,
+        valuProvider,
+        signProvider,
+        child,
+      ) {
         return Padding(
           padding: const EdgeInsets.only(top: 40),
           child: TextFormField(
@@ -34,24 +39,18 @@ class _InputMailState extends State<InputMail> {
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: !valuProvider.isEmailCorrect
-                      ? Colors.red
-                      : const Color(0xFFAAB0B7),
+                  color: !valuProvider.isEmailCorrect ? Colors.red : const Color(0xFFAAB0B7),
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: !valuProvider.isEmailCorrect
-                      ? Colors.red
-                      : const Color(0xFFAAB0B7),
+                  color: !valuProvider.isEmailCorrect ? Colors.red : const Color(0xFFAAB0B7),
                 ),
               ),
               labelText: 'Enter your mail address',
               labelStyle: TextStyle(
                 fontWeight: FontWeight.w500,
-                color: !valuProvider.isEmailCorrect
-                    ? Colors.red
-                    : const Color(0xFFAAB0B7),
+                color: !valuProvider.isEmailCorrect ? Colors.red : const Color(0xFFAAB0B7),
               ),
               border: const OutlineInputBorder(),
             ),

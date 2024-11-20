@@ -9,7 +9,11 @@ class ConditionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ValueStateProvider>(
-      builder: (context, provider, child) {
+      builder: (
+        context,
+        provider,
+        child,
+      ) {
         return Visibility(
           visible: !provider.isSignIn,
           child: Row(
@@ -25,9 +29,7 @@ class ConditionWidget extends StatelessWidget {
                     color: Colors.transparent,
                     border: Border.all(),
                   ),
-                  child: provider.agreeCondition
-                      ? const Icon(Icons.done)
-                      : const SizedBox.shrink(),
+                  child: provider.agreeCondition ? const Icon(Icons.done) : const SizedBox.shrink(),
                 ),
               ),
               const SizedBox(
