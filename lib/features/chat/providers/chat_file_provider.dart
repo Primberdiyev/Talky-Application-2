@@ -1,6 +1,6 @@
 import 'package:open_file/open_file.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
-import 'package:talky_aplication_2/features/chat/chat_page/widgets/file_downloader_file.dart';
+import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/file_downloader_file.dart';
 import 'package:talky_aplication_2/unilities/statuses.dart';
 
 class ChatFileProvider extends BaseChangeNotifier {

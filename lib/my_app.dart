@@ -4,10 +4,10 @@ import 'package:talky_aplication_2/features/auth/providers/otp_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/sign_in_and_up_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
-import 'package:talky_aplication_2/features/profile/providers/all_users_provider.dart';
-import 'package:talky_aplication_2/features/profile/providers/group_provider.dart';
-import 'package:talky_aplication_2/features/profile/providers/profile_page_provider.dart';
-import 'package:talky_aplication_2/features/profile/providers/user_provider.dart';
+import 'package:talky_aplication_2/features/main/providers/all_users_provider.dart';
+import 'package:talky_aplication_2/features/main/providers/group_provider.dart';
+import 'package:talky_aplication_2/features/main/providers/profile_page_provider.dart';
+import 'package:talky_aplication_2/features/main/providers/user_provider.dart';
 import 'package:talky_aplication_2/routes/app_routes.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 

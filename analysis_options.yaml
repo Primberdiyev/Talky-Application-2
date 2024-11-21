@@ -14,7 +14,7 @@ linter:
     - sized_box_for_whitespace
     - always_declare_return_types  #todo to error
     - depend_on_referenced_packages
-    - lines_longer_than_80_chars
+   # - lines_longer_than_80_chars 
 
 # Используем code_metrics для расширенного анализа
 analyzer:
@@ -42,6 +42,7 @@ analyzer:
     duplicate_import: error
     unused_local_variable: error
     unused_field: error
+    use_build_context_synchronously: ignore
 
 dart_code_metrics:
   # Игнорируем генерируемые файлы для проверок код-стайла + тесты

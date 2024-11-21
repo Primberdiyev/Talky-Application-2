@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
-import 'package:talky_aplication_2/features/profile/models/message_model.dart';
+import 'package:talky_aplication_2/features/main/models/message_model.dart';
 
 class GroupProvider extends BaseChangeNotifier {
   final firebaseFirestore = FirebaseFirestore.instance;

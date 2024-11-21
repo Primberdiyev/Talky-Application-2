@@ -15,7 +15,11 @@ class SplashPage extends StatelessWidget {
       body: ChangeNotifierProvider(
         create: (context) => SplashProvider()..getProfileState(),
         child: Consumer<SplashProvider>(
-          builder: (context, value, child) {
+          builder: (
+            context,
+            value,
+            child,
+          ) {
             if (value.state.isCompleted || value.state.isError) {
               var route = NameRoutes.auth;
               if (value.profileState == ProfileState.completed) {

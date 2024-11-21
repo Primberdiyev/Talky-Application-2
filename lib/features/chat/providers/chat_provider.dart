@@ -6,7 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
-import 'package:talky_aplication_2/features/profile/models/message_model.dart';
+import 'package:talky_aplication_2/features/main/models/message_model.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatProvider with ChangeNotifier {
