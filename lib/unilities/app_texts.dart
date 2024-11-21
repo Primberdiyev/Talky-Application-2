@@ -9,4 +9,6 @@ class AppTexts {
   static const search = 'search';
   static const group = 'Group';
   static const groupName = 'Group name';
+  static const enterEmail = 'Enter your mail address';
+  static const enterPassword = 'Enter your password';
 }

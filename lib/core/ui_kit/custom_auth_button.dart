@@ -5,17 +5,21 @@ import 'package:talky_aplication_2/unilities/app_colors.dart';
 class CustomAuthButton extends StatelessWidget {
   const CustomAuthButton({
     super.key,
-    required this.iconPath,
+    this.iconPath,
     required this.text,
     required this.function,
     required this.isLoading,
     required this.buttonColor,
+    required this.textColor,
+    required this.textFontSize,
   });
-  final String iconPath;
+  final String? iconPath;
   final String text;
   final Function() function;
   final bool isLoading;
   final Color buttonColor;
+  final Color textColor;
+  final double textFontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +35,14 @@ class CustomAuthButton extends StatelessWidget {
         child: !isLoading
             ? Row(
                 children: [
-                  SvgPicture.asset(iconPath),
+                  if (iconPath != null) SvgPicture.asset(iconPath!),
                   Expanded(
                     child: Center(
                       child: Text(
                         text,
-                        style: const TextStyle(
-                          color: AppColors.blackText,
-                          fontSize: 16,
+                        style: TextStyle(
+                          color: textColor,
+                          fontSize: textFontSize,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -46,12 +50,12 @@ class CustomAuthButton extends StatelessWidget {
                   ),
                 ],
               )
-            : const Center(
+            : Center(
                 child: SizedBox(
                   height: 32,
                   width: 32,
                   child: CircularProgressIndicator(
-                    color: AppColors.primaryBlue,
+                    color: iconPath != null ? AppColors.primaryBlue : Colors.white,
                   ),
                 ),
               ),

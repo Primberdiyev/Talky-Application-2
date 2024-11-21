@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -20,38 +22,47 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      onChanged: onChanged,
-      cursorColor: AppColors.primaryBlue,
-      decoration: InputDecoration(
-        isDense: true,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: AppColors.lightBlack,
+    return Consumer<ValueStateProvider>(
+      builder: (
+        context,
+        provider,
+        child,
+      ) {
+        return TextField(
+          controller: controller,
+          obscureText: !provider.isHideText,
+          onChanged: onChanged,
+          cursorColor: AppColors.primaryBlue,
+          decoration: InputDecoration(
+            isDense: true,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                color: controller.text.isEmpty ? Colors.red : const Color(0xFFAAB0B7),
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(
+                color: AppColors.primaryBlue,
+              ),
+            ),
+            contentPadding: contentPadding ?? const EdgeInsets.all(11),
+            hintText: hintText,
+            hintStyle: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: AppColors.lightBlack,
+            ),
+            suffixIcon: suffixIcon != null
+                ? IconButton(
+                    onPressed: suffixTab,
+                    icon: suffixIcon ?? const SizedBox.shrink(),
+                  )
+                : null,
           ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: AppColors.primaryBlue,
-          ),
-        ),
-        contentPadding: contentPadding ?? const EdgeInsets.all(11),
-        hintText: hintText,
-        hintStyle: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-          color: AppColors.lightBlack,
-        ),
-        suffixIcon: suffixIcon != null
-            ? IconButton(
-                onPressed: suffixTab,
-                icon: suffixIcon ?? const SizedBox.shrink(),
-              )
-            : null,
-      ),
+        );
+      },
     );
   }
 }

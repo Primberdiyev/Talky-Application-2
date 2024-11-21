@@ -18,7 +18,7 @@ class UserDataService {
           auth.currentUser?.uid,
         )
         .get();
-        
+
     return UserModel.fromJson(
       response.data() ?? {},
     );

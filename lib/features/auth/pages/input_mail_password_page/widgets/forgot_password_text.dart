@@ -17,7 +17,7 @@ class ForgotPasswordText extends StatelessWidget {
         return Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: const EdgeInsets.only(left: 20, bottom: 44),
+            padding: const EdgeInsets.only(left: 20, bottom: 44, top: 18),
             child: Row(
               children: [
                 InkWell(

@@ -9,6 +9,7 @@ import 'package:talky_aplication_2/features/auth/providers/auth_google_provider.
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/features/profile/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
+import 'package:talky_aplication_2/unilities/app_colors.dart';
 import 'package:talky_aplication_2/unilities/app_icons.dart';
 import 'package:talky_aplication_2/unilities/app_texts.dart';
 import 'package:talky_aplication_2/unilities/profile_state.dart';
@@ -66,6 +67,8 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             CustomAuthButton(
+                              textFontSize: 16,
+                              textColor: AppColors.blackText,
                               buttonColor: Colors.white,
                               iconPath: AppIcons.google.icon,
                               text: valueProvider.isSignIn ? AppTexts.signInText : AppTexts.singUpText,
@@ -83,6 +86,8 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                             ),
                             const OrWidget(),
                             CustomAuthButton(
+                              textFontSize: 16,
+                              textColor: AppColors.blackText,
                               buttonColor: Colors.white,
                               iconPath: AppIcons.mail.icon,
                               text: AppTexts.continueMailText,

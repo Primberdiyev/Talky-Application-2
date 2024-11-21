@@ -5,49 +5,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
-import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
-import 'package:talky_aplication_2/features/profile/providers/profile_page_provider.dart';
-import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/unilities/profile_state.dart';
 import 'package:talky_aplication_2/unilities/statuses.dart';
 
 class SignInAndUpProvider extends BaseChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  String? email;
+  String? password;
   final TextEditingController inputCodeController = TextEditingController();
 
-  FutureOr<void> signIn(BuildContext context) async {
+  FutureOr<User?> signIn() async {
     updateState(Statuses.loading);
-    final provider = Provider.of<ProfilePageProvider>(context, listen: false);
-    final signProvider = Provider.of<ValueStateProvider>(context, listen: false);
+
     try {
-      final userCredential = await _auth.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
+      final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email ?? '',
+        password: password ?? '',
       );
       final user = userCredential.user;
-
-       provider.changeCurrentUser(user);
-
-      signProvider.changeIsMailCorrect(true);
-
-      Future.delayed(Duration.zero, () {
-        Navigator.pushNamed(context, NameRoutes.main);
-      });
       updateState(Statuses.completed);
+      notifyListeners();
+      return user;
     } on FirebaseAuthException catch (error) {
-      final provider = Provider.of<ValueStateProvider>(context, listen: false);
-      provider.changeIsMailCorrect(false);
       updateState(Statuses.error);
       log('Error :$error');
+      notifyListeners();
+      return null;
     }
-
-    notifyListeners();
   }
 
   FutureOr<void> signUp() async {
@@ -58,9 +45,10 @@ class SignInAndUpProvider extends BaseChangeNotifier {
       if (!isVerified) {
         throw Exception('Invalid OTP. Please try again.');
       }
+
       final userCredential = await _auth.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
+        email: email ?? '',
+        password: password ?? '',
       );
 
       final user = userCredential.user;
@@ -76,19 +64,19 @@ class SignInAndUpProvider extends BaseChangeNotifier {
       }
     } catch (e) {
       updateState(Statuses.error);
+
+      return null;
     }
   }
 
   FutureOr<bool> isRegistered() async {
-    final userDoc =
-        await FirebaseFirestore.instance.collection('User').where('email', 
-        isEqualTo: emailController.text).get();
+    final userDoc = await FirebaseFirestore.instance.collection('User').where('email', isEqualTo: email).get();
     return userDoc.docs.isNotEmpty;
   }
 
   void changeEmailPassword(String newEmail, String newPassword) {
-    emailController.text = newEmail;
-    passwordController.text = newPassword;
+    email = newEmail;
+    password = newPassword;
     notifyListeners();
   }
 }

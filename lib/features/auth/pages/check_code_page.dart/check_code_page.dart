@@ -11,7 +11,9 @@ import 'package:talky_aplication_2/features/auth/pages/input_mail_password_page/
 import 'package:talky_aplication_2/features/auth/providers/sign_in_and_up_provider.dart';
 
 class CheckCodePage extends StatefulWidget {
-  const CheckCodePage({super.key});
+  const CheckCodePage({
+    super.key,
+  });
 
   @override
   State<CheckCodePage> createState() => _CheckCodePageState();

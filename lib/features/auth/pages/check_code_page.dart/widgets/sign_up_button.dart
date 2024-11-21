@@ -6,7 +6,9 @@ import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/unilities/statuses.dart';
 
 class SignUpButton extends StatelessWidget {
-  const SignUpButton({super.key});
+  const SignUpButton({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
