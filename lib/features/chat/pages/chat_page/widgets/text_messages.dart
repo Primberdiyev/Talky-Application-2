@@ -22,14 +22,16 @@ class _TextMessagesState extends State<TextMessages> {
       alignment: widget.isMine ? Alignment.centerRight : Alignment.centerLeft,
       child: ListTile(
         title: Align(
-          alignment: widget.isMine ? Alignment.centerRight : Alignment.centerLeft,
+          alignment:
+              widget.isMine ? Alignment.centerRight : Alignment.centerLeft,
           child: Container(
             padding: const EdgeInsets.all(10),
             constraints: BoxConstraints(
               maxWidth: MediaQuery.of(context).size.width * 0.5,
             ),
             decoration: BoxDecoration(
-              color: widget.isMine ? AppColors.primaryBlue : AppColors.chatColor,
+              color:
+                  widget.isMine ? AppColors.primaryBlue : AppColors.chatColor,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(

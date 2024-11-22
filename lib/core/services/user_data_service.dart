@@ -62,4 +62,12 @@ class UserDataService {
       log(" error on updating last time ${e.toString()}");
     }
   }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getChatUsersId() {
+    return firebaseFirestore
+        .collection('User')
+        .doc(auth.currentUser?.uid)
+        .collection('ChattingUsersId')
+        .get();
+  }
 }

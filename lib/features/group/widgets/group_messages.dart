@@ -45,7 +45,8 @@ class _GroupMessagesState extends State<GroupMessages> {
               builder: (context, snapshot) {
                 if (snapshot.data == null) {
                   return const Text("Ma'lumotn yo'q");
-                } else if (snapshot.connectionState == ConnectionState.waiting) {
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
@@ -64,11 +65,13 @@ class _GroupMessagesState extends State<GroupMessages> {
                     return FutureBuilder(
                       future: getUser(message.fromId),
                       builder: (context, userSnapshot) {
-                        if (userSnapshot.connectionState == ConnectionState.waiting) {
+                        if (userSnapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return const Center(
                             child: CircularProgressIndicator(),
                           );
-                        } else if (userSnapshot.hasError || !userSnapshot.hasData) {
+                        } else if (userSnapshot.hasError ||
+                            !userSnapshot.hasData) {
                           return const Text('error getting messages');
                         }
                         final user = userSnapshot.data!;

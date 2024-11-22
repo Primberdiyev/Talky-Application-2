@@ -78,7 +78,10 @@ class ProfilePageProvider extends BaseChangeNotifier {
   void onSearchChanged(String enteredUser) {
     filteredUsers = enteredUser.isEmpty
         ? usersData!
-        : usersData!.where((user) => user['name'].toLowerCase().contains(enteredUser.toLowerCase())).toList();
+        : usersData!
+            .where((user) =>
+                user['name'].toLowerCase().contains(enteredUser.toLowerCase()))
+            .toList();
 
     notifyListeners();
   }

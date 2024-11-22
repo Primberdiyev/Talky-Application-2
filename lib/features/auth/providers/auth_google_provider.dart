@@ -34,7 +34,8 @@ class AuthGoogleProvider extends BaseChangeNotifier {
           final json = await doc.get();
           final data = json.data();
           if (json.exists && data != null) {
-            profileState = UserModel.fromJson(data).profileState ?? ProfileState.initial;
+            profileState =
+                UserModel.fromJson(data).profileState ?? ProfileState.initial;
           }
           if (profileState == ProfileState.initial) {
             await doc.set(

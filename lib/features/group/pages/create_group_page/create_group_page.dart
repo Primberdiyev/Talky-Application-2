@@ -49,13 +49,12 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                   adminId: userDataService.auth.currentUser?.uid,
                 );
                 await provider.createGroup(groupModel);
-                Future.delayed(Duration.zero, () {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    NameRoutes.group,
-                    arguments: groupModel,
-                  );
-                });
+
+                Navigator.pushReplacementNamed(
+                  context,
+                  NameRoutes.group,
+                  arguments: groupModel,
+                );
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

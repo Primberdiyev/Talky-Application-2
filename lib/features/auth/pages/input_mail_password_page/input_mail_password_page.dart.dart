@@ -75,7 +75,9 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
                     ),
                     suffixIcon: Icon(
                       size: 24,
-                      provider.isHideText ? Icons.visibility_off : Icons.visibility,
+                      provider.isHideText
+                          ? Icons.visibility_off
+                          : Icons.visibility,
                     ),
                     contentPadding: const EdgeInsets.only(
                       top: 18,
@@ -88,7 +90,10 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
                   const SizedBox(
                     height: 104,
                   ),
-                  SignInAndUpButton(emailController: emailController, passwordController: passwordController),
+                  SignInAndUpButton(
+                    emailController: emailController,
+                    passwordController: passwordController,
+                  ),
                   const SizedBox(
                     height: 30,
                   ),

@@ -30,7 +30,8 @@ class _MessagesListState extends State<MessagesList> {
               child,
             ) {
               return StreamBuilder(
-                stream: provider.getAllMessages(provider.receiverUser?.id ?? ''),
+                stream:
+                    provider.getAllMessages(provider.receiverUser?.id ?? ''),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
@@ -42,7 +43,8 @@ class _MessagesListState extends State<MessagesList> {
                       reverse: true,
                       itemCount: messages.length,
                       itemBuilder: (context, index) {
-                        final message = messages[messages.length - 1 - index].data();
+                        final message =
+                            messages[messages.length - 1 - index].data();
                         final isMine = provider.user.uid == message['fromId'];
                         switch (message['type']) {
                           case 'text':

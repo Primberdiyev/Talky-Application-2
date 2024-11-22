@@ -17,7 +17,9 @@ class QuestionText extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 5),
           child: Center(
             child: Text(
-              provider.isSignIn ? 'Don’t have an account?' : 'Already have an account?',
+              provider.isSignIn
+                  ? 'Don’t have an account?'
+                  : 'Already have an account?',
               style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 14,

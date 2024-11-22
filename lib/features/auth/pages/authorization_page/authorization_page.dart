@@ -52,16 +52,17 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                       ) {
                         if (authProvider.state.isCompleted) {
                           var route = NameRoutes.auth;
-                          if (authProvider.profileState == ProfileState.create) {
+                          if (authProvider.profileState ==
+                              ProfileState.create) {
                             route = NameRoutes.setProfile;
-                          } else if (authProvider.profileState == ProfileState.completed) {
+                          } else if (authProvider.profileState ==
+                              ProfileState.completed) {
                             route = NameRoutes.main;
                           }
-                          Future.delayed(Duration.zero, () {
-                            if (mounted) {
-                              Navigator.pushNamed(context, route);
-                            }
-                          });
+
+                          if (mounted) {
+                            Navigator.pushNamed(context, route);
+                          }
                         }
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -71,11 +72,14 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                               textColor: AppColors.blackText,
                               buttonColor: Colors.white,
                               iconPath: AppIcons.google.icon,
-                              text: valueProvider.isSignIn ? AppTexts.signInText : AppTexts.singUpText,
+                              text: valueProvider.isSignIn
+                                  ? AppTexts.signInText
+                                  : AppTexts.singUpText,
                               function: () async {
                                 final user = await authProvider.signInGoogle();
                                 if (mounted) {
-                                  final profileprovider = Provider.of<ProfilePageProvider>(
+                                  final profileprovider =
+                                      Provider.of<ProfilePageProvider>(
                                     context,
                                     listen: false,
                                   );

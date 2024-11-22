@@ -14,7 +14,7 @@ linter:
     - sized_box_for_whitespace
     - always_declare_return_types  #todo to error
     - depend_on_referenced_packages
-   # - lines_longer_than_80_chars 
+    - lines_longer_than_80_chars 
 
 # Используем code_metrics для расширенного анализа
 analyzer:

@@ -55,7 +55,11 @@ class _SendMessageState extends State<SendData> {
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.send_rounded),
                     color: AppColors.sendIconColor,
-                    onPressed: () => widget.sendFunction?.call() ?? _sendMessage(provider),
+                    onPressed: () =>
+                        widget.sendFunction?.call() ??
+                        _sendMessage(
+                          provider,
+                        ),
                   ),
                 ),
               ),

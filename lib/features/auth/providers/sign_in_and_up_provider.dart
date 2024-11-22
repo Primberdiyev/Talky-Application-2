@@ -20,7 +20,8 @@ class SignInAndUpProvider extends BaseChangeNotifier {
     updateState(Statuses.loading);
 
     try {
-      final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      final UserCredential userCredential =
+          await _auth.signInWithEmailAndPassword(
         email: email ?? '',
         password: password ?? '',
       );
@@ -70,7 +71,10 @@ class SignInAndUpProvider extends BaseChangeNotifier {
   }
 
   FutureOr<bool> isRegistered() async {
-    final userDoc = await FirebaseFirestore.instance.collection('User').where('email', isEqualTo: email).get();
+    final userDoc = await FirebaseFirestore.instance
+        .collection('User')
+        .where('email', isEqualTo: email)
+        .get();
     return userDoc.docs.isNotEmpty;
   }
 

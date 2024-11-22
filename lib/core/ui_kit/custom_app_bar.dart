@@ -27,7 +27,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomUserAvatar(
-              avatarLink: userModel != null ? userModel?.imgUrl : groupModel?.imgUrl,
+              avatarLink:
+                  userModel != null ? userModel?.imgUrl : groupModel?.imgUrl,
               isOnline: true,
               isWithOnline: userModel != null,
             ),

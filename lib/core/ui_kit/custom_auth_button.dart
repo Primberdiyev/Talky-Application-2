@@ -31,11 +31,12 @@ class CustomAuthButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           color: buttonColor,
         ),
-        padding: const EdgeInsets.symmetric( horizontal: 34),
+        padding: const EdgeInsets.symmetric(horizontal: 34),
         child: isLoading
             ? Center(
                 child: CircularProgressIndicator(
-                  color: iconPath != null ? AppColors.primaryBlue : Colors.white,
+                  color:
+                      iconPath != null ? AppColors.primaryBlue : Colors.white,
                 ),
               )
             : Row(

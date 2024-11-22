@@ -37,7 +37,10 @@ class SignInAndUpButton extends StatelessWidget {
             text: valueProvider.isSignIn ? "Sign in" : "Sign up",
             function: () async {
               final signProvider = context.read<SignInAndUpProvider>();
-              signProvider.changeEmailPassword(emailController.text, passwordController.text);
+              signProvider.changeEmailPassword(
+                emailController.text,
+                passwordController.text,
+              );
 
               if (valueProvider.isSignIn) {
                 try {
@@ -45,17 +48,20 @@ class SignInAndUpButton extends StatelessWidget {
                   final user = await authProvider.signIn();
 
                   valueProvider.changeIsMailCorrect(
-                    emailController.text.isNotEmpty && passwordController.text.isNotEmpty,
+                    emailController.text.isNotEmpty &&
+                        passwordController.text.isNotEmpty,
                   );
                   if (user != null && valueProvider.isEmailCorrect) {
                     Navigator.pushReplacementNamed(context, NameRoutes.main);
                   }
                 } catch (_) {
-                  final provider = Provider.of<ValueStateProvider>(context, listen: false);
+                  final provider =
+                      Provider.of<ValueStateProvider>(context, listen: false);
                   provider.changeIsMailCorrect(false);
                 }
               } else {
-                if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+                if (emailController.text.isNotEmpty &&
+                    passwordController.text.isNotEmpty) {
                   await otpProvider.sendOTP(email: emailController.text);
 
                   Future.delayed(Duration.zero, () {
@@ -65,7 +71,9 @@ class SignInAndUpButton extends StatelessWidget {
                 }
               }
             },
-            isLoading: valueProvider.isSignIn ? authProvider.state.isLoading : otpProvider.state.isLoading,
+            isLoading: valueProvider.isSignIn
+                ? authProvider.state.isLoading
+                : otpProvider.state.isLoading,
             buttonColor: AppColors.primaryBlue,
           );
         });

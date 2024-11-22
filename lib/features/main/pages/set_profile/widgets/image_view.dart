@@ -48,7 +48,8 @@ class _ImageViewState extends State<ImageView> {
                 right: 0,
                 child: InkWell(
                   onTap: () async {
-                    final picture = await ImagePicker().pickImage(source: ImageSource.gallery);
+                    final picture = await ImagePicker()
+                        .pickImage(source: ImageSource.gallery);
                     if (picture != null) {
                       provider.updateImage(picture);
                     }

@@ -32,7 +32,8 @@ class _ListUsersState extends State<FriendsList> {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (snapshot.data == null || (!snapshot.hasData || snapshot.data!.isEmpty)) {
+            } else if (snapshot.data == null ||
+                (!snapshot.hasData || snapshot.data!.isEmpty)) {
               const SizedBox.shrink();
             }
 
@@ -70,21 +71,25 @@ class _ListUsersState extends State<FriendsList> {
                         const SizedBox(width: 15),
                         Expanded(
                           child: StreamBuilder(
-                            stream: chatProvider.getLastMessageWithTime(user.id ?? ''),
+                            stream: chatProvider
+                                .getLastMessageWithTime(user.id ?? ''),
                             builder: (
                               context,
                               AsyncSnapshot<Map<String, dynamic>> snapshot,
                             ) {
                               var timeAgo = '';
                               var message = 'loading';
-                              if (snapshot.connectionState != ConnectionState.waiting &&
+                              if (snapshot.connectionState !=
+                                      ConnectionState.waiting &&
                                   snapshot.hasData &&
                                   snapshot.data != null) {
-                                final String sentTime = snapshot.data!['sentTime'] ?? '';
+                                final String sentTime =
+                                    snapshot.data!['sentTime'] ?? '';
                                 message = snapshot.data!['msg'] ?? '';
                                 if (sentTime.isNotEmpty) {
                                   try {
-                                    final sentDateTime = DateTime.parse(sentTime);
+                                    final sentDateTime =
+                                        DateTime.parse(sentTime);
                                     timeAgo = timeago.format(sentDateTime);
                                   } catch (e) {
                                     timeAgo = '';
@@ -95,7 +100,8 @@ class _ListUsersState extends State<FriendsList> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         user.name ?? '',
@@ -113,7 +119,9 @@ class _ListUsersState extends State<FriendsList> {
                                   ),
                                   const SizedBox(height: 6),
                                   Text(
-                                    message.length <= 30 ? message : '${message.substring(0, 30)}...',
+                                    message.length <= 30
+                                        ? message
+                                        : '${message.substring(0, 30)}...',
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ],

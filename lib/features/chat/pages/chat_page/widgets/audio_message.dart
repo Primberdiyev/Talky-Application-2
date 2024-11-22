@@ -40,11 +40,14 @@ class _AudioMessageState extends State<AudioMessage> {
 
   @override
   Widget build(BuildContext context) {
+    final audioMaxSecond = audioProvider.duration.inSeconds.toDouble();
+    final audioMaxPosition = audioProvider.position.inSeconds.toDouble();
     return ChangeNotifierProvider(
       create: (_) => AudioProvider(),
       child: ListTile(
         title: Align(
-          alignment: widget.isMine ? Alignment.centerRight : Alignment.centerLeft,
+          alignment:
+              widget.isMine ? Alignment.centerRight : Alignment.centerLeft,
           child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -79,7 +82,9 @@ class _AudioMessageState extends State<AudioMessage> {
                           }
                         },
                         icon: Icon(
-                          audioProvider.isPlaying ? Icons.pause : Icons.play_arrow,
+                          audioProvider.isPlaying
+                              ? Icons.pause
+                              : Icons.play_arrow,
                         ),
                         iconSize: 30,
                       ),
@@ -89,7 +94,7 @@ class _AudioMessageState extends State<AudioMessage> {
                         children: [
                           Slider(
                             activeColor: Colors.red,
-                            max: audioProvider.duration.inSeconds.toDouble(),
+                            max: audioMaxSecond,
                             onChanged: (value) {
                               final newPosition = Duration(
                                 seconds: value.toInt(),
@@ -97,7 +102,7 @@ class _AudioMessageState extends State<AudioMessage> {
                               audioProvider.changePosition(newPosition);
                               audioProvider.audioPlayer.seek(newPosition);
                             },
-                            value: audioProvider.position.inSeconds.toDouble(),
+                            value: audioMaxPosition,
                           ),
                           Text(
                             '${audioProvider.position.inMinutes}:${audioProvider.position.inSeconds.remainder(60).toString().padLeft(2, '0')} / ${audioProvider.duration.inMinutes}:${audioProvider.duration.inSeconds.remainder(60).toString().padLeft(2, '0')}',

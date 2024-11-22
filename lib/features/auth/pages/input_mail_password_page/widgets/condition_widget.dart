@@ -29,7 +29,9 @@ class ConditionWidget extends StatelessWidget {
                     color: Colors.transparent,
                     border: Border.all(),
                   ),
-                  child: provider.agreeCondition ? const Icon(Icons.done) : const SizedBox.shrink(),
+                  child: provider.agreeCondition
+                      ? const Icon(Icons.done)
+                      : const SizedBox.shrink(),
                 ),
               ),
               const SizedBox(

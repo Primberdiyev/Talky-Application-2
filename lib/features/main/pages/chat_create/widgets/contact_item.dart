@@ -52,8 +52,10 @@ class ContactItem extends StatelessWidget {
               color: AppColors.blackText,
             ),
           ),
-          contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
-          subtitle: Text(model.description ?? (isOnline ? 'at work' : 'offline')),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
+          subtitle:
+              Text(model.description ?? (isOnline ? 'at work' : 'offline')),
           leading: CachedNetworkImage(
             imageUrl: model.imgUrl ?? '',
             imageBuilder: (context, imageProvider) {

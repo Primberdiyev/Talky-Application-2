@@ -59,7 +59,8 @@ class _ProfilePageState extends State<MainPage> {
               : const Center(
                   child: CircularProgressIndicator(),
                 ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
           floatingActionButton: const ActionButtonProfile(),
         );
       },
