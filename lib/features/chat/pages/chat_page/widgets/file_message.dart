@@ -18,7 +18,11 @@ class FileMessage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => ChatFileProvider(),
       child: Consumer<ChatFileProvider>(
-        builder: (context, fileProvider, child) {
+        builder: (
+          context,
+          fileProvider,
+          child,
+        ) {
           return ListTile(
             title: Align(
               alignment: isMine ? Alignment.centerRight : Alignment.centerLeft,
@@ -37,16 +41,14 @@ class FileMessage extends StatelessWidget {
                       width: 80,
                       margin: const EdgeInsets.only(right: 20),
                       decoration: BoxDecoration(
-                        image: (!fileProvider.state.isLoading) &&
-                                !fileProvider.state.isCompleted
+                        image: (!fileProvider.state.isLoading) && !fileProvider.state.isCompleted
                             ? const DecorationImage(
                                 image: AssetImage(
                                   'assets/images/download_file.png',
                                 ),
                               )
                             : null,
-                        color:
-                            !fileProvider.state.isLoading ? Colors.white : null,
+                        color: !fileProvider.state.isLoading ? Colors.white : null,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: fileProvider.state.isLoading

@@ -37,7 +37,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             width: 30,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: Color(0xffE5F1FF),
+              color: Color(0xFFE5F1FF),
             ),
             child: Image.asset('assets/images/Back.png'),
           ),

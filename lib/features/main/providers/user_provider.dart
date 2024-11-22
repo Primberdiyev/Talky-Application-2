@@ -8,7 +8,6 @@ import 'package:talky_aplication_2/unilities/statuses.dart';
 class UserProvider extends BaseChangeNotifier {
   final userDataService = UserDataService.instance;
   UserModel? userModel;
-  List? usersData = [];
   Set<UserModel>? chattingUsers = {};
 
   Future<void> getUserModel() async {

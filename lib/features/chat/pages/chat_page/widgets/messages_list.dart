@@ -17,13 +17,20 @@ class _MessagesListState extends State<MessagesList> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ChatProvider>(
-      builder: (context, value, child) {
+      builder: (
+        context,
+        value,
+        child,
+      ) {
         return Expanded(
           child: Consumer<ChatProvider>(
-            builder: (context, provider, child) {
+            builder: (
+              context,
+              provider,
+              child,
+            ) {
               return StreamBuilder(
-                stream:
-                    provider.getAllMessages(provider.receiverUser?.id ?? ''),
+                stream: provider.getAllMessages(provider.receiverUser?.id ?? ''),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
@@ -35,8 +42,7 @@ class _MessagesListState extends State<MessagesList> {
                       reverse: true,
                       itemCount: messages.length,
                       itemBuilder: (context, index) {
-                        final message =
-                            messages[messages.length - 1 - index].data();
+                        final message = messages[messages.length - 1 - index].data();
                         final isMine = provider.user.uid == message['fromId'];
                         switch (message['type']) {
                           case 'text':

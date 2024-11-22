@@ -19,7 +19,12 @@ class _ListUsersState extends State<FriendsList> {
   @override
   Widget build(BuildContext context) {
     return Consumer2<UserProvider, ChatProvider>(
-      builder: (context, userProvider, chatProvider, child) {
+      builder: (
+        context,
+        userProvider,
+        chatProvider,
+        child,
+      ) {
         return StreamBuilder(
           stream: userProvider.getChattingUsers(),
           builder: (context, snapshot) {
@@ -38,7 +43,7 @@ class _ListUsersState extends State<FriendsList> {
               return const SizedBox.shrink();
             }
             return ListView.builder(
-              itemCount: userProvider.userModel?.chattingUsersId?.length,
+              itemCount: userProvider.chattingUsers?.length,
               itemBuilder: (context, index) {
                 final user = chattingUsers[index];
 
@@ -47,7 +52,7 @@ class _ListUsersState extends State<FriendsList> {
 
                 return Container(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
-                  margin: const EdgeInsets.only(top: 10, bottom: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
                   width: MediaQuery.of(context).size.width - 56,
                   child: InkWell(
                     onTap: () {

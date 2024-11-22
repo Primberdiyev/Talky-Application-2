@@ -26,6 +26,16 @@ class _ProfilePageState extends State<MainPage> {
   }
 
   @override
+  void dispose() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        UserStateService.instance.stopTimer();
+      },
+    );
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<UserProvider>(
       builder: (

@@ -16,7 +16,11 @@ class _ImageViewState extends State<ImageView> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfilePageProvider>(
-      builder: (context, provider, child) {
+      builder: (
+        context,
+        provider,
+        child,
+      ) {
         final userGoogleImg = provider.currentUser?.photoURL;
         return Padding(
           padding: const EdgeInsets.only(top: 50, bottom: 32),
@@ -44,10 +48,9 @@ class _ImageViewState extends State<ImageView> {
                 right: 0,
                 child: InkWell(
                   onTap: () async {
-                    final picture = await ImagePicker()
-                        .pickImage(source: ImageSource.gallery);
+                    final picture = await ImagePicker().pickImage(source: ImageSource.gallery);
                     if (picture != null) {
-                       provider.updateImage(picture);
+                      provider.updateImage(picture);
                     }
                   },
                   child: CircleAvatar(

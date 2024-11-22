@@ -22,7 +22,7 @@ class AllUsersProvider with ChangeNotifier {
         return nameA.compareTo(nameB);
       });
     } catch (e) {
-      log('Failed getting all users data');
+      log('Failed getting all users data  $e');
     }
     notifyListeners();
   }

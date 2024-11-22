@@ -64,6 +64,7 @@ class ProfilePageProvider extends BaseChangeNotifier {
 
     await UserDataService.instance.setUserDoc(
       userInfo.toJson(),
+      SetOptions(merge: true),
     );
 
     updateState(Statuses.completed);
@@ -75,17 +76,9 @@ class ProfilePageProvider extends BaseChangeNotifier {
   }
 
   void onSearchChanged(String enteredUser) {
-    if (enteredUser.isEmpty) {
-      filteredUsers = usersData!;
-    } else {
-      filteredUsers = usersData!
-          .where(
-            (user) => user['name'].toLowerCase().contains(
-                  enteredUser.toLowerCase(),
-                ),
-          )
-          .toList();
-    }
+    filteredUsers = enteredUser.isEmpty
+        ? usersData!
+        : usersData!.where((user) => user['name'].toLowerCase().contains(enteredUser.toLowerCase())).toList();
 
     notifyListeners();
   }

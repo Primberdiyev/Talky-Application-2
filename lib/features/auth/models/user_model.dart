@@ -22,7 +22,7 @@ class UserModel {
           json['profile_state'] as String,
         ),
         lastTime: DateTime.fromMillisecondsSinceEpoch(json['lastTime'] ?? 0),
-        chattingUsersId: json['chattingUsersId'] as List<String>?,
+        chattingUsersId: (json['chattingUsersId'] as List?)?.map((item) => item as String).toList(),
       );
 
   final String? email;

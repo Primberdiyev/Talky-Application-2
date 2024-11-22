@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,13 +58,14 @@ class SignInAndUpProvider extends BaseChangeNotifier {
           id: user.uid,
           profileState: ProfileState.create,
         );
-        await FirebaseFirestore.instance.collection('User').doc(user.uid).set(userData.toJson());
+        await FirebaseFirestore.instance.collection('User').doc(user.uid).set(
+              userData.toJson(),
+            );
         updateState(Statuses.completed);
       }
     } catch (e) {
+      log('erron on sign up');
       updateState(Statuses.error);
-
-      return null;
     }
   }
 

@@ -11,7 +11,12 @@ class ChatFilesTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer2<ProfilePageProvider, ChatProvider>(
-      builder: (context, provider, chatProvider, child) {
+      builder: (
+        context,
+        provider,
+        chatProvider,
+        child,
+      ) {
         return Expanded(
           child: DefaultTabController(
             length: 2,
@@ -31,11 +36,9 @@ class ChatFilesTab extends StatelessWidget {
                     children: [
                       const FriendsList(),
                       StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                        stream: chatProvider
-                            .getImages(chatProvider.receiverUser?.id ?? ''),
+                        stream: chatProvider.getImages(chatProvider.receiverUser?.id ?? ''),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
                             return const Center(
                               child: CircularProgressIndicator(),
                             );
@@ -60,16 +63,14 @@ class ChatFilesTab extends StatelessWidget {
                               top: 41,
                             ),
                             child: GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                                 crossAxisSpacing: 16,
                                 mainAxisSpacing: 16,
                               ),
                               itemCount: images.length,
                               itemBuilder: (context, index) {
-                                final imageUrl =
-                                    images[index].data()['msg'] as String;
+                                final imageUrl = images[index].data()['msg'] as String;
                                 return Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8),

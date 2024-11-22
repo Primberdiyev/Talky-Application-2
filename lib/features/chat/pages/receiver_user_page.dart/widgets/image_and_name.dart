@@ -10,7 +10,11 @@ class ImageAndName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ChatProvider>(
-      builder: (context, provider, child) {
+      builder: (
+        context,
+        provider,
+        child,
+      ) {
         return Column(
           children: [
             Column(

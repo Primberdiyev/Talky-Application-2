@@ -4,7 +4,11 @@ import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 
 class SendData extends StatefulWidget {
-  const SendData({required this.controller, super.key, this.sendFunction});
+  const SendData({
+    required this.controller,
+    super.key,
+    this.sendFunction,
+  });
   final Function()? sendFunction;
   final TextEditingController controller;
 
@@ -51,8 +55,7 @@ class _SendMessageState extends State<SendData> {
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.send_rounded),
                     color: AppColors.sendIconColor,
-                    onPressed: () =>
-                        widget.sendFunction?.call() ?? _sendMessage(provider),
+                    onPressed: () => widget.sendFunction?.call() ?? _sendMessage(provider),
                   ),
                 ),
               ),

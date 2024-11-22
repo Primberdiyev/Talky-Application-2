@@ -23,7 +23,11 @@ class _CheckCodePageState extends State<CheckCodePage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<SignInAndUpProvider>(
-      builder: (context, provider, child) {
+      builder: (
+        context,
+        provider,
+        child,
+      ) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: const CustomAppBar(),

@@ -8,7 +8,11 @@ class MailText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ValueStateProvider>(
-      builder: (context, provider, child) {
+      builder: (
+        context,
+        provider,
+        child,
+      ) {
         return Text(
           provider.isSignIn ? 'Sign in with Mail' : 'Sign up with Mail',
           style: const TextStyle(

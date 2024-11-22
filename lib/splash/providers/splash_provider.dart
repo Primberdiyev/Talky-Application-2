@@ -36,7 +36,7 @@ class SplashProvider extends BaseChangeNotifier {
         );
       }
     } catch (e) {
-      log(e.toString());
+      log("erron on splash page  ${e.toString()}");
       _finish(
         status: Statuses.error,
         date: currentDate,

@@ -16,7 +16,11 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ChatProvider>(
-      builder: (context, provider, child) {
+      builder: (
+        context,
+        provider,
+        child,
+      ) {
         final chatControlller = TextEditingController();
         return Scaffold(
           appBar: CustomAppBar(

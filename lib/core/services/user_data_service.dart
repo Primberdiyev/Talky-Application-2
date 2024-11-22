@@ -59,7 +59,7 @@ class UserDataService {
         },
       );
     } catch (e) {
-      log(e.toString());
+      log(" error on updating last time ${e.toString()}");
     }
   }
 }

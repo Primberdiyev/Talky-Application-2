@@ -12,7 +12,12 @@ class SignUpTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer2<ValueStateProvider, SignInAndUpProvider>(
-      builder: (context, valueProvider, controllerProvider, child) {
+      builder: (
+        context,
+        valueProvider,
+        controllerProvider,
+        child,
+      ) {
         return InkWell(
           onTap: () {
             valueProvider.changeBoolValue(BoolValueEnum.isSignIn);

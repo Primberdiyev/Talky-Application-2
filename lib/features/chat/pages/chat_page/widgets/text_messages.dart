@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 
 class TextMessages extends StatefulWidget {
-  const TextMessages({required this.isMine, required this.message, super.key});
+  const TextMessages({
+    required this.isMine,
+    required this.message,
+    super.key,
+  });
   final bool isMine;
   final String message;
 
@@ -14,7 +18,7 @@ class _TextMessagesState extends State<TextMessages> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 7.5, top: 7.5),
+      margin: const EdgeInsets.symmetric(vertical: 7.5),
       alignment: widget.isMine ? Alignment.centerRight : Alignment.centerLeft,
       child: ListTile(
         title: Align(

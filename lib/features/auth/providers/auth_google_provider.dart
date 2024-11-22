@@ -32,14 +32,9 @@ class AuthGoogleProvider extends BaseChangeNotifier {
         if (user != null) {
           final doc = firebaseStore.collection('User').doc(user.uid);
           final json = await doc.get();
-
-          if (json.exists && json.data() != null) {
-            profileState = UserModel.fromJson(
-                  json.data() ?? {},
-                ).profileState ??
-                ProfileState.initial;
-          } else {
-            log('userModel failded');
+          final data = json.data();
+          if (json.exists && data != null) {
+            profileState = UserModel.fromJson(data).profileState ?? ProfileState.initial;
           }
           if (profileState == ProfileState.initial) {
             await doc.set(

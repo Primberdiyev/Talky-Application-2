@@ -12,7 +12,11 @@ class ActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ChatProvider>(
-      builder: (context, provider, child) {
+      builder: (
+        context,
+        provider,
+        child,
+      ) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 12, right: 14),
           child: SpeedDial(

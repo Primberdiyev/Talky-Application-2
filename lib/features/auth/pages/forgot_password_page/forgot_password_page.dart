@@ -21,7 +21,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         ),
       ],
       child: Consumer<ResetEmailProvider>(
-        builder: (context, provider, child) {
+        builder: (
+          context,
+          provider,
+          child,
+        ) {
           return Scaffold(
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),

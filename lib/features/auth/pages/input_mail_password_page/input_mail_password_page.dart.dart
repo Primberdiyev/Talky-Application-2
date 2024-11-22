@@ -43,7 +43,11 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 28),
           child: Consumer<ValueStateProvider>(
-            builder: (context, provider, child) {
+            builder: (
+              context,
+              provider,
+              child,
+            ) {
               return Column(
                 children: [
                   const TalkyText(),

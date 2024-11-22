@@ -43,7 +43,6 @@ class ChatProvider with ChangeNotifier {
             message.toJson(),
             SetOptions(merge: true),
           );
-      notifyListeners();
     }
     final message = MessageModel(
       toId: receiverId,
@@ -104,15 +103,18 @@ class ChatProvider with ChangeNotifier {
   Future pickFile() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['pdf', 'jpg', 'jpeg', 'png', 'mp3'],
+      allowedExtensions: [
+        'pdf',
+        'jpg',
+        'jpeg',
+        'png',
+        'mp3',
+      ],
     );
     if (result != null) {
       TypeMessage type;
-      if (result.files.single.extension == 'mp3') {
-        type = TypeMessage.audio;
-      } else {
-        type = TypeMessage.file;
-      }
+
+      type = result.files.single.extension == 'mp3' ? TypeMessage.audio : TypeMessage.file;
       final file = File(result.files.single.path!);
       final fileName = result.files.single.name;
       final refStorage = storage.ref().child('chatFiles').child(fileName);

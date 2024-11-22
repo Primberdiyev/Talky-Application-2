@@ -13,7 +13,12 @@ class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer2<ValueStateProvider, SignInAndUpProvider>(
-      builder: (context, valueProvider, signInAndUpProvider, child) {
+      builder: (
+        context,
+        valueProvider,
+        signInAndUpProvider,
+        child,
+      ) {
         final isLoading = signInAndUpProvider.state == Statuses.loading;
 
         return Padding(
@@ -29,6 +34,8 @@ class SignUpButton extends StatelessWidget {
                 await Future.delayed(Duration.zero, () {
                   Navigator.pushReplacementNamed(context, NameRoutes.accout);
                 });
+              } else {
+                debugPrint('error on sign up');
               }
             },
             child: Container(

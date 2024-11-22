@@ -24,10 +24,9 @@ class _GroupMessagesState extends State<GroupMessages> {
     Future<UserModel>? getUser(String id) async {
       try {
         final response = await UserDataService.instance.getUserDoc(id: id);
-        final user = UserModel.fromJson(response.data() ?? {});
-        return user;
+        return UserModel.fromJson(response.data() ?? {});
       } catch (e) {
-        log('xato e.toString()');
+        log('xato ${e.toString()}');
         return UserModel.fromJson({});
       }
     }
@@ -35,7 +34,11 @@ class _GroupMessagesState extends State<GroupMessages> {
     return ChangeNotifierProvider(
       create: (context) => ReceiveMessagesProvider(),
       child: Consumer<ReceiveMessagesProvider>(
-        builder: (context, provider, child) {
+        builder: (
+          context,
+          provider,
+          child,
+        ) {
           return Expanded(
             child: StreamBuilder(
               stream: provider.getAllGroupMessages(widget.titleGroup),
