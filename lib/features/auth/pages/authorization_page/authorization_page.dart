@@ -7,7 +7,6 @@ import 'package:talky_aplication_2/features/auth/pages/authorization_page/widget
 import 'package:talky_aplication_2/features/auth/pages/authorization_page/widgets/talky_text.dart';
 import 'package:talky_aplication_2/features/auth/providers/auth_google_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
-import 'package:talky_aplication_2/features/main/providers/profile_page_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 import 'package:talky_aplication_2/unilities/app_icons.dart';
@@ -50,20 +49,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                         authProvider,
                         child,
                       ) {
-                        if (authProvider.state.isCompleted) {
-                          var route = NameRoutes.auth;
-                          if (authProvider.profileState ==
-                              ProfileState.create) {
-                            route = NameRoutes.setProfile;
-                          } else if (authProvider.profileState ==
-                              ProfileState.completed) {
-                            route = NameRoutes.main;
-                          }
-
-                          if (mounted) {
-                            Navigator.pushNamed(context, route);
-                          }
-                        }
+                        var route = NameRoutes.auth;
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -76,14 +62,21 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                                   ? AppTexts.signInText
                                   : AppTexts.singUpText,
                               function: () async {
-                                final user = await authProvider.signInGoogle();
-                                if (mounted) {
-                                  final profileprovider =
-                                      Provider.of<ProfilePageProvider>(
-                                    context,
-                                    listen: false,
-                                  );
-                                  profileprovider.changeCurrentUser(user);
+                                await authProvider.signInGoogle();
+                                final condition =
+                                    authProvider.state.isCompleted;
+                                if (condition) {
+                                  if (authProvider.profileState ==
+                                      ProfileState.create) {
+                                    route = NameRoutes.setProfile;
+                                  } else if (authProvider.profileState ==
+                                      ProfileState.completed) {
+                                    route = NameRoutes.main;
+                                  }
+
+                                  if (condition && mounted) {
+                                    Navigator.pushNamed(context, route);
+                                  }
                                 }
                               },
                               isLoading: authProvider.state.isLoading,

@@ -36,19 +36,28 @@ class ChatProvider with ChangeNotifier {
   }
 
   Future<void> sendMessage(String receiverId, String msg) async {
-    final time = DateTime.now().microsecondsSinceEpoch.toString();
-    final sentTime = DateTime.now();
     final idSnapshot = await userDataService.getChatUsersId();
     final chattingUsersId = idSnapshot.docs.map((e) => e.id).toList();
     if (!chattingUsersId.contains(receiverId)) {
       chattingUsersId.add(receiverId);
-      final message = UserModel(chattingUsersId: chattingUsersId);
-
-      await userDataService.setUserDoc(
-        message.toJson(),
-        SetOptions(merge: true),
+      final myId = auth.currentUser?.uid;
+      await userDataService.setChattingDoc(
+        id: myId ?? '',
+        data: receiverId,
+        options: SetOptions(
+          merge: true,
+        ),
+      );
+      await userDataService.setChattingDoc(
+        id: receiverId,
+        data: myId ?? '',
+        options: SetOptions(
+          merge: true,
+        ),
       );
     }
+    final time = DateTime.now().microsecondsSinceEpoch.toString();
+    final sentTime = DateTime.now();
     final message = MessageModel(
       toId: receiverId,
       msg: msg,
@@ -58,9 +67,8 @@ class ChatProvider with ChangeNotifier {
       sent: time,
       sentTime: sentTime.toString(),
     );
-
-    final ref =
-        firestore.collection('chats/${getConversatioId(receiverId)}/messages/');
+    final chatId = getConversatioId(receiverId);
+    final ref = firestore.collection('chats/$chatId/messages/');
     try {
       await ref.doc(time).set(message.toJson());
     } catch (_) {

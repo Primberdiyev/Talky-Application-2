@@ -44,7 +44,6 @@ class SignInAndUpButton extends StatelessWidget {
 
               if (valueProvider.isSignIn) {
                 try {
-                  final authProvider = context.read<SignInAndUpProvider>();
                   final user = await authProvider.signIn();
 
                   valueProvider.changeIsMailCorrect(
@@ -55,9 +54,7 @@ class SignInAndUpButton extends StatelessWidget {
                     Navigator.pushReplacementNamed(context, NameRoutes.main);
                   }
                 } catch (_) {
-                  final provider =
-                      Provider.of<ValueStateProvider>(context, listen: false);
-                  provider.changeIsMailCorrect(false);
+                  valueProvider.changeIsMailCorrect(false);
                 }
               } else {
                 if (emailController.text.isNotEmpty &&

@@ -46,6 +46,19 @@ class UserDataService {
         .set(data, options);
   }
 
+  Future<void> setChattingDoc({
+    required String data,
+    required String id,
+    SetOptions? options,
+  }) {
+    return firebaseFirestore.collection('User').doc(id).set(
+      {
+        'chattingUsersId': FieldValue.arrayUnion([data]),
+      },
+      options,
+    );
+  }
+
   Future<void> setUpdateLastTime() async {
     try {
       await firebaseFirestore

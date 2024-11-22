@@ -28,16 +28,14 @@ class _CheckCodePageState extends State<CheckCodePage> {
         provider,
         child,
       ) {
-        return Scaffold(
+        return const Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: const CustomAppBar(),
-          body: Container(
-            height: MediaQuery.of(context).size.height,
-            padding: const EdgeInsets.only(
+          appBar: CustomAppBar(),
+          body: Padding(
+            padding: EdgeInsets.only(
               left: 26,
             ),
-            color: const Color(0xFFFFFFFF),
-            child: const Column(
+            child: Column(
               children: [
                 TalkyText(),
                 EnterCodeText(),
