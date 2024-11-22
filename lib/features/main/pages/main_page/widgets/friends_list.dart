@@ -32,13 +32,11 @@ class _ListUsersState extends State<FriendsList> {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (snapshot.data == null) {
-              return const Text('');
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            } else if (snapshot.data == null || (!snapshot.hasData || snapshot.data!.isEmpty)) {
               const SizedBox.shrink();
             }
 
-            final chattingUsers = snapshot.data!.toList();
+            final chattingUsers = snapshot.data?.toList() ?? [];
             if (chattingUsers.isEmpty) {
               return const SizedBox.shrink();
             }
@@ -46,7 +44,6 @@ class _ListUsersState extends State<FriendsList> {
               itemCount: userProvider.chattingUsers?.length,
               itemBuilder: (context, index) {
                 final user = chattingUsers[index];
-
                 final imgUrl = user.imgUrl;
                 const isOnline = true;
 

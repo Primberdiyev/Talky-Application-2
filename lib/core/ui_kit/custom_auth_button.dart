@@ -31,31 +31,30 @@ class CustomAuthButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           color: buttonColor,
         ),
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 34),
-        child: Row(
-          children: [
-            if (iconPath != null) SvgPicture.asset(iconPath!),
-            Expanded(
-              child: Center(
-                child: !isLoading
-                    ? Text(
+        padding: const EdgeInsets.symmetric( horizontal: 34),
+        child: isLoading
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: iconPath != null ? AppColors.primaryBlue : Colors.white,
+                ),
+              )
+            : Row(
+                children: [
+                  if (iconPath != null) SvgPicture.asset(iconPath!),
+                  Expanded(
+                    child: Center(
+                      child: Text(
                         text,
                         style: TextStyle(
                           color: textColor,
                           fontSize: textFontSize,
                           fontWeight: FontWeight.w500,
                         ),
-                      )
-                    : SizedBox(
-                        height: 32,
-                        child: CircularProgressIndicator(
-                          color: iconPath != null ? AppColors.primaryBlue : Colors.white,
-                        ),
                       ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

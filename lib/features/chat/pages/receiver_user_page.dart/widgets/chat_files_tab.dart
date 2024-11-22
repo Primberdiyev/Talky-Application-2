@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/default_loading_image.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
 import 'package:talky_aplication_2/features/main/pages/main_page/widgets/friends_list.dart';
 import 'package:talky_aplication_2/features/main/providers/profile_page_provider.dart';
@@ -71,13 +73,24 @@ class ChatFilesTab extends StatelessWidget {
                               itemCount: images.length,
                               itemBuilder: (context, index) {
                                 final imageUrl = images[index].data()['msg'] as String;
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    image: DecorationImage(
-                                      image: NetworkImage(imageUrl),
-                                      fit: BoxFit.cover,
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: CachedNetworkImage(
+                                    imageUrl: imageUrl,
+                                    width: 125,
+                                    height: 125,
+                                    fit: BoxFit.fill,
+                                    imageBuilder: (context, imageProvider) => Image(
+                                      image: imageProvider,
+                                      fit: BoxFit.fill,
                                     ),
+                                    placeholder: (context, url) => const DefaultLoadingImage(),
+                                    errorWidget: (
+                                      context,
+                                      url,
+                                      error,
+                                    ) =>
+                                        const DefaultLoadingImage(),
                                   ),
                                 );
                               },

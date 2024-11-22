@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:talky_aplication_2/features/main/pages/create_group_page/create_group_page.dart';
+import 'package:talky_aplication_2/features/group/pages/create_group_page/create_group_page.dart';
 import 'package:talky_aplication_2/unilities/app_colors.dart';
 import 'package:talky_aplication_2/unilities/app_icons.dart';
 import 'package:talky_aplication_2/unilities/app_texts.dart';

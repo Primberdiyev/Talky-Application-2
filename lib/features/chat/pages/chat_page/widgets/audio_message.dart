@@ -23,13 +23,13 @@ class _AudioMessageState extends State<AudioMessage> {
   @override
   void initState() {
     super.initState();
-    final audioProvider = Provider.of<AudioProvider>(context, listen: false);
+    final audioProvider = context.read<AudioProvider>();
     audioProvider.initialize();
   }
 
   @override
   void dispose() {
-    final audioProvider = Provider.of<AudioProvider>(context, listen: false);
+    final audioProvider = context.read<AudioProvider>();
     audioProvider.audioPlayer.dispose();
     super.dispose();
   }

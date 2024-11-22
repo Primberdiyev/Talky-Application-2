@@ -6,8 +6,6 @@ class GetNameFromUrl {
 
     final decodedFilePath = Uri.decodeComponent(filePath);
 
-    final fileName = decodedFilePath.split('/').last;
-
-    return fileName;
+    return decodedFilePath.split('/').last;
   }
 }

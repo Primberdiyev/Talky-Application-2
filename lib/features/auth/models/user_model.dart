@@ -18,9 +18,9 @@ class UserModel {
         imgUrl: json['imgUrl'] as String?,
         description: json['description'] as String?,
         id: json['id'] as String?,
-        profileState: ProfileState.fromString(
-          json['profile_state'] as String,
-        ),
+        profileState: (json['profile_state'] != null && json['profile_state'] is String)
+            ? ProfileState.fromString(json['profile_state'] as String)
+            : null,
         lastTime: DateTime.fromMillisecondsSinceEpoch(json['lastTime'] ?? 0),
         chattingUsersId: (json['chattingUsersId'] as List?)?.map((item) => item as String).toList(),
       );
