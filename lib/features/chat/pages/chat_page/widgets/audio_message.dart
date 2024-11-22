@@ -29,9 +29,13 @@ class _AudioMessageState extends State<AudioMessage> {
 
   @override
   void dispose() {
-    final audioProvider = context.read<AudioProvider>();
-    audioProvider.audioPlayer.dispose();
-    super.dispose();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        final audioProvider = context.read<AudioProvider>();
+        audioProvider.audioPlayer.dispose();
+        super.dispose();
+      },
+    );
   }
 
   @override

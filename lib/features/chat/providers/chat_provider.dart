@@ -35,6 +35,7 @@ class ChatProvider with ChangeNotifier {
     final sentTime = DateTime.now();
     final idSnapshot =
         await firestore.collection('User').doc(auth.currentUser?.uid).collection('ChattingUsersId').get();
+
     final chattingUsersId = idSnapshot.docs.map((e) => e.id).toList();
     if (!chattingUsersId.contains(receiverId)) {
       chattingUsersId.add(receiverId);
