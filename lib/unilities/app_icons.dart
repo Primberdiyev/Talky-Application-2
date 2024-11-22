@@ -10,7 +10,8 @@ enum AppIcons {
   select('assets/icons/select.svg'),
   selected('assets/icons/selected.svg'),
   google("assets/icons/iconGoogle.svg"),
-  mail("assets/icons/mail.svg");
+  mail("assets/icons/mail.svg"),
+  defaultImage("assets/icons/default_image.svg");
 
   const AppIcons(this.icon);
   final String icon;
