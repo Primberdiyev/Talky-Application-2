@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/splash/providers/splash_provider.dart';
 import 'package:talky_aplication_2/unilities/profile_state.dart';
@@ -27,15 +26,11 @@ class SplashPage extends StatelessWidget {
               } else if (value.profileState == ProfileState.create) {
                 route = NameRoutes.setProfile;
               }
-              Future.delayed(
-                Duration.zero,
-                () => {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    route,
-                  ),
-                },
-              );
+              Future.delayed(Duration.zero, () {
+                if (context.mounted) {
+                  Navigator.pushReplacementNamed(context, route);
+                }
+              });
             }
             return const Center(
               child: Center(

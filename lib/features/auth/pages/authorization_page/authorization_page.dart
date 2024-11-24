@@ -50,6 +50,25 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                         child,
                       ) {
                         var route = NameRoutes.auth;
+                        final condition = authProvider.state.isCompleted;
+                        if (condition) {
+                          Future.delayed(Duration.zero, () {
+                            if (context.mounted) {
+                              if (authProvider.profileState ==
+                                  ProfileState.create) {
+                                route = NameRoutes.setProfile;
+                              } else if (authProvider.profileState ==
+                                  ProfileState.completed) {
+                                route = NameRoutes.main;
+                              }
+
+                              if (condition && mounted) {
+                                Navigator.pushNamed(context, route);
+                              }
+                            }
+                          });
+                        }
+
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -61,23 +80,8 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                               text: valueProvider.isSignIn
                                   ? AppTexts.signInText
                                   : AppTexts.singUpText,
-                              function: () async {
-                                await authProvider.signInGoogle();
-                                final condition =
-                                    authProvider.state.isCompleted;
-                                if (condition) {
-                                  if (authProvider.profileState ==
-                                      ProfileState.create) {
-                                    route = NameRoutes.setProfile;
-                                  } else if (authProvider.profileState ==
-                                      ProfileState.completed) {
-                                    route = NameRoutes.main;
-                                  }
-
-                                  if (condition && mounted) {
-                                    Navigator.pushNamed(context, route);
-                                  }
-                                }
+                              function: () {
+                                authProvider.signInGoogle();
                               },
                               isLoading: authProvider.state.isLoading,
                             ),

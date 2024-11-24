@@ -20,6 +20,11 @@ class SignUpButton extends StatelessWidget {
         child,
       ) {
         final isLoading = signInAndUpProvider.state == Statuses.loading;
+        Future.delayed(Duration.zero, () {
+          if (context.mounted && signInAndUpProvider.state.isCompleted) {
+            Navigator.pushReplacementNamed(context, NameRoutes.accout);
+          }
+        });
 
         return Padding(
           padding: const EdgeInsets.only(
@@ -27,16 +32,8 @@ class SignUpButton extends StatelessWidget {
             bottom: 30,
           ),
           child: InkWell(
-            onTap: () async {
-              await signInAndUpProvider.signUp();
-
-              if (signInAndUpProvider.state.isCompleted) {
-                await Future.delayed(Duration.zero, () {
-                  Navigator.pushReplacementNamed(context, NameRoutes.accout);
-                });
-              } else {
-                debugPrint('error on sign up');
-              }
+            onTap: () {
+              signInAndUpProvider.signUp();
             },
             child: Container(
               width: MediaQuery.of(context).size.width - 56,

@@ -36,34 +36,30 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
         child,
       ) {
         final userDataService = UserDataService.instance;
+        if (provider.state.isCompleted) {
+          Future.delayed(Duration.zero, () {
+            if (context.mounted && provider.groupModel != null) {
+              Navigator.pushReplacementNamed(
+                context,
+                NameRoutes.group,
+                arguments: provider.groupModel,
+              );
+            }
+          });
+        }
         return Scaffold(
           appBar: ContactsAppBar(
             centerText: AppTexts.group,
             isDoneActive: true,
             loading: provider.state.isLoading,
-            onDone: () async {
-              try {
-                final groupModel = GroupModel(
-                  title: groupNameController.text,
-                  usersId: provider.pressedUsers,
-                  adminId: userDataService.auth.currentUser?.uid,
-                );
-                await provider.createGroup(groupModel);
-
-                Navigator.pushReplacementNamed(
-                  context,
-                  NameRoutes.group,
-                  arguments: groupModel,
-                );
-              } catch (e) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      e.toString(),
-                    ),
-                  ),
-                );
-              }
+            onDone: () {
+              final groupModel = GroupModel(
+                title: groupNameController.text,
+                usersId: provider.pressedUsers,
+                adminId: userDataService.auth.currentUser?.uid,
+              );
+              provider.getGroupModel(groupModel);
+              provider.createGroup();
             },
           ),
           body: SingleChildScrollView(

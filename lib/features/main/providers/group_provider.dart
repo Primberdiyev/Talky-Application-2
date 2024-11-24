@@ -8,6 +8,7 @@ import 'package:talky_aplication_2/unilities/statuses.dart';
 class GroupProvider extends BaseChangeNotifier {
   late List<String> pressedUsers = [];
   List<String> get reallyList => pressedUsers;
+  GroupModel? groupModel;
 
   bool isUserPressed(String userId) => pressedUsers.contains(userId);
 
@@ -20,21 +21,26 @@ class GroupProvider extends BaseChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> createGroup(GroupModel model) async {
+  Future<void> createGroup() async {
     updateState(Statuses.loading);
     final userDataService = UserDataService.instance;
 
     try {
       await userDataService.firebaseFirestore
           .collection('groups')
-          .doc(model.title)
+          .doc(groupModel?.title)
           .set(
-            model.toJson(),
+            groupModel?.toJson() ?? {},
           );
       updateState(Statuses.completed);
     } catch (e) {
       updateState(Statuses.error);
       log('error on creating group $e ');
     }
+  }
+
+  void getGroupModel(GroupModel newGroupModel) {
+    groupModel = newGroupModel;
+    notifyListeners();
   }
 }

@@ -47,18 +47,14 @@ class _ProfilePageState extends State<MainPage> {
           appBar: CustomAppBar(
             userModel: provider.userModel,
           ),
-          body: provider.chattingUsers != null
-              ? const Column(
-                  children: [
-                    SizedBox(height: 35),
-                    Expanded(
-                      child: FriendsList(),
-                    ),
-                  ],
-                )
-              : const Center(
-                  child: CircularProgressIndicator(),
-                ),
+          body: const Column(
+            children: [
+              SizedBox(height: 35),
+              Expanded(
+                child: FriendsList(),
+              ),
+            ],
+          ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
           floatingActionButton: const ActionButtonProfile(),

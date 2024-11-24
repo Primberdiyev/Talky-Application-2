@@ -42,7 +42,7 @@ class _ListUsersState extends State<FriendsList> {
               return const SizedBox.shrink();
             }
             return ListView.builder(
-              itemCount: userProvider.chattingUsers?.length,
+              itemCount: chattingUsers.length,
               itemBuilder: (context, index) {
                 final user = chattingUsers[index];
                 final imgUrl = user.imgUrl;

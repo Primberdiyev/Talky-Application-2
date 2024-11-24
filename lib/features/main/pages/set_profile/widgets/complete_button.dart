@@ -20,57 +20,53 @@ class CompleteButton extends StatefulWidget {
 class _CompleteButtonState extends State<CompleteButton> {
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<ProfilePageProvider>();
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 163,
-      ),
-      child: TextButton(
-        style: TextButton.styleFrom(
-          fixedSize: const Size(394, 54),
-          backgroundColor: const Color(0xFF377DFF),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-        onPressed: () async {
-          final name = widget.nameController.text;
-          final description = widget.descriptionController.text;
-          if (name.isNotEmpty) {
-            try {
-              await provider.saveUserProfile(
-                name: name,
-                description: description,
-              );
-
-              await Future.delayed(Duration.zero, () {
-                Navigator.pushNamed(context, NameRoutes.main);
-              });
-            } catch (error) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    error.toString(),
-                  ),
-                ),
-              );
+    return Consumer<ProfilePageProvider>(builder: (
+      context,
+      provider,
+      child,
+    ) {
+      if (provider.state.isCompleted) {
+        Future.delayed(Duration.zero, () {
+          if (context.mounted) {
+            if (widget.nameController.text.isNotEmpty) {
+              Navigator.pushNamed(context, NameRoutes.main);
             }
           }
-        },
-        child: !provider.state.isLoading
-            ? const Text(
-                'Complete',
-                style: TextStyle(
-                  color: Color(0xFFFFFFFF),
-                  fontSize: 18,
+        });
+      }
+      return Padding(
+        padding: const EdgeInsets.only(
+          top: 163,
+        ),
+        child: TextButton(
+          style: TextButton.styleFrom(
+            fixedSize: const Size(394, 54),
+            backgroundColor: const Color(0xFF377DFF),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          onPressed: () {
+            provider.saveUserProfile(
+              name: widget.nameController.text,
+              description: widget.descriptionController.text,
+            );
+          },
+          child: !provider.state.isLoading
+              ? const Text(
+                  'Complete',
+                  style: TextStyle(
+                    color: Color(0xFFFFFFFF),
+                    fontSize: 18,
+                  ),
+                )
+              : const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
                 ),
-              )
-            : const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                ),
-              ),
-      ),
-    );
+        ),
+      );
+    });
   }
 }

@@ -22,10 +22,11 @@ class ActionButtonProfile extends StatelessWidget {
                   height: 30,
                   width: 50,
                   child: InkWell(
-                    onTap: () {
-                      FirebaseAuth.instance.signOut().then((value) {
+                    onTap: () async {
+                      await FirebaseAuth.instance.signOut();
+                      if (context.mounted) {
                         MyApp.restartApp(context);
-                      });
+                      }
                     },
                     child: const Text('Log Out'),
                   ),

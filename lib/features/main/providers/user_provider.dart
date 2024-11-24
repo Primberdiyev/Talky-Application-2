@@ -8,7 +8,7 @@ import 'package:talky_aplication_2/unilities/statuses.dart';
 class UserProvider extends BaseChangeNotifier {
   final userDataService = UserDataService.instance;
   UserModel? userModel;
-  List<UserModel>? chattingUsers = [];
+//  List<UserModel>? chattingUsers;
 
   Future<void> getUserModel() async {
     updateState(Statuses.loading);
@@ -30,13 +30,17 @@ class UserProvider extends BaseChangeNotifier {
     );
     final userModel = UserModel.fromJson(response.data() ?? {});
     final chatIds = userModel.chattingUsersId ?? [].toList();
-    chattingUsers = [];
+    if (chatIds.isEmpty) {
+      yield [];
+      return;
+    }
+    List<UserModel> chattingUsers = [];
 
     for (var i = 0; i < chatIds.length; i++) {
       final snapshot = await userDataService.getUserDoc(id: chatIds[i]);
       final chattingUserModel = UserModel.fromJson(snapshot.data() ?? {});
-      chattingUsers?.add(chattingUserModel);
+      chattingUsers.add(chattingUserModel);
     }
-    yield chattingUsers ?? [];
+    yield chattingUsers;
   }
 }
