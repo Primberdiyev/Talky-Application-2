@@ -16,11 +16,14 @@ class ContactUsers extends StatelessWidget {
         provider,
         child,
       ) {
+        if (provider.filteredUsers.isEmpty) {
+          return const SizedBox.shrink();
+        }
         return ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            final model = provider.allUsers[index];
+            final model = provider.filteredUsers[index];
 
             return ContactItem(
               model: model,

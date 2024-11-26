@@ -44,10 +44,19 @@ class _OnlineUsersPageState extends State<ChatCreatePage> {
               children: [
                 Column(
                   children: [
-                    CustomTextField(
-                      hintText: 'Search',
-                      controller: controller,
-                      suffixIcon: SvgPicture.asset(AppIcons.search.icon),
+                    Consumer<AllUsersProvider>(
+                      builder: (
+                        context,
+                        provider,
+                        child,
+                      ) {
+                        return CustomTextField(
+                          hintText: 'Search',
+                          controller: controller,
+                          suffixIcon: SvgPicture.asset(AppIcons.search.icon),
+                          onChanged: (value) => provider.onSearchChanged(value),
+                        );
+                      },
                     ),
                     const CreateGroup(),
                     const ContactText(),

@@ -7,7 +7,7 @@ import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 class AllUsersProvider with ChangeNotifier {
   UserDataService userDataService = UserDataService.instance;
   List<UserModel> allUsers = [];
-
+  List<UserModel> filteredUsers = [];
   Future<void> getAllUsers() async {
     try {
       final response = await userDataService.getAllUsersDoc();
@@ -21,9 +21,18 @@ class AllUsersProvider with ChangeNotifier {
         final nameB = b.name ?? '';
         return nameA.compareTo(nameB);
       });
+      filteredUsers = allUsers;
     } catch (e) {
       log('Failed getting all users data  $e');
     }
+    notifyListeners();
+  }
+
+  void onSearchChanged(String enteredWord) {
+    filteredUsers = allUsers.where((user) {
+      final userName = user.name?.toLowerCase() ?? '';
+      return userName.contains(enteredWord.toLowerCase());
+    }).toList();
     notifyListeners();
   }
 }

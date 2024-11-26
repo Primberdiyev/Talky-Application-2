@@ -9,6 +9,9 @@ class OtpProvider extends BaseChangeNotifier {
     updateState(Statuses.loading);
 
     try {
+      if (email.isEmpty) {
+        return;
+      }
       EmailOTP.config(
         appName: 'Talky',
         otpType: OTPType.numeric,

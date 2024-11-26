@@ -19,61 +19,54 @@ class SignInAndUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<OtpProvider, ValueStateProvider>(
+    return Consumer3<OtpProvider, ValueStateProvider, SignInAndUpProvider>(
       builder: (
         context,
         otpProvider,
         valueProvider,
+        authProvider,
         child,
       ) {
-        return Consumer<SignInAndUpProvider>(builder: (
-          context,
-          authProvider,
-          child,
-        ) {
-          return CustomAuthButton(
-            textFontSize: 18,
-            textColor: Colors.white,
-            text: valueProvider.isSignIn ? "Sign in" : "Sign up",
-            function: () async {
-              final signProvider = context.read<SignInAndUpProvider>();
-              signProvider.changeEmailPassword(
-                emailController.text,
-                passwordController.text,
-              );
+        if (valueProvider.isSignIn && authProvider.state.isCompleted) {
+          Future.delayed(Duration.zero, () {
+            if (context.mounted &&
+                emailController.text.isNotEmpty &&
+                passwordController.text.isNotEmpty) {
+              Navigator.pushReplacementNamed(context, NameRoutes.main);
+            }
+          });
+        }
+        if (!valueProvider.isSignIn && otpProvider.state.isCompleted) {
+          Future.delayed(Duration.zero, () {
+            if (context.mounted) {
+              Navigator.pushNamed(context, NameRoutes.checkCode);
+            }
+          });
+        }
+        return CustomAuthButton(
+          textFontSize: 18,
+          textColor: Colors.white,
+          text: valueProvider.isSignIn ? "Sign in" : "Sign up",
+          function: () {
+            authProvider.changeEmailPassword(
+              emailController.text,
+              passwordController.text,
+            );
+            if (valueProvider.isSignIn) {
+              authProvider.signIn();
+            } else {
+              if (valueProvider.agreeCondition) {
+                otpProvider.sendOTP(email: emailController.text);
 
-              if (valueProvider.isSignIn) {
-                try {
-                  final user = await authProvider.signIn();
-
-                  valueProvider.changeIsMailCorrect(
-                    emailController.text.isNotEmpty &&
-                        passwordController.text.isNotEmpty,
-                  );
-                  if (user != null && valueProvider.isEmailCorrect) {
-                    Navigator.pushReplacementNamed(context, NameRoutes.main);
-                  }
-                } catch (_) {
-                  valueProvider.changeIsMailCorrect(false);
-                }
-              } else {
-                if (emailController.text.isNotEmpty &&
-                    passwordController.text.isNotEmpty) {
-                  await otpProvider.sendOTP(email: emailController.text);
-
-                  Future.delayed(Duration.zero, () {
-                    Navigator.pushNamed(context, NameRoutes.checkCode);
-                  });
-                  valueProvider.changeBoolValue(BoolValueEnum.agreeCondition);
-                }
+                valueProvider.changeBoolValue(BoolValueEnum.agreeCondition);
               }
-            },
-            isLoading: valueProvider.isSignIn
-                ? authProvider.state.isLoading
-                : otpProvider.state.isLoading,
-            buttonColor: AppColors.primaryBlue,
-          );
-        });
+            }
+          },
+          isLoading: valueProvider.isSignIn
+              ? authProvider.state.isLoading
+              : otpProvider.state.isLoading,
+          buttonColor: AppColors.primaryBlue,
+        );
       },
     );
   }
