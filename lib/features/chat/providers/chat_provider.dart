@@ -155,11 +155,12 @@ class ChatProvider with ChangeNotifier {
     }
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getImages(String receiverId) {
-    return firestore
+  Future<List<Map<String, dynamic>>> getImages(String receiverId) async {
+    final querySnapshot = await firestore
         .collection('chats/${getConversatioId(receiverId)}/messages')
         .where('type', isEqualTo: 'image')
-        .snapshots();
+        .get();
+    return querySnapshot.docs.map((doc) => doc.data()).toList();
   }
 
   Stream<Map<String, String>> getLastMessageWithTime(String id) {

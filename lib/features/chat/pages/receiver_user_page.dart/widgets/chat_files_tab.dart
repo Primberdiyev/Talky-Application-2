@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/default_loading_image.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
 import 'package:talky_aplication_2/features/main/pages/main_page/widgets/friends_list.dart';
 import 'package:talky_aplication_2/features/main/providers/profile_page_provider.dart';
+import 'package:talky_aplication_2/unilities/app_texts.dart';
 
 class ChatFilesTab extends StatelessWidget {
   const ChatFilesTab({super.key});
@@ -37,8 +37,8 @@ class ChatFilesTab extends StatelessWidget {
                   child: TabBarView(
                     children: [
                       const FriendsList(),
-                      StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                        stream: chatProvider
+                      FutureBuilder<List<Map<String, dynamic>>>(
+                        future: chatProvider
                             .getImages(chatProvider.receiverUser?.id ?? ''),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
@@ -49,14 +49,14 @@ class ChatFilesTab extends StatelessWidget {
                           }
                           if (snapshot.hasError) {
                             return const Center(
-                              child: Text('Error loading images'),
+                              child: Text(AppTexts.errorImages),
                             );
                           }
 
-                          final images = snapshot.data?.docs ?? [];
+                          final images = snapshot.data ?? [];
                           if (images.isEmpty) {
                             return const Center(
-                              child: Text('No images shared'),
+                              child: Text(AppTexts.noImages),
                             );
                           }
 
@@ -75,8 +75,7 @@ class ChatFilesTab extends StatelessWidget {
                               ),
                               itemCount: images.length,
                               itemBuilder: (context, index) {
-                                final imageUrl =
-                                    images[index].data()['msg'] as String;
+                                final imageUrl = images[index]['msg'];
                                 return ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
                                   child: CachedNetworkImage(

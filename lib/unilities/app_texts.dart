@@ -11,4 +11,6 @@ class AppTexts {
   static const groupName = 'Group name';
   static const enterEmail = 'Enter your mail address';
   static const enterPassword = 'Enter your password';
+  static const errorImages = 'Error loading images';
+  static const noImages = 'No images shared';
 }
