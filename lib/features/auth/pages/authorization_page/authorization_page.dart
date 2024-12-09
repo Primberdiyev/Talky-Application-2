@@ -51,25 +51,22 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                       ) {
                         var route = NameRoutes.auth;
                         final condition = authProvider.state.isCompleted;
-                        if (condition) {
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            if (context.mounted) {
-                              if (context.mounted) {
-                                if (authProvider.profileState ==
-                                    ProfileState.create) {
-                                  route = NameRoutes.setProfile;
-                                } else if (authProvider.profileState ==
-                                    ProfileState.completed) {
-                                  route = NameRoutes.main;
-                                }
 
-                                if (mounted) {
-                                  Navigator.pushNamed(context, route);
-                                }
-                              }
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          if (context.mounted && condition) {
+                            if (authProvider.profileState ==
+                                ProfileState.create) {
+                              route = NameRoutes.setProfile;
+                            } else if (authProvider.profileState ==
+                                ProfileState.completed) {
+                              route = NameRoutes.main;
                             }
-                          });
-                        }
+
+                            if (mounted) {
+                              Navigator.pushNamed(context, route);
+                            }
+                          }
+                        });
 
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.end,
