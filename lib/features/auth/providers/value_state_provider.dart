@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
+import 'package:talky_aplication_2/utils/bool_value_enum.dart';
 
 class ValueStateProvider with ChangeNotifier {
   bool isSignIn = true;

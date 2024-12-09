@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talky_aplication_2/unilities/app_colors.dart';
+import 'package:talky_aplication_2/utils/app_colors.dart';
 
 class GeneralSignButton extends StatelessWidget {
   const GeneralSignButton({

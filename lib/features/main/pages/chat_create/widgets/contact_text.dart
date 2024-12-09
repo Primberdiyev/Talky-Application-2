@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talky_aplication_2/unilities/app_texts.dart';
+import 'package:talky_aplication_2/utils/app_texts.dart';
 
 class ContactText extends StatelessWidget {
   const ContactText({super.key});

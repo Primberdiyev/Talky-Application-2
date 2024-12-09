@@ -5,8 +5,8 @@ import 'package:talky_aplication_2/features/auth/providers/otp_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/sign_in_and_up_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
-import 'package:talky_aplication_2/unilities/app_colors.dart';
-import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
+import 'package:talky_aplication_2/utils/app_colors.dart';
+import 'package:talky_aplication_2/utils/bool_value_enum.dart';
 
 class SignInAndUpButton extends StatelessWidget {
   const SignInAndUpButton({

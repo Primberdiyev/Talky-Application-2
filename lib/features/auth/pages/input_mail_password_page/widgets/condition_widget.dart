@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
-import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
+import 'package:talky_aplication_2/utils/bool_value_enum.dart';
 
 class ConditionWidget extends StatelessWidget {
   const ConditionWidget({super.key});

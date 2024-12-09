@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
-import 'package:talky_aplication_2/unilities/app_colors.dart';
+import 'package:talky_aplication_2/utils/app_colors.dart';
 
 class ImageAndName extends StatelessWidget {
   const ImageAndName({super.key});

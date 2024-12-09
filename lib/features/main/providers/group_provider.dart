@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
-import 'package:talky_aplication_2/unilities/statuses.dart';
+import 'package:talky_aplication_2/utils/statuses.dart';
 
 class GroupProvider extends BaseChangeNotifier {
   late List<String> pressedUsers = [];

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/sign_in_and_up_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
-import 'package:talky_aplication_2/unilities/statuses.dart';
+import 'package:talky_aplication_2/utils/statuses.dart';
 
 class SignUpButton extends StatelessWidget {
   const SignUpButton({
@@ -24,7 +24,7 @@ class SignUpButton extends StatelessWidget {
         if (signInAndUpProvider.state.isCompleted) {
           WidgetsBinding.instance.addPersistentFrameCallback((_) {
             if (context.mounted) {
-              Navigator.pushReplacementNamed(context, NameRoutes.accout);
+              Navigator.pushReplacementNamed(context, NameRoutes.account);
             }
           });
         }

@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:talky_aplication_2/unilities/app_colors.dart';
-import 'package:talky_aplication_2/unilities/app_icons.dart';
+import 'package:talky_aplication_2/utils/app_colors.dart';
+import 'package:talky_aplication_2/utils/app_icons.dart';
 
 class CustomUserAvatar extends StatelessWidget {
   const CustomUserAvatar({

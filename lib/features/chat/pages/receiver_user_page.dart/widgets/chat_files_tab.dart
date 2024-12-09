@@ -5,7 +5,7 @@ import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/default
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
 import 'package:talky_aplication_2/features/main/pages/main_page/widgets/friends_list.dart';
 import 'package:talky_aplication_2/features/main/providers/profile_page_provider.dart';
-import 'package:talky_aplication_2/unilities/app_texts.dart';
+import 'package:talky_aplication_2/utils/app_texts.dart';
 
 class ChatFilesTab extends StatelessWidget {
   const ChatFilesTab({super.key});

@@ -7,8 +7,8 @@ import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
 import 'package:talky_aplication_2/features/main/providers/group_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
-import 'package:talky_aplication_2/unilities/app_colors.dart';
-import 'package:talky_aplication_2/unilities/app_icons.dart';
+import 'package:talky_aplication_2/utils/app_colors.dart';
+import 'package:talky_aplication_2/utils/app_icons.dart';
 
 class ContactItem extends StatelessWidget {
   const ContactItem({

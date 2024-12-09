@@ -8,10 +8,10 @@ import 'package:talky_aplication_2/features/auth/pages/authorization_page/widget
 import 'package:talky_aplication_2/features/auth/providers/auth_google_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
-import 'package:talky_aplication_2/unilities/app_colors.dart';
-import 'package:talky_aplication_2/unilities/app_icons.dart';
-import 'package:talky_aplication_2/unilities/app_texts.dart';
-import 'package:talky_aplication_2/unilities/profile_state.dart';
+import 'package:talky_aplication_2/utils/app_colors.dart';
+import 'package:talky_aplication_2/utils/app_icons.dart';
+import 'package:talky_aplication_2/utils/app_texts.dart';
+import 'package:talky_aplication_2/utils/profile_state.dart';
 
 class AuthorizationPage extends StatefulWidget {
   const AuthorizationPage({super.key});

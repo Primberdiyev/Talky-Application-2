@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:email_otp/email_otp.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
-import 'package:talky_aplication_2/unilities/statuses.dart';
+import 'package:talky_aplication_2/utils/statuses.dart';
 
 class OtpProvider extends BaseChangeNotifier {
   Future<void> sendOTP({required String email}) async {

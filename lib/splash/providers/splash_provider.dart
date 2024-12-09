@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
-import 'package:talky_aplication_2/unilities/profile_state.dart';
-import 'package:talky_aplication_2/unilities/statuses.dart';
+import 'package:talky_aplication_2/utils/profile_state.dart';
+import 'package:talky_aplication_2/utils/statuses.dart';
 
 class SplashProvider extends BaseChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -36,7 +36,7 @@ class SplashProvider extends BaseChangeNotifier {
         );
       }
     } catch (e) {
-      log("erron on splash page  ${e.toString()}");
+      log("error on splash page  ${e.toString()}");
       _finish(
         status: Statuses.error,
         date: currentDate,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talky_aplication_2/unilities/app_colors.dart';
+import 'package:talky_aplication_2/utils/app_colors.dart';
 
 class TextMessages extends StatefulWidget {
   const TextMessages({

@@ -1,4 +1,7 @@
 {
     "dart.lineLength": 80,
-    "dart.showDartPadSampleCodeLens": false
+    "dart.showDartPadSampleCodeLens": false,
+    "cSpell.words": [
+        "aplication"
+    ]
 }

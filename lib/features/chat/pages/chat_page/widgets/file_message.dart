@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/get_name_from_url.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_file_provider.dart';
-import 'package:talky_aplication_2/unilities/app_colors.dart';
+import 'package:talky_aplication_2/utils/app_colors.dart';
 
 class FileMessage extends StatelessWidget {
   const FileMessage({
@@ -23,7 +23,7 @@ class FileMessage extends StatelessWidget {
           fileProvider,
           child,
         ) {
-          final isloading = fileProvider.state.isLoading;
+          final isLoading = fileProvider.state.isLoading;
           return ListTile(
             title: Align(
               alignment: isMine ? Alignment.centerRight : Alignment.centerLeft,
@@ -42,17 +42,17 @@ class FileMessage extends StatelessWidget {
                       width: 80,
                       margin: const EdgeInsets.only(right: 20),
                       decoration: BoxDecoration(
-                        image: !isloading && !fileProvider.state.isCompleted
+                        image: !isLoading && !fileProvider.state.isCompleted
                             ? const DecorationImage(
                                 image: AssetImage(
                                   'assets/images/download_file.png',
                                 ),
                               )
                             : null,
-                        color: !isloading ? Colors.white : null,
+                        color: !isLoading ? Colors.white : null,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: isloading
+                      child: isLoading
                           ? const Center(
                               child: SizedBox(
                                 height: 30,

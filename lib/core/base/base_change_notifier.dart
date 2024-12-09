@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talky_aplication_2/unilities/statuses.dart';
+import 'package:talky_aplication_2/utils/statuses.dart';
 
 abstract class BaseChangeNotifier extends ChangeNotifier {
   Statuses _state = Statuses.initial;

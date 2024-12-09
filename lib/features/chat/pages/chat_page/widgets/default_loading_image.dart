@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:talky_aplication_2/unilities/app_icons.dart';
+import 'package:talky_aplication_2/utils/app_icons.dart';
 
 class DefaultLoadingImage extends StatelessWidget {
   const DefaultLoadingImage({super.key});

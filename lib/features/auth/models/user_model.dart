@@ -1,4 +1,4 @@
-import 'package:talky_aplication_2/unilities/profile_state.dart';
+import 'package:talky_aplication_2/utils/profile_state.dart';
 
 class UserModel {
   const UserModel({

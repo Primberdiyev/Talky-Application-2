@@ -7,7 +7,7 @@ import 'package:talky_aplication_2/features/main/pages/chat_create/widgets/conta
 import 'package:talky_aplication_2/features/main/pages/chat_create/widgets/contacts_app_bar.dart';
 import 'package:talky_aplication_2/features/main/pages/chat_create/widgets/create_group.dart';
 import 'package:talky_aplication_2/features/main/providers/all_users_provider.dart';
-import 'package:talky_aplication_2/unilities/app_icons.dart';
+import 'package:talky_aplication_2/utils/app_icons.dart';
 
 class ChatCreatePage extends StatefulWidget {
   const ChatCreatePage({super.key});

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/features/main/pages/chat_create/widgets/contact_item.dart';
 import 'package:talky_aplication_2/features/main/providers/all_users_provider.dart';
-import 'package:talky_aplication_2/unilities/app_colors.dart';
+import 'package:talky_aplication_2/utils/app_colors.dart';
 
 class ContactUsers extends StatelessWidget {
   const ContactUsers({super.key, this.toGroup = false});

@@ -10,8 +10,8 @@ import 'package:talky_aplication_2/features/auth/pages/input_mail_password_page/
 import 'package:talky_aplication_2/features/auth/pages/input_mail_password_page/widgets/sign_in_and_up_button.dart';
 import 'package:talky_aplication_2/features/auth/pages/input_mail_password_page/widgets/talky_text.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
-import 'package:talky_aplication_2/unilities/app_texts.dart';
-import 'package:talky_aplication_2/unilities/bool_value_enum.dart';
+import 'package:talky_aplication_2/utils/app_texts.dart';
+import 'package:talky_aplication_2/utils/bool_value_enum.dart';
 
 class InputMailPasswordPage extends StatefulWidget {
   const InputMailPasswordPage({super.key});

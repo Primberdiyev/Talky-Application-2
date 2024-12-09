@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/splash/providers/splash_provider.dart';
-import 'package:talky_aplication_2/unilities/profile_state.dart';
+import 'package:talky_aplication_2/utils/profile_state.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});

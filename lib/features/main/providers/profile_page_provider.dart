@@ -9,8 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
-import 'package:talky_aplication_2/unilities/profile_state.dart';
-import 'package:talky_aplication_2/unilities/statuses.dart';
+import 'package:talky_aplication_2/utils/profile_state.dart';
+import 'package:talky_aplication_2/utils/statuses.dart';
 
 class ProfilePageProvider extends BaseChangeNotifier {
   XFile? image;

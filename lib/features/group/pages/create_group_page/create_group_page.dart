@@ -8,7 +8,7 @@ import 'package:talky_aplication_2/features/main/pages/chat_create/widgets/conta
 import 'package:talky_aplication_2/features/main/pages/chat_create/widgets/contacts_app_bar.dart';
 import 'package:talky_aplication_2/features/main/providers/group_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
-import 'package:talky_aplication_2/unilities/app_texts.dart';
+import 'package:talky_aplication_2/utils/app_texts.dart';
 
 class CreateGroupPage extends StatefulWidget {
   const CreateGroupPage({super.key});
@@ -18,12 +18,12 @@ class CreateGroupPage extends StatefulWidget {
 }
 
 class _CreateGroupPageState extends State<CreateGroupPage> {
-  final TextEditingController searchControlller = TextEditingController();
+  final TextEditingController searchController = TextEditingController();
   final TextEditingController groupNameController = TextEditingController();
   @override
   void dispose() {
     super.dispose();
-    searchControlller.dispose();
+    searchController.dispose();
     groupNameController.dispose();
   }
 
@@ -74,7 +74,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                       left: 11,
                     ),
                     hintText: AppTexts.search,
-                    controller: searchControlller,
+                    controller: searchController,
                   ),
                   const SizedBox(height: 18),
                   CustomTextField(
