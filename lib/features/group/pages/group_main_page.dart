@@ -38,8 +38,14 @@ class _GroupMainPageState extends State<GroupMainPage> {
           ) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                GroupMessages(titleGroup: widget.groupModel.title ?? ''),
+                SizedBox(
+                  height: 620,
+                  child: GroupMessages(
+                    titleGroup: widget.groupModel.title ?? '',
+                  ),
+                ),
                 SendData(
                   controller: controller,
                   sendFunction: () async {

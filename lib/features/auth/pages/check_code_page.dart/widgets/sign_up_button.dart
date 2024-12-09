@@ -20,11 +20,14 @@ class SignUpButton extends StatelessWidget {
         child,
       ) {
         final isLoading = signInAndUpProvider.state == Statuses.loading;
-        Future.delayed(Duration.zero, () {
-          if (context.mounted && signInAndUpProvider.state.isCompleted) {
-            Navigator.pushReplacementNamed(context, NameRoutes.accout);
-          }
-        });
+
+        if (signInAndUpProvider.state.isCompleted) {
+          WidgetsBinding.instance.addPersistentFrameCallback((_) {
+            if (context.mounted) {
+              Navigator.pushReplacementNamed(context, NameRoutes.accout);
+            }
+          });
+        }
 
         return Padding(
           padding: const EdgeInsets.only(

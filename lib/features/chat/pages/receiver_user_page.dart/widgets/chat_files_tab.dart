@@ -52,14 +52,18 @@ class ChatFilesTab extends StatelessWidget {
                               child: Text(AppTexts.errorImages),
                             );
                           }
-
                           final images = snapshot.data ?? [];
                           if (images.isEmpty) {
                             return const Center(
                               child: Text(AppTexts.noImages),
                             );
                           }
-
+                          const axisCount =
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16,
+                          );
                           return Padding(
                             padding: const EdgeInsets.only(
                               left: 37,
@@ -67,12 +71,7 @@ class ChatFilesTab extends StatelessWidget {
                               top: 41,
                             ),
                             child: GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 16,
-                                mainAxisSpacing: 16,
-                              ),
+                              gridDelegate: axisCount,
                               itemCount: images.length,
                               itemBuilder: (context, index) {
                                 final imageUrl = images[index]['msg'];

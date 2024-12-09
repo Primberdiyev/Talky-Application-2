@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
+import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/unilities/profile_state.dart';
 import 'package:talky_aplication_2/unilities/statuses.dart';
@@ -38,13 +39,13 @@ class AuthGoogleProvider extends BaseChangeNotifier {
                 UserModel.fromJson(data).profileState ?? ProfileState.initial;
           }
           if (profileState == ProfileState.initial) {
-            await doc.set(
-              UserModel(
-                email: user.email,
-                id: user.uid,
-                profileState: ProfileState.create,
-              ).toJson(),
+            final userModel = UserModel(
+              email: user.email,
+              id: user.uid,
+              profileState: ProfileState.create,
             );
+            await UserDataService.instance.setUserDoc(userModel.toJson());
+
             profileState = ProfileState.create;
           }
           updateState(Statuses.completed);

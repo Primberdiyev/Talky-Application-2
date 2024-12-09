@@ -37,7 +37,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
       ) {
         final userDataService = UserDataService.instance;
         if (provider.state.isCompleted) {
-          Future.delayed(Duration.zero, () {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
             if (context.mounted && provider.groupModel != null) {
               Navigator.pushReplacementNamed(
                 context,

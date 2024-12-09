@@ -19,18 +19,18 @@ class GroupMessages extends StatefulWidget {
 
 class _GroupMessagesState extends State<GroupMessages> {
   final auth = FirebaseAuth.instance;
+  Future<UserModel>? getUser(String id) async {
+    try {
+      final response = await UserDataService.instance.getUserDoc(id: id);
+      return UserModel.fromJson(response.data() ?? {});
+    } catch (e) {
+      log('xato ${e.toString()}');
+      return UserModel.fromJson({});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<UserModel>? getUser(String id) async {
-      try {
-        final response = await UserDataService.instance.getUserDoc(id: id);
-        return UserModel.fromJson(response.data() ?? {});
-      } catch (e) {
-        log('xato ${e.toString()}');
-        return UserModel.fromJson({});
-      }
-    }
-
     return ChangeNotifierProvider(
       create: (context) => ReceiveMessagesProvider(),
       child: Consumer<ReceiveMessagesProvider>(
@@ -39,22 +39,21 @@ class _GroupMessagesState extends State<GroupMessages> {
           provider,
           child,
         ) {
-          return Expanded(
-            child: StreamBuilder(
-              stream: provider.getAllGroupMessages(widget.titleGroup),
-              builder: (context, snapshot) {
-                if (snapshot.data == null) {
-                  return const Text("Ma'lumotn yo'q");
-                } else if (snapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (snapshot.hasError) {
-                  return const Text('Error from getting message');
-                }
-                final messages = snapshot.data!.docs;
-                return ListView.builder(
+          return StreamBuilder(
+            stream: provider.getAllGroupMessages(widget.titleGroup),
+            builder: (context, snapshot) {
+              if (snapshot.data == null) {
+                return const Text("Ma'lumotn yo'q");
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return const Text('Error from getting message');
+              }
+              final messages = snapshot.data!.docs;
+              return Expanded(
+                child: ListView.builder(
                   reverse: true,
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
@@ -83,9 +82,9 @@ class _GroupMessagesState extends State<GroupMessages> {
                       },
                     );
                   },
-                );
-              },
-            ),
+                ),
+              );
+            },
           );
         },
       ),

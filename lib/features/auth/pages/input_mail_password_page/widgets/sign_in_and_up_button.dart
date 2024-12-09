@@ -28,7 +28,7 @@ class SignInAndUpButton extends StatelessWidget {
         child,
       ) {
         if (valueProvider.isSignIn && authProvider.state.isCompleted) {
-          Future.delayed(Duration.zero, () {
+          WidgetsBinding.instance.addPersistentFrameCallback((_) {
             if (context.mounted &&
                 emailController.text.isNotEmpty &&
                 passwordController.text.isNotEmpty) {
@@ -37,7 +37,7 @@ class SignInAndUpButton extends StatelessWidget {
           });
         }
         if (!valueProvider.isSignIn && otpProvider.state.isCompleted) {
-          Future.delayed(Duration.zero, () {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
             if (context.mounted) {
               Navigator.pushNamed(context, NameRoutes.checkCode);
             }

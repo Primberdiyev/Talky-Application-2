@@ -5,6 +5,7 @@ import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
+import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/unilities/profile_state.dart';
 import 'package:talky_aplication_2/unilities/statuses.dart';
@@ -59,9 +60,8 @@ class SignInAndUpProvider extends BaseChangeNotifier {
           id: user.uid,
           profileState: ProfileState.create,
         );
-        await FirebaseFirestore.instance.collection('User').doc(user.uid).set(
-              userData.toJson(),
-            );
+        await UserDataService.instance.setUserDoc(userData.toJson());
+
         updateState(Statuses.completed);
       }
     } catch (e) {

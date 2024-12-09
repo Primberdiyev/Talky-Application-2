@@ -26,7 +26,7 @@ class _CompleteButtonState extends State<CompleteButton> {
       child,
     ) {
       if (provider.state.isCompleted) {
-        Future.delayed(Duration.zero, () {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           if (context.mounted) {
             if (widget.nameController.text.isNotEmpty) {
               Navigator.pushNamed(context, NameRoutes.main);

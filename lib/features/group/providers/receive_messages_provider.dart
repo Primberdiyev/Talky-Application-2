@@ -6,6 +6,6 @@ class ReceiveMessagesProvider extends BaseChangeNotifier {
   Stream<QuerySnapshot<Map<String, dynamic>>> getAllGroupMessages(
     String titliGroup,
   ) {
-    return firestore.collection('groups/$titliGroup/messages/').snapshots();
+    return firestore.collection('groups/$titliGroup/messages').snapshots();
   }
 }

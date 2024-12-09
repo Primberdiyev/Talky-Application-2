@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_user_avatar.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/main/models/message_model.dart';
+import 'package:talky_aplication_2/unilities/app_colors.dart';
 
 class BuildMessage extends StatelessWidget {
   const BuildMessage({
+    super.key,
     required this.message,
     required this.userModel,
     required this.isMine,
-    super.key,
   });
   final MessageModel message;
   final UserModel userModel;
@@ -16,41 +17,40 @@ class BuildMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    switch (message.type) {
-      case TypeMessage.text:
-        return Expanded(
-          child: Row(
-            children: [
-              CustomUserAvatar(
-                avatarLink: userModel.imgUrl,
-                isWithOnline: true,
+    return Align(
+      alignment: isMine ? Alignment.centerRight : Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          children: [
+            if (isMine) const Spacer(),
+            Container(
+              margin: EdgeInsets.only(
+                left: isMine ? 50 : 10,
+                right: isMine ? 10 : 50,
+                top: 5,
+                bottom: 5,
               ),
-              ListTile(
-                title: Align(
-                  alignment:
-                      isMine ? Alignment.centerRight : Alignment.centerLeft,
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.width * 0.5,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      message.msg,
-                      style: TextStyle(
-                        color: isMine ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              decoration: BoxDecoration(
+                color: isMine ? AppColors.primaryBlue : Colors.grey[300],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                message.msg,
+                style: TextStyle(
+                  color: isMine ? Colors.white : Colors.black,
                 ),
               ),
-            ],
-          ),
-        );
-      default:
-        return const SizedBox.shrink();
-    }
+            ),
+            CustomUserAvatar(
+              avatarLink: userModel.imgUrl,
+              isWithOnline: true,
+              isOnline: true,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
