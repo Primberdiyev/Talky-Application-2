@@ -40,7 +40,7 @@ class ContactItem extends StatelessWidget {
               chatProvider.changeReceiverUser(model);
               Navigator.pushNamed(context, NameRoutes.chat);
             } else {
-              groupProvider.changeUserPressed(model.id!);
+              groupProvider.changeUserPressed(model.id ?? '');
             }
           },
           dense: true,

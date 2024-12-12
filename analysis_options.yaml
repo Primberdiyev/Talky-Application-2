@@ -89,7 +89,7 @@ dart_code_metrics:
         acceptable-level: 3
     - avoid-dynamic:
         severity: error
-    # - avoid-non-null-assertion:
-    #     severity: info
+    - avoid-non-null-assertion:
+        severity: info
     - avoid-unused-parameters:
         severity: error

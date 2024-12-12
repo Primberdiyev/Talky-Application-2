@@ -11,7 +11,7 @@ class ContactsAppBar extends StatelessWidget implements PreferredSizeWidget {
   });
   final Function()? onDone;
   final String centerText;
-  final bool? isDoneActive;
+  final bool isDoneActive;
   final bool loading;
 
   @override
@@ -63,7 +63,7 @@ class ContactsAppBar extends StatelessWidget implements PreferredSizeWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: isDoneActive!
+                        color: isDoneActive
                             ? AppColors.primaryBlue
                             : AppColors.lightBlack,
                       ),

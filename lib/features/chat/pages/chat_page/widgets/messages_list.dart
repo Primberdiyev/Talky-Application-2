@@ -37,33 +37,33 @@ class _MessagesListState extends State<MessagesList> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasData) {
-                    final messages = snapshot.data!.docs;
+                    final messages = snapshot.data?.docs;
 
                     return ListView.builder(
                       reverse: true,
-                      itemCount: messages.length,
+                      itemCount: messages?.length,
                       itemBuilder: (context, index) {
                         final message =
-                            messages[messages.length - 1 - index].data();
-                        final isMine = provider.user.uid == message['fromId'];
-                        switch (message['type']) {
+                            messages?[messages.length - 1 - index].data();
+                        final isMine = provider.user?.uid == message?['fromId'];
+                        switch (message?['type']) {
                           case 'text':
                             return TextMessages(
                               isMine: isMine,
-                              message: message['msg'],
+                              message: message?['msg'],
                             );
                           case 'image':
                             return ImageMessage(
                               isMine: isMine,
-                              link: message['msg'],
+                              link: message?['msg'],
                             );
                           case 'file':
                             return FileMessage(
                               isMine: isMine,
-                              link: message['msg'],
+                              link: message?['msg'],
                             );
                           case 'audio':
-                            final String url = message['msg'];
+                            final String url = message?['msg'];
                             return AudioMessage(isMine: isMine, link: url);
                         }
                         return null;

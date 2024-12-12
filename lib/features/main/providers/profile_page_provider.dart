@@ -20,7 +20,6 @@ class ProfilePageProvider extends BaseChangeNotifier {
   int? countUsers;
   User? currentUser = FirebaseAuth.instance.currentUser;
   String? currentUserImgUrl;
-  final firestore = FirebaseFirestore.instance;
   List filteredUsers = [];
 
   void updateImage(newImage) {
@@ -50,7 +49,7 @@ class ProfilePageProvider extends BaseChangeNotifier {
       final ref = FirebaseStorage.instance.ref().child(
             '${FirebaseAuth.instance.currentUser?.email}/profile_image.png',
           );
-      uploadTask = ref.putFile(File(image!.path));
+      uploadTask = ref.putFile(File(image?.path ?? ''));
       final snapshot = await uploadTask?.whenComplete(() {});
       photoUrl = await snapshot?.ref.getDownloadURL();
     }
@@ -77,11 +76,15 @@ class ProfilePageProvider extends BaseChangeNotifier {
 
   void onSearchChanged(String enteredUser) {
     filteredUsers = enteredUser.isEmpty
-        ? usersData!
-        : usersData!
-            .where((user) =>
-                user['name'].toLowerCase().contains(enteredUser.toLowerCase()))
-            .toList();
+        ? usersData ?? []
+        : usersData ??
+            []
+                .where(
+                  (user) => user['name'].toLowerCase().contains(
+                        enteredUser.toLowerCase(),
+                      ),
+                )
+                .toList();
 
     notifyListeners();
   }

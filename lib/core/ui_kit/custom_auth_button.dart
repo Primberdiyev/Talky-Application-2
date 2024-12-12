@@ -41,7 +41,7 @@ class CustomAuthButton extends StatelessWidget {
               )
             : Row(
                 children: [
-                  if (iconPath != null) SvgPicture.asset(iconPath!),
+                  if (iconPath != null) SvgPicture.asset(iconPath ?? ''),
                   Expanded(
                     child: Center(
                       child: Text(

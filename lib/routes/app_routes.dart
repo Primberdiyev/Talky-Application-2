@@ -37,7 +37,7 @@ Route generateRoute(RouteSettings settings) {
         builder: (_) => const ChatPage(),
       );
     case NameRoutes.group:
-      final groupModel = settings.arguments! as GroupModel;
+      final groupModel = settings.arguments as GroupModel;
       return MaterialPageRoute(
         builder: (_) => GroupMainPage(
           groupModel: groupModel,

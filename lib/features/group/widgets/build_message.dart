@@ -12,7 +12,7 @@ class BuildMessage extends StatelessWidget {
     required this.isMine,
   });
   final MessageModel message;
-  final UserModel userModel;
+  final UserModel? userModel;
   final bool isMine;
 
   @override
@@ -44,7 +44,7 @@ class BuildMessage extends StatelessWidget {
               ),
             ),
             CustomUserAvatar(
-              avatarLink: userModel.imgUrl,
+              avatarLink: userModel?.imgUrl,
               isWithOnline: true,
               isOnline: true,
             ),

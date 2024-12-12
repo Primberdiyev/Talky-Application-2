@@ -19,6 +19,8 @@ class GroupMessages extends StatefulWidget {
 
 class _GroupMessagesState extends State<GroupMessages> {
   final auth = FirebaseAuth.instance;
+  final userDataService = UserDataService.instance;
+  final User? currentUser = UserDataService.instance.auth.currentUser;
   Future<UserModel>? getUser(String id) async {
     try {
       final response = await UserDataService.instance.getUserDoc(id: id);
@@ -51,7 +53,7 @@ class _GroupMessagesState extends State<GroupMessages> {
               } else if (snapshot.hasError) {
                 return const Text('Error from getting message');
               }
-              final messages = snapshot.data!.docs;
+              final messages = snapshot.data?.docs ?? [];
               return Expanded(
                 child: ListView.builder(
                   reverse: true,
@@ -73,7 +75,7 @@ class _GroupMessagesState extends State<GroupMessages> {
                             !userSnapshot.hasData) {
                           return const Text('error getting messages');
                         }
-                        final user = userSnapshot.data!;
+                        final UserModel? user = userSnapshot.data;
                         return BuildMessage(
                           message: message,
                           userModel: user,

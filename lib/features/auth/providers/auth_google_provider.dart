@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
@@ -12,7 +10,7 @@ import 'package:talky_aplication_2/utils/statuses.dart';
 class AuthGoogleProvider extends BaseChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
   ProfileState profileState = ProfileState.initial;
-  final FirebaseFirestore firebaseStore = FirebaseFirestore.instance;
+  final userDataService = UserDataService.instance;
 
   Future<User?> signInGoogle() async {
     updateState(Statuses.loading);
@@ -31,7 +29,9 @@ class AuthGoogleProvider extends BaseChangeNotifier {
         await auth.signInWithCredential(cred);
         final user = auth.currentUser;
         if (user != null) {
-          final doc = firebaseStore.collection('User').doc(user.uid);
+          final doc = userDataService.firebaseFirestore
+              .collection('User')
+              .doc(user.uid);
           final json = await doc.get();
           final data = json.data();
           if (json.exists && data != null) {

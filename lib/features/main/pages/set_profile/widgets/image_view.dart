@@ -30,7 +30,7 @@ class _ImageViewState extends State<ImageView> {
                 radius: 95,
                 backgroundColor: const Color(0xFFF0F0F0),
                 backgroundImage: provider.image != null
-                    ? FileImage(File(provider.image!.path))
+                    ? FileImage(File(provider.image?.path ?? ''))
                     : userGoogleImg != null
                         ? NetworkImage(userGoogleImg)
                         : null,

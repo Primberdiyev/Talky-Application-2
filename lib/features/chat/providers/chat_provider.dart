@@ -15,7 +15,7 @@ class ChatProvider with ChangeNotifier {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseStorage storage = FirebaseStorage.instance;
   final userDataService = UserDataService.instance;
-  User get user => auth.currentUser!;
+  User? get user => auth.currentUser;
   String? lastMessage;
 
   File? imageFile;
@@ -24,9 +24,10 @@ class ChatProvider with ChangeNotifier {
   bool isUserPressed = false;
 
   String getConversatioId(String id) {
-    return user.uid.hashCode <= id.hashCode
-        ? '${user.uid}_$id'
-        : '${id}_${user.uid}';
+    final currentUserId = user?.uid ?? '';
+    return currentUserId.hashCode <= id.hashCode
+        ? '${currentUserId}_$id'
+        : '${id}_$currentUserId';
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages(receiverId) {
@@ -63,7 +64,7 @@ class ChatProvider with ChangeNotifier {
       msg: msg,
       read: 'false',
       type: TypeMessage.text,
-      fromId: user.uid,
+      fromId: user?.uid ?? '',
       sent: time,
       sentTime: sentTime.toString(),
     );
@@ -95,22 +96,22 @@ class ChatProvider with ChangeNotifier {
     final imageName = const Uuid().v1();
     final refStorage =
         storage.ref().child('chatImages').child('$imageName.png');
-    final uploadTask = await refStorage.putFile(imageFile!);
+    final uploadTask = await refStorage.putFile(imageFile ?? File(''));
     final imgUrl = await uploadTask.ref.getDownloadURL();
     final time = DateTime.now().microsecondsSinceEpoch.toString();
     final sentTime = DateTime.now().hour;
 
     final message = MessageModel(
-      toId: receiverUser!.id!,
+      toId: receiverUser?.id ?? '',
       msg: imgUrl,
       read: 'false',
       type: TypeMessage.image,
-      fromId: user.uid,
+      fromId: user?.uid ?? '',
       sent: time,
       sentTime: sentTime.toString(),
     );
     final ref = firestore.collection(
-      'chats/${getConversatioId(receiverUser!.id ?? '')}/messages/',
+      'chats/${getConversatioId(receiverUser?.id ?? '')}/messages/',
     );
     await ref.doc(time).set(message.toJson());
   }
@@ -130,7 +131,7 @@ class ChatProvider with ChangeNotifier {
       TypeMessage type;
       final path = result.files.single;
       type = path.extension == 'mp3' ? TypeMessage.audio : TypeMessage.file;
-      final file = File(path.path!);
+      final file = File(path.path ?? '');
       final fileName = path.name;
       final refStorage = storage.ref().child('chatFiles').child(fileName);
       final uploadTask = await refStorage.putFile(file);
@@ -143,7 +144,7 @@ class ChatProvider with ChangeNotifier {
         msg: fileUrl,
         read: 'false',
         type: type,
-        fromId: user.uid,
+        fromId: user?.uid ?? '',
         sent: time,
         sentTime: sentTime.toString(),
       );

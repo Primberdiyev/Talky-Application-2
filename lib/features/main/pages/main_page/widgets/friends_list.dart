@@ -33,7 +33,8 @@ class _ListUsersState extends State<FriendsList> {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.data == null ||
-                (!snapshot.hasData || snapshot.data!.isEmpty)) {
+                (!snapshot.hasData ||
+                    snapshot.data is List && (snapshot.data as List).isEmpty)) {
               const SizedBox.shrink();
             }
 
@@ -84,8 +85,8 @@ class _ListUsersState extends State<FriendsList> {
                                   snapshot.hasData &&
                                   snapshot.data != null) {
                                 final String sentTime =
-                                    snapshot.data!['sentTime'] ?? '';
-                                message = snapshot.data!['msg'] ?? '';
+                                    snapshot.data?['sentTime'] ?? '';
+                                message = snapshot.data?['msg'] ?? '';
                                 if (sentTime.isNotEmpty) {
                                   try {
                                     final sentDateTime =

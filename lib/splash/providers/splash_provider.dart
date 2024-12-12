@@ -1,16 +1,14 @@
 import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
+import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/utils/profile_state.dart';
 import 'package:talky_aplication_2/utils/statuses.dart';
 
 class SplashProvider extends BaseChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final FirebaseFirestore firebaseStore = FirebaseFirestore.instance;
-
+  final userDataService = UserDataService.instance;
   ProfileState profileState = ProfileState.initial;
 
   Future<void> getProfileState() async {
@@ -19,7 +17,8 @@ class SplashProvider extends BaseChangeNotifier {
     try {
       final user = auth.currentUser;
       if (user != null) {
-        final doc = firebaseStore.collection('User').doc(user.uid);
+        final doc =
+            userDataService.firebaseFirestore.collection('User').doc(user.uid);
         final json = await doc.get();
         profileState = UserModel.fromJson(
               json.data() ?? {},
