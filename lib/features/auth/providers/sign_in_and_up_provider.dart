@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +10,7 @@ import 'package:talky_aplication_2/utils/profile_state.dart';
 import 'package:talky_aplication_2/utils/statuses.dart';
 
 class SignInAndUpProvider extends BaseChangeNotifier {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  final UserDataService userDataService = UserDataService.instance;
   String? email;
   String? password;
   final TextEditingController inputCodeController = TextEditingController();
@@ -22,7 +20,7 @@ class SignInAndUpProvider extends BaseChangeNotifier {
 
     try {
       final UserCredential userCredential =
-          await _auth.signInWithEmailAndPassword(
+          await userDataService.auth.signInWithEmailAndPassword(
         email: email ?? '',
         password: password ?? '',
       );
@@ -47,7 +45,8 @@ class SignInAndUpProvider extends BaseChangeNotifier {
         throw Exception('Invalid OTP. Please try again.');
       }
 
-      final userCredential = await _auth.createUserWithEmailAndPassword(
+      final userCredential =
+          await userDataService.auth.createUserWithEmailAndPassword(
         email: email ?? '',
         password: password ?? '',
       );
@@ -71,7 +70,7 @@ class SignInAndUpProvider extends BaseChangeNotifier {
   }
 
   FutureOr<bool> isRegistered() async {
-    final userDoc = await FirebaseFirestore.instance
+    final userDoc = await userDataService.firebaseFirestore
         .collection('User')
         .where('email', isEqualTo: email)
         .get();

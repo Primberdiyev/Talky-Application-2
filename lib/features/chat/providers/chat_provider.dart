@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
@@ -11,27 +10,22 @@ import 'package:talky_aplication_2/features/main/models/message_model.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatProvider with ChangeNotifier {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final FirebaseStorage storage = FirebaseStorage.instance;
   final userDataService = UserDataService.instance;
-  User? get user => auth.currentUser;
   String? lastMessage;
-
   File? imageFile;
-
   UserModel? receiverUser;
   bool isUserPressed = false;
+  User? get currentUser => userDataService.auth.currentUser;
 
   String getConversatioId(String id) {
-    final currentUserId = user?.uid ?? '';
+    final currentUserId = userDataService.auth.currentUser?.uid;
     return currentUserId.hashCode <= id.hashCode
         ? '${currentUserId}_$id'
         : '${id}_$currentUserId';
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages(receiverId) {
-    return firestore
+    return userDataService.firebaseFirestore
         .collection('chats/${getConversatioId(receiverId)}/messages/')
         .snapshots();
   }
@@ -41,7 +35,7 @@ class ChatProvider with ChangeNotifier {
     final chattingUsersId = idSnapshot.docs.map((e) => e.id).toList();
     if (!chattingUsersId.contains(receiverId)) {
       chattingUsersId.add(receiverId);
-      final myId = auth.currentUser?.uid;
+      final myId = currentUser?.uid;
       await userDataService.setChattingDoc(
         id: myId ?? '',
         data: receiverId,
@@ -64,12 +58,13 @@ class ChatProvider with ChangeNotifier {
       msg: msg,
       read: 'false',
       type: TypeMessage.text,
-      fromId: user?.uid ?? '',
+      fromId: currentUser?.uid ?? '',
       sent: time,
       sentTime: sentTime.toString(),
     );
     final chatId = getConversatioId(receiverId);
-    final ref = firestore.collection('chats/$chatId/messages/');
+    final ref =
+        userDataService.firebaseFirestore.collection('chats/$chatId/messages/');
     try {
       await ref.doc(time).set(message.toJson());
     } catch (_) {
@@ -94,8 +89,10 @@ class ChatProvider with ChangeNotifier {
 
   Future uploadImage() async {
     final imageName = const Uuid().v1();
-    final refStorage =
-        storage.ref().child('chatImages').child('$imageName.png');
+    final refStorage = userDataService.firebaseStorage
+        .ref()
+        .child('chatImages')
+        .child('$imageName.png');
     final uploadTask = await refStorage.putFile(imageFile ?? File(''));
     final imgUrl = await uploadTask.ref.getDownloadURL();
     final time = DateTime.now().microsecondsSinceEpoch.toString();
@@ -106,11 +103,11 @@ class ChatProvider with ChangeNotifier {
       msg: imgUrl,
       read: 'false',
       type: TypeMessage.image,
-      fromId: user?.uid ?? '',
+      fromId: currentUser?.uid ?? '',
       sent: time,
       sentTime: sentTime.toString(),
     );
-    final ref = firestore.collection(
+    final ref = userDataService.firebaseFirestore.collection(
       'chats/${getConversatioId(receiverUser?.id ?? '')}/messages/',
     );
     await ref.doc(time).set(message.toJson());
@@ -133,7 +130,10 @@ class ChatProvider with ChangeNotifier {
       type = path.extension == 'mp3' ? TypeMessage.audio : TypeMessage.file;
       final file = File(path.path ?? '');
       final fileName = path.name;
-      final refStorage = storage.ref().child('chatFiles').child(fileName);
+      final refStorage = userDataService.firebaseStorage
+          .ref()
+          .child('chatFiles')
+          .child(fileName);
       final uploadTask = await refStorage.putFile(file);
       final fileUrl = await uploadTask.ref.getDownloadURL();
       final time = DateTime.now().microsecondsSinceEpoch.toString();
@@ -144,12 +144,12 @@ class ChatProvider with ChangeNotifier {
         msg: fileUrl,
         read: 'false',
         type: type,
-        fromId: user?.uid ?? '',
+        fromId: currentUser?.uid ?? '',
         sent: time,
         sentTime: sentTime.toString(),
       );
 
-      final ref = firestore.collection(
+      final ref = userDataService.firebaseFirestore.collection(
         'chats/${getConversatioId(receiverUser?.id ?? '')}/messages/',
       );
       await ref.doc(time).set(message.toJson());
@@ -157,7 +157,7 @@ class ChatProvider with ChangeNotifier {
   }
 
   Future<List<Map<String, dynamic>>> getImages(String receiverId) async {
-    final querySnapshot = await firestore
+    final querySnapshot = await userDataService.firebaseFirestore
         .collection('chats/${getConversatioId(receiverId)}/messages')
         .where('type', isEqualTo: 'image')
         .get();
@@ -165,7 +165,7 @@ class ChatProvider with ChangeNotifier {
   }
 
   Stream<Map<String, String>> getLastMessageWithTime(String id) {
-    return firestore
+    return userDataService.firebaseFirestore
         .collection('chats/${getConversatioId(id)}/messages')
         .orderBy('sent', descending: true)
         .limit(1)

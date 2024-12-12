@@ -1,13 +1,10 @@
 import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
+import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/main/models/message_model.dart';
 
 class GroupProvider extends BaseChangeNotifier {
-  final firebaseFirestore = FirebaseFirestore.instance;
-  final auth = FirebaseAuth.instance;
+  final UserDataService userDataService = UserDataService.instance;
   Future sendMessageGroup({
     required String msg,
     required String groupTitle,
@@ -19,11 +16,12 @@ class GroupProvider extends BaseChangeNotifier {
       msg: msg,
       read: 'false',
       type: TypeMessage.text,
-      fromId: auth.currentUser?.uid ?? '',
+      fromId: userDataService.auth.currentUser?.uid ?? '',
       sent: time,
       sentTime: DateTime.now().toString(),
     );
-    final ref = firebaseFirestore.collection('groups/$groupTitle/messages/');
+    final ref = userDataService.firebaseFirestore
+        .collection('groups/$groupTitle/messages/');
     try {
       await ref.doc(time).set(message.toJson());
     } catch (e) {

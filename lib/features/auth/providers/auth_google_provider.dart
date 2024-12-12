@@ -8,7 +8,6 @@ import 'package:talky_aplication_2/utils/profile_state.dart';
 import 'package:talky_aplication_2/utils/statuses.dart';
 
 class AuthGoogleProvider extends BaseChangeNotifier {
-  final FirebaseAuth auth = FirebaseAuth.instance;
   ProfileState profileState = ProfileState.initial;
   final userDataService = UserDataService.instance;
 
@@ -26,8 +25,8 @@ class AuthGoogleProvider extends BaseChangeNotifier {
           accessToken: gAuth.accessToken,
           idToken: gAuth.idToken,
         );
-        await auth.signInWithCredential(cred);
-        final user = auth.currentUser;
+        await userDataService.auth.signInWithCredential(cred);
+        final user = userDataService.auth.currentUser;
         if (user != null) {
           final doc = userDataService.firebaseFirestore
               .collection('User')

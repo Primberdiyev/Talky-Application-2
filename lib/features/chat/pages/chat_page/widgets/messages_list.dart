@@ -45,7 +45,8 @@ class _MessagesListState extends State<MessagesList> {
                       itemBuilder: (context, index) {
                         final message =
                             messages?[messages.length - 1 - index].data();
-                        final isMine = provider.user?.uid == message?['fromId'];
+                        final isMine =
+                            provider.currentUser?.uid == message?['fromId'];
                         switch (message?['type']) {
                           case 'text':
                             return TextMessages(

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -18,7 +17,7 @@ class ProfilePageProvider extends BaseChangeNotifier {
   bool isNameEmpty = false;
   List? usersData;
   int? countUsers;
-  User? currentUser = FirebaseAuth.instance.currentUser;
+  User? currentUser = UserDataService.instance.auth.currentUser;
   String? currentUserImgUrl;
   List filteredUsers = [];
 
@@ -47,7 +46,7 @@ class ProfilePageProvider extends BaseChangeNotifier {
 
     if (image != null) {
       final ref = FirebaseStorage.instance.ref().child(
-            '${FirebaseAuth.instance.currentUser?.email}/profile_image.png',
+            '${currentUser?.email}/profile_image.png',
           );
       uploadTask = ref.putFile(File(image?.path ?? ''));
       final snapshot = await uploadTask?.whenComplete(() {});

@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/my_app.dart';
 import 'package:talky_aplication_2/features/main/pages/chat_create/chat_create_page.dart';
 
@@ -9,6 +9,7 @@ class ActionButtonProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final auth = UserDataService.instance.auth;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -23,7 +24,7 @@ class ActionButtonProfile extends StatelessWidget {
                   width: 50,
                   child: InkWell(
                     onTap: () async {
-                      await FirebaseAuth.instance.signOut();
+                      await auth.signOut();
                       if (context.mounted) {
                         MyApp.restartApp(context);
                       }

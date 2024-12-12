@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 
 class UserDataService {
@@ -10,7 +11,7 @@ class UserDataService {
   static UserDataService get instance => _instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-
+  final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   Future<UserModel?> getUserModel() async {
     final response = await firebaseFirestore
         .collection('User')
