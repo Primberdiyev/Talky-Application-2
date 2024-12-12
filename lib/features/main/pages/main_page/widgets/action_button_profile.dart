@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/my_app.dart';
 import 'package:talky_aplication_2/features/main/pages/chat_create/chat_create_page.dart';
@@ -9,6 +10,7 @@ class ActionButtonProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
     final auth = UserDataService.instance.auth;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,7 +31,7 @@ class ActionButtonProfile extends StatelessWidget {
                         MyApp.restartApp(context);
                       }
                     },
-                    child: const Text('Log Out'),
+                    child: Text(locale.logOut),
                   ),
                 ),
               ),

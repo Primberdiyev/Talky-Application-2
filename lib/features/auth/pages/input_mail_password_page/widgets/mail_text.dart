@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
 
 class MailText extends StatelessWidget {
@@ -7,6 +8,8 @@ class MailText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return Consumer<ValueStateProvider>(
       builder: (
         context,
@@ -14,7 +17,7 @@ class MailText extends StatelessWidget {
         child,
       ) {
         return Text(
-          provider.isSignIn ? 'Sign in with Mail' : 'Sign up with Mail',
+          provider.isSignIn ? locale.signInMail : locale.signUpMail,
           style: const TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 18,

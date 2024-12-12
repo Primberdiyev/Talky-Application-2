@@ -9,6 +9,7 @@ import 'package:talky_aplication_2/features/main/providers/group_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/utils/app_colors.dart';
 import 'package:talky_aplication_2/utils/app_icons.dart';
+import 'package:talky_aplication_2/utils/important_texts.dart';
 
 class ContactItem extends StatelessWidget {
   const ContactItem({
@@ -45,7 +46,7 @@ class ContactItem extends StatelessWidget {
           },
           dense: true,
           title: Text(
-            model.name ?? 'User',
+            model.name ?? ImportantTexts.user,
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
+import 'package:talky_aplication_2/utils/image_paths.dart';
 
 class MailButton extends StatelessWidget {
   const MailButton({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return Container(
       margin: const EdgeInsets.only(top: 30, bottom: 56),
       height: 60,
@@ -22,13 +26,13 @@ class MailButton extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 39, right: 38),
               child: Image.asset(
-                'assets/images/mail.png',
+                ImagePaths.mainImagePath,
                 width: 24,
               ),
             ),
-            const Text(
-              'Continue with Mail',
-              style: TextStyle(
+            Text(
+              locale.continueMailText,
+              style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
                 color: Color(0xFF263443),

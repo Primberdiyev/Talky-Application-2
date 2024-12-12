@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
+import 'package:talky_aplication_2/utils/important_texts.dart';
 import 'package:talky_aplication_2/utils/profile_state.dart';
 import 'package:talky_aplication_2/utils/statuses.dart';
 
@@ -64,14 +65,14 @@ class SignInAndUpProvider extends BaseChangeNotifier {
         updateState(Statuses.completed);
       }
     } catch (e) {
-      log('error on sign up');
+      log('error on sign up $e');
       updateState(Statuses.error);
     }
   }
 
   FutureOr<bool> isRegistered() async {
     final userDoc = await userDataService.firebaseFirestore
-        .collection('User')
+        .collection(ImportantTexts.user)
         .where('email', isEqualTo: email)
         .get();
     return userDoc.docs.isNotEmpty;

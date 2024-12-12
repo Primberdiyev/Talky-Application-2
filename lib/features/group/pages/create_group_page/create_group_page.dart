@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_text_field.dart';
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
@@ -8,7 +9,6 @@ import 'package:talky_aplication_2/features/main/pages/chat_create/widgets/conta
 import 'package:talky_aplication_2/features/main/pages/chat_create/widgets/contacts_app_bar.dart';
 import 'package:talky_aplication_2/features/main/providers/group_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
-import 'package:talky_aplication_2/utils/app_texts.dart';
 
 class CreateGroupPage extends StatefulWidget {
   const CreateGroupPage({super.key});
@@ -29,6 +29,8 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return Consumer<GroupProvider>(
       builder: (
         context,
@@ -49,7 +51,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
         }
         return Scaffold(
           appBar: ContactsAppBar(
-            centerText: AppTexts.group,
+            centerText: locale.group,
             isDoneActive: true,
             loading: provider.state.isLoading,
             onDone: () {
@@ -73,12 +75,12 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                       bottom: 12,
                       left: 11,
                     ),
-                    hintText: AppTexts.search,
+                    hintText: locale.search,
                     controller: searchController,
                   ),
                   const SizedBox(height: 18),
                   CustomTextField(
-                    hintText: AppTexts.groupName,
+                    hintText: locale.groupName,
                     controller: groupNameController,
                     contentPadding: const EdgeInsets.only(
                       top: 18,

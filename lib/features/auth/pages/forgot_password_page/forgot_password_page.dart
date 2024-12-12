@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/features/auth/providers/reset_email_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
@@ -14,6 +15,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -32,7 +35,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Enter email to send you password reset email'),
+                  Text(locale.resetText),
                   const SizedBox(
                     height: 25,
                   ),
@@ -54,13 +57,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     onPressed: () {
                       provider.sendPasswordresetLink(_emailController.text);
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Link has Sended')),
+                        SnackBar(content: Text(locale.likSended)),
                       );
                       Navigator.pushReplacementNamed(context, NameRoutes.auth);
                     },
-                    child: const Text(
-                      'Send',
-                      style: TextStyle(
+                    child: Text(
+                      locale.send,
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),

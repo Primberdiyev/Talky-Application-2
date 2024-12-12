@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
+import 'package:talky_aplication_2/utils/important_texts.dart';
 
 class UserDataService {
   UserDataService._();
@@ -14,7 +15,7 @@ class UserDataService {
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   Future<UserModel?> getUserModel() async {
     final response = await firebaseFirestore
-        .collection('User')
+        .collection(ImportantTexts.user)
         .doc(
           auth.currentUser?.uid,
         )
@@ -28,11 +29,11 @@ class UserDataService {
   Future<DocumentSnapshot<Map<String, dynamic>>> getUserDoc({
     required String id,
   }) {
-    return firebaseFirestore.collection('User').doc(id).get();
+    return firebaseFirestore.collection(ImportantTexts.user).doc(id).get();
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> getAllUsersDoc() {
-    return firebaseFirestore.collection('User').get();
+    return firebaseFirestore.collection(ImportantTexts.user).get();
   }
 
   Future<void> setUserDoc(
@@ -40,7 +41,7 @@ class UserDataService {
     SetOptions? options,
   ]) {
     return firebaseFirestore
-        .collection('User')
+        .collection(ImportantTexts.user)
         .doc(
           auth.currentUser?.uid,
         )
@@ -52,9 +53,9 @@ class UserDataService {
     required String id,
     SetOptions? options,
   }) {
-    return firebaseFirestore.collection('User').doc(id).set(
+    return firebaseFirestore.collection(ImportantTexts.user).doc(id).set(
       {
-        'chattingUsersId': FieldValue.arrayUnion([data]),
+        ImportantTexts.chattingId: FieldValue.arrayUnion([data]),
       },
       options,
     );
@@ -63,13 +64,13 @@ class UserDataService {
   Future<void> setUpdateLastTime() async {
     try {
       await firebaseFirestore
-          .collection('User')
+          .collection(ImportantTexts.user)
           .doc(
             auth.currentUser?.uid,
           )
           .update(
         {
-          'lasTime': DateTime.now().millisecondsSinceEpoch,
+          ImportantTexts.lasTime: DateTime.now().millisecondsSinceEpoch,
         },
       );
     } catch (e) {
@@ -79,9 +80,9 @@ class UserDataService {
 
   Future<QuerySnapshot<Map<String, dynamic>>> getChatUsersId() {
     return firebaseFirestore
-        .collection('User')
+        .collection(ImportantTexts.user)
         .doc(auth.currentUser?.uid)
-        .collection('ChattingUsersId')
+        .collection(ImportantTexts.chats)
         .get();
   }
 }

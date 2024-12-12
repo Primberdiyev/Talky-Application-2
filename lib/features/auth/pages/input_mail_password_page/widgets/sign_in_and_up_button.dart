@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_auth_button.dart';
 import 'package:talky_aplication_2/features/auth/providers/otp_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/sign_in_and_up_provider.dart';
@@ -19,6 +20,8 @@ class SignInAndUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return Consumer3<OtpProvider, ValueStateProvider, SignInAndUpProvider>(
       builder: (
         context,
@@ -46,7 +49,7 @@ class SignInAndUpButton extends StatelessWidget {
         return CustomAuthButton(
           textFontSize: 18,
           textColor: Colors.white,
-          text: valueProvider.isSignIn ? "Sign in" : "Sign up",
+          text: valueProvider.isSignIn ? locale.signIn : locale.signUp,
           function: () {
             authProvider.changeEmailPassword(
               emailController.text,

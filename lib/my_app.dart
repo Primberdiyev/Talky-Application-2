@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/generated/localization.dart';
+import 'package:talky_aplication_2/core/localization/localization_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/otp_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/sign_in_and_up_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
@@ -46,18 +48,28 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => AllUsersProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => GroupProvider()),
+        ChangeNotifierProvider(create: (_) => LocalizationProvider()),
       ],
       child: KeyedSubtree(
         key: key,
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          initialRoute: NameRoutes.splash,
-          onGenerateRoute: generateRoute,
-          theme: ThemeData(
-            primaryColor: Colors.blue,
-            scaffoldBackgroundColor: const Color(0xFFE5E5E5),
-          ),
-        ),
+        child: Consumer<LocalizationProvider>(builder: (
+          context,
+          provider,
+          child,
+        ) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            initialRoute: NameRoutes.splash,
+            onGenerateRoute: generateRoute,
+            theme: ThemeData(
+              primaryColor: Colors.blue,
+              scaffoldBackgroundColor: const Color(0xFFE5E5E5),
+            ),
+            localizationsDelegates: L10n.localizationsDelegates,
+            supportedLocales: L10n.supportedLocales,
+            locale: provider.currentLocale,
+          );
+        }),
       ),
     );
   }

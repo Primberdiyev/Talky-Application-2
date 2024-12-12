@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/features/auth/providers/sign_in_and_up_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
@@ -12,6 +13,8 @@ class SignUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return Consumer2<ValueStateProvider, SignInAndUpProvider>(
       builder: (
         context,
@@ -47,9 +50,9 @@ class SignUpButton extends StatelessWidget {
               ),
               child: Center(
                 child: !isLoading
-                    ? const Text(
-                        'Sign up',
-                        style: TextStyle(
+                    ? Text(
+                        locale.signUp,
+                        style: const TextStyle(
                           fontSize: 18,
                           color: Color(0xFFFFFFFF),
                           fontWeight: FontWeight.w500,

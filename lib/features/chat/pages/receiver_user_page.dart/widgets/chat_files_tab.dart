@@ -1,17 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/default_loading_image.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
 import 'package:talky_aplication_2/features/main/pages/main_page/widgets/friends_list.dart';
 import 'package:talky_aplication_2/features/main/providers/profile_page_provider.dart';
-import 'package:talky_aplication_2/utils/app_texts.dart';
 
 class ChatFilesTab extends StatelessWidget {
   const ChatFilesTab({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return Consumer2<ProfilePageProvider, ChatProvider>(
       builder: (
         context,
@@ -24,13 +26,13 @@ class ChatFilesTab extends StatelessWidget {
             length: 2,
             child: Column(
               children: [
-                const TabBar(
+                TabBar(
                   labelColor: Colors.blue,
                   unselectedLabelColor: Colors.grey,
                   indicatorColor: Colors.blue,
                   tabs: [
-                    Tab(text: 'Users'),
-                    Tab(text: 'Files'),
+                    Tab(text: locale.users),
+                    Tab(text: locale.files),
                   ],
                 ),
                 Expanded(
@@ -48,14 +50,14 @@ class ChatFilesTab extends StatelessWidget {
                             );
                           }
                           if (snapshot.hasError) {
-                            return const Center(
-                              child: Text(AppTexts.errorImages),
+                            return Center(
+                              child: Text(locale.errorImages),
                             );
                           }
                           final images = snapshot.data ?? [];
                           if (images.isEmpty) {
-                            return const Center(
-                              child: Text(AppTexts.noImages),
+                            return Center(
+                              child: Text(locale.noImages),
                             );
                           }
                           const axisCount =

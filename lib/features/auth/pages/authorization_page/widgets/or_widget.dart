@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 
 class OrWidget extends StatelessWidget {
   const OrWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return Container(
       padding: const EdgeInsets.only(
         left: 32,
@@ -12,25 +15,25 @@ class OrWidget extends StatelessWidget {
         bottom: 38,
         top: 38,
       ),
-      child: const Row(
+      child: Row(
         children: [
-          Expanded(
+          const Expanded(
             child: Divider(
               thickness: 1,
               color: Color(0xFF58616A),
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              'or',
-              style: TextStyle(
+              locale.or,
+              style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 14,
               ),
             ),
           ),
-          Expanded(
+          const Expanded(
             child: Divider(
               thickness: 1,
               color: Color(0xFF58616A),

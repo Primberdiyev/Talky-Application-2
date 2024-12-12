@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_text_field.dart';
 import 'package:talky_aplication_2/features/auth/pages/authorization_page/widgets/question_text.dart';
 import 'package:talky_aplication_2/features/auth/pages/authorization_page/widgets/sign_up_text_button.dart';
@@ -10,7 +11,6 @@ import 'package:talky_aplication_2/features/auth/pages/input_mail_password_page/
 import 'package:talky_aplication_2/features/auth/pages/input_mail_password_page/widgets/sign_in_and_up_button.dart';
 import 'package:talky_aplication_2/features/auth/pages/input_mail_password_page/widgets/talky_text.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
-import 'package:talky_aplication_2/utils/app_texts.dart';
 import 'package:talky_aplication_2/utils/bool_value_enum.dart';
 
 class InputMailPasswordPage extends StatefulWidget {
@@ -32,6 +32,8 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return SafeArea(
       child: Scaffold(
         appBar: CustomAppBar(
@@ -56,7 +58,7 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
                     height: 40,
                   ),
                   CustomTextField(
-                    hintText: AppTexts.enterEmail,
+                    hintText: locale.enterEmail,
                     controller: emailController,
                     contentPadding: const EdgeInsets.only(
                       top: 18,
@@ -68,7 +70,7 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
                     height: 18,
                   ),
                   CustomTextField(
-                    hintText: AppTexts.enterPassword,
+                    hintText: locale.enterPassword,
                     controller: passwordController,
                     suffixTab: () => provider.changeBoolValue(
                       BoolValueEnum.isHideText,

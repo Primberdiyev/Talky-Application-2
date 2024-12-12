@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
 import 'package:talky_aplication_2/utils/app_colors.dart';
 
@@ -9,6 +10,8 @@ class ImageAndName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return Consumer<ChatProvider>(
       builder: (
         context,
@@ -47,9 +50,12 @@ class ImageAndName extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Text(
-                  'online',
-                  style: TextStyle(fontSize: 14, color: AppColors.dividerBlack),
+                Text(
+                  locale.online,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: AppColors.dividerBlack,
+                  ),
                 ),
               ],
             ),

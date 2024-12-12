@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_user_avatar.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
 import 'package:talky_aplication_2/utils/app_colors.dart';
 import 'package:talky_aplication_2/utils/app_icons.dart';
+import 'package:talky_aplication_2/utils/important_texts.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -17,6 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -33,7 +36,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               isWithOnline: userModel != null,
             ),
             Text(
-              userModel != null ? 'Chats' : groupModel?.title ?? 'Group',
+              userModel != null
+                  ? ImportantTexts.chats
+                  : groupModel?.title ?? locale.group,
               style: const TextStyle(
                 color: AppColors.blackText,
                 fontSize: 16,

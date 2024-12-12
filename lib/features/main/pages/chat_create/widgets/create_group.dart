@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/features/group/pages/create_group_page/create_group_page.dart';
 import 'package:talky_aplication_2/utils/app_colors.dart';
 import 'package:talky_aplication_2/utils/app_icons.dart';
-import 'package:talky_aplication_2/utils/app_texts.dart';
 
 class CreateGroup extends StatelessWidget {
   const CreateGroup({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 18),
       child: ListTile(
@@ -28,9 +30,9 @@ class CreateGroup extends StatelessWidget {
         leading: SvgPicture.asset(
           AppIcons.chatGroup.icon,
         ),
-        title: const Text(
-          AppTexts.createGroup,
-          style: TextStyle(
+        title: Text(
+          locale.createGroup,
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
             color: AppColors.blackText,

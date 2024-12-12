@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/utils/app_icons.dart';
+import 'package:talky_aplication_2/utils/image_paths.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -15,6 +17,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Function()? function;
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return AppBar(
       toolbarHeight: 110,
       backgroundColor: Colors.transparent,
@@ -24,9 +28,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          label: const Text(
-            'Back',
-            style: TextStyle(
+          label: Text(
+            locale.back,
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w700,
               color: Color(0xff377DFF),
@@ -39,7 +43,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               shape: BoxShape.circle,
               color: Color(0xFFE5F1FF),
             ),
-            child: Image.asset('assets/images/Back.png'),
+            child: Image.asset(ImagePaths.back),
           ),
         ),
       ),

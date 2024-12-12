@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 
@@ -8,6 +9,8 @@ class ForgotPasswordText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return Consumer<ValueStateProvider>(
       builder: (
         context,
@@ -28,9 +31,9 @@ class ForgotPasswordText extends StatelessWidget {
                   onTap: () {
                     Navigator.pushNamed(context, NameRoutes.forgotPassword);
                   },
-                  child: const Text(
-                    'Forgot password?',
-                    style: TextStyle(
+                  child: Text(
+                    locale.forgotPassword,
+                    style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 12,
                       color: Color(0xFF243443),
@@ -42,9 +45,9 @@ class ForgotPasswordText extends StatelessWidget {
                 ),
                 Visibility(
                   visible: !provider.isEmailCorrect,
-                  child: const Text(
-                    'email or password is Incorrext',
-                    style: TextStyle(
+                  child:  Text(
+                    locale.inCorrect,
+                    style: const TextStyle(
                       color: Colors.red,
                     ),
                   ),

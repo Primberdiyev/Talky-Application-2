@@ -1,0 +1,9 @@
+arb-dir: lib/core/localization
+output-dir: lib/core/localization/generated
+output-class: L10n
+template-arb-file: app_en.arb
+output-localization-file: localization.dart
+nullable-getter: false
+synthetic-package: false
+untranslated-messages-file: lib/core/localization/generated/untranslated_strings.txt
+header: '// ignore_for_file: always_use_package_imports'

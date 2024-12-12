@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_text_field.dart';
 import 'package:talky_aplication_2/features/main/pages/chat_create/widgets/contact_users.dart';
 import 'package:talky_aplication_2/features/main/pages/chat_create/widgets/contact_text.dart';
@@ -31,10 +32,11 @@ class _OnlineUsersPageState extends State<ChatCreatePage> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
     return SafeArea(
       child: Scaffold(
-        appBar: const ContactsAppBar(
-          centerText: 'Chat',
+        appBar: ContactsAppBar(
+          centerText: locale.chat,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -51,7 +53,7 @@ class _OnlineUsersPageState extends State<ChatCreatePage> {
                         child,
                       ) {
                         return CustomTextField(
-                          hintText: 'Search',
+                          hintText: locale.search,
                           controller: controller,
                           suffixIcon: SvgPicture.asset(AppIcons.search.icon),
                           onChanged: (value) => provider.onSearchChanged(value),

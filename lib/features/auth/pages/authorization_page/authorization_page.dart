@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_auth_button.dart';
 import 'package:talky_aplication_2/features/auth/pages/authorization_page/widgets/or_widget.dart';
 import 'package:talky_aplication_2/features/auth/pages/authorization_page/widgets/question_text.dart';
@@ -10,7 +11,6 @@ import 'package:talky_aplication_2/features/auth/providers/value_state_provider.
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/utils/app_colors.dart';
 import 'package:talky_aplication_2/utils/app_icons.dart';
-import 'package:talky_aplication_2/utils/app_texts.dart';
 import 'package:talky_aplication_2/utils/profile_state.dart';
 
 class AuthorizationPage extends StatefulWidget {
@@ -23,6 +23,7 @@ class AuthorizationPage extends StatefulWidget {
 class _AuthorizationPageState extends State<AuthorizationPage> {
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
     return ChangeNotifierProvider(
       create: (context) => AuthGoogleProvider(),
       child: Consumer<ValueStateProvider>(
@@ -77,8 +78,8 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                               buttonColor: Colors.white,
                               iconPath: AppIcons.google.icon,
                               text: valueProvider.isSignIn
-                                  ? AppTexts.signInText
-                                  : AppTexts.singUpText,
+                                  ? locale.signInText
+                                  : locale.singUpText,
                               function: () {
                                 authProvider.signInGoogle();
                               },
@@ -90,7 +91,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                               textColor: AppColors.blackText,
                               buttonColor: Colors.white,
                               iconPath: AppIcons.mail.icon,
-                              text: AppTexts.continueMailText,
+                              text: locale.continueMailText,
                               function: () => {
                                 Navigator.pushNamed(
                                   context,

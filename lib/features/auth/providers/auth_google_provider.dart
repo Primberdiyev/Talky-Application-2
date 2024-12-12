@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
+import 'package:talky_aplication_2/utils/important_texts.dart';
 import 'package:talky_aplication_2/utils/profile_state.dart';
 import 'package:talky_aplication_2/utils/statuses.dart';
 
@@ -29,7 +30,7 @@ class AuthGoogleProvider extends BaseChangeNotifier {
         final user = userDataService.auth.currentUser;
         if (user != null) {
           final doc = userDataService.firebaseFirestore
-              .collection('User')
+              .collection(ImportantTexts.user)
               .doc(user.uid);
           final json = await doc.get();
           final data = json.data();

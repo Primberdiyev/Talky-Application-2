@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/utils/bool_value_enum.dart';
 
@@ -8,6 +9,8 @@ class ConditionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return Consumer<ValueStateProvider>(
       builder: (
         context,
@@ -37,9 +40,9 @@ class ConditionWidget extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              const Text(
-                'I agree to the terms & conditions',
-                style: TextStyle(
+              Text(
+                locale.agreeTerm,
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 12,
                   color: Color(0xFF243443),

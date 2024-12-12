@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/group/services/receive_messages_service.dart';
@@ -33,17 +34,19 @@ class _GroupMessagesState extends State<GroupMessages> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return StreamBuilder(
       stream: receiveMessagesService.getAllGroupMessages(widget.titleGroup),
       builder: (context, snapshot) {
         if (snapshot.data == null) {
-          return const Text("Ma'lumotn yo'q");
+          return  Text(locale.noData);
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasError) {
-          return const Text('Error from getting message');
+          return  Text(locale.errorGettingMessage);
         }
         final messages = snapshot.data?.docs ?? [];
         return Expanded(
@@ -64,7 +67,7 @@ class _GroupMessagesState extends State<GroupMessages> {
                       child: CircularProgressIndicator(),
                     );
                   } else if (userSnapshot.hasError || !userSnapshot.hasData) {
-                    return const Text('error getting messages');
+                    return  Text(locale.errorGettingMessage);
                   }
                   final UserModel? user = userSnapshot.data;
                   return BuildMessage(

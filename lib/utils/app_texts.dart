@@ -1,16 +1,40 @@
-class AppTexts {
-  static const signInText = 'Sign in with Google';
-  static const continueMailText = 'Continue with Mail';
-  static const singUpText = 'Sign up with Google';
-  static const signInhere = 'Sign in here';
-  static const signUpHere = 'Sign  up here';
-  static const createGroup = 'Start a new group chat';
-  static const contacts = 'Contacts';
-  static const search = 'search';
-  static const group = 'Group';
-  static const groupName = 'Group name';
-  static const enterEmail = 'Enter your mail address';
-  static const enterPassword = 'Enter your password';
-  static const errorImages = 'Error loading images';
-  static const noImages = 'No images shared';
-}
+// class AppTexts {
+//   static const signInText = 'Sign in with Google';
+//   static const continueMailText = 'Continue with Mail';
+//   static const singUpText = 'Sign up with Google';
+//   static const signInhere = 'Sign in here';
+//   static const signUpHere = 'Sign  up here';
+//   static const createGroup = 'Start a new group chat';
+//   static const contacts = 'Contacts';
+//   static const search = 'search';
+//   static const group = 'Group';
+//   static const groupName = 'Group name';
+//   static const enterEmail = 'Enter your mail address';
+//   static const enterPassword = 'Enter your password';
+//   static const errorImages = 'Error loading images';
+//   static const noImages = 'No images shared';
+//   static const or = 'or';
+//   static const haveAccount = 'Don’t have an account?';
+//   static const alreadyHave = 'Already have an account?';
+//   static const talky = 'Talky';
+//   static const resetText = 'Enter email to send you password reset email';
+//   static const likSended = 'Link has Sended';
+//   static const send = 'Send';
+//   static const agreeTerm = 'I agree to the terms & conditions';
+//   static const back = 'back';
+//   static const forgotPassword = 'Forgot password?';
+//   static const signInMail = 'Sign in with';
+//   static const signUpMail = 'Sign up with';
+//   static const signIn = "Sign in";
+//   static const signUp = "Sign up";
+//   static const enterDigit = 'Enter the 4 digit codes we send to you';
+//   static const inCorrect = 'email or password is Incorrext';
+//   static const message = 'message';
+//   static const users = 'Users';
+//   static const files = 'Files';
+//   static const online = 'online';
+//   static const errorGettingMessage = 'Error from getting message';
+//   static const noData = 'Error from getting message';
+//   static const chat = 'Chat';
+//   static const logOut = 'Log Out';
+// }

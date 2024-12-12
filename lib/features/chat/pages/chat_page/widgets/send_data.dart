@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
 import 'package:talky_aplication_2/utils/app_colors.dart';
 
@@ -35,6 +36,7 @@ class _SendMessageState extends State<SendData> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
     final provider = Provider.of<ChatProvider>(context);
     return Padding(
       padding: const EdgeInsets.only(left: 28, right: 98),
@@ -47,7 +49,7 @@ class _SendMessageState extends State<SendData> {
               child: TextField(
                 controller: widget.controller,
                 decoration: InputDecoration(
-                  labelText: 'Message',
+                  labelText: locale.message,
                   border: const OutlineInputBorder(),
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: AppColors.primaryBlue),
