@@ -6,7 +6,6 @@ import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
 import 'package:talky_aplication_2/utils/app_colors.dart';
 import 'package:talky_aplication_2/utils/app_icons.dart';
-import 'package:talky_aplication_2/utils/important_texts.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -37,7 +36,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             Text(
               userModel != null
-                  ? ImportantTexts.chats
+                  ? locale.chat
                   : groupModel?.title ?? locale.group,
               style: const TextStyle(
                 color: AppColors.blackText,

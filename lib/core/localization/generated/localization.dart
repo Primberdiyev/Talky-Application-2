@@ -335,6 +335,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Log Out'**
   String get logOut;
+
+  /// No description provided for @langauge.
+  ///
+  /// In en, this message translates to:
+  /// **'Change the language'**
+  String get langauge;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

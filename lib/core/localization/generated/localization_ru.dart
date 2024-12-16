@@ -127,4 +127,7 @@ class L10nRu extends L10n {
 
   @override
   String get logOut => 'Выйти';
+
+  @override
+  String get langauge => 'Изменить язык';
 }

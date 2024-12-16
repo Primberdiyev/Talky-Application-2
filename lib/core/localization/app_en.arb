@@ -38,5 +38,7 @@
     "errorGettingMessage": "Error getting message",
     "noData": "No data",
     "chat": "Chat",
-    "logOut": "Log Out"
+    "logOut": "Log Out",
+    "langauge":"Change the language",
+    "chat":"Chat"
 }
