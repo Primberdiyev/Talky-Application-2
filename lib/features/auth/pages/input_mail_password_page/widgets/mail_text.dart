@@ -18,6 +18,7 @@ class MailText extends StatelessWidget {
       ) {
         return Text(
           provider.isSignIn ? locale.signInMail : locale.signUpMail,
+          textAlign: TextAlign.center,
           style: const TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 18,

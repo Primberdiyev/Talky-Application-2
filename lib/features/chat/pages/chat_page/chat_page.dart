@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/features/auth/pages/input_mail_password_page/widgets/custom_app_bar.dart';
-import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/action_button.dart';
 import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/messages_list.dart';
 import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/send_data.dart';
 import 'package:talky_aplication_2/features/chat/providers/audio_provider.dart';
@@ -43,7 +42,6 @@ class ChatPage extends StatelessWidget {
               ],
             ),
           ),
-          floatingActionButton: const ActionButton(),
         );
       },
     );

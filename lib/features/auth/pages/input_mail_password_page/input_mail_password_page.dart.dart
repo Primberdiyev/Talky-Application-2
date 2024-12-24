@@ -27,6 +27,10 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    // final valueProvider =
+    //     Provider.of<ValueStateProvider>(context, listen: false);
+    // valueProvider.changeBoolValue(BoolValueEnum.agreeCondition);
+
     super.dispose();
   }
 
@@ -36,6 +40,7 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: CustomAppBar(
           function: () {
             Navigator.pop(context);
@@ -43,7 +48,11 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
         ),
         resizeToAvoidBottomInset: false,
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 28),
+          padding: const EdgeInsets.only(
+            left: 28,
+            right: 28,
+            top: 26,
+          ),
           child: Consumer<ValueStateProvider>(
             builder: (
               context,
@@ -53,21 +62,24 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
               return Column(
                 children: [
                   const TalkyText(),
-                  const MailText(),
                   const SizedBox(
                     height: 40,
                   ),
-                  CustomTextField(
-                    hintText: locale.enterEmail,
-                    controller: emailController,
-                    contentPadding: const EdgeInsets.only(
-                      top: 18,
-                      bottom: 19,
-                      left: 20,
+                  const MailText(),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 40,
+                      bottom: 18,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 18,
+                    child: CustomTextField(
+                      hintText: locale.enterEmail,
+                      controller: emailController,
+                      contentPadding: const EdgeInsets.only(
+                        top: 18,
+                        bottom: 19,
+                        left: 20,
+                      ),
+                    ),
                   ),
                   CustomTextField(
                     hintText: locale.enterPassword,
@@ -90,17 +102,27 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
                   const ForgotPasswordText(),
                   const ConditionWidget(),
                   const SizedBox(
-                    height: 104,
+                    height: 74,
                   ),
-                  SignInAndUpButton(
-                    emailController: emailController,
-                    passwordController: passwordController,
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SignInAndUpButton(
+                          emailController: emailController,
+                          passwordController: passwordController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const QuestionText(),
+                        const SignUpTextButton(),
+                        const SizedBox(
+                          height: 80,
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  const QuestionText(),
-                  const SignUpTextButton(),
                 ],
               );
             },

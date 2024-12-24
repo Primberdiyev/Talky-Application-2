@@ -243,13 +243,13 @@ abstract class L10n {
   /// No description provided for @signInMail.
   ///
   /// In en, this message translates to:
-  /// **'Sign in with'**
+  /// **'Sign in with mail'**
   String get signInMail;
 
   /// No description provided for @signUpMail.
   ///
   /// In en, this message translates to:
-  /// **'Sign up with'**
+  /// **'Sign up with Mail'**
   String get signUpMail;
 
   /// No description provided for @signIn.

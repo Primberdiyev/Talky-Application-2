@@ -29,15 +29,15 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
 
   @override
   Widget build(BuildContext context) {
+    final userDataService = UserDataService.instance;
     final locale = context.locale;
-
+    final currentUserId = userDataService.auth.currentUser?.uid;
     return Consumer<GroupProvider>(
       builder: (
         context,
         provider,
         child,
       ) {
-        final userDataService = UserDataService.instance;
         if (provider.state.isCompleted) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (context.mounted && provider.groupModel != null) {
@@ -58,10 +58,12 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
               final groupModel = GroupModel(
                 title: groupNameController.text,
                 usersId: provider.pressedUsers,
-                adminId: userDataService.auth.currentUser?.uid,
+                adminId: currentUserId,
               );
-              provider.getGroupModel(groupModel);
-              provider.createGroup();
+              provider.createGroup(
+                model: groupModel,
+                adminId: currentUserId ?? '',
+              );
             },
           ),
           body: SingleChildScrollView(

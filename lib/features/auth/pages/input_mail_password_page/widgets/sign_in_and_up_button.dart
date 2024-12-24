@@ -7,7 +7,7 @@ import 'package:talky_aplication_2/features/auth/providers/sign_in_and_up_provid
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/utils/app_colors.dart';
-import 'package:talky_aplication_2/utils/bool_value_enum.dart';
+import 'package:talky_aplication_2/utils/statuses.dart';
 
 class SignInAndUpButton extends StatelessWidget {
   const SignInAndUpButton({
@@ -31,18 +31,19 @@ class SignInAndUpButton extends StatelessWidget {
         child,
       ) {
         if (valueProvider.isSignIn && authProvider.state.isCompleted) {
-          WidgetsBinding.instance.addPersistentFrameCallback((_) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
             if (context.mounted &&
                 emailController.text.isNotEmpty &&
                 passwordController.text.isNotEmpty) {
               Navigator.pushReplacementNamed(context, NameRoutes.main);
+              authProvider.updateState(Statuses.initial);
             }
           });
-        }
-        if (!valueProvider.isSignIn && otpProvider.state.isCompleted) {
+        } else if (!valueProvider.isSignIn && otpProvider.state.isCompleted) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (context.mounted) {
               Navigator.pushNamed(context, NameRoutes.checkCode);
+              otpProvider.updateState(Statuses.initial);
             }
           });
         }
@@ -60,8 +61,6 @@ class SignInAndUpButton extends StatelessWidget {
             } else {
               if (valueProvider.agreeCondition) {
                 otpProvider.sendOTP(email: emailController.text);
-
-                valueProvider.changeBoolValue(BoolValueEnum.agreeCondition);
               }
             }
           },

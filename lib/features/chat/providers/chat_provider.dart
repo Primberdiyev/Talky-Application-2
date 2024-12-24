@@ -2,14 +2,14 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/main/models/message_model.dart';
 import 'package:uuid/uuid.dart';
 
-class ChatProvider with ChangeNotifier {
+class ChatProvider extends BaseChangeNotifier {
   final userDataService = UserDataService.instance;
   String? lastMessage;
   File? imageFile;
@@ -25,12 +25,13 @@ class ChatProvider with ChangeNotifier {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages(receiverId) {
-    return userDataService.firebaseFirestore
-        .collection('chats/${getConversatioId(receiverId)}/messages/')
-        .snapshots();
+    final chatId = getConversatioId(receiverId);
+    return userDataService.getAllMessages(chatId);
   }
 
-  Future<void> sendMessage(String receiverId, String msg) async {
+  Future checkIsFriend(
+    String receiverId,
+  ) async {
     final idSnapshot = await userDataService.getChatUsersId();
     final chattingUsersId = idSnapshot.docs.map((e) => e.id).toList();
     if (!chattingUsersId.contains(receiverId)) {
@@ -51,6 +52,9 @@ class ChatProvider with ChangeNotifier {
         ),
       );
     }
+  }
+
+  Future<void> sendMessage(String receiverId, String msg) async {
     final time = DateTime.now().microsecondsSinceEpoch.toString();
     final sentTime = DateTime.now();
     final message = MessageModel(
@@ -63,10 +67,13 @@ class ChatProvider with ChangeNotifier {
       sentTime: sentTime.toString(),
     );
     final chatId = getConversatioId(receiverId);
-    final ref =
-        userDataService.firebaseFirestore.collection('chats/$chatId/messages/');
+
     try {
-      await ref.doc(time).set(message.toJson());
+      await userDataService.sendMessage(
+        chatId: chatId,
+        time: time,
+        messageModel: message,
+      );
     } catch (_) {
       throw Exception();
     }

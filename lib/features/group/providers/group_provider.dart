@@ -20,10 +20,13 @@ class GroupProvider extends BaseChangeNotifier {
       sent: time,
       sentTime: DateTime.now().toString(),
     );
-    final ref = userDataService.firebaseFirestore
-        .collection('groups/$groupTitle/messages/');
+
     try {
-      await ref.doc(time).set(message.toJson());
+      await userDataService.sendMessageGroup(
+        groupTitle: groupTitle,
+        time: time,
+        message: message,
+      );
     } catch (e) {
       log('error sending message to goup $e');
     }

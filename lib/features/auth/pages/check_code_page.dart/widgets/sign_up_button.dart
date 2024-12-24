@@ -15,57 +15,59 @@ class SignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = context.locale;
 
-    return Consumer2<ValueStateProvider, SignInAndUpProvider>(
-      builder: (
-        context,
-        valueProvider,
-        signInAndUpProvider,
-        child,
-      ) {
-        final isLoading = signInAndUpProvider.state == Statuses.loading;
+    return ChangeNotifierProvider(
+      create: (context) => SignInAndUpProvider(),
+      child: Consumer2<ValueStateProvider, SignInAndUpProvider>(
+        builder: (
+          context,
+          valueProvider,
+          signInAndUpProvider,
+          child,
+        ) {
+          final isLoading = signInAndUpProvider.state == Statuses.loading;
 
-        if (signInAndUpProvider.state.isCompleted) {
-          WidgetsBinding.instance.addPersistentFrameCallback((_) {
-            if (context.mounted) {
-              Navigator.pushReplacementNamed(context, NameRoutes.account);
-            }
-          });
-        }
+          if (signInAndUpProvider.state.isCompleted) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (context.mounted) {
+                Navigator.pushReplacementNamed(context, NameRoutes.account);
+              }
+            });
+          }
 
-        return Padding(
-          padding: const EdgeInsets.only(
-            top: 252,
-            bottom: 30,
-          ),
-          child: InkWell(
-            onTap: () {
-              signInAndUpProvider.signUp();
-            },
-            child: Container(
-              width: MediaQuery.of(context).size.width - 56,
-              height: 54,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: const Color(0xFF377DFF),
-              ),
-              child: Center(
-                child: !isLoading
-                    ? Text(
-                        locale.signUp,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Color(0xFFFFFFFF),
-                          fontWeight: FontWeight.w500,
+          return Padding(
+            padding: const EdgeInsets.only(
+              bottom: 30,
+            ),
+            child: InkWell(
+              onTap: () {
+                signInAndUpProvider.signUp();
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width - 56,
+                height: 54,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: const Color(0xFF377DFF),
+                ),
+                child: Center(
+                  child: !isLoading
+                      ? Text(
+                          locale.signUp,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Color(0xFFFFFFFF),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
+                      : const CircularProgressIndicator(
+                          color: Colors.white,
                         ),
-                      )
-                    : const CircularProgressIndicator(
-                        color: Colors.white,
-                      ),
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

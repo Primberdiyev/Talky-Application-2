@@ -32,6 +32,7 @@ class _SignUpTextButtonState extends State<SignUpTextButton> {
             Navigator.pushReplacementNamed(context, NameRoutes.auth);
           },
           child: Text(
+            textAlign: TextAlign.center,
             valueProvider.isSignIn
                 ? locale.signUpHere
                 : context.locale.signInhere,

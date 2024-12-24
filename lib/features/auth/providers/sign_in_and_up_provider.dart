@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
-import 'package:talky_aplication_2/utils/important_texts.dart';
 import 'package:talky_aplication_2/utils/profile_state.dart';
 import 'package:talky_aplication_2/utils/statuses.dart';
 
@@ -71,11 +70,7 @@ class SignInAndUpProvider extends BaseChangeNotifier {
   }
 
   FutureOr<bool> isRegistered() async {
-    final userDoc = await userDataService.firebaseFirestore
-        .collection(ImportantTexts.user)
-        .where('email', isEqualTo: email)
-        .get();
-    return userDoc.docs.isNotEmpty;
+    return userDataService.isRegistered(email ?? '');
   }
 
   void changeEmailPassword(String newEmail, String newPassword) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/core/localization/localization.dart';
+import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/action_button.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
 import 'package:talky_aplication_2/utils/app_colors.dart';
 
@@ -19,12 +20,14 @@ class SendData extends StatefulWidget {
 
 class _SendMessageState extends State<SendData> {
   Future<void> _sendMessage(ChatProvider provider) async {
+    final receiverId = provider.receiverUser?.id;
     if (widget.controller.text.isNotEmpty) {
       await provider.sendMessage(
-        provider.receiverUser?.id ?? '',
+        receiverId ?? '',
         widget.controller.text,
       );
       widget.controller.clear();
+      provider.checkIsFriend(receiverId ?? "");
     }
   }
 
@@ -39,35 +42,37 @@ class _SendMessageState extends State<SendData> {
     final locale = context.locale;
     final provider = Provider.of<ChatProvider>(context);
     return Padding(
-      padding: const EdgeInsets.only(left: 28, right: 98),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 28,
+      ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: SizedBox(
-              height: 54,
-              child: TextField(
-                controller: widget.controller,
-                decoration: InputDecoration(
-                  labelText: locale.message,
-                  border: const OutlineInputBorder(),
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.primaryBlue),
-                  ),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.send_rounded),
-                    color: AppColors.sendIconColor,
-                    onPressed: () =>
-                        widget.sendFunction?.call() ??
-                        _sendMessage(
-                          provider,
-                        ),
-                  ),
+            child: TextField(
+              controller: widget.controller,
+              decoration: InputDecoration(
+                labelText: locale.message,
+                border: const OutlineInputBorder(),
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: AppColors.primaryBlue),
+                ),
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.send_rounded),
+                  color: AppColors.sendIconColor,
+                  onPressed: () =>
+                      widget.sendFunction?.call() ??
+                      _sendMessage(
+                        provider,
+                      ),
                 ),
               ),
             ),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(
+            width: 10,
+          ),
+          const ActionButton(),
         ],
       ),
     );

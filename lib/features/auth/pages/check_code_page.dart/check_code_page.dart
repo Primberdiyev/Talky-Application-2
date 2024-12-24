@@ -30,6 +30,7 @@ class _CheckCodePageState extends State<CheckCodePage> {
       ) {
         return const Scaffold(
           resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.white,
           appBar: CustomAppBar(),
           body: Padding(
             padding: EdgeInsets.only(
@@ -41,9 +42,13 @@ class _CheckCodePageState extends State<CheckCodePage> {
                 EnterCodeText(),
                 SizedBox(height: 50),
                 InputCodes(),
+                Spacer(),
                 SignUpButton(),
                 QuestionText(),
                 SignUpTextButton(),
+                SizedBox(
+                  height: 102,
+                ),
               ],
             ),
           ),

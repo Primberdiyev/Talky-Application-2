@@ -9,7 +9,7 @@ import 'package:talky_aplication_2/features/main/providers/profile_page_provider
 
 class SetProfilePage extends StatefulWidget {
   const SetProfilePage({super.key});
-
+  
   @override
   State<SetProfilePage> createState() => _SetProfilePageState();
 }
@@ -45,6 +45,7 @@ class _SetProfilePageState extends State<SetProfilePage> {
             const ImageView(),
             InputName(controller: nameController),
             InputDescription(controller: descriptionController),
+            const Spacer(),
             CompleteButton(
               nameController: nameController,
               descriptionController: descriptionController,

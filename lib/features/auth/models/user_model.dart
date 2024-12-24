@@ -10,6 +10,7 @@ class UserModel {
     this.profileState,
     this.lastTime,
     this.chattingUsersId,
+    this.groupsId,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -26,6 +27,8 @@ class UserModel {
         chattingUsersId: (json['chattingUsersId'] as List?)
             ?.map((item) => item as String)
             .toList(),
+        groupsId:
+            (json['groupsId'] as List?)?.map((item) => item as String).toList(),
       );
 
   final String? email;
@@ -36,6 +39,7 @@ class UserModel {
   final ProfileState? profileState;
   final DateTime? lastTime;
   final List<String>? chattingUsersId;
+  final List<String>? groupsId;
 
   Map<String, dynamic> toJson() => {
         if (email != null) 'email': email,
@@ -46,5 +50,6 @@ class UserModel {
         if (profileState != null) 'profile_state': profileState?.name,
         if (lastTime != null) 'lastTime': lastTime,
         if (chattingUsersId != null) 'chattingUsersId': chattingUsersId,
+        if (groupsId != null) 'groupsId': groupsId,
       };
 }

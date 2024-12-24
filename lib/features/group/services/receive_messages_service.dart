@@ -6,8 +6,6 @@ class ReceiveMessagesService {
   Stream<QuerySnapshot<Map<String, dynamic>>> getAllGroupMessages(
     String titliGroup,
   ) {
-    return userDataService.firebaseFirestore
-        .collection('groups/$titliGroup/messages')
-        .snapshots();
+    return userDataService.getAllGroupMessages(titliGroup);
   }
 }

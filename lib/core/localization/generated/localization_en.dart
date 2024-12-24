@@ -81,10 +81,10 @@ class L10nEn extends L10n {
   String get forgotPassword => 'Forgot password?';
 
   @override
-  String get signInMail => 'Sign in with';
+  String get signInMail => 'Sign in with mail';
 
   @override
-  String get signUpMail => 'Sign up with';
+  String get signUpMail => 'Sign up with Mail';
 
   @override
   String get signIn => 'Sign in';

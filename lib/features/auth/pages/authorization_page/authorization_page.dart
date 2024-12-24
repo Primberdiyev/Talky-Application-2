@@ -33,83 +33,83 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
           child,
         ) {
           return Scaffold(
-            body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 71,
-                  left: 28,
-                  right: 28,
-                ),
-                child: Column(
-                  children: [
-                    const TalkyText(),
-                    const Spacer(),
-                    Consumer<AuthGoogleProvider>(
-                      builder: (
-                        context,
-                        authProvider,
-                        child,
-                      ) {
-                        var route = NameRoutes.auth;
-                        final condition = authProvider.state.isCompleted;
+            body: Padding(
+              padding: const EdgeInsets.only(
+                top: 115,
+                left: 28,
+                right: 28,
+                bottom: 102,
+              ),
+              child: Column(
+                children: [
+                  const TalkyText(),
+                  const Spacer(),
+                  Consumer<AuthGoogleProvider>(
+                    builder: (
+                      context,
+                      authProvider,
+                      child,
+                    ) {
+                      var route = NameRoutes.auth;
+                      final condition = authProvider.state.isCompleted;
 
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          if (context.mounted && condition) {
-                            if (authProvider.profileState ==
-                                ProfileState.create) {
-                              route = NameRoutes.setProfile;
-                            } else if (authProvider.profileState ==
-                                ProfileState.completed) {
-                              route = NameRoutes.main;
-                            }
-
-                            if (mounted) {
-                              Navigator.pushNamed(context, route);
-                            }
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        if (context.mounted && condition) {
+                          if (authProvider.profileState ==
+                              ProfileState.create) {
+                            route = NameRoutes.setProfile;
+                          } else if (authProvider.profileState ==
+                              ProfileState.completed) {
+                            route = NameRoutes.main;
                           }
-                        });
 
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            CustomAuthButton(
-                              textFontSize: 16,
-                              textColor: AppColors.blackText,
-                              buttonColor: Colors.white,
-                              iconPath: AppIcons.google.icon,
-                              text: valueProvider.isSignIn
-                                  ? locale.signInText
-                                  : locale.singUpText,
-                              function: () {
-                                authProvider.signInGoogle();
-                              },
-                              isLoading: authProvider.state.isLoading,
-                            ),
-                            const OrWidget(),
-                            CustomAuthButton(
-                              textFontSize: 16,
-                              textColor: AppColors.blackText,
-                              buttonColor: Colors.white,
-                              iconPath: AppIcons.mail.icon,
-                              text: locale.continueMailText,
-                              function: () => {
-                                Navigator.pushNamed(
-                                  context,
-                                  NameRoutes.inputMailPassword,
-                                ),
-                              },
-                              isLoading: false,
-                            ),
-                            const SizedBox(height: 56),
-                            const QuestionText(),
-                            const SignUpTextButton(),
-                            const SizedBox(height: 102),
-                          ],
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                          if (mounted) {
+                            Navigator.pushNamed(context, route);
+                          }
+                        }
+                      });
+
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          CustomAuthButton(
+                            textFontSize: 16,
+                            textColor: AppColors.blackText,
+                            buttonColor: Colors.white,
+                            iconPath: AppIcons.google.icon,
+                            text: valueProvider.isSignIn
+                                ? locale.signInText
+                                : locale.singUpText,
+                            function: () {
+                              authProvider.signInGoogle();
+                            },
+                            isLoading: authProvider.state.isLoading,
+                          ),
+                          const OrWidget(),
+                          CustomAuthButton(
+                            textFontSize: 16,
+                            textColor: AppColors.blackText,
+                            buttonColor: Colors.white,
+                            iconPath: AppIcons.mail.icon,
+                            text: locale.continueMailText,
+                            function: () => {
+                              Navigator.pushNamed(
+                                context,
+                                NameRoutes.inputMailPassword,
+                              ),
+                            },
+                            isLoading: false,
+                          ),
+                          const SizedBox(
+                            height: 56,
+                          ),
+                          const QuestionText(),
+                          const SignUpTextButton(),
+                        ],
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           );

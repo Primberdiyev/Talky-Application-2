@@ -19,12 +19,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final locale = context.locale;
 
-    return AppBar(
-      toolbarHeight: 110,
-      backgroundColor: Colors.transparent,
-      leading: Padding(
-        padding: const EdgeInsets.only(top: 30),
-        child: TextButton.icon(
+    return SafeArea(
+      child: AppBar(
+        toolbarHeight: 60,
+        backgroundColor: Colors.transparent,
+        leading: TextButton.icon(
           onPressed: () {
             Navigator.pop(context);
           },
@@ -46,12 +45,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Image.asset(ImagePaths.back),
           ),
         ),
-      ),
-      leadingWidth: 110,
-      centerTitle: true,
-      title: Padding(
-        padding: const EdgeInsets.only(top: 30),
-        child: Text(
+        leadingWidth: 110,
+        centerTitle: true,
+        title: Text(
           text ?? '',
           style: const TextStyle(
             color: Color(0xff243443),
@@ -59,66 +55,66 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             fontWeight: FontWeight.w700,
           ),
         ),
-      ),
-      actions: [
-        if (imgUrl != null)
-          Padding(
-            padding: const EdgeInsets.only(right: 30, top: 30),
-            child: Stack(
-              children: [
-                InkWell(
-                  onTap: () => function?.call(),
-                  child: CachedNetworkImage(
-                    imageUrl: imgUrl ?? '',
-                    fit: BoxFit.cover,
-                    height: 50,
-                    width: 50,
-                    imageBuilder: (context, imageProvider) {
-                      return Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
+        actions: [
+          if (imgUrl != null)
+            Padding(
+              padding: const EdgeInsets.only(right: 30,),
+              child: Stack(
+                children: [
+                  InkWell(
+                    onTap: () => function?.call(),
+                    child: CachedNetworkImage(
+                      imageUrl: imgUrl ?? '',
+                      fit: BoxFit.cover,
+                      height: 50,
+                      width: 50,
+                      imageBuilder: (context, imageProvider) {
+                        return Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    errorWidget: (
-                      context,
-                      url,
-                      error,
-                    ) {
-                      return SvgPicture.asset(AppIcons.userDefault.icon);
-                    },
-                    placeholder: (context, url) {
-                      return SvgPicture.asset(AppIcons.userDefault.icon);
-                    },
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Container(
-                    width: 15,
-                    height: 15,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.green,
+                        );
+                      },
+                      errorWidget: (
+                        context,
+                        url,
+                        error,
+                      ) {
+                        return SvgPicture.asset(AppIcons.userDefault.icon);
+                      },
+                      placeholder: (context, url) {
+                        return SvgPicture.asset(AppIcons.userDefault.icon);
+                      },
                     ),
                   ),
-                ),
-              ],
-            ),
-          )
-        else
-          const SizedBox.shrink(),
-      ],
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      width: 15,
+                      height: 15,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.green,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          else
+            const SizedBox.shrink(),
+        ],
+      ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(100);
+  Size get preferredSize => const Size.fromHeight(60);
 }

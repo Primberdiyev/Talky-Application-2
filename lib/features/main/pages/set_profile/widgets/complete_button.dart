@@ -36,7 +36,7 @@ class _CompleteButtonState extends State<CompleteButton> {
       }
       return Padding(
         padding: const EdgeInsets.only(
-          top: 163,
+          bottom: 90,
         ),
         child: TextButton(
           style: TextButton.styleFrom(
