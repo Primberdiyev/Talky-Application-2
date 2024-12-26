@@ -4,7 +4,6 @@ import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
 import 'package:talky_aplication_2/utils/statuses.dart';
-import 'package:uuid/uuid.dart';
 
 class GroupProvider extends BaseChangeNotifier {
   late List<String> pressedUsers = [];
@@ -29,15 +28,18 @@ class GroupProvider extends BaseChangeNotifier {
   }) async {
     updateState(Statuses.loading);
     final userDataService = UserDataService.instance;
-    final id = const Uuid().v4();
+
     List<String> allUsersId = model.usersId ?? [];
     allUsersId.add(adminId);
     try {
       groupModel = model;
-      await userDataService.setGroupModel(groupModel: groupModel, id: id);
+      await userDataService.setGroupModel(
+        groupModel: groupModel,
+        id: model.id ?? '',
+      );
       await userDataService.addMembersGroup(
         allUsersId: allUsersId,
-        groupId: id,
+        groupId: model.id ?? "",
       );
 
       updateState(Statuses.completed);

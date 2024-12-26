@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_user_avatar.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
-import 'package:talky_aplication_2/features/group/models/group_model.dart';
 import 'package:talky_aplication_2/utils/app_colors.dart';
 import 'package:talky_aplication_2/utils/app_icons.dart';
 
@@ -11,10 +10,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     super.key,
     this.userModel,
-    this.groupModel,
   });
   final UserModel? userModel;
-  final GroupModel? groupModel;
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +26,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomUserAvatar(
-              avatarLink:
-                  userModel != null ? userModel?.imgUrl : groupModel?.imgUrl,
+              avatarLink: userModel?.imgUrl,
               isOnline: true,
               isWithOnline: userModel != null,
             ),
             Text(
-              userModel != null
-                  ? locale.chat
-                  : groupModel?.title ?? locale.group,
+              locale.chat,
               style: const TextStyle(
                 color: AppColors.blackText,
                 fontSize: 16,

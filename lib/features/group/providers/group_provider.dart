@@ -7,7 +7,7 @@ class GroupProvider extends BaseChangeNotifier {
   final UserDataService userDataService = UserDataService.instance;
   Future sendMessageGroup({
     required String msg,
-    required String groupTitle,
+    required String id,
   }) async {
     final time = DateTime.now().microsecondsSinceEpoch.toString();
 
@@ -23,9 +23,9 @@ class GroupProvider extends BaseChangeNotifier {
 
     try {
       await userDataService.sendMessageGroup(
-        groupTitle: groupTitle,
         time: time,
         message: message,
+        id: id,
       );
     } catch (e) {
       log('error sending message to goup $e');

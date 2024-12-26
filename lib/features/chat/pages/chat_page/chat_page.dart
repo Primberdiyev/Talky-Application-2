@@ -22,6 +22,7 @@ class ChatPage extends StatelessWidget {
       ) {
         final chatControlller = TextEditingController();
         return Scaffold(
+          backgroundColor: Colors.white,
           appBar: CustomAppBar(
             text: provider.receiverUser?.name,
             imgUrl: provider.receiverUser?.imgUrl,

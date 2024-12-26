@@ -10,8 +10,8 @@ import 'package:talky_aplication_2/features/group/widgets/build_message.dart';
 import 'package:talky_aplication_2/features/main/models/message_model.dart';
 
 class GroupMessages extends StatefulWidget {
-  const GroupMessages({required this.titleGroup, super.key});
-  final String titleGroup;
+  const GroupMessages({required this.groupId, super.key});
+  final String groupId;
 
   @override
   State<GroupMessages> createState() => _GroupMessagesState();
@@ -22,13 +22,20 @@ class _GroupMessagesState extends State<GroupMessages> {
   final User? currentUser = UserDataService.instance.auth.currentUser;
   final ReceiveMessagesService receiveMessagesService =
       ReceiveMessagesService();
-  Future<UserModel>? getUser(String id) async {
+  Map<String, dynamic> usersImages = {};
+  Future<String>? getUserImg(String id) async {
+    if (usersImages.containsKey(id)) {
+      return usersImages[id];
+    }
+
     try {
       final response = await UserDataService.instance.getUserDoc(id: id);
-      return UserModel.fromJson(response.data() ?? {});
+      final user = UserModel.fromJson(response.data() ?? {});
+      usersImages[user.id ?? ""] = user.imgUrl;
+      return user.imgUrl ?? '';
     } catch (e) {
       log('xato ${e.toString()}');
-      return UserModel.fromJson({});
+      return '';
     }
   }
 
@@ -37,16 +44,16 @@ class _GroupMessagesState extends State<GroupMessages> {
     final locale = context.locale;
 
     return StreamBuilder(
-      stream: receiveMessagesService.getAllGroupMessages(widget.titleGroup),
+      stream: receiveMessagesService.getAllGroupMessages(widget.groupId),
       builder: (context, snapshot) {
         if (snapshot.data == null) {
-          return  Text(locale.noData);
+          return Text(locale.noData);
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasError) {
-          return  Text(locale.errorGettingMessage);
+          return Text(locale.errorGettingMessage);
         }
         final messages = snapshot.data?.docs ?? [];
         return Expanded(
@@ -60,19 +67,19 @@ class _GroupMessagesState extends State<GroupMessages> {
               final isMine =
                   message.fromId == userDataService.auth.currentUser?.uid;
               return FutureBuilder(
-                future: getUser(message.fromId),
+                future: getUserImg(message.fromId),
                 builder: (context, userSnapshot) {
                   if (userSnapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
-                      child: CircularProgressIndicator(),
+                      child: SizedBox.shrink(),
                     );
                   } else if (userSnapshot.hasError || !userSnapshot.hasData) {
-                    return  Text(locale.errorGettingMessage);
+                    return Text(locale.errorGettingMessage);
                   }
-                  final UserModel? user = userSnapshot.data;
+                  final String? userImage = userSnapshot.data;
                   return BuildMessage(
                     message: message,
-                    userModel: user,
+                    userImage: userImage,
                     isMine: isMine,
                   );
                 },

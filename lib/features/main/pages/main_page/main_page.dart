@@ -4,7 +4,9 @@ import 'package:talky_aplication_2/core/services/user_state_service.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_app_bar.dart';
 import 'package:talky_aplication_2/features/main/pages/main_page/widgets/action_button_profile.dart';
 import 'package:talky_aplication_2/features/main/pages/main_page/widgets/friends_list.dart';
+import 'package:talky_aplication_2/features/main/pages/main_page/widgets/groups.dart';
 import 'package:talky_aplication_2/features/main/providers/user_provider.dart';
+import 'package:talky_aplication_2/utils/important_texts.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -43,21 +45,39 @@ class _ProfilePageState extends State<MainPage> {
         provider,
         child,
       ) {
-        return Scaffold(
-          appBar: CustomAppBar(
-            userModel: provider.userModel,
+        return DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            appBar: CustomAppBar(
+              userModel: provider.userModel,
+            ),
+            body: const Column(
+              children: [
+                TabBar(
+                  tabs: [
+                    Tab(
+                      child: Text(ImportantTexts.chats),
+                    ),
+                    Tab(
+                      child: Text(ImportantTexts.groups),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      FriendsList(),
+                      Groups(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: const ActionButtonProfile(),
           ),
-          body: const Column(
-            children: [
-              SizedBox(height: 35),
-              Expanded(
-                child: FriendsList(),
-              ),
-            ],
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: const ActionButtonProfile(),
         );
       },
     );

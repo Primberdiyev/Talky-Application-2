@@ -35,6 +35,7 @@ class _OnlineUsersPageState extends State<ChatCreatePage> {
     final locale = context.locale;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: ContactsAppBar(
           centerText: locale.chat,
         ),

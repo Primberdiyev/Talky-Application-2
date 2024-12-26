@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_user_avatar.dart';
-import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/main/models/message_model.dart';
 import 'package:talky_aplication_2/utils/app_colors.dart';
 
@@ -8,11 +7,11 @@ class BuildMessage extends StatelessWidget {
   const BuildMessage({
     super.key,
     required this.message,
-    required this.userModel,
+    required this.userImage,
     required this.isMine,
   });
   final MessageModel message;
-  final UserModel? userModel;
+  final String? userImage;
   final bool isMine;
 
   @override
@@ -44,7 +43,7 @@ class BuildMessage extends StatelessWidget {
               ),
             ),
             CustomUserAvatar(
-              avatarLink: userModel?.imgUrl,
+              avatarLink: userImage,
               isWithOnline: true,
               isOnline: true,
             ),

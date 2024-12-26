@@ -8,7 +8,9 @@ import 'package:talky_aplication_2/features/main/pages/chat_create/widgets/conta
 import 'package:talky_aplication_2/features/main/pages/chat_create/widgets/contact_text.dart';
 import 'package:talky_aplication_2/features/main/pages/chat_create/widgets/contacts_app_bar.dart';
 import 'package:talky_aplication_2/features/main/providers/group_provider.dart';
+import 'package:talky_aplication_2/features/main/providers/user_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
+import 'package:uuid/uuid.dart';
 
 class CreateGroupPage extends StatefulWidget {
   const CreateGroupPage({super.key});
@@ -32,10 +34,11 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
     final userDataService = UserDataService.instance;
     final locale = context.locale;
     final currentUserId = userDataService.auth.currentUser?.uid;
-    return Consumer<GroupProvider>(
+    return Consumer2<GroupProvider, UserProvider>(
       builder: (
         context,
         provider,
+        userProvider,
         child,
       ) {
         if (provider.state.isCompleted) {
@@ -50,20 +53,24 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
           });
         }
         return Scaffold(
+          backgroundColor: Colors.white,
           appBar: ContactsAppBar(
             centerText: locale.group,
             isDoneActive: true,
             loading: provider.state.isLoading,
             onDone: () {
+              final id = const Uuid().v4();
               final groupModel = GroupModel(
                 title: groupNameController.text,
                 usersId: provider.pressedUsers,
                 adminId: currentUserId,
+                id: id,
               );
               provider.createGroup(
                 model: groupModel,
                 adminId: currentUserId ?? '',
               );
+              userProvider.addgroup(groupModel);
             },
           ),
           body: SingleChildScrollView(

@@ -32,12 +32,6 @@ class _SendMessageState extends State<SendData> {
   }
 
   @override
-  void dispose() {
-    widget.controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final locale = context.locale;
     final provider = Provider.of<ChatProvider>(context);

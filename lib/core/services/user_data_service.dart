@@ -98,11 +98,11 @@ class UserDataService {
   }
 
   Future sendMessageGroup({
-    required String groupTitle,
     required String time,
     required MessageModel message,
+    required String id,
   }) async {
-    final ref = firebaseFirestore.collection('groups/$groupTitle/messages/');
+    final ref = firebaseFirestore.collection('groups/$id/messages/');
     return await ref.doc(time).set(message.toJson());
   }
 
@@ -117,11 +117,9 @@ class UserDataService {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getAllGroupMessages(
-    String titliGroup,
+    String groupId,
   ) {
-    return firebaseFirestore
-        .collection('groups/$titliGroup/messages')
-        .snapshots();
+    return firebaseFirestore.collection('groups/$groupId/messages').snapshots();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages(String chatId) {
