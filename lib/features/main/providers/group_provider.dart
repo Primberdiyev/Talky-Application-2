@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
+import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
 import 'package:talky_aplication_2/utils/statuses.dart';
 
@@ -10,7 +11,7 @@ class GroupProvider extends BaseChangeNotifier {
   List<String> get reallyList => pressedUsers;
   GroupModel? groupModel;
   final UserDataService userDataService = UserDataService.instance;
-
+  Map<String, dynamic> usersImages = {};
   bool isUserPressed(String userId) => pressedUsers.contains(userId);
 
   void changeUserPressed(String userId) {
@@ -46,6 +47,19 @@ class GroupProvider extends BaseChangeNotifier {
     } catch (e) {
       updateState(Statuses.error);
       log('error on creating group $e ');
+    }
+  }
+
+  Future<void>? getUserImg(String id) async {
+    if (usersImages.containsKey(id)) {
+      return usersImages[id];
+    }
+    try {
+      final response = await UserDataService.instance.getUserDoc(id: id);
+      final user = UserModel.fromJson(response.data() ?? {});
+      usersImages[user.id ?? ""] = user.imgUrl;
+    } catch (e) {
+      log('xato ${e.toString()}');
     }
   }
 }

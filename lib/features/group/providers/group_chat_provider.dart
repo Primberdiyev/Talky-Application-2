@@ -3,7 +3,7 @@ import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/main/models/message_model.dart';
 
-class GroupProvider extends BaseChangeNotifier {
+class GroupChatProvider extends BaseChangeNotifier {
   final UserDataService userDataService = UserDataService.instance;
   Future sendMessageGroup({
     required String msg,

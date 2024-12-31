@@ -1,13 +1,11 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
-import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/group/services/receive_messages_service.dart';
 import 'package:talky_aplication_2/features/group/widgets/build_message.dart';
-import 'package:talky_aplication_2/features/main/models/message_model.dart';
+import 'package:talky_aplication_2/features/main/providers/group_provider.dart';
 
 class GroupMessages extends StatefulWidget {
   const GroupMessages({required this.groupId, super.key});
@@ -22,22 +20,6 @@ class _GroupMessagesState extends State<GroupMessages> {
   final User? currentUser = UserDataService.instance.auth.currentUser;
   final ReceiveMessagesService receiveMessagesService =
       ReceiveMessagesService();
-  Map<String, dynamic> usersImages = {};
-  Future<String>? getUserImg(String id) async {
-    if (usersImages.containsKey(id)) {
-      return usersImages[id];
-    }
-
-    try {
-      final response = await UserDataService.instance.getUserDoc(id: id);
-      final user = UserModel.fromJson(response.data() ?? {});
-      usersImages[user.id ?? ""] = user.imgUrl;
-      return user.imgUrl ?? '';
-    } catch (e) {
-      log('xato ${e.toString()}');
-      return '';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,38 +37,30 @@ class _GroupMessagesState extends State<GroupMessages> {
         } else if (snapshot.hasError) {
           return Text(locale.errorGettingMessage);
         }
-        final messages = snapshot.data?.docs ?? [];
-        return Expanded(
-          child: ListView.builder(
-            reverse: true,
-            itemCount: messages.length,
-            itemBuilder: (context, index) {
-              final message = MessageModel.fromJson(
-                messages[messages.length - 1 - index].data(),
-              );
-              final isMine =
-                  message.fromId == userDataService.auth.currentUser?.uid;
-              return FutureBuilder(
-                future: getUserImg(message.fromId),
-                builder: (context, userSnapshot) {
-                  if (userSnapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: SizedBox.shrink(),
-                    );
-                  } else if (userSnapshot.hasError || !userSnapshot.hasData) {
-                    return Text(locale.errorGettingMessage);
-                  }
-                  final String? userImage = userSnapshot.data;
-                  return BuildMessage(
-                    message: message,
-                    userImage: userImage,
-                    isMine: isMine,
-                  );
-                },
-              );
-            },
-          ),
-        );
+        final messages = snapshot.data ?? [];
+        return Consumer<GroupProvider>(builder: (
+          context,
+          provider,
+          child,
+        ) {
+          return Expanded(
+            child: ListView.builder(
+              reverse: true,
+              itemCount: messages.length,
+              itemBuilder: (context, index) {
+                final message = messages[index];
+                final isMine =
+                    message.fromId == userDataService.auth.currentUser?.uid;
+                provider.getUserImg(message.fromId);
+                return BuildMessage(
+                  message: message,
+                  userImage: provider.usersImages[message.fromId],
+                  isMine: isMine,
+                );
+              },
+            ),
+          );
+        });
       },
     );
   }

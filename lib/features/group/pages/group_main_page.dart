@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/features/auth/pages/input_mail_password_page/widgets/custom_app_bar.dart';
 import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/send_data.dart';
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
-import 'package:talky_aplication_2/features/group/providers/group_provider.dart';
+import 'package:talky_aplication_2/features/group/providers/group_chat_provider.dart';
 import 'package:talky_aplication_2/features/group/widgets/group_messages.dart';
 
 class GroupMainPage extends StatefulWidget {
@@ -38,8 +38,8 @@ class _GroupMainPageState extends State<GroupMainPage> {
             groupId: widget.groupModel.id ?? '',
           ),
           ChangeNotifierProvider(
-            create: (context) => GroupProvider(),
-            child: Consumer<GroupProvider>(builder: (
+            create: (context) => GroupChatProvider(),
+            child: Consumer<GroupChatProvider>(builder: (
               context,
               provider,
               child,

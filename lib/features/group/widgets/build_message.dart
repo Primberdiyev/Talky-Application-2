@@ -19,7 +19,7 @@ class BuildMessage extends StatelessWidget {
     return Align(
       alignment: isMine ? Alignment.centerRight : Alignment.centerLeft,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.all(10),
         child: Row(
           children: [
             if (isMine) const Spacer(),
