@@ -29,29 +29,24 @@ class ChatProvider extends BaseChangeNotifier {
     return userDataService.getAllMessages(chatId);
   }
 
-  Future checkIsFriend(
+  Future addTOFriends(
     String receiverId,
   ) async {
-    final idSnapshot = await userDataService.getChatUsersId();
-    final chattingUsersId = idSnapshot.docs.map((e) => e.id).toList();
-    if (!chattingUsersId.contains(receiverId)) {
-      chattingUsersId.add(receiverId);
-      final myId = currentUser?.uid;
-      await userDataService.setChattingDoc(
-        id: myId ?? '',
-        data: receiverId,
-        options: SetOptions(
-          merge: true,
-        ),
-      );
-      await userDataService.setChattingDoc(
-        id: receiverId,
-        data: myId ?? '',
-        options: SetOptions(
-          merge: true,
-        ),
-      );
-    }
+    final myId = currentUser?.uid;
+    await userDataService.setChattingDoc(
+      id: myId ?? '',
+      data: receiverId,
+      options: SetOptions(
+        merge: true,
+      ),
+    );
+    await userDataService.setChattingDoc(
+      id: receiverId,
+      data: myId ?? '',
+      options: SetOptions(
+        merge: true,
+      ),
+    );
   }
 
   Future<void> sendMessage(String receiverId, String msg) async {

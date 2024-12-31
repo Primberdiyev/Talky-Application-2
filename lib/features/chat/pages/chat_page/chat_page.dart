@@ -37,7 +37,6 @@ class ChatPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 const MessagesList(),
-                const SizedBox(height: 31),
                 SendData(controller: chatControlller),
                 const SizedBox(height: 31),
               ],

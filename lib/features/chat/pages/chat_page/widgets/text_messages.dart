@@ -18,7 +18,6 @@ class _TextMessagesState extends State<TextMessages> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 7.5),
       alignment: widget.isMine ? Alignment.centerRight : Alignment.centerLeft,
       child: ListTile(
         title: Align(

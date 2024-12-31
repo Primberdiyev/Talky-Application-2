@@ -20,7 +20,10 @@ class _ProfilePageState extends State<MainPage> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        context.read<UserProvider>().getUserModel();
+        final provider = context.read<UserProvider>();
+        provider.getUserModel().then((_) {
+          provider.getChattingUsers();
+        });
         //  UserStateService.instance.startTimer();
       },
     );

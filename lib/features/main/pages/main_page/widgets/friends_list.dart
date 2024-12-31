@@ -25,117 +25,101 @@ class _ListUsersState extends State<FriendsList> {
         chatProvider,
         child,
       ) {
-        return StreamBuilder(
-          stream: userProvider.getChattingUsers(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.data == null ||
-                (!snapshot.hasData ||
-                    snapshot.data is List && (snapshot.data as List).isEmpty)) {
-              const SizedBox.shrink();
-            }
+        final chattingUsers = userProvider.chattingUsers;
+        if (chattingUsers.isEmpty) {
+          return const SizedBox.shrink();
+        }
+        return ListView.builder(
+          itemCount: chattingUsers.length,
+          itemBuilder: (context, index) {
+            final user = chattingUsers[index];
+            final imgUrl = user.imgUrl;
+            const isOnline = true;
 
-            final chattingUsers = snapshot.data?.toList() ?? [];
-            if (chattingUsers.isEmpty) {
-              return const SizedBox.shrink();
-            }
-            return ListView.builder(
-              itemCount: chattingUsers.length,
-              itemBuilder: (context, index) {
-                final user = chattingUsers[index];
-                final imgUrl = user.imgUrl;
-                const isOnline = true;
-
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 28),
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  width: MediaQuery.of(context).size.width - 56,
-                  child: InkWell(
-                    onTap: () {
-                      chatProvider.changeReceiverUser(user);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const ChatPage(),
-                        ),
-                      );
-                    },
-                    child: Row(
-                      children: [
-                        CustomUserAvatar(
-                          avatarLink: imgUrl,
-                          isOnline: isOnline,
-                        ),
-                        const SizedBox(width: 15),
-                        Expanded(
-                          child: StreamBuilder(
-                            stream: chatProvider
-                                .getLastMessageWithTime(user.id ?? ''),
-                            builder: (
-                              context,
-                              AsyncSnapshot<Map<String, dynamic>> snapshot,
-                            ) {
-                              var timeAgo = '';
-                              var message = 'loading';
-                              if (snapshot.connectionState !=
-                                      ConnectionState.waiting &&
-                                  snapshot.hasData &&
-                                  snapshot.data != null) {
-                                final String sentTime =
-                                    snapshot.data?['sentTime'] ?? '';
-                                message = snapshot.data?['msg'] ?? '';
-                                if (sentTime.isNotEmpty) {
-                                  try {
-                                    final sentDateTime =
-                                        DateTime.parse(sentTime);
-                                    timeAgo = timeago.format(sentDateTime);
-                                  } catch (e) {
-                                    timeAgo = '';
-                                  }
-                                }
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              width: MediaQuery.of(context).size.width - 56,
+              child: InkWell(
+                onTap: () {
+                  chatProvider.changeReceiverUser(user);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ChatPage(),
+                    ),
+                  );
+                },
+                child: Row(
+                  children: [
+                    CustomUserAvatar(
+                      avatarLink: imgUrl,
+                      isOnline: isOnline,
+                    ),
+                    const SizedBox(width: 15),
+                    Expanded(
+                      child: StreamBuilder(
+                        stream:
+                            chatProvider.getLastMessageWithTime(user.id ?? ''),
+                        builder: (
+                          context,
+                          AsyncSnapshot<Map<String, dynamic>> snapshot,
+                        ) {
+                          var timeAgo = '';
+                          var message = 'loading';
+                          if (snapshot.connectionState !=
+                                  ConnectionState.waiting &&
+                              snapshot.hasData &&
+                              snapshot.data != null) {
+                            final String sentTime =
+                                snapshot.data?['sentTime'] ?? '';
+                            message = snapshot.data?['msg'] ?? '';
+                            if (sentTime.isNotEmpty) {
+                              try {
+                                final sentDateTime = DateTime.parse(sentTime);
+                                timeAgo = timeago.format(sentDateTime);
+                              } catch (e) {
+                                timeAgo = '';
                               }
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                            }
+                          }
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        user.name ?? '',
-                                        style: const TextStyle(
-                                          color: Color(0xFF243443),
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      Text(
-                                        timeAgo,
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 6),
                                   Text(
-                                    message.length <= 30
-                                        ? message
-                                        : '${message.substring(0, 30)}...',
-                                    overflow: TextOverflow.ellipsis,
+                                    user.name ?? '',
+                                    style: const TextStyle(
+                                      color: Color(0xFF243443),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  Text(
+                                    timeAgo,
+                                    style: const TextStyle(fontSize: 12),
                                   ),
                                 ],
-                              );
-                            },
-                          ),
-                        ),
-                        Image.asset('assets/images/Chevron.png'),
-                      ],
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                message.length <= 30
+                                    ? message
+                                    : '${message.substring(0, 30)}...',
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                );
-              },
+                    Image.asset('assets/images/Chevron.png'),
+                  ],
+                ),
+              ),
             );
           },
         );

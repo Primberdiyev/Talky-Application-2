@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
@@ -12,6 +11,7 @@ class UserProvider extends BaseChangeNotifier {
   UserModel? userModel;
   final currentUserId = UserDataService.instance.auth.currentUser?.uid;
   List<GroupModel>? allGroups;
+  List<UserModel> chattingUsers = [];
   Future<void> getUserModel() async {
     updateState(Statuses.loading);
     try {
@@ -26,24 +26,28 @@ class UserProvider extends BaseChangeNotifier {
     }
   }
 
-  Stream<List<UserModel>>? getChattingUsers() async* {
-    final response = await userDataService.getUserDoc(
-      id: userDataService.auth.currentUser?.uid ?? '',
-    );
-    final userModel = UserModel.fromJson(response.data() ?? {});
-    final chatIds = userModel.chattingUsersId ?? [].toList();
-    if (chatIds.isEmpty) {
-      yield [];
-      return;
-    }
-    List<UserModel> chattingUsers = [];
+  Future<void> getChattingUsers() async {
+    updateState(Statuses.loading);
+    try {
+      final response = await userDataService.getUserDoc(
+        id: userDataService.auth.currentUser?.uid ?? '',
+      );
+      final userModel = UserModel.fromJson(response.data() ?? {});
+      final chatIds = userModel.chattingUsersId ?? [].toList();
+      if (chatIds.isEmpty) {
+        updateState(Statuses.completed);
+        return;
+      }
 
-    for (var i = 0; i < chatIds.length; i++) {
-      final snapshot = await userDataService.getUserDoc(id: chatIds[i]);
-      final chattingUserModel = UserModel.fromJson(snapshot.data() ?? {});
-      chattingUsers.add(chattingUserModel);
+      for (var i = 0; i < chatIds.length; i++) {
+        final snapshot = await userDataService.getUserDoc(id: chatIds[i]);
+        final chattingUserModel = UserModel.fromJson(snapshot.data() ?? {});
+        chattingUsers.add(chattingUserModel);
+      }
+      updateState(Statuses.completed);
+    } catch (e) {
+      log('error on getting chatting users $e');
     }
-    yield chattingUsers;
   }
 
   Future getAllGroups() async {
@@ -73,6 +77,11 @@ class UserProvider extends BaseChangeNotifier {
 
   void addgroup(GroupModel groupModel) {
     allGroups?.add(groupModel);
+    notifyListeners();
+  }
+
+  void addChattingUser(UserModel newUser) {
+    chattingUsers.add(newUser);
     notifyListeners();
   }
 }
