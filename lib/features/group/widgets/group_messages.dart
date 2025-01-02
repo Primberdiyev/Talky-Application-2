@@ -48,7 +48,7 @@ class _GroupMessagesState extends State<GroupMessages> {
               reverse: true,
               itemCount: messages.length,
               itemBuilder: (context, index) {
-                final message = messages[index];
+                final message = messages[messages.length - index - 1];
                 final isMine =
                     message.fromId == userDataService.auth.currentUser?.uid;
                 provider.getUserImg(message.fromId);

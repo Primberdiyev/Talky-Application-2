@@ -7,7 +7,13 @@ import 'package:talky_aplication_2/utils/app_colors.dart';
 import 'package:talky_aplication_2/utils/app_icons.dart';
 
 class ActionButton extends StatelessWidget {
-  const ActionButton({super.key});
+  const ActionButton({
+    super.key,
+    required this.imageFunction,
+    required this.fileFunction,
+  });
+  final VoidCallback imageFunction;
+  final VoidCallback fileFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +44,13 @@ class ActionButton extends StatelessWidget {
                 shape: const StadiumBorder(),
                 child: SvgPicture.asset(AppIcons.cameraIcon.icon),
                 backgroundColor: Colors.white,
-                onTap: () => provider.getImage(),
+                onTap: imageFunction,
               ),
               SpeedDialChild(
                 shape: const StadiumBorder(),
                 child: SvgPicture.asset(AppIcons.fileIcon.icon),
                 backgroundColor: Colors.white,
-                onTap: () => provider.pickFile(),
+                onTap: () => fileFunction,
               ),
             ],
             child: SvgPicture.asset(AppIcons.plusIcon.icon),

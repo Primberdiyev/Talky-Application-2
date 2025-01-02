@@ -11,9 +11,10 @@ import 'package:talky_aplication_2/utils/statuses.dart';
 
 class SignInAndUpProvider extends BaseChangeNotifier {
   final UserDataService userDataService = UserDataService.instance;
-  String? email;
-  String? password;
-  final TextEditingController inputCodeController = TextEditingController();
+  String _email = '';
+  String _password = '';
+  String get email => _email;
+  String get password => _password;
 
   FutureOr<User?> signIn() async {
     updateState(Statuses.loading);
@@ -21,8 +22,8 @@ class SignInAndUpProvider extends BaseChangeNotifier {
     try {
       final UserCredential userCredential =
           await userDataService.auth.signInWithEmailAndPassword(
-        email: email ?? '',
-        password: password ?? '',
+        email: email,
+        password: password,
       );
       final user = userCredential.user;
       updateState(Statuses.completed);
@@ -36,19 +37,23 @@ class SignInAndUpProvider extends BaseChangeNotifier {
     }
   }
 
-  FutureOr<void> signUp() async {
+  FutureOr<void> signUp(
+    TextEditingController controller,
+    String newEmail,
+    String newPassword,
+  ) async {
     updateState(Statuses.loading);
     try {
-      final isVerified = EmailOTP.verifyOTP(otp: inputCodeController.text);
+      final isVerified = EmailOTP.verifyOTP(otp: controller.text);
 
       if (!isVerified) {
         throw Exception('Invalid OTP. Please try again.');
       }
-
+    
       final userCredential =
           await userDataService.auth.createUserWithEmailAndPassword(
-        email: email ?? '',
-        password: password ?? '',
+        email: newEmail,
+        password: newPassword,
       );
 
       final user = userCredential.user;
@@ -70,12 +75,13 @@ class SignInAndUpProvider extends BaseChangeNotifier {
   }
 
   FutureOr<bool> isRegistered() async {
-    return userDataService.isRegistered(email ?? '');
+    return userDataService.isRegistered(email);
   }
 
   void changeEmailPassword(String newEmail, String newPassword) {
-    email = newEmail;
-    password = newPassword;
+    _email = newEmail;
+    _password = newPassword;
+    
     notifyListeners();
   }
 }

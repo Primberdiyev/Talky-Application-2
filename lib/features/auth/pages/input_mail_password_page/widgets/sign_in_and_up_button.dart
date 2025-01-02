@@ -39,28 +39,26 @@ class SignInAndUpButton extends StatelessWidget {
               authProvider.updateState(Statuses.initial);
             }
           });
-        } else if (!valueProvider.isSignIn && otpProvider.state.isCompleted) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (context.mounted) {
-              Navigator.pushNamed(context, NameRoutes.checkCode);
-              otpProvider.updateState(Statuses.initial);
-            }
-          });
         }
         return CustomAuthButton(
           textFontSize: 18,
           textColor: Colors.white,
           text: valueProvider.isSignIn ? locale.signIn : locale.signUp,
           function: () {
+         
             authProvider.changeEmailPassword(
-              emailController.text,
-              passwordController.text,
+              emailController.text.trim(),
+              passwordController.text.trim(),
             );
             if (valueProvider.isSignIn) {
               authProvider.signIn();
             } else {
               if (valueProvider.agreeCondition) {
-                otpProvider.sendOTP(email: emailController.text);
+                otpProvider.sendOTP(email: emailController.text).then((_) {
+                  if (context.mounted && otpProvider.state.isCompleted) {
+                    Navigator.pushNamed(context, NameRoutes.checkCode);
+                  }
+                });
               }
             }
           },

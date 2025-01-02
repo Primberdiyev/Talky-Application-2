@@ -98,7 +98,7 @@ class ChatProvider extends BaseChangeNotifier {
     final uploadTask = await refStorage.putFile(imageFile ?? File(''));
     final imgUrl = await uploadTask.ref.getDownloadURL();
     final time = DateTime.now().microsecondsSinceEpoch.toString();
-    final sentTime = DateTime.now().hour;
+    final sentTime = DateTime.now();
 
     final message = MessageModel(
       toId: receiverUser?.id ?? '',

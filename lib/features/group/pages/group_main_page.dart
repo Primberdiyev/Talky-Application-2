@@ -46,6 +46,8 @@ class _GroupMainPageState extends State<GroupMainPage> {
             ) {
               return SendData(
                 controller: controller,
+                imageFunction: () {},
+                fileFunction: (){},
                 sendFunction: () async {
                   await provider.sendMessageGroup(
                     msg: controller.text,

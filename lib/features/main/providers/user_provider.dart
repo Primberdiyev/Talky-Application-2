@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
@@ -12,6 +13,7 @@ class UserProvider extends BaseChangeNotifier {
   final currentUserId = UserDataService.instance.auth.currentUser?.uid;
   List<GroupModel>? allGroups;
   List<UserModel> chattingUsers = [];
+  List<String> chattingUsersId = [];
   Future<void> getUserModel() async {
     updateState(Statuses.loading);
     try {
@@ -19,6 +21,7 @@ class UserProvider extends BaseChangeNotifier {
         id: userDataService.auth.currentUser?.uid ?? '',
       );
       userModel = UserModel.fromJson(response.data() ?? {});
+      chattingUsersId = userModel?.chattingUsersId ?? [];
       updateState(Statuses.completed);
     } catch (e) {
       updateState(Statuses.error);
@@ -80,8 +83,41 @@ class UserProvider extends BaseChangeNotifier {
     notifyListeners();
   }
 
-  void addChattingUser(UserModel newUser) {
-    chattingUsers.add(newUser);
+  void addUserChatting(UserModel userModel) {
+    if (!chattingUsers.contains(userModel)) {}
+    notifyListeners();
+  }
+
+  Future<void> addChattingUser(UserModel newUser) async {
+    updateState(Statuses.loading);
+    try {
+      chattingUsers.add(newUser);
+      addUserId(newUser.id ?? "");
+
+      addUserChatting(newUser);
+      await userDataService.setChattingDoc(
+        id: currentUserId ?? "",
+        data: newUser.id ?? '',
+        options: SetOptions(
+          merge: true,
+        ),
+      );
+      await userDataService.setChattingDoc(
+        id: newUser.id ?? "",
+        data: currentUserId ?? '',
+        options: SetOptions(
+          merge: true,
+        ),
+      );
+      updateState(Statuses.completed);
+    } catch (e) {
+      updateState(Statuses.error);
+      log('error on adding chatting user $e');
+    }
+  }
+
+  void addUserId(String id) {
+    chattingUsersId.add(id);
     notifyListeners();
   }
 }

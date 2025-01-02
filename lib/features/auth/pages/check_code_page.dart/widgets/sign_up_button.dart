@@ -9,7 +9,9 @@ import 'package:talky_aplication_2/utils/statuses.dart';
 class SignUpButton extends StatelessWidget {
   const SignUpButton({
     super.key,
+    required this.inputCodeController,
   });
+  final TextEditingController inputCodeController;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,11 @@ class SignUpButton extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () {
-                signInAndUpProvider.signUp();
+                signInAndUpProvider.signUp(
+                  inputCodeController,
+                  signInAndUpProvider.email,
+                  signInAndUpProvider.password,
+                );
               },
               child: Container(
                 width: MediaQuery.of(context).size.width - 56,

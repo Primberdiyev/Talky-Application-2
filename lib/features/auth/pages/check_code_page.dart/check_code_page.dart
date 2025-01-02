@@ -20,6 +20,13 @@ class CheckCodePage extends StatefulWidget {
 }
 
 class _CheckCodePageState extends State<CheckCodePage> {
+  final TextEditingController inputCodeController = TextEditingController();
+  @override
+  void dispose() {
+    inputCodeController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<SignInAndUpProvider>(
@@ -28,25 +35,29 @@ class _CheckCodePageState extends State<CheckCodePage> {
         provider,
         child,
       ) {
-        return const Scaffold(
+        return Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
-          appBar: CustomAppBar(),
+          appBar: const CustomAppBar(),
           body: Padding(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: 26,
             ),
             child: Column(
               children: [
-                TalkyText(),
-                EnterCodeText(),
-                SizedBox(height: 50),
-                InputCodes(),
-                Spacer(),
-                SignUpButton(),
-                QuestionText(),
-                SignUpTextButton(),
-                SizedBox(
+                const TalkyText(),
+                const EnterCodeText(),
+                const SizedBox(height: 50),
+                InputCodes(
+                  controller: inputCodeController,
+                ),
+                const Spacer(),
+                SignUpButton(
+                  inputCodeController: inputCodeController,
+                ),
+                const QuestionText(),
+                const SignUpTextButton(),
+                const SizedBox(
                   height: 102,
                 ),
               ],

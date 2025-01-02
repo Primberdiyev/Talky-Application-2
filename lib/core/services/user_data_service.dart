@@ -73,7 +73,7 @@ class UserDataService {
           )
           .update(
         {
-          ImportantTexts.lasTime: DateTime.now().millisecondsSinceEpoch,
+          ImportantTexts.lastTime: DateTime.now().millisecondsSinceEpoch,
         },
       );
     } catch (e) {

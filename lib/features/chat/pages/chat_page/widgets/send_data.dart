@@ -12,9 +12,13 @@ class SendData extends StatefulWidget {
     required this.controller,
     super.key,
     this.sendFunction,
+    required this.imageFunction,
+    required this.fileFunction,
   });
   final Function()? sendFunction;
   final TextEditingController controller;
+  final VoidCallback imageFunction;
+  final VoidCallback fileFunction;
 
   @override
   State<SendData> createState() => _SendMessageState();
@@ -31,8 +35,7 @@ class _SendMessageState extends State<SendData> {
         widget.controller.text,
       );
       widget.controller.clear();
-      final List<String> usersId =
-          userProvider.userModel?.chattingUsersId ?? [];
+      final List<String> usersId = userProvider.chattingUsersId;
       if (!usersId.contains(receiverId)) {
         userProvider.addChattingUser(provider.receiverUser ?? {} as UserModel);
       }
@@ -70,7 +73,10 @@ class _SendMessageState extends State<SendData> {
           const SizedBox(
             width: 10,
           ),
-          const ActionButton(),
+          ActionButton(
+            imageFunction: widget.imageFunction,
+            fileFunction: widget.fileFunction,
+          ),
         ],
       ),
     );

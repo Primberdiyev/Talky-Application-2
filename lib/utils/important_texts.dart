@@ -1,7 +1,7 @@
 class ImportantTexts {
   static const user = 'User';
   static const chattingId = 'chattingUsersId';
-  static const lasTime = 'lasTime';
+  static const lastTime = 'lastTime';
   static const chats = 'Chats';
   static const groups = 'groups';
   static const unableStorage = 'Unable to access external storage';

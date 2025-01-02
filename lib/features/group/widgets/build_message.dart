@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_user_avatar.dart';
+import 'package:talky_aplication_2/features/group/widgets/message_view.dart';
 import 'package:talky_aplication_2/features/main/models/message_model.dart';
-import 'package:talky_aplication_2/utils/app_colors.dart';
 
 class BuildMessage extends StatelessWidget {
   const BuildMessage({
@@ -20,35 +20,45 @@ class BuildMessage extends StatelessWidget {
       alignment: isMine ? Alignment.centerRight : Alignment.centerLeft,
       child: Padding(
         padding: const EdgeInsets.all(10),
-        child: Row(
-          children: [
-            if (isMine) const Spacer(),
-            Container(
-              margin: EdgeInsets.only(
-                left: isMine ? 50 : 10,
-                right: isMine ? 10 : 50,
-                top: 5,
-                bottom: 5,
+        child: isMine
+            ? Row(
+                children: [
+                  const Spacer(),
+                  MessageView(
+                    isMine: isMine,
+                    message: message.msg,
+                  ),
+                  CustomUserAvatar(
+                    avatarLink: userImage,
+                    isWithOnline: true,
+                    isOnline: true,
+                  ),
+                ],
+              )
+            : Row(
+                children: [
+                  CustomUserAvatar(
+                    avatarLink: userImage,
+                    isWithOnline: true,
+                    isOnline: true,
+                  ),
+                  MessageView(
+                    isMine: isMine,
+                    message: message.msg,
+                  ),
+                  const Spacer(),
+                ],
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              decoration: BoxDecoration(
-                color: isMine ? AppColors.primaryBlue : Colors.grey[300],
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                message.msg,
-                style: TextStyle(
-                  color: isMine ? Colors.white : Colors.black,
-                ),
-              ),
-            ),
-            CustomUserAvatar(
-              avatarLink: userImage,
-              isWithOnline: true,
-              isOnline: true,
-            ),
-          ],
-        ),
+        //  Row(
+        //   children: [
+        //     if (isMine) const Spacer(),
+        //     CustomUserAvatar(
+        //       avatarLink: userImage,
+        //       isWithOnline: true,
+        //       isOnline: true,
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }

@@ -3,9 +3,18 @@ import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/sign_in_and_up_provider.dart';
 
-class InputCodes extends StatelessWidget {
-  const InputCodes({super.key});
+class InputCodes extends StatefulWidget {
+  const InputCodes({
+    super.key,
+    required this.controller,
+  });
+  final TextEditingController controller;
 
+  @override
+  State<InputCodes> createState() => _InputCodesState();
+}
+
+class _InputCodesState extends State<InputCodes> {
   @override
   Widget build(BuildContext context) {
     return Consumer<SignInAndUpProvider>(
@@ -15,7 +24,7 @@ class InputCodes extends StatelessWidget {
         child,
       ) {
         return Pinput(
-          controller: provider.inputCodeController,
+          controller: widget.controller,
           defaultPinTheme: PinTheme(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
