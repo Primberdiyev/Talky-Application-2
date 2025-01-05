@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
       ) {
         return TextField(
           controller: controller,
-          obscureText: !provider.isHideText,
+          obscureText: provider.isHideText && suffixIcon != null,
           onChanged: onChanged,
           cursorColor: AppColors.primaryBlue,
           decoration: InputDecoration(

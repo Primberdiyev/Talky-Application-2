@@ -16,7 +16,7 @@ class SignInAndUpProvider extends BaseChangeNotifier {
   String get email => _email;
   String get password => _password;
 
-  FutureOr<User?> signIn() async {
+  FutureOr<User?> signIn(String email, String password) async {
     updateState(Statuses.loading);
 
     try {
@@ -27,12 +27,10 @@ class SignInAndUpProvider extends BaseChangeNotifier {
       );
       final user = userCredential.user;
       updateState(Statuses.completed);
-      notifyListeners();
       return user;
     } on FirebaseAuthException catch (error) {
       updateState(Statuses.error);
       log('Error :$error');
-      notifyListeners();
       return null;
     }
   }
@@ -49,7 +47,7 @@ class SignInAndUpProvider extends BaseChangeNotifier {
       if (!isVerified) {
         throw Exception('Invalid OTP. Please try again.');
       }
-    
+
       final userCredential =
           await userDataService.auth.createUserWithEmailAndPassword(
         email: newEmail,
@@ -81,7 +79,6 @@ class SignInAndUpProvider extends BaseChangeNotifier {
   void changeEmailPassword(String newEmail, String newPassword) {
     _email = newEmail;
     _password = newPassword;
-    
     notifyListeners();
   }
 }

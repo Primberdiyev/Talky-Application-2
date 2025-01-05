@@ -16,7 +16,6 @@ class ChatProvider extends BaseChangeNotifier {
   UserModel? receiverUser;
   bool isUserPressed = false;
   User? get currentUser => userDataService.auth.currentUser;
-
   String getConversatioId(String id) {
     final currentUserId = userDataService.auth.currentUser?.uid;
     return currentUserId.hashCode <= id.hashCode

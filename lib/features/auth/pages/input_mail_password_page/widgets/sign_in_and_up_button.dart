@@ -12,11 +12,11 @@ import 'package:talky_aplication_2/utils/statuses.dart';
 class SignInAndUpButton extends StatelessWidget {
   const SignInAndUpButton({
     super.key,
-    required this.emailController,
-    required this.passwordController,
+    required this.email,
+    required this.password,
   });
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
+  final String email;
+  final String password;
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +32,7 @@ class SignInAndUpButton extends StatelessWidget {
       ) {
         if (valueProvider.isSignIn && authProvider.state.isCompleted) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (context.mounted &&
-                emailController.text.isNotEmpty &&
-                passwordController.text.isNotEmpty) {
+            if (context.mounted && email.isNotEmpty && password.isNotEmpty) {
               Navigator.pushReplacementNamed(context, NameRoutes.main);
               authProvider.updateState(Statuses.initial);
             }
@@ -45,16 +43,15 @@ class SignInAndUpButton extends StatelessWidget {
           textColor: Colors.white,
           text: valueProvider.isSignIn ? locale.signIn : locale.signUp,
           function: () {
-         
             authProvider.changeEmailPassword(
-              emailController.text.trim(),
-              passwordController.text.trim(),
+              email.trim(),
+              password.trim(),
             );
             if (valueProvider.isSignIn) {
-              authProvider.signIn();
+              authProvider.signIn(email, password);
             } else {
               if (valueProvider.agreeCondition) {
-                otpProvider.sendOTP(email: emailController.text).then((_) {
+                otpProvider.sendOTP(email: email).then((_) {
                   if (context.mounted && otpProvider.state.isCompleted) {
                     Navigator.pushNamed(context, NameRoutes.checkCode);
                   }

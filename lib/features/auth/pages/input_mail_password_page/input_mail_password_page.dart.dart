@@ -27,9 +27,9 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-    // final valueProvider =
-    //     Provider.of<ValueStateProvider>(context, listen: false);
-    // valueProvider.changeBoolValue(BoolValueEnum.agreeCondition);
+    final valueProvider =
+        Provider.of<ValueStateProvider>(context, listen: false);
+    valueProvider.changeBoolValue(BoolValueEnum.agreeCondition);
 
     super.dispose();
   }
@@ -37,7 +37,6 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
   @override
   Widget build(BuildContext context) {
     final locale = context.locale;
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -109,8 +108,8 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         SignInAndUpButton(
-                          emailController: emailController,
-                          passwordController: passwordController,
+                          email: emailController.text,
+                          password: passwordController.text,
                         ),
                         const SizedBox(
                           height: 20,
