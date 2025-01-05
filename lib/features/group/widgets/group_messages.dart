@@ -50,11 +50,9 @@ class _GroupMessagesState extends State<GroupMessages> {
               itemBuilder: (context, index) {
                 final message = messages[messages.length - index - 1];
                 final isMine =
-                    message.fromId == userDataService.auth.currentUser?.uid;
-                provider.getUserImg(message.fromId);
+                    message.id == userDataService.auth.currentUser?.uid;
                 return BuildMessage(
                   message: message,
-                  userImage: provider.usersImages[message.fromId],
                   isMine: isMine,
                 );
               },

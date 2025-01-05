@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
+import 'package:talky_aplication_2/features/group/models/group_message_model.dart';
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
 import 'package:talky_aplication_2/features/main/models/message_model.dart';
 import 'package:talky_aplication_2/utils/important_texts.dart';
@@ -99,7 +100,7 @@ class UserDataService {
 
   Future sendMessageGroup({
     required String time,
-    required MessageModel message,
+    required GroupMessageModel message,
     required String id,
   }) async {
     final ref = firebaseFirestore.collection('groups/$id/messages/');

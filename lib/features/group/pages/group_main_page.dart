@@ -5,6 +5,7 @@ import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/send_da
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
 import 'package:talky_aplication_2/features/group/providers/group_chat_provider.dart';
 import 'package:talky_aplication_2/features/group/widgets/group_messages.dart';
+import 'package:talky_aplication_2/features/main/providers/user_provider.dart';
 
 class GroupMainPage extends StatefulWidget {
   const GroupMainPage({required this.groupModel, super.key});
@@ -44,12 +45,14 @@ class _GroupMainPageState extends State<GroupMainPage> {
               provider,
               child,
             ) {
+              final userProvider = context.read<UserProvider>();
               return SendData(
                 controller: controller,
                 imageFunction: () {},
-                fileFunction: (){},
+                fileFunction: () {},
                 sendFunction: () async {
                   await provider.sendMessageGroup(
+                    userModel: userProvider.userModel,
                     msg: controller.text,
                     id: widget.groupModel.id ?? "",
                   );

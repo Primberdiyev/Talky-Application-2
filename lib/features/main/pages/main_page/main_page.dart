@@ -24,7 +24,7 @@ class _ProfilePageState extends State<MainPage> {
         provider.getUserModel().then((_) {
           provider.getChattingUsers();
         });
-        // UserStateService.instance.startTimer();
+     //    UserStateService.instance.startTimer();
       },
     );
     super.initState();

@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_user_avatar.dart';
+import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
+import 'package:talky_aplication_2/features/group/models/group_message_model.dart';
 import 'package:talky_aplication_2/features/group/widgets/message_view.dart';
-import 'package:talky_aplication_2/features/main/models/message_model.dart';
+import 'package:talky_aplication_2/routes/name_routes.dart';
 
 class BuildMessage extends StatelessWidget {
   const BuildMessage({
     super.key,
     required this.message,
-    required this.userImage,
     required this.isMine,
   });
-  final MessageModel message;
-  final String? userImage;
+  final GroupMessageModel message;
   final bool isMine;
 
   @override
   Widget build(BuildContext context) {
+    final userImageUrl = message.userModel?.imgUrl;
     return Align(
       alignment: isMine ? Alignment.centerRight : Alignment.centerLeft,
       child: Padding(
@@ -26,10 +28,10 @@ class BuildMessage extends StatelessWidget {
                   const Spacer(),
                   MessageView(
                     isMine: isMine,
-                    message: message.msg,
+                    message: message.message,
                   ),
                   CustomUserAvatar(
-                    avatarLink: userImage,
+                    avatarLink: userImageUrl,
                     isWithOnline: true,
                     isOnline: true,
                   ),
@@ -37,28 +39,28 @@ class BuildMessage extends StatelessWidget {
               )
             : Row(
                 children: [
-                  CustomUserAvatar(
-                    avatarLink: userImage,
-                    isWithOnline: true,
-                    isOnline: true,
+                  GestureDetector(
+                    onTap: () {
+                      final provider = context.read<ChatProvider>();
+                      provider.changeReceiverUser(message.userModel);
+                      Navigator.pushNamed(
+                        context,
+                        NameRoutes.receiverUser,
+                      );
+                    },
+                    child: CustomUserAvatar(
+                      avatarLink: userImageUrl,
+                      isWithOnline: true,
+                      isOnline: true,
+                    ),
                   ),
                   MessageView(
                     isMine: isMine,
-                    message: message.msg,
+                    message: message.message,
                   ),
                   const Spacer(),
                 ],
               ),
-        //  Row(
-        //   children: [
-        //     if (isMine) const Spacer(),
-        //     CustomUserAvatar(
-        //       avatarLink: userImage,
-        //       isWithOnline: true,
-        //       isOnline: true,
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }

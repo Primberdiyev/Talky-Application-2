@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:talky_aplication_2/utils/profile_state.dart';
 
 class UserModel {
@@ -23,7 +24,13 @@ class UserModel {
             (json['profile_state'] != null && json['profile_state'] is String)
                 ? ProfileState.fromString(json['profile_state'] as String)
                 : null,
-        lastTime: DateTime.fromMillisecondsSinceEpoch(json['lastTime'] ?? 0),
+        lastTime: json['lastTime'] is Timestamp
+            ? (json['lastTime'] as Timestamp).toDate()
+            : json['lastTime'] is int
+                ? DateTime.fromMillisecondsSinceEpoch(
+                    json['lastTime'] as int,
+                  )
+                : null,
         chattingUsersId: (json['chattingUsersId'] as List?)
             ?.map((item) => item as String)
             .toList(),
