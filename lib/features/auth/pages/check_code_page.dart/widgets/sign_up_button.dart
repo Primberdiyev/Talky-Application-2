@@ -10,9 +10,12 @@ class SignUpButton extends StatelessWidget {
   const SignUpButton({
     super.key,
     required this.inputCodeController,
+    required this.email,
+    required this.password,
   });
   final TextEditingController inputCodeController;
-
+  final String email;
+  final String password;
   @override
   Widget build(BuildContext context) {
     final locale = context.locale;
@@ -44,8 +47,8 @@ class SignUpButton extends StatelessWidget {
               onTap: () {
                 signInAndUpProvider.signUp(
                   inputCodeController,
-                  signInAndUpProvider.email,
-                  signInAndUpProvider.password,
+                  email,
+                  password,
                 );
               },
               child: Container(

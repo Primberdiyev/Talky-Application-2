@@ -13,7 +13,11 @@ import 'package:talky_aplication_2/features/auth/providers/sign_in_and_up_provid
 class CheckCodePage extends StatefulWidget {
   const CheckCodePage({
     super.key,
+    required this.email,
+    required this.password,
   });
+  final String email;
+  final String password;
 
   @override
   State<CheckCodePage> createState() => _CheckCodePageState();
@@ -54,6 +58,8 @@ class _CheckCodePageState extends State<CheckCodePage> {
                 const Spacer(),
                 SignUpButton(
                   inputCodeController: inputCodeController,
+                  email: widget.email,
+                  password: widget.password,
                 ),
                 const QuestionText(),
                 const SignUpTextButton(),

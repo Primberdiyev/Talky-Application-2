@@ -23,7 +23,13 @@ Route generateRoute(RouteSettings settings) {
     case NameRoutes.auth:
       return MaterialPageRoute(builder: (_) => const AuthorizationPage());
     case NameRoutes.checkCode:
-      return MaterialPageRoute(builder: (_) => const CheckCodePage());
+      final args = settings.arguments as Map<String, String>;
+      return MaterialPageRoute(
+        builder: (_) => CheckCodePage(
+          email: args['email']!,
+          password: args['password']!,
+        ),
+      );
     case NameRoutes.inputMailPassword:
       return MaterialPageRoute(builder: (_) => const InputMailPasswordPage());
     case NameRoutes.forgotPassword:

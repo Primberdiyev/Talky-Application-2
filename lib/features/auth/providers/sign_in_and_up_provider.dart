@@ -11,10 +11,10 @@ import 'package:talky_aplication_2/utils/statuses.dart';
 
 class SignInAndUpProvider extends BaseChangeNotifier {
   final UserDataService userDataService = UserDataService.instance;
-  String _email = '';
-  String _password = '';
-  String get email => _email;
-  String get password => _password;
+  // String _email = '';
+  // String _password = '';
+  // String get email => _email;
+  // String get password => _password;
 
   FutureOr<User?> signIn(String email, String password) async {
     updateState(Statuses.loading);
@@ -72,13 +72,13 @@ class SignInAndUpProvider extends BaseChangeNotifier {
     }
   }
 
-  FutureOr<bool> isRegistered() async {
-    return userDataService.isRegistered(email);
-  }
+  // FutureOr<bool> isRegistered() async {
+  //   return userDataService.isRegistered(email);
+  // }
 
-  void changeEmailPassword(String newEmail, String newPassword) {
-    _email = newEmail;
-    _password = newPassword;
-    notifyListeners();
-  }
+  // void changeEmailPassword(String newEmail, String newPassword) {
+  //   _email = newEmail;
+  //   _password = newPassword;
+  //   notifyListeners();
+  // }
 }

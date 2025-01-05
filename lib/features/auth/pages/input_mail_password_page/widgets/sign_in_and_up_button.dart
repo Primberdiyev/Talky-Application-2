@@ -43,17 +43,21 @@ class SignInAndUpButton extends StatelessWidget {
           textColor: Colors.white,
           text: valueProvider.isSignIn ? locale.signIn : locale.signUp,
           function: () {
-            authProvider.changeEmailPassword(
-              email.trim(),
-              password.trim(),
-            );
+            // authProvider.changeEmailPassword(
+            //   email.trim(),
+            //   password.trim(),
+            // );
             if (valueProvider.isSignIn) {
               authProvider.signIn(email, password);
             } else {
               if (valueProvider.agreeCondition) {
                 otpProvider.sendOTP(email: email).then((_) {
                   if (context.mounted && otpProvider.state.isCompleted) {
-                    Navigator.pushNamed(context, NameRoutes.checkCode);
+                    Navigator.pushNamed(
+                      context,
+                      NameRoutes.checkCode,
+                      arguments: {'email': email, 'password': password},
+                    );
                   }
                 });
               }
