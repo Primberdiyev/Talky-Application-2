@@ -19,7 +19,7 @@ class GroupChatProvider extends BaseChangeNotifier {
       dateTime: DateTime.now(),
       message: msg,
       type: MessageTypes.text,
-      userModel: userModel,
+      imageUrl: userModel?.imgUrl,
     );
 
     try {

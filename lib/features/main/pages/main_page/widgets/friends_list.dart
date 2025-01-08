@@ -42,7 +42,7 @@ class _ListUsersState extends State<FriendsList> {
               width: MediaQuery.of(context).size.width - 56,
               child: InkWell(
                 onTap: () {
-                  chatProvider.changeReceiverUser(user);
+                  chatProvider.changeReceiverUser(newUser: user);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

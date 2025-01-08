@@ -87,9 +87,4 @@ class ProfilePageProvider extends BaseChangeNotifier {
 
     notifyListeners();
   }
-
-  void changeCurrentUser(User? newUser) {
-    currentUser = newUser;
-    notifyListeners();
-  }
 }

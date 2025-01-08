@@ -17,7 +17,7 @@ class BuildMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userImageUrl = message.userModel?.imgUrl;
+    final userImageUrl = message.imageUrl;
     return Align(
       alignment: isMine ? Alignment.centerRight : Alignment.centerLeft,
       child: Padding(
@@ -42,7 +42,7 @@ class BuildMessage extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       final provider = context.read<ChatProvider>();
-                      provider.changeReceiverUser(message.userModel);
+                      provider.changeReceiverUser(receiverId: message.id);
                       Navigator.pushNamed(
                         context,
                         NameRoutes.receiverUser,

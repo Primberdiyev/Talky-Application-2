@@ -38,7 +38,7 @@ class ContactItem extends StatelessWidget {
         return ListTile(
           onTap: () {
             if (!toGroup) {
-              chatProvider.changeReceiverUser(model);
+              chatProvider.changeReceiverUser(newUser: model);
               Navigator.pushNamed(context, NameRoutes.chat);
             } else {
               groupProvider.changeUserPressed(model.id ?? '');

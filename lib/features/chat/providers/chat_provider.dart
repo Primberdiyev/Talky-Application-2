@@ -73,8 +73,16 @@ class ChatProvider extends BaseChangeNotifier {
     }
   }
 
-  void changeReceiverUser(newUser) {
-    receiverUser = newUser;
+  Future<void> changeReceiverUser({
+    UserModel? newUser,
+    String? receiverId,
+  }) async {
+    if (receiverId == null) {
+      receiverUser = newUser;
+    } else {
+      final response = await userDataService.getUserDoc(id: receiverId);
+      receiverUser = UserModel.fromJson(response.data() ?? {});
+    }
     notifyListeners();
   }
 
