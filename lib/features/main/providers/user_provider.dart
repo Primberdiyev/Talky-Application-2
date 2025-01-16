@@ -91,9 +91,6 @@ class UserProvider extends BaseChangeNotifier {
   Future<void> addChattingUser(UserModel newUser) async {
     updateState(Statuses.loading);
     try {
-      chattingUsers.add(newUser);
-      addUserId(newUser.id ?? "");
-
       addUserChatting(newUser);
       await userDataService.setChattingDoc(
         id: currentUserId ?? "",
@@ -114,10 +111,5 @@ class UserProvider extends BaseChangeNotifier {
       updateState(Statuses.error);
       log('error on adding chatting user $e');
     }
-  }
-
-  void addUserId(String id) {
-    chattingUsersId.add(id);
-    notifyListeners();
   }
 }

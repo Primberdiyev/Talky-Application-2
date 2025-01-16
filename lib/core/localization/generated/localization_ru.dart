@@ -130,4 +130,7 @@ class L10nRu extends L10n {
 
   @override
   String get langauge => 'Изменить язык';
+
+  @override
+  String get loading => 'Загрузка';
 }

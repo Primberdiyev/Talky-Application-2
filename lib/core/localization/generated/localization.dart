@@ -341,6 +341,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Change the language'**
   String get langauge;
+
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'loading'**
+  String get loading;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

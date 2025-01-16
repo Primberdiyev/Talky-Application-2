@@ -130,4 +130,7 @@ class L10nEn extends L10n {
 
   @override
   String get langauge => 'Change the language';
+
+  @override
+  String get loading => 'loading';
 }

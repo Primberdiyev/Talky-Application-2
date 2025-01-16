@@ -8,6 +8,7 @@ import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/group/models/group_message_model.dart';
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
 import 'package:talky_aplication_2/features/main/models/message_model.dart';
+import 'package:talky_aplication_2/routes/message_types.dart';
 import 'package:talky_aplication_2/utils/important_texts.dart';
 
 class UserDataService {
@@ -93,7 +94,7 @@ class UserDataService {
   FutureOr<bool> isRegistered(String email) async {
     final userDoc = await firebaseFirestore
         .collection(ImportantTexts.user)
-        .where('email', isEqualTo: email)
+        .where(ImportantTexts.email, isEqualTo: email)
         .get();
     return userDoc.docs.isNotEmpty;
   }
@@ -127,6 +128,21 @@ class UserDataService {
     return firebaseFirestore.collection('chats/$chatId/messages/').snapshots();
   }
 
+  Stream<List<UserModel>> chattingUsersStream() {
+    return FirebaseFirestore.instance
+        .collection(ImportantTexts.user)
+        .doc(auth.currentUser?.uid)
+        .snapshots()
+        .map((snapshot) {
+      final chattingIds = snapshot.data()?['chattingUsersId'] as List?;
+      return chattingIds?.map((id) async {
+        final userDoc = await getUserDoc(id: id);
+
+        return UserModel.fromJson(userDoc.data() ?? {});
+      }).toList();
+    }).asyncMap((futureUsers) async => await Future.wait(futureUsers ?? []));
+  }
+
   Future sendMessage({
     required chatId,
     required String time,
@@ -141,14 +157,16 @@ class UserDataService {
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> getAllImages(String chatId) {
-    return getChatMessagesRef(chatId).where('type', isEqualTo: 'image').get();
+    return getChatMessagesRef(chatId)
+        .where(MessageTypes.type, isEqualTo: MessageTypes.image)
+        .get();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getLastMessageStream(
     String chatId,
   ) {
     return getChatMessagesRef(chatId)
-        .orderBy('sent', descending: true)
+        .orderBy(ImportantTexts.sent, descending: true)
         .limit(1)
         .snapshots();
   }
@@ -160,7 +178,7 @@ class UserDataService {
     for (String id in allUsersId) {
       await firebaseFirestore.collection(ImportantTexts.user).doc(id).set(
         {
-          'groupsId': FieldValue.arrayUnion(
+          ImportantTexts.groupsId: FieldValue.arrayUnion(
             [groupId],
           ),
         },

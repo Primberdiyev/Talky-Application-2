@@ -7,6 +7,8 @@ import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/main/models/message_model.dart';
+import 'package:talky_aplication_2/routes/message_types.dart';
+import 'package:talky_aplication_2/utils/important_texts.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatProvider extends BaseChangeNotifier {
@@ -168,7 +170,7 @@ class ChatProvider extends BaseChangeNotifier {
   Future<List<Map<String, dynamic>>> getImages(String receiverId) async {
     final querySnapshot = await userDataService.firebaseFirestore
         .collection('chats/${getConversatioId(receiverId)}/messages')
-        .where('type', isEqualTo: 'image')
+        .where(MessageTypes.type, isEqualTo: MessageTypes.image)
         .get();
     return querySnapshot.docs.map((doc) => doc.data()).toList();
   }
@@ -176,15 +178,19 @@ class ChatProvider extends BaseChangeNotifier {
   Stream<Map<String, String>> getLastMessageWithTime(String id) {
     return userDataService.firebaseFirestore
         .collection('chats/${getConversatioId(id)}/messages')
-        .orderBy('sent', descending: true)
+        .orderBy(ImportantTexts.sent, descending: true)
         .limit(1)
         .snapshots()
         .map((snapshot) {
       if (snapshot.docs.isNotEmpty) {
         final data = snapshot.docs.first.data();
-        return {'msg': data['msg'] ?? '', 'sentTime': data['sentTime'] ?? ''};
+
+        return {
+          ImportantTexts.msg: data[ImportantTexts.msg] ?? '',
+          ImportantTexts.sentTime: data[ImportantTexts.sentTime] ?? '',
+        };
       } else {
-        return {'msg': '', 'sentTime': ''};
+        return {ImportantTexts.msg: '', ImportantTexts.sentTime: ''};
       }
     });
   }

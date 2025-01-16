@@ -40,5 +40,6 @@
     "chat": "Chat",
     "logOut": "Log Out",
     "langauge":"Change the language",
-    "chat":"Chat"
+    "chat":"Chat",
+    "loading":"loading"
 }
