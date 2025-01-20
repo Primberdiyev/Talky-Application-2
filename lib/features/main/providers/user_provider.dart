@@ -53,29 +53,33 @@ class UserProvider extends BaseChangeNotifier {
     }
   }
 
-  Future getAllGroups() async {
-    final response = await userDataService.firebaseFirestore
+  Stream getAllGroupsStream() {
+    return userDataService.firebaseFirestore
         .collection(ImportantTexts.user)
         .doc(currentUserId)
-        .get();
+        .snapshots()
+        .asyncMap((userSnapshot) async {
+      if (!userSnapshot.exists) {
+        return [];
+      }
+      final userGroupsId =
+          UserModel.fromJson(userSnapshot.data() ?? {}).groupsId;
 
-    List<String>? allGroupsId =
-        UserModel.fromJson(response.data() ?? {}).groupsId;
-    List<GroupModel> groups = [];
-    for (String id in allGroupsId ?? []) {
-      final groupsSnapshot = await userDataService.firebaseFirestore
-          .collection(ImportantTexts.groups)
-          .doc(id)
-          .get();
-      if (groupsSnapshot.exists) {
-        final data = groupsSnapshot.data();
-        if (data != null) {
-          groups.add(GroupModel.fromJson(data));
+      if (userGroupsId == null || userGroupsId.isEmpty) {
+        return [];
+      }
+      List<GroupModel> groups = [];
+      for (String id in userGroupsId) {
+        final groupSnapshot = await userDataService.firebaseFirestore
+            .collection(ImportantTexts.groups)
+            .doc(id)
+            .get();
+        if (groupSnapshot.exists) {
+          groups.add(GroupModel.fromJson(groupSnapshot.data() ?? {}));
         }
       }
-    }
-    allGroups = groups;
-    notifyListeners();
+      return groups;
+    });
   }
 
   void addgroup(GroupModel groupModel) {
