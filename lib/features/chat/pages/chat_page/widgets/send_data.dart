@@ -47,12 +47,13 @@ class _SendMessageState extends State<SendData> {
     final locale = context.locale;
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 28,
+        horizontal: 12,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.75,
             child: TextField(
               controller: widget.controller,
               decoration: InputDecoration(
@@ -69,9 +70,6 @@ class _SendMessageState extends State<SendData> {
                 ),
               ),
             ),
-          ),
-          const SizedBox(
-            width: 10,
           ),
           ActionButton(
             imageFunction: widget.imageFunction,

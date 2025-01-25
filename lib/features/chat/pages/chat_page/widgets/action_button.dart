@@ -24,7 +24,10 @@ class ActionButton extends StatelessWidget {
         child,
       ) {
         return Padding(
-          padding: const EdgeInsets.only(bottom: 12, right: 14),
+          padding: const EdgeInsets.only(
+            bottom: 12,
+            right: 12,
+          ),
           child: SpeedDial(
             activeIcon: Icons.close,
             backgroundColor: AppColors.primaryBlue,
@@ -50,7 +53,7 @@ class ActionButton extends StatelessWidget {
                 shape: const StadiumBorder(),
                 child: SvgPicture.asset(AppIcons.fileIcon.icon),
                 backgroundColor: Colors.white,
-                onTap: () => fileFunction,
+                onTap:fileFunction,
               ),
             ],
             child: SvgPicture.asset(AppIcons.plusIcon.icon),

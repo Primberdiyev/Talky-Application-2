@@ -13,4 +13,5 @@ class ImportantTexts {
   static const email = 'email';
   static const groupsId = 'groupsId';
   static const lastMessage = 'Last message';
+  static const noMessages = 'No messages yet';
 }

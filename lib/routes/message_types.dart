@@ -4,4 +4,5 @@ class MessageTypes {
   static const String file = 'file';
   static const String voice = 'voice';
   static const String type = 'type';
+  static const String audio = 'audio';
 }

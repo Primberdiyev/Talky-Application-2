@@ -5,6 +5,8 @@ import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/file_me
 import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/image_message.dart';
 import 'package:talky_aplication_2/features/chat/pages/chat_page/widgets/text_messages.dart';
 import 'package:talky_aplication_2/features/chat/providers/chat_provider.dart';
+import 'package:talky_aplication_2/routes/message_types.dart';
+import 'package:talky_aplication_2/utils/important_texts.dart';
 
 class MessagesList extends StatefulWidget {
   const MessagesList({super.key});
@@ -22,7 +24,7 @@ class _MessagesListState extends State<MessagesList> {
         value,
         child,
       ) {
-        return Expanded(
+        return Flexible(
           child: Consumer<ChatProvider>(
             builder: (
               context,
@@ -48,22 +50,22 @@ class _MessagesListState extends State<MessagesList> {
                         final isMine =
                             provider.currentUser?.uid == message?['fromId'];
                         switch (message?['type']) {
-                          case 'text':
+                          case MessageTypes.text:
                             return TextMessages(
                               isMine: isMine,
                               message: message?['msg'],
                             );
-                          case 'image':
+                          case MessageTypes.image:
                             return ImageMessage(
                               isMine: isMine,
                               link: message?['msg'],
                             );
-                          case 'file':
+                          case MessageTypes.file:
                             return FileMessage(
                               isMine: isMine,
                               link: message?['msg'],
                             );
-                          case 'audio':
+                          case MessageTypes.audio:
                             final String url = message?['msg'];
                             return AudioMessage(isMine: isMine, link: url);
                         }
@@ -73,7 +75,7 @@ class _MessagesListState extends State<MessagesList> {
                   } else {
                     return const Center(
                       child: Text(
-                        'No messages yet',
+                        ImportantTexts.noMessages,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
