@@ -32,7 +32,7 @@ class _GroupsState extends State<Groups> {
           if (!snapshot.hasData) {
             return const SizedBox.shrink();
           }
-          final List<GroupModel>? allGroups = snapshot.data;
+          final List? allGroups = snapshot.data??[];
           return ListView.builder(
             itemCount: allGroups?.length,
             itemBuilder: (context, index) {

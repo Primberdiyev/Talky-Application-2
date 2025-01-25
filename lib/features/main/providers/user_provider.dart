@@ -29,29 +29,29 @@ class UserProvider extends BaseChangeNotifier {
     }
   }
 
-  Future<void> getChattingUsers() async {
-    updateState(Statuses.loading);
-    try {
-      final response = await userDataService.getUserDoc(
-        id: userDataService.auth.currentUser?.uid ?? '',
-      );
-      final userModel = UserModel.fromJson(response.data() ?? {});
-      final chatIds = userModel.chattingUsersId ?? [].toList();
-      if (chatIds.isEmpty) {
-        updateState(Statuses.completed);
-        return;
-      }
+  // Future<void> getChattingUsers() async {
+  //   updateState(Statuses.loading);
+  //   try {
+  //     final response = await userDataService.getUserDoc(
+  //       id: userDataService.auth.currentUser?.uid ?? '',
+  //     );
+  //     final userModel = UserModel.fromJson(response.data() ?? {});
+  //     final chatIds = userModel.chattingUsersId ?? [].toList();
+  //     if (chatIds.isEmpty) {
+  //       updateState(Statuses.completed);
+  //       return;
+  //     }
 
-      for (var i = 0; i < chatIds.length; i++) {
-        final snapshot = await userDataService.getUserDoc(id: chatIds[i]);
-        final chattingUserModel = UserModel.fromJson(snapshot.data() ?? {});
-        chattingUsers.add(chattingUserModel);
-      }
-      updateState(Statuses.completed);
-    } catch (e) {
-      log('error on getting chatting users $e');
-    }
-  }
+  //     for (var i = 0; i < chatIds.length; i++) {
+  //       final snapshot = await userDataService.getUserDoc(id: chatIds[i]);
+  //       final chattingUserModel = UserModel.fromJson(snapshot.data() ?? {});
+  //       chattingUsers.add(chattingUserModel);
+  //     }
+  //     updateState(Statuses.completed);
+  //   } catch (e) {
+  //     log('error on getting chatting users $e');
+  //   }
+  // }
 
   Stream getAllGroupsStream() {
     return userDataService.firebaseFirestore
@@ -87,15 +87,15 @@ class UserProvider extends BaseChangeNotifier {
     notifyListeners();
   }
 
-  void addUserChatting(UserModel userModel) {
-    if (!chattingUsers.contains(userModel)) {}
-    notifyListeners();
-  }
+  // void addUserChatting(UserModel userModel) {
+  //   if (!chattingUsers.contains(userModel)) {}
+  //   notifyListeners();
+  // }
 
   Future<void> addChattingUser(UserModel newUser) async {
     updateState(Statuses.loading);
     try {
-      addUserChatting(newUser);
+    //  addUserChatting(newUser);
       await userDataService.setChattingDoc(
         id: currentUserId ?? "",
         data: newUser.id ?? '',

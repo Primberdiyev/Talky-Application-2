@@ -149,7 +149,11 @@ class UserDataService {
     required MessageModel messageModel,
   }) async {
     final ref = firebaseFirestore.collection('chats/$chatId/messages/');
-    await ref.doc(time).set(messageModel.toJson());
+    try {
+      await ref.doc(time).set(messageModel.toJson());
+    } catch (e) {
+      log("error on sending message ${e.toString()}");
+    }
   }
 
   CollectionReference<Map<String, dynamic>> getChatMessagesRef(String chatId) {

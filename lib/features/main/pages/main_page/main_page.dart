@@ -23,7 +23,7 @@ class _ProfilePageState extends State<MainPage> {
         final provider = context.read<UserProvider>();
         provider.getUserModel();
 
-        //    UserStateService.instance.startTimer();
+        //  UserStateService.instance.startTimer();
       },
     );
     super.initState();

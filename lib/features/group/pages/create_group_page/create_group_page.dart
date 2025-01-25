@@ -70,7 +70,6 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                 model: groupModel,
                 adminId: currentUserId ?? '',
               );
-              userProvider.addgroup(groupModel);
             },
           ),
           body: SingleChildScrollView(
