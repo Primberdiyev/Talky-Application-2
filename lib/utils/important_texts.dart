@@ -1,17 +1,19 @@
 class ImportantTexts {
-  static const user = 'User';
-  static const chattingId = 'chattingUsersId';
-  static const lastTime = 'lastTime';
-  static const chats = 'Chats';
-  static const groups = 'groups';
-  static const unableStorage = 'Unable to access external storage';
-  static const permissionNotGranted = 'Storage permission not granted';
-  static const sentTime = 'sentTime';
-  static const msg = 'msg';
-  static const invalidTime = 'Invalid time';
-  static const sent = 'sent';
-  static const email = 'email';
-  static const groupsId = 'groupsId';
-  static const lastMessage = 'Last message';
-  static const noMessages = 'No messages yet';
+  static const String user = 'User';
+  static const String chattingId = 'chattingUsersId';
+  static const String lastTime = 'lastTime';
+  static const String chats = 'Chats';
+  static const String groups = 'groups';
+  static const String unableStorage = 'Unable to access external storage';
+  static const String permissionNotGranted = 'Storage permission not granted';
+  static const String sentTime = 'sentTime';
+  static const String msg = 'msg';
+  static const String invalidTime = 'Invalid time';
+  static const String sent = 'sent';
+  static const String email = 'email';
+  static const String groupsId = 'groupsId';
+  static const String lastMessage = 'Last message';
+  static const String noMessages = 'No messages yet';
+  static const String talky = 'Talky';
+  static const String groupImages = 'groupImages';
 }

@@ -48,7 +48,13 @@ class _GroupMainPageState extends State<GroupMainPage> {
               final userProvider = context.read<UserProvider>();
               return SendData(
                 controller: controller,
-                imageFunction: () {},
+                imageFunction: () async {
+                  await provider.getImageGroup(
+                    groupId: widget.groupModel.id ?? "",
+                    usermodel: userProvider.userModel,
+                    
+                  );
+                },
                 fileFunction: () {},
                 sendFunction: () async {
                   await provider.sendMessageGroup(

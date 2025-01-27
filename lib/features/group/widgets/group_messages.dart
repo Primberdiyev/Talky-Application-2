@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/group/services/receive_messages_service.dart';
+import 'package:talky_aplication_2/features/group/widgets/build_group_image.dart';
 import 'package:talky_aplication_2/features/group/widgets/build_message.dart';
 import 'package:talky_aplication_2/features/main/providers/group_provider.dart';
+import 'package:talky_aplication_2/routes/message_types.dart';
 
 class GroupMessages extends StatefulWidget {
   const GroupMessages({required this.groupId, super.key});
@@ -51,10 +53,20 @@ class _GroupMessagesState extends State<GroupMessages> {
                 final message = messages[messages.length - index - 1];
                 final isMine =
                     message.id == userDataService.auth.currentUser?.uid;
-                return BuildMessage(
-                  message: message,
-                  isMine: isMine,
-                );
+                switch (message.type) {
+                  case MessageTypes.text:
+                    return BuildMessage(
+                      message: message,
+                      isMine: isMine,
+                    );
+                  case MessageTypes.image:
+                    return BuildGroupImage(
+                      isMine: isMine,
+                      messageModel: message,
+                    );
+                  default:
+                    return const SizedBox();
+                }
               },
             ),
           );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/splash/providers/splash_provider.dart';
+import 'package:talky_aplication_2/utils/important_texts.dart';
 import 'package:talky_aplication_2/utils/profile_state.dart';
 
 class SplashPage extends StatelessWidget {
@@ -35,7 +36,7 @@ class SplashPage extends StatelessWidget {
             return const Center(
               child: Center(
                 child: Text(
-                  'Talky',
+                  ImportantTexts.talky,
                   style: TextStyle(
                     fontSize: 80,
                     fontWeight: FontWeight.w700,
