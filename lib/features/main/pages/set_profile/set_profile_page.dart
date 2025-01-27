@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talky_aplication_2/core/localization/localization.dart';
 import 'package:talky_aplication_2/features/auth/pages/input_mail_password_page/widgets/custom_app_bar.dart';
 import 'package:talky_aplication_2/features/main/pages/set_profile/widgets/complete_button.dart';
 import 'package:talky_aplication_2/features/main/pages/set_profile/widgets/image_view.dart';
@@ -9,7 +10,7 @@ import 'package:talky_aplication_2/features/main/providers/profile_page_provider
 
 class SetProfilePage extends StatefulWidget {
   const SetProfilePage({super.key});
-  
+
   @override
   State<SetProfilePage> createState() => _SetProfilePageState();
 }
@@ -35,8 +36,9 @@ class _SetProfilePageState extends State<SetProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
     return Scaffold(
-      appBar: const CustomAppBar(text: 'Profile'),
+      appBar: CustomAppBar(text: locale.profile),
       resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.only(left: 18, right: 28),

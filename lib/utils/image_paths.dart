@@ -3,4 +3,5 @@ class ImagePaths {
   static const mainImagePath = 'assets/images/mail.png';
   static const back = 'assets/images/Back.png';
   static const chevron = 'assets/images/Chevron.png';
+  static const edit = 'assets/images/Edit.png';
 }

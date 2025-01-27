@@ -11,7 +11,8 @@ enum AppIcons {
   selected('assets/icons/selected.svg'),
   google("assets/icons/iconGoogle.svg"),
   mail("assets/icons/mail.svg"),
-  defaultImage("assets/icons/default_image.svg");
+  defaultImage("assets/icons/default_image.svg"),
+  user('assets/icons/User.svg');
 
   const AppIcons(this.icon);
   final String icon;

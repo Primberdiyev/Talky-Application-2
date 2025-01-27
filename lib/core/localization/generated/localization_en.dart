@@ -133,4 +133,7 @@ class L10nEn extends L10n {
 
   @override
   String get loading => 'loading';
+
+  @override
+  String get profile => 'Profile';
 }

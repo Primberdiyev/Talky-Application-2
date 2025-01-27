@@ -52,7 +52,6 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                     ) {
                       var route = NameRoutes.auth;
                       final condition = authProvider.state.isCompleted;
-
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         if (context.mounted && condition) {
                           if (authProvider.profileState ==
@@ -68,7 +67,6 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                           }
                         }
                       });
-
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [

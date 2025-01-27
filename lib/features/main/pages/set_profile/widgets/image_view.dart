@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/features/main/providers/profile_page_provider.dart';
+import 'package:talky_aplication_2/utils/app_icons.dart';
+import 'package:talky_aplication_2/utils/image_paths.dart';
 
 class ImageView extends StatefulWidget {
   const ImageView({super.key});
@@ -36,7 +38,7 @@ class _ImageViewState extends State<ImageView> {
                         : null,
                 child: provider.image == null && userGoogleImg == null
                     ? SvgPicture.asset(
-                        'assets/icons/User.svg',
+                        AppIcons.user.icon,
                         width: 40,
                         height: 40,
                         fit: BoxFit.cover,
@@ -58,7 +60,7 @@ class _ImageViewState extends State<ImageView> {
                     backgroundColor: const Color(0xFF377DFF),
                     radius: 25,
                     child: Image.asset(
-                      'assets/images/Edit.png',
+                      ImagePaths.edit,
                       width: 24,
                     ),
                   ),

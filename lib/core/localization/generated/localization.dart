@@ -347,6 +347,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'loading'**
   String get loading;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

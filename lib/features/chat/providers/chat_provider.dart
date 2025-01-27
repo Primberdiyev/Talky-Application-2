@@ -75,7 +75,7 @@ class ChatProvider extends BaseChangeNotifier {
     }
   }
 
-  Future<void> changeReceiverUser({
+  void changeReceiverUser({
     UserModel? newUser,
     String? receiverId,
   }) async {
@@ -88,7 +88,7 @@ class ChatProvider extends BaseChangeNotifier {
     notifyListeners();
   }
 
-  Future getImage() async {
+  void getImage() async {
     final picker = ImagePicker();
     await picker.pickImage(source: ImageSource.gallery).then((value) {
       if (value != null) {
@@ -98,7 +98,7 @@ class ChatProvider extends BaseChangeNotifier {
     });
   }
 
-  Future uploadImage() async {
+  void uploadImage() async {
     final imageName = const Uuid().v1();
     final refStorage = userDataService.firebaseStorage
         .ref()

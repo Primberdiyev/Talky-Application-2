@@ -133,4 +133,7 @@ class L10nRu extends L10n {
 
   @override
   String get loading => 'Загрузка';
+
+  @override
+  String get profile => 'профиле';
 }
