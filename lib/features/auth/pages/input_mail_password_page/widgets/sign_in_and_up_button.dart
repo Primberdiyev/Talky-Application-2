@@ -9,7 +9,7 @@ import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/utils/app_colors.dart';
 import 'package:talky_aplication_2/utils/statuses.dart';
 
-class SignInAndUpButton extends StatelessWidget {
+class SignInAndUpButton extends StatefulWidget {
   const SignInAndUpButton({
     super.key,
     required this.email,
@@ -18,6 +18,11 @@ class SignInAndUpButton extends StatelessWidget {
   final String email;
   final String password;
 
+  @override
+  State<SignInAndUpButton> createState() => _SignInAndUpButtonState();
+}
+
+class _SignInAndUpButtonState extends State<SignInAndUpButton> {
   @override
   Widget build(BuildContext context) {
     final locale = context.locale;
@@ -32,7 +37,9 @@ class SignInAndUpButton extends StatelessWidget {
       ) {
         if (valueProvider.isSignIn && authProvider.state.isCompleted) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (context.mounted && email.isNotEmpty && password.isNotEmpty) {
+            if (context.mounted &&
+                widget.email.isNotEmpty &&
+                widget.password.isNotEmpty) {
               Navigator.pushReplacementNamed(context, NameRoutes.main);
               authProvider.updateState(Statuses.initial);
             }
@@ -48,15 +55,21 @@ class SignInAndUpButton extends StatelessWidget {
             //   password.trim(),
             // );
             if (valueProvider.isSignIn) {
-              authProvider.signIn(email, password);
+              authProvider.signIn(
+                email: widget.email,
+                password: widget.password,
+              );
             } else {
               if (valueProvider.agreeCondition) {
-                otpProvider.sendOTP(email: email).then((_) {
+                otpProvider.sendOTP(email: widget.email).then((_) {
                   if (context.mounted && otpProvider.state.isCompleted) {
                     Navigator.pushNamed(
                       context,
                       NameRoutes.checkCode,
-                      arguments: {'email': email, 'password': password},
+                      arguments: {
+                        'email': widget.email,
+                        'password': widget.password,
+                      },
                     );
                   }
                 });

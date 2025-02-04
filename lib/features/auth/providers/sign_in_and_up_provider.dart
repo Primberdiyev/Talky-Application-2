@@ -16,7 +16,10 @@ class SignInAndUpProvider extends BaseChangeNotifier {
   // String get email => _email;
   // String get password => _password;
 
-  FutureOr<User?> signIn(String email, String password) async {
+  FutureOr<User?> signIn({
+    required String email,
+    required String password,
+  }) async {
     updateState(Statuses.loading);
 
     try {

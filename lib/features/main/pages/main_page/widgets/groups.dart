@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/core/ui_kit/custom_user_avatar.dart';
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
-import 'package:talky_aplication_2/features/group/pages/group_main_page.dart';
+import 'package:talky_aplication_2/features/group/pages/group_main_page/group_main_page.dart';
 import 'package:talky_aplication_2/features/main/providers/user_provider.dart';
 import 'package:talky_aplication_2/utils/important_texts.dart';
 

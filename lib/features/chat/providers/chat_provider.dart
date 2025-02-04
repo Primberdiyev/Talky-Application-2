@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:talky_aplication_2/core/base/base_change_notifier.dart';
 import 'package:talky_aplication_2/core/services/user_data_service.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
-import 'package:talky_aplication_2/features/main/models/message_model.dart';
+import 'package:talky_aplication_2/features/chat/models/message_model.dart';
 import 'package:talky_aplication_2/routes/message_types.dart';
 import 'package:talky_aplication_2/utils/important_texts.dart';
 import 'package:uuid/uuid.dart';

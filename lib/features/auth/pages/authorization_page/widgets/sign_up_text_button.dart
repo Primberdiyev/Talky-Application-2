@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talky_aplication_2/core/localization/localization.dart';
-import 'package:talky_aplication_2/features/auth/providers/sign_in_and_up_provider.dart';
 import 'package:talky_aplication_2/features/auth/providers/value_state_provider.dart';
 import 'package:talky_aplication_2/routes/name_routes.dart';
 import 'package:talky_aplication_2/utils/bool_value_enum.dart';
@@ -18,18 +17,24 @@ class _SignUpTextButtonState extends State<SignUpTextButton> {
   Widget build(BuildContext context) {
     final locale = context.locale;
 
-    return Consumer2<ValueStateProvider, SignInAndUpProvider>(
+    return Consumer<ValueStateProvider>(
       builder: (
         context,
         valueProvider,
-        controllerProvider,
         child,
       ) {
         return InkWell(
           onTap: () {
             valueProvider.changeBoolValue(BoolValueEnum.isSignIn);
             valueProvider.changeIsMailCorrect(true);
-            Navigator.pushReplacementNamed(context, NameRoutes.auth);
+            Future.delayed(Duration.zero, () {
+              if (context.mounted) {
+                Navigator.pushReplacementNamed(
+                  context,
+                  NameRoutes.inputMailPassword,
+                );
+              }
+            });
           },
           child: Text(
             textAlign: TextAlign.center,

@@ -12,4 +12,5 @@ class NameRoutes {
   static const String receiverUser = '/receiverUser';
   static const String createGroup = '/createGroup';
   static const String group = '/group';
+  static const String groupInfo = '/groupInfo';
 }

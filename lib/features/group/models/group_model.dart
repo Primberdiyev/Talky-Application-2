@@ -30,7 +30,7 @@ class GroupModel {
       if (usersId != null) 'usersId': usersId,
       if (title != null) 'title': title,
       if (lastMessage != null) 'lastMessage': lastMessage,
-      if (imgUrl != null) 'imgUrl': imgUrl,
+      'imgUrl': imgUrl,
       if (adminId != null) 'adminId': adminId,
       if (id != null) 'id': id,
     };

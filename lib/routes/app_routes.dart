@@ -6,7 +6,8 @@ import 'package:talky_aplication_2/features/auth/pages/forgot_password_page/forg
 import 'package:talky_aplication_2/features/auth/pages/input_mail_password_page/input_mail_password_page.dart.dart';
 import 'package:talky_aplication_2/features/chat/pages/chat_page/chat_page.dart';
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
-import 'package:talky_aplication_2/features/group/pages/group_main_page.dart';
+import 'package:talky_aplication_2/features/group/pages/group_info_page/group_info_page.dart';
+import 'package:talky_aplication_2/features/group/pages/group_main_page/group_main_page.dart';
 import 'package:talky_aplication_2/features/main/pages/chat_create/chat_create_page.dart';
 import 'package:talky_aplication_2/features/group/pages/create_group_page/create_group_page.dart';
 import 'package:talky_aplication_2/features/main/pages/main_page/main_page.dart';
@@ -56,6 +57,10 @@ Route generateRoute(RouteSettings settings) {
     case NameRoutes.receiverUser:
       return MaterialPageRoute(
         builder: (_) => const ReceiverUserPage(),
+      );
+    case NameRoutes.groupInfo:
+      return MaterialPageRoute(
+        builder: (_) => const GroupInfoPage(),
       );
   }
 

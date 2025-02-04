@@ -24,13 +24,19 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final valueProvider =
+          Provider.of<ValueStateProvider>(context, listen: false);
+      valueProvider.changeBoolValue(BoolValueEnum.agreeCondition);
+    });
+  }
+
+  @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-    final valueProvider =
-        Provider.of<ValueStateProvider>(context, listen: false);
-    valueProvider.changeBoolValue(BoolValueEnum.agreeCondition);
-
     super.dispose();
   }
 
@@ -100,27 +106,18 @@ class _AuthenticationPageState extends State<InputMailPasswordPage> {
                   ),
                   const ForgotPasswordText(),
                   const ConditionWidget(),
-                  const SizedBox(
-                    height: 74,
+                  const Spacer(),
+                  SignInAndUpButton(
+                    email: emailController.text,
+                    password: passwordController.text,
                   ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SignInAndUpButton(
-                          email: emailController.text,
-                          password: passwordController.text,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const QuestionText(),
-                        const SignUpTextButton(),
-                        const SizedBox(
-                          height: 80,
-                        ),
-                      ],
-                    ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const QuestionText(),
+                  const SignUpTextButton(),
+                  const SizedBox(
+                    height: 80,
                   ),
                 ],
               );

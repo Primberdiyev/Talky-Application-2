@@ -7,7 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:talky_aplication_2/features/auth/models/user_model.dart';
 import 'package:talky_aplication_2/features/group/models/group_message_model.dart';
 import 'package:talky_aplication_2/features/group/models/group_model.dart';
-import 'package:talky_aplication_2/features/main/models/message_model.dart';
+import 'package:talky_aplication_2/features/chat/models/message_model.dart';
 import 'package:talky_aplication_2/routes/message_types.dart';
 import 'package:talky_aplication_2/utils/important_texts.dart';
 

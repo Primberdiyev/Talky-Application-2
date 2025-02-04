@@ -41,17 +41,6 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
         userProvider,
         child,
       ) {
-        if (provider.state.isCompleted) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (context.mounted && provider.groupModel != null) {
-              Navigator.pushReplacementNamed(
-                context,
-                NameRoutes.group,
-                arguments: provider.groupModel,
-              );
-            }
-          });
-        }
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: ContactsAppBar(
@@ -65,11 +54,22 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                 usersId: provider.pressedUsers,
                 adminId: currentUserId,
                 id: id,
+                imgUrl: null,
               );
-              provider.createGroup(
+              provider
+                  .createGroup(
                 model: groupModel,
                 adminId: currentUserId ?? '',
-              );
+              )
+                  .then((_) {
+                if (context.mounted && provider.groupModel != null) {
+                  Navigator.pushReplacementNamed(
+                    context,
+                    NameRoutes.group,
+                    arguments: provider.groupModel,
+                  );
+                }
+              });
             },
           ),
           body: SingleChildScrollView(

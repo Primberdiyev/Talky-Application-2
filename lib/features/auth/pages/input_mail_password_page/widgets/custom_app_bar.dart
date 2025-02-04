@@ -14,7 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   });
   final String? text;
   final String? imgUrl;
-  final Function()? function;
+  final VoidCallback? function;
   @override
   Widget build(BuildContext context) {
     final locale = context.locale;
@@ -58,11 +58,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         actions: [
           if (imgUrl != null)
             Padding(
-              padding: const EdgeInsets.only(right: 30,),
+              padding: const EdgeInsets.only(
+                right: 30,
+              ),
               child: Stack(
                 children: [
                   InkWell(
-                    onTap: () => function?.call(),
+                    onTap: function,
                     child: CachedNetworkImage(
                       imageUrl: imgUrl ?? '',
                       fit: BoxFit.cover,

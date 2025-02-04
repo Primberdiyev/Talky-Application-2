@@ -67,46 +67,41 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                           }
                         }
                       });
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          CustomAuthButton(
-                            textFontSize: 16,
-                            textColor: AppColors.blackText,
-                            buttonColor: Colors.white,
-                            iconPath: AppIcons.google.icon,
-                            text: valueProvider.isSignIn
-                                ? locale.signInText
-                                : locale.singUpText,
-                            function: () {
-                              authProvider.signInGoogle();
-                            },
-                            isLoading: authProvider.state.isLoading,
-                          ),
-                          const OrWidget(),
-                          CustomAuthButton(
-                            textFontSize: 16,
-                            textColor: AppColors.blackText,
-                            buttonColor: Colors.white,
-                            iconPath: AppIcons.mail.icon,
-                            text: locale.continueMailText,
-                            function: () => {
-                              Navigator.pushNamed(
-                                context,
-                                NameRoutes.inputMailPassword,
-                              ),
-                            },
-                            isLoading: false,
-                          ),
-                          const SizedBox(
-                            height: 56,
-                          ),
-                          const QuestionText(),
-                          const SignUpTextButton(),
-                        ],
+                      return CustomAuthButton(
+                        textFontSize: 16,
+                        textColor: AppColors.blackText,
+                        buttonColor: Colors.white,
+                        iconPath: AppIcons.google.icon,
+                        text: valueProvider.isSignIn
+                            ? locale.signInText
+                            : locale.singUpText,
+                        function: () {
+                          authProvider.signInGoogle();
+                        },
+                        isLoading: authProvider.state.isLoading,
                       );
                     },
                   ),
+                  const OrWidget(),
+                  CustomAuthButton(
+                    textFontSize: 16,
+                    textColor: AppColors.blackText,
+                    buttonColor: Colors.white,
+                    iconPath: AppIcons.mail.icon,
+                    text: locale.continueMailText,
+                    function: () => {
+                      Navigator.pushNamed(
+                        context,
+                        NameRoutes.inputMailPassword,
+                      ),
+                    },
+                    isLoading: false,
+                  ),
+                  const SizedBox(
+                    height: 56,
+                  ),
+                  const QuestionText(),
+                  const SignUpTextButton(),
                 ],
               ),
             ),
