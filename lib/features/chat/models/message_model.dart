@@ -11,7 +11,7 @@ class MessageModel {
   MessageModel.fromJson(Map<String, dynamic> json) {
     toId = json['toId'].toString();
     msg = json['msg'].toString();
-    read = json['read'].toString();
+    read = json['read'];
     type = TypeMessage.values.byName(json['type']);
     fromId = json['fromId'].toString();
     sent = json['sent'].toString();
@@ -19,7 +19,7 @@ class MessageModel {
   }
   late String toId;
   late String msg;
-  late String read;
+  late bool read;
   late TypeMessage type;
   late String fromId;
   late String sent;

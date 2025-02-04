@@ -56,7 +56,7 @@ class ChatProvider extends BaseChangeNotifier {
     final message = MessageModel(
       toId: receiverId,
       msg: msg,
-      read: 'false',
+      read: false,
       type: TypeMessage.text,
       fromId: currentUser?.uid ?? '',
       sent: time,
@@ -112,7 +112,7 @@ class ChatProvider extends BaseChangeNotifier {
     final message = MessageModel(
       toId: receiverUser?.id ?? '',
       msg: imgUrl,
-      read: 'false',
+      read: false,
       type: TypeMessage.image,
       fromId: currentUser?.uid ?? '',
       sent: time,
@@ -153,7 +153,7 @@ class ChatProvider extends BaseChangeNotifier {
       final message = MessageModel(
         toId: receiverUser?.id ?? '',
         msg: fileUrl,
-        read: 'false',
+        read: false,
         type: type,
         fromId: currentUser?.uid ?? '',
         sent: time,
